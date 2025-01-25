@@ -44,6 +44,8 @@ idna==3.10
     # via yarl
 inflect==5.6.2
     # via datamodel-code-generator
+iniconfig==2.0.0
+    # via pytest
 isort==5.13.2
     # via datamodel-code-generator
 jinja2==3.1.5
@@ -68,22 +70,25 @@ mypy-extensions==1.0.0
 packaging==24.2
     # via black
     # via datamodel-code-generator
+    # via pytest
 pathspec==0.12.1
     # via black
 platformdirs==4.3.6
     # via black
     # via textual
+pluggy==1.5.0
+    # via pytest
 propcache==0.2.1
     # via aiohttp
     # via yarl
 pydantic==2.10.5
     # via datamodel-code-generator
     # via money
-    # via sqlmodel
 pydantic-core==2.27.2
     # via pydantic
 pygments==2.19.1
     # via rich
+pytest==8.3.4
 pyyaml==6.0.2
     # via datamodel-code-generator
 rich==13.9.4
@@ -92,9 +97,6 @@ rich==13.9.4
 shellingham==1.5.4
     # via typer
 sqlalchemy==2.0.37
-    # via money
-    # via sqlmodel
-sqlmodel==0.0.22
     # via money
 textual==1.0.0
     # via money

@@ -7,7 +7,6 @@ authors = [
 ]
 dependencies = [
     "pydantic>=2.10.5",
-    "sqlmodel>=0.0.22",
     "sqlalchemy>=2.0.37",
     "aiohttp>=3.11.11",
     "datamodel-code-generator>=0.26.5",
@@ -24,7 +23,9 @@ build-backend = "hatchling.build"
 
 [tool.rye]
 managed = true
-dev-dependencies = []
+dev-dependencies = [
+    "pytest>=8.3.4",
+]
 
 [tool.hatch.metadata]
 allow-direct-references = true

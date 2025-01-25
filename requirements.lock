@@ -79,7 +79,6 @@ propcache==0.2.1
 pydantic==2.10.5
     # via datamodel-code-generator
     # via money
-    # via sqlmodel
 pydantic-core==2.27.2
     # via pydantic
 pygments==2.19.1
@@ -92,9 +91,6 @@ rich==13.9.4
 shellingham==1.5.4
     # via typer
 sqlalchemy==2.0.37
-    # via money
-    # via sqlmodel
-sqlmodel==0.0.22
     # via money
 textual==1.0.0
     # via money

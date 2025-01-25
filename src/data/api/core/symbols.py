@@ -1,6 +1,6 @@
 from abc import ABC
 from typing import ClassVar
-from collections import UserString, UserList
+from collections import UserString
 
 
 class Symbol(UserString, ABC):
@@ -23,4 +23,3 @@ class Attribute(Symbol):
 
 class Collection(Symbol):
     discriminator = "+"
-    
