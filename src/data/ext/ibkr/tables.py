@@ -23,6 +23,36 @@ class OHLC(Base):
     volume: Mapped[float] = mapped_column(t.Float, nullable=True)
 
 
+class FXSpot(Base):
+    __tablename__ = "fx"
+    timestamp: Mapped[datetime] = mapped_column(t.DateTime, primary_key=True, server_default=now())
+    base: Mapped[str] = mapped_column(t.String, primary_key=True)
+    terms: Mapped[str] = mapped_column(t.String, primary_key=True)
+    spot: Mapped[float] = mapped_column(t.Float)
+
+
+class OptionStrikes(Base):
+    __tablename__ = "option_strikes"
+    timestamp: Mapped[datetime] = mapped_column(t.DateTime, primary_key=True, server_default=now())
+    conid: Mapped[int] = mapped_column(t.Integer, primary_key=True)
+    sectype: Mapped[models_generated.SecType] = mapped_column(t.Enum(models_generated.SecType), primary_key=True)
+    exchange: Mapped[models_generated.Exchange] = mapped_column(t.Enum(models_generated.Exchange))
+    call: Mapped[list[int]] = mapped_column(t.ARRAY(t.Integer))
+    put: Mapped[list[int]] = mapped_column(t.ARRAY(t.Integer))
+
+
+class FuturesChains(Base):
+    __tablename__ = "futures_chains"
+    timestamp: Mapped[datetime] = mapped_column(t.DateTime, primary_key=True, server_default=now())
+    symbol: Mapped[str] = mapped_column(t.String, primary_key=True)
+    conid: Mapped[int] = mapped_column(t.Integer, primary_key=True)
+    underlying_conid: Mapped[int] = mapped_column(t.Integer)
+    expiration_date: Mapped[datetime] = mapped_column(t.DateTime)
+    ltd: Mapped[datetime] = mapped_column(t.DateTime)
+    short_cutoff: Mapped[datetime] = mapped_column(t.DateTime)
+    long_cutoff: Mapped[datetime] = mapped_column(t.DateTime)
+
+
 class AccountLedger(Base):
     __tablename__ = "account_ledger"
     timestamp: Mapped[datetime] = mapped_column(t.DateTime, primary_key=True, server_default=now())
