@@ -30,3 +30,7 @@ _data_collections = Table(
     Column("source", ForeignKey("data_sources.id")),
     Column("collection", t.ARRAY(t.String))
 )
+
+
+def raw_metadata(source: str):
+    return MetaData(schema=f"raw_{source}")

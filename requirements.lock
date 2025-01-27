@@ -83,6 +83,8 @@ pydantic-core==2.27.2
     # via pydantic
 pygments==2.19.1
     # via rich
+python-dotenv==1.0.1
+    # via money
 pyyaml==6.0.2
     # via datamodel-code-generator
 rich==13.9.4

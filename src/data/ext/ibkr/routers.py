@@ -12,13 +12,14 @@ ROOT = yarl.URL("https://api.ibkr.com/v1/api/").build()
 
 @api.router.define(
     accepts=models_generated.HmdsHistoryGetParametersQuery,
+    returns=models.OHLCBar,
     stores=tables.OHLC,
     requires={"client": api.dependencies.ClientSession},
 )
 async def hmds_historical_bars(
     client: ClientSession, 
     request: models_generated.HmdsHistoryGetParametersQuery
-) -> AsyncGenerator[dict, None, None]:
+) -> AsyncGenerator[dict, None]:
     url = ROOT / "hmds" / "history"
     params = request.model_dump()
     async with client.get(url, params=params) as response:
@@ -37,13 +38,14 @@ async def hmds_historical_bars(
 
 @api.router.define(
     accepts=models_generated.IserverMarketdataHistoryGetParametersQuery,
+    returns=models.OHLCBar,
     stores=tables.OHLC,
     requires={"client": api.dependencies.ClientSession}
 )
 async def iserver_historical_bars(
     client: ClientSession, 
     request: models_generated.IserverMarketdataHistoryGetParametersQuery
-) -> AsyncGenerator[dict, None, None]:
+) -> AsyncGenerator[dict, None]:
     url = ROOT / "iserver" / "marketdata" / "history"
     params = request.model_dump()
     async with client.get(url, params=params) as response:
@@ -65,7 +67,10 @@ async def iserver_historical_bars(
     returns=models_generated.CurrencyPairs,
     requires={"client": api.dependencies.ClientSession}
 )
-async def iserver_currency_pairs(client: ClientSession, request: models_generated.Currency):
+async def iserver_currency_pairs(
+    client: ClientSession, 
+    request: models_generated.Currency
+) -> AsyncGenerator[dict, None]:
     url = ROOT / "iserver" / "currency" / "pairs"
     params = {"currency": request.value}
     async with client.get(url, params=params) as response:
@@ -83,7 +88,7 @@ async def iserver_currency_pairs(client: ClientSession, request: models_generate
 async def iserver_exchange_rate(
     client: ClientSession, 
     request: models_generated.IserverExchangerateGetParametersQuery
-):
+) -> AsyncGenerator[dict, None]:
     url = ROOT / "iserver" / "exchangerate"
     params = request.model_dump()
     async with client.get(url, params=params) as response:
@@ -97,7 +102,10 @@ async def iserver_exchange_rate(
     returns=models_generated.TrsrvAllConidsGetResponse,
     requires={"client": api.dependencies.ClientSession}    
 )
-async def trsrv_conids(client: ClientSession, request: models_generated.TrsrvAllConidsGetParametersQuery) -> AsyncGenerator[dict, None, None]:
+async def trsrv_conids(
+    client: ClientSession, 
+    request: models_generated.TrsrvAllConidsGetParametersQuery
+) -> AsyncGenerator[dict, None]:
     url = ROOT / "trsrv" / "all-conids"
     params = request.model_dump()
     async with client.get(url, params=params) as response:
@@ -112,7 +120,10 @@ async def trsrv_conids(client: ClientSession, request: models_generated.TrsrvAll
     stores=tables.FuturesChains,
     requires={"client": api.dependencies.ClientSession}
 )
-async def trsrv_futures_from_symbol(client: ClientSession, request: models_generated.TrsrvFuturesGetParametersQuery) -> AsyncGenerator[dict, None, None]:
+async def trsrv_futures_from_symbol(
+    client: ClientSession, 
+    request: models_generated.TrsrvFuturesGetParametersQuery
+) -> AsyncGenerator[dict, None]:
     url = ROOT / "trsrv" / "futures"
     params = request.model_dump()
     async with client.get(url, params=params) as response:
@@ -125,13 +136,13 @@ async def trsrv_futures_from_symbol(client: ClientSession, request: models_gener
 
 @api.router.define(
     accepts=models_generated.TrsrvSecdefScheduleGetParametersQuery,
-    returns=models_generated.TradingSchedule
+    returns=models_generated.TradingSchedule,
     requires={"client": api.dependencies.ClientSession}
 )
 async def trsrv_schedule_from_symbol(
     client: ClientSession, 
     request: models_generated.TrsrvSecdefScheduleGetParametersQuery
-) -> AsyncGenerator[dict, None, None]:
+) -> AsyncGenerator[dict, None]:
     url = ROOT / "trsrv" / "secdef" / "schedule"
     params = request.model_dump()
     async with client.get(url, params=params) as response:
@@ -145,7 +156,10 @@ async def trsrv_schedule_from_symbol(
     returns=models_generated.IserverContractConidInfoAndRulesGetResponse,
     requires={"client": api.dependencies.ClientSession}
 )
-async def iserver_contract_info_from_conid(client: ClientSession, request: models.ContractId) -> AsyncGenerator[dict, None, None]:
+async def iserver_contract_info_from_conid(
+    client: ClientSession, 
+    request: models.ContractId
+) -> AsyncGenerator[dict, None]:
     url = ROOT / "iserver" / "contract" / request.root / "info-and-rules"
     async with client.get(url) as response:
         response.raise_for_status()
@@ -155,12 +169,13 @@ async def iserver_contract_info_from_conid(client: ClientSession, request: model
 
 @api.router.define(
     accepts=models_generated.IserverSecdefStrikesGetParametersQuery,
-    returns=models.
+    returns=models.OptionsStrikes,
+    stores=tables.OptionsStrikes
 )
 async def iserver_strikes_from_conid(
     client: ClientSession, 
     request: models_generated.IserverSecdefStrikesGetParametersQuery
-) -> AsyncGenerator[dict, None, None]:
+) -> AsyncGenerator[dict, None]:
     url = ROOT / "iserver" / "secdef" / "strikes"
     params = request.model_dump()
     async with client.get(url, params=params) as response:
@@ -183,7 +198,7 @@ async def iserver_strikes_from_conid(
 async def iserver_secdef_search(
     client: ClientSession, 
     request: models_generated.IserverSecdefSearchGetParametersQuery
-) -> AsyncGenerator[dict, None, None]:
+) -> AsyncGenerator[dict, None]:
     url = ROOT / "iserver" / "secdef" / "search"
     params = request.model_dump()
     async with client.get(url, params=params) as response:
@@ -200,7 +215,7 @@ async def iserver_secdef_search(
 async def iserver_secdef_info(
     client: ClientSession, 
     request: models_generated.IserverSecdefInfoGetParametersQuery
-) -> AsyncGenerator[dict, None, None]:
+) -> AsyncGenerator[dict, None]:
     url = ROOT / "iserver" / "secdef" / "info"
     params = request.model_dump()
     async with client.get(url, params=params) as response:
@@ -217,7 +232,7 @@ async def iserver_secdef_info(
 async def iserver_account_order_status(
     client: ClientSession, 
     request: models.OrderId
-) -> AsyncGenerator[dict, None, None]:
+) -> AsyncGenerator[dict, None]:
     url = ROOT / "iserver" / "account" / "order" / "status" / request.root
     async with client.get(url) as response:
         response.raise_for_status()
@@ -233,23 +248,28 @@ async def iserver_account_order_status(
 async def iserver_account_post_order(
     client: ClientSession, 
     request: models.OrderPayload
-) -> AsyncGenerator[dict, None, None]:
+) -> AsyncGenerator[dict, None]:
     url = ROOT / "iserver" / "account" / request.account_id / "orders"
     payload = request.model_dump()
     async with client.post(url, payload=payload) as response:
         response.raise_for_status()
         json = await response.json()
-    for model in (
-        models_generated.OrderSubmitSucces, 
+    instance = None
+    for model_received in (
+        models_generated.OrderSubmitSuccess, 
         models_generated.OrderSubmitError, 
         models_generated.OrderReplyMessage, 
         models_generated.AdvancedOrderReject
     ):
         try:
-            yield model(**json)
+            model = model_received
+            instance = model(**json)
         except ValidationError:
+            model = None
             continue
-    raise ValueError(f"Unrecognized response format: {json}")
+    if instance is None:
+        raise ValueError(f"Unrecognized response format: {json}")
+    yield model, instance.model_dump()
 
 
 @api.router.define(
@@ -259,7 +279,7 @@ async def iserver_account_post_order(
 async def iserver_account_delete_order(
     client: ClientSession, 
     request: models.CancelOrder
-) -> AsyncGenerator[dict, None, None]:
+) -> AsyncGenerator[dict, None]:
     url = ROOT / "iserver" / "account" / request.account_id / "order" / request.order_id
     async with client.delete(url) as response:
         response.raise_for_status()
@@ -276,7 +296,7 @@ async def iserver_account_delete_order(
     requires={"client": api.dependencies.ClientSession},
     returns=models_generated.AccountAttributes
 )
-async def portfolio_accounts(client: ClientSession) -> AsyncGenerator[dict, None, None]:
+async def portfolio_accounts(client: ClientSession) -> AsyncGenerator[dict, None]:
     url = ROOT / "portfolio" / "accounts"
     async with client.get(url) as response:
         response.raise_for_status()

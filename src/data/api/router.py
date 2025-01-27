@@ -1,13 +1,11 @@
 from dataclasses import dataclass, field
 from functools import wraps
-from typing import TypeVar, Callable, Union
+from typing import Callable, Union, Any, AsyncGenerator
 
 import pydantic
 from sqlalchemy import Table
 
 from .core import protocols
-
-RouterT = TypeVar("RouterT", bound=Callable[[data.Request], data.Response])
 
 
 @dataclass(frozen=True)
@@ -24,12 +22,11 @@ def define(
     returns: type[pydantic.BaseModel] | None = None,
     stores: Table | None = None, 
     requires: list[protocols.Dependency] | None = None,
-) -> Callable[[RouterT], RouterT]:
-    def decorator(f: RouterT) -> RouterT:
-        @wraps(f)
-        def wrapped(*args, **kwargs):
-            model_instance = accepts(**kwargs)
-            return f(*args, model_instance)
+) -> Callable[[protocols.Router], protocols.Router]:
+    def decorator(router: protocols.Router) -> protocols.Router:
+        @wraps(router)
+        async def wrapped(**kwargs) -> AsyncGenerator[dict, None]:
+            return router(**kwargs)
         wrapped.info = Info(accepts, returns, stores, requires)
         return wrapped
     return decorator

@@ -68,4 +68,17 @@ class OptionsStrikes(pydantic.BaseModel):
     exchange: str = pydantic.Field(...)
     call: list[int] = pydantic.Field(...)
     put: list[int] = pydantic.Field(...)
+
+
+class OHLCBar(pydantic.BaseModel):
+    timestamp: datetime = pydantic.Field(...)
+    symbol: str = pydantic.Field(...)
+    open_: float = pydantic.Field(..., alias="open")
+    high: float = pydantic.Field(...)
+    low: float = pydantic.Field(...)
+    close: float = pydantic.Field(...)
+    
+    @pydantic.field_validator("timestamp"mode="before")
+    def validate_dt(self, value: int) -> datetime:
+        return datetime.strptime(str(value), "%Y%m%d")
     

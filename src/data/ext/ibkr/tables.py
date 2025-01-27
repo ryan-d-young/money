@@ -24,14 +24,14 @@ class OHLC(Base):
 
 
 class FXSpot(Base):
-    __tablename__ = "fx"
+    __tablename__ = "fx_spot"
     timestamp: Mapped[datetime] = mapped_column(t.DateTime, primary_key=True, server_default=now())
     base: Mapped[str] = mapped_column(t.String, primary_key=True)
     terms: Mapped[str] = mapped_column(t.String, primary_key=True)
     spot: Mapped[float] = mapped_column(t.Float)
 
 
-class OptionStrikes(Base):
+class OptionsStrikes(Base):
     __tablename__ = "option_strikes"
     timestamp: Mapped[datetime] = mapped_column(t.DateTime, primary_key=True, server_default=now())
     conid: Mapped[int] = mapped_column(t.Integer, primary_key=True)
