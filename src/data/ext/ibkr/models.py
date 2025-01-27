@@ -78,7 +78,7 @@ class OHLCBar(pydantic.BaseModel):
     low: float = pydantic.Field(...)
     close: float = pydantic.Field(...)
     
-    @pydantic.field_validator("timestamp"mode="before")
+    @pydantic.field_validator("timestamp", mode="before")
     def validate_dt(self, value: int) -> datetime:
         return datetime.strptime(str(value), "%Y%m%d")
     
