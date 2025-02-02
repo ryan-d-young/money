@@ -3,13 +3,12 @@ from typing import ClassVar, Any
 from datetime import datetime
 from collections import UserString, UserList
 
+from pydantic import GetCoreSchemaHandler, TypeAdapter, RootModel
+from pydantic_core import CoreSchema, core_schema
 
-class _Discriminated(ABC):
+
+class _Discriminated(ABC, UserString):
     discriminator: ClassVar[str]
-
-
-class _Symbol(_Discriminated, UserString):
-    discriminator = ""
     def __init__(self, data: str):
         seq = data.removeprefix(self.discriminator)
         super().__init__(seq)
@@ -19,12 +18,26 @@ class _Symbol(_Discriminated, UserString):
         return self
 
 
+class _Symbol(_Discriminated, RootModel[str]):
+    discriminator: ClassVar[str] = ""
+
+
 class Identifier(_Symbol):
-    discriminator = "$"
+    discriminator: ClassVar[str] = "$"
 
 
 class Timestamp(_Symbol):
-    discriminator = "@"
+    discriminator: ClassVar[str] = "@"
+
+    def __init__(self, data: str | None = None):
+        if data is None:
+            data = f"@{datetime.now().strftime('%Y-%m-%dT%H:%M:%S')}"
+        else:
+            try:
+                datetime.strptime(data.removeprefix(self.discriminator), "%Y-%m-%dT%H:%M:%S")
+            except ValueError:
+                raise ValueError(f"Invalid timestamp format: {data}")
+        super().__init__(data)
 
     @property
     def obj(self) -> datetime:
@@ -40,11 +53,11 @@ class Timestamp(_Symbol):
                 
 
 class Attribute(_Symbol):
-    discriminator = "#"
+    discriminator: ClassVar[str] = "#"
     
 
 class Collection(_Discriminated, UserList[_Symbol]):
-    discriminator = "+"
+    discriminator: ClassVar[str] = "+"
 
     @staticmethod
     def _raise_if_heterogenous(*symbols: _Symbol) -> None:

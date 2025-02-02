@@ -4,7 +4,7 @@ import yarl
 from aiohttp import ClientSession
 from pydantic import ValidationError
 
-from src.data import api
+from src import api
 from . import models_generated, models, tables
 
 ROOT = yarl.URL("https://api.ibkr.com/v1/api/").build()
@@ -286,7 +286,8 @@ async def iserver_account_delete_order(
         json = await response.json()
     for model in (models_generated.OrderCancelSuccess, models_generated.OrderSubmitError):
         try:
-            return model(**json)
+            yield model(**json)
+            return
         except:
             continue
     raise ValueError(f"Unrecognized response format: {json}")
@@ -318,7 +319,7 @@ async def portfolio_accounts(client: ClientSession) -> AsyncGenerator[dict, None
 async def portfolio_account_ledger(
     client: ClientSession, 
     request: models.AccountId
-) -> AsyncGenerator[dict, None, None]:
+) -> AsyncGenerator[dict, None]:
     url = ROOT / "portfolio" / request.root / "ledger"
     async with client.get(url) as response:
         response.raise_for_status()
@@ -336,7 +337,7 @@ async def portfolio_account_ledger(
 async def portfolio_account_summary(
     client: ClientSession, 
     request: models.AccountId    
-) -> AsyncGenerator[dict, None, None]:
+) -> AsyncGenerator[dict, None]:
     url = ROOT / "portfolio" / request.root / "summary"
     async with client.get(url) as response:
         response.raise_for_status()
@@ -353,7 +354,7 @@ async def portfolio_account_summary(
 async def portfolio_account_positions(
     client: ClientSession, 
     request: models.AccountId
-) -> AsyncGenerator[dict, None, None]:
+) -> AsyncGenerator[dict, None]:
     page_id = 1
     while True:
         url = ROOT / "portfolio" / request.root / "positions" / page_id

@@ -14,7 +14,7 @@ def load() -> dict[str, str]:
 
 def get(key: str) -> Any:
     try:
-        return os.environ[key]
+        return load()[key]
     except KeyError:
         raise KeyError(f"Environment variable {key} not found")
 

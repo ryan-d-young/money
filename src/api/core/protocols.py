@@ -21,8 +21,8 @@ class BaseDependency(Dependency, ABC):
     def __repr__(self):
         return f"{self.__class__.__name__}({self._instance.__class__.__name__})"
 
-    @abstractmethod
     @classmethod
+    @abstractmethod
     async def start(cls, env: dict[str, str]) -> None:
         raise NotImplementedError(f"{cls} start method not implemented")
 
@@ -36,8 +36,8 @@ class BaseDependency(Dependency, ABC):
     async def __aexit__(cls, exc_type, exc_val, exc_tb) -> None:
         return
 
-    @abstractmethod
     @classmethod
+    @abstractmethod
     async def stop(cls, env: dict[str, str]) -> None:
         raise NotImplementedError(f"{cls} stop method not implemented")
 

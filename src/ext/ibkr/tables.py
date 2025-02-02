@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from src.data import api
+from src import api
 from sqlalchemy import types as t
 from sqlalchemy.orm import Mapped, mapped_column, declarative_base
 from sqlalchemy.sql.functions import now
@@ -8,7 +8,7 @@ from sqlalchemy.ext.hybrid import hybrid_property
 
 from . import models, models_generated
 
-metadata = api.core.orm.meta.metadata("ibkr")
+metadata = api.core.orm.raw_metadata("ibkr")
 Base = declarative_base(metadata=metadata)
 
 
@@ -70,26 +70,26 @@ class AccountLedger(Base):
 class AccountSummary(Base):
     __tablename__ = "account_summary"
     timestamp: Mapped[datetime] = mapped_column(t.DateTime, primary_key=True, server_default=now())
-    _summary: Mapped[models_generated.PortfolioSummary] = mapped_column(t.JSON)
+    _summary: Mapped[models_generated.PortfolioSummary] = mapped_column("summary", t.JSON)
 
     @hybrid_property
     def summary(self) -> models_generated.PortfolioSummary:
         return models_generated.PortfolioSummary(self._summary)
 
     @summary.setter
-    def set_summary(self, value: models.PortfolioSummary):
+    def set_summary(self, value: models_generated.PortfolioSummary):
         self._summary = value.model_dump()
 
 
 class AccountPositions(Base):
     __tablename__ = "account_positions"
     timestamp: Mapped[datetime] = mapped_column(t.DateTime, primary_key=True, server_default=now())
-    _position: Mapped[models_generated.IndividualPosition] = mapped_column(t.JSON)
+    _position: Mapped[models_generated.IndividualPosition] = mapped_column("position", t.JSON)
     
     @hybrid_property
     def position(self) -> models_generated.IndividualPosition:
         return models_generated.IndividualPosition(self._summary)
 
     @position.setter
-    def set_position(self, value: models.IndividualPosition):
+    def set_position(self, value: models_generated.IndividualPosition):
         self._position = value.model_dump()

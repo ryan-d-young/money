@@ -2,6 +2,7 @@ from datetime import datetime
 
 import pydantic
 
+from src.api import core
 from . import models_generated
 
 
@@ -36,12 +37,18 @@ class CancelOrder(pydantic.BaseModel):
 
 
 class FXSpot(pydantic.BaseModel):
+    timestamp: core.symbols.Timestamp = pydantic.Field(default_factory=core.symbols.Timestamp)
     base: models_generated.Currency = pydantic.Field(...)
     terms: models_generated.Currency = pydantic.Field(...)
     spot: float = pydantic.Field(...)
 
+    @property
+    def identifier(self) -> core.symbols.Identifier:
+        return core.symbols.Identifier(f"${self.base}{self.terms}")
+
 
 class FuturesContract(pydantic.BaseModel):
+    timestamp: core.symbols.Timestamp = pydantic.Field(default_factory=core.symbols.Timestamp)
     symbol: str = pydantic.Field(...)
     conid: int = pydantic.Field(...)
     underlying_conid: int = pydantic.Field(alias="underlyingConid")
@@ -54,8 +61,13 @@ class FuturesContract(pydantic.BaseModel):
         allow_population_by_field_name = True
 
     @pydantic.field_validator("expiration_date", "ltd", "short_cutoff", "long_cutoff", mode="before")
-    def validate_dt(self, value: int) -> datetime:
+    @classmethod
+    def validate_dt(cls, value: int) -> datetime:
         return datetime.strptime(str(value), "%Y%m%d")
+
+    @property
+    def identifier(self) -> core.symbols.Identifier:
+        return core.symbols.Identifier(f"${self.symbol}")
 
 
 class FuturesChain(pydantic.BaseModel):
@@ -63,11 +75,16 @@ class FuturesChain(pydantic.BaseModel):
 
 
 class OptionsStrikes(pydantic.BaseModel):
+    timestamp: core.symbols.Timestamp = pydantic.Field(default_factory=core.symbols.Timestamp)
     conid: int = pydantic.Field(...)
     sectype: str = pydantic.Field(...)
     exchange: str = pydantic.Field(...)
     call: list[int] = pydantic.Field(...)
     put: list[int] = pydantic.Field(...)
+
+    @property
+    def identifier(self) -> core.symbols.Identifier:
+        return core.symbols.Identifier(f"${self.conid}")
 
 
 class OHLCBar(pydantic.BaseModel):
@@ -79,6 +96,11 @@ class OHLCBar(pydantic.BaseModel):
     close: float = pydantic.Field(...)
     
     @pydantic.field_validator("timestamp", mode="before")
-    def validate_dt(self, value: int) -> datetime:
+    @classmethod
+    def validate_dt(cls, value: int) -> datetime:
         return datetime.strptime(str(value), "%Y%m%d")
+
+    @property
+    def identifier(self) -> core.symbols.Identifier:
+        return core.symbols.Identifier(f"${self.symbol}")
     
