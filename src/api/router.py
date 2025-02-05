@@ -8,19 +8,6 @@ from .core import protocols
 
 
 class Info(TypedDict, total=False):
-    """
-    A class to represent the metadata for API routes.
-
-    Attributes:
-        accepts (type[pydantic.BaseModel] | Union[type[pydantic.BaseModel]] | None): 
-            The type of data model that the API route accepts.
-        returns (type[pydantic.BaseModel] | Union[type[pydantic.BaseModel]] | None): 
-            The type of data model that the API route returns.
-        stores (Table | None): 
-            The database table where the data is stored.
-        requires (list[protocols.Dependency] | None): 
-            A list of dependencies required by the API route.
-    """
     accepts: type[pydantic.BaseModel] | Union[type[pydantic.BaseModel]] | None
     returns: type[pydantic.BaseModel] | Union[type[pydantic.BaseModel]] | None
     stores: Table | None
@@ -32,7 +19,14 @@ def define(**info: Unpack[Info]) -> Callable[[protocols.Router], protocols.Route
     A decorator to define metadata for a router function. Attaches 'Info' to the router function.
 
     Parameters:
-        See `Info` class attributes.
+        accepts (type[pydantic.BaseModel] | Union[type[pydantic.BaseModel]] | None): 
+            The type of data model that the API route accepts.
+        returns (type[pydantic.BaseModel] | Union[type[pydantic.BaseModel]] | None): 
+            The type of data model that the API route returns.
+        stores (Table | None): 
+            The database table where the data is stored.
+        requires (list[protocols.Dependency] | None): 
+            A list of dependencies required by the API route.
 
     Returns:
     Callable[[protocols.Router], protocols.Router]: 
