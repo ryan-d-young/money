@@ -4,7 +4,7 @@ import typer
 import datamodel_code_generator
 from aiohttp import ClientSession
 
-from money import const
+from src import const
 
 
 async def _main(name: str, url: str):

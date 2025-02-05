@@ -6,6 +6,8 @@ from collections import UserString, UserList
 from pydantic import GetCoreSchemaHandler, TypeAdapter, RootModel
 from pydantic_core import CoreSchema, core_schema
 
+from src.util import dt
+
 
 class _Discriminated(ABC, UserString):
     discriminator: ClassVar[str]
@@ -31,25 +33,18 @@ class Timestamp(_Symbol):
 
     def __init__(self, data: str | None = None):
         if data is None:
-            data = f"@{datetime.now().strftime('%Y-%m-%dT%H:%M:%S')}"
+            data = f"@{dt.isotoday()}"
         else:
             try:
-                datetime.strptime(data.removeprefix(self.discriminator), "%Y-%m-%dT%H:%M:%S")
+                datetime.strptime(data.removeprefix(self.discriminator), dt._ISODATETIME)
             except ValueError:
                 raise ValueError(f"Invalid timestamp format: {data}")
         super().__init__(data)
 
     @property
     def obj(self) -> datetime:
-        parser, parsed = lambda _obj, fmt: datetime.strptime(_obj, fmt), None
-        for fmt in {"%Y-%m-%d", "%Y-%m-%dT%H:%M:%S"}:
-            try:
-                parsed = parser(self, fmt)
-            except ValueError:
-                pass
-        if not parsed:
-            raise ValueError(f"Unable to parse datetime string: {self}")
-        return parsed
+        return dt.convert(dt_str=self.data)
+            
                 
 
 class Attribute(_Symbol):

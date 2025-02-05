@@ -4,10 +4,20 @@ import yarl
 from aiohttp import ClientSession
 from pydantic import ValidationError
 
-from src import api
+from src import api, util
 from . import models_generated, models, tables
 
-ROOT = yarl.URL("https://api.ibkr.com/v1/api/").build()
+try:
+    ROOT = (
+        yarl.URL(
+            util.env.get("IBKR_HOST"), 
+            port=util.env.get("IBKR_PORT")
+        ).build()
+        / "v1"
+        / "api"
+    )  
+except KeyError as e:
+    raise EnvironmentError("Unable to obtain IBKR credentials from environment") from e
 
 
 @api.router.define(
