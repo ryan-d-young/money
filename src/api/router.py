@@ -1,6 +1,5 @@
-from dataclasses import dataclass, field
 from functools import wraps
-from typing import Callable, Union, AsyncGenerator
+from typing import Callable, Union, AsyncGenerator, TypedDict, Unpack
 
 import pydantic
 from sqlalchemy import Table
@@ -8,8 +7,7 @@ from sqlalchemy import Table
 from .core import protocols
 
 
-@dataclass(frozen=True)
-class Info:
+class Info(TypedDict, total=False):
     """
     A class to represent the metadata for API routes.
 
@@ -23,19 +21,13 @@ class Info:
         requires (list[protocols.Dependency] | None): 
             A list of dependencies required by the API route.
     """
-    accepts: type[pydantic.BaseModel] | Union[type[pydantic.BaseModel]] | None = None
-    returns: type[pydantic.BaseModel] | Union[type[pydantic.BaseModel]] | None = None
-    stores: Table | None = None
-    requires: list[protocols.Dependency] | None = field(default_factory=list)
+    accepts: type[pydantic.BaseModel] | Union[type[pydantic.BaseModel]] | None
+    returns: type[pydantic.BaseModel] | Union[type[pydantic.BaseModel]] | None
+    stores: Table | None
+    requires: list[protocols.Dependency] | None
 
 
-def define(
-    *,
-    accepts: type[pydantic.BaseModel] | Union[type[pydantic.BaseModel]] | None = None,
-    returns: type[pydantic.BaseModel] | Union[type[pydantic.BaseModel]] | None = None,
-    stores: Table | None = None,
-    requires: list[protocols.Dependency] | None = None,
-) -> Callable[[protocols.Router], protocols.Router]:
+def define(**info: Unpack[Info]) -> Callable[[protocols.Router], protocols.Router]:
     """
     A decorator to define metadata for a router function. Attaches 'Info' to the router function.
 
@@ -50,6 +42,6 @@ def define(
         @wraps(router)
         async def wrapped(**kwargs) -> AsyncGenerator[dict, None]:
             return router(**kwargs)
-        wrapped.info = Info(accepts, returns, stores, requires)
+        wrapped.info = Info(**info)
         return wrapped
     return decorator
