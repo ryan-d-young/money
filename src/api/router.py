@@ -1,5 +1,8 @@
+from importlib import import_module
+from pathlib import Path
 from functools import wraps
-from typing import Callable, Union, AsyncGenerator, TypedDict, Unpack
+from typing import Callable, Union, AsyncGenerator, TypedDict, Unpack, ClassVar
+from types import ModuleType
 
 import pydantic
 from sqlalchemy import Table
@@ -39,3 +42,17 @@ def define(**info: Unpack[Info]) -> Callable[[protocols.Router], protocols.Route
         wrapped.info = Info(**info)
         return wrapped
     return decorator
+
+
+class Registry:
+    data: ClassVar[dict[str, dict[str, protocols.Router]]] = {}
+
+    @classmethod
+    def scan(cls, ext_root: Path):
+        for fp in ext_root.walk():
+            if fp.stem == "routers":
+                routers = import_module(".".join("src", "ext", fp.parent, fp.stem))
+                for fname, fn in routers.__dict__.items():
+                    if isinstance(fn, Callable):
+                        if hasattr(fn, "info"):
+                            cls.data[fp.parent][fname] = fn
