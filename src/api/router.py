@@ -1,23 +1,32 @@
 from importlib import import_module
 from pathlib import Path
 from functools import wraps
-from typing import Callable, Union, AsyncGenerator, TypedDict, Unpack, ClassVar
+from typing import Callable, Union, AsyncGenerator, TypedDict, Unpack, ClassVar, Protocol
 from types import ModuleType
 
 import pydantic
 from sqlalchemy import Table
 
-from .core import protocols
+from .core import dependency
 
 
 class Info(TypedDict, total=False):
     accepts: type[pydantic.BaseModel] | Union[type[pydantic.BaseModel]] | None
     returns: type[pydantic.BaseModel] | Union[type[pydantic.BaseModel]] | None
     stores: Table | None
-    requires: list[protocols.Dependency] | None
+    requires: list[dependency.Dependency] | None
 
 
-def define(**info: Unpack[Info]) -> Callable[[protocols.Router], protocols.Router]:
+class Router(Protocol):
+    def __call__(
+        self, 
+        request: pydantic.BaseModel | None = None, 
+        **args: dict[str, dependency.Dependency]
+    ) -> AsyncGenerator[dict, None]:
+        ...
+        
+
+def define(**info: Unpack[Info]) -> Callable[[dependency.Router], dependency.Router]:
     """
     A decorator to define metadata for a router function. Attaches 'Info' to the router function.
 
@@ -35,7 +44,7 @@ def define(**info: Unpack[Info]) -> Callable[[protocols.Router], protocols.Route
     Callable[[protocols.Router], protocols.Router]: 
         A decorated router function with attached 'Info'.
     """
-    def decorator(router: protocols.Router) -> protocols.Router:
+    def decorator(router: dependency.Router) -> dependency.Router:
         @wraps(router)
         async def wrapped(**kwargs) -> AsyncGenerator[dict, None]:
             return router(**kwargs)
@@ -45,14 +54,14 @@ def define(**info: Unpack[Info]) -> Callable[[protocols.Router], protocols.Route
 
 
 class Registry:
-    data: ClassVar[dict[str, dict[str, protocols.Router]]] = {}
+    data: ClassVar[dict[str, dict[str, dependency.Router]]] = {}
 
     @classmethod
     def scan(cls, ext_root: Path):
         for fp in ext_root.walk():
             if fp.stem == "routers":
-                routers = import_module(".".join("src", "ext", fp.parent, fp.stem))
+                routers: ModuleType = import_module(".".join("src", "ext", fp.parent, fp.stem))
                 for fname, fn in routers.__dict__.items():
-                    if isinstance(fn, Callable):
+                    if isinstance(fn, dependency.Router):
                         if hasattr(fn, "info"):
                             cls.data[fp.parent][fname] = fn

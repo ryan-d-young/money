@@ -1,7 +1,7 @@
 import aiohttp
 from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
 
-from .core.protocols import Dependency
+from .core.dependency import Dependency
 
 
 class ClientSession(Dependency[aiohttp.ClientSession]):

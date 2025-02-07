@@ -1,11 +1,7 @@
 from abc import ABC, abstractmethod
-from typing import Protocol, AsyncContextManager, TypeVar, Any, Coroutine, AsyncGenerator
-
-from pydantic import BaseModel
-
+from typing import Protocol, AsyncContextManager, TypeVar, Any
 
 DependencyT = TypeVar("DependencyT", bound=AsyncContextManager)
-ReturnType = TypeVar("ReturnType", bound=dict)
 
 
 class Dependency[DependencyT](Protocol):
@@ -40,13 +36,3 @@ class BaseDependency(Dependency, ABC):
     @abstractmethod
     async def stop(cls, env: dict[str, str]) -> None:
         raise NotImplementedError(f"{cls} stop method not implemented")
-
-
-class Router(Protocol):
-    def __call__(
-        self, 
-        request: BaseModel | None = None, 
-        **kwargs: dict[str, Dependency]
-    ) -> AsyncGenerator[dict, None]:
-        ...
-        

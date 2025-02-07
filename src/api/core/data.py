@@ -1,22 +1,26 @@
-from datetime import datetime
-from typing import Any
+from abc import ABC, abstractmethod
+from typing import Any, TypedDict
 
-from pydantic import BaseModel, Field
-
-from .symbols import Identifier, Timestamp, Attribute
+from pydantic import BaseModel
 
 
-class Object(BaseModel):
-    model: BaseModel = Field(...)
-    data: dict = Field(...)
+class _Data(ABC, TypedDict):
+    @property
+    @abstractmethod
+    def serialize(self) -> dict:
+        ...
+
+
+class Record(_Data):
+    data: dict[str, Any]
+
+    def serialize(self) -> dict:
+        return self.data
+    
+
+class Object(Record):
+    model: type[BaseModel]
 
     def serialize(self) -> dict:
         model_instance = self.model(**self.data)
         return model_instance.model_dump()
-
-
-class Record(BaseModel):
-    timestamp: Timestamp = Field(default_factory=lambda: Timestamp(f"@{datetime.now().strftime("%Y-%m-%dT%H:%M:%S")}"))
-    identifier: Identifier = Field(...)
-    attribute: Attribute = Field(...)
-    value: Any = Field(...)

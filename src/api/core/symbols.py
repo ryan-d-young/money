@@ -3,8 +3,7 @@ from typing import ClassVar, Any
 from datetime import datetime
 from collections import UserString, UserList
 
-from pydantic import GetCoreSchemaHandler, TypeAdapter, RootModel
-from pydantic_core import CoreSchema, core_schema
+from pydantic import RootModel
 
 from src.util import dt
 
@@ -22,6 +21,9 @@ class _Discriminated(ABC, UserString):
 
 class _Symbol(_Discriminated, RootModel[str]):
     discriminator: ClassVar[str] = ""
+
+    def __repr__(self) -> str:
+        return f"{self.discriminator}{self.data}"
 
 
 class Identifier(_Symbol):
@@ -46,7 +48,6 @@ class Timestamp(_Symbol):
         return dt.convert(dt_str=self.data)
             
                 
-
 class Attribute(_Symbol):
     discriminator: ClassVar[str] = "#"
     
@@ -56,7 +57,10 @@ class Collection(_Discriminated, UserList[_Symbol]):
 
     @staticmethod
     def _raise_if_heterogenous(*symbols: _Symbol) -> None:
-        if len(set([symbol.discriminator for symbol in symbols])) > 1:
+        if len(set([
+            symbol.discriminator 
+            for symbol in symbols
+        ])) > 1:
             raise ValueError("Multiple discriminators encountered in provided symbols")
 
     def __init__(self, *symbols: _Symbol):

@@ -9,13 +9,14 @@ RequestModelT = TypeVar("RequestModelT", bound=type[BaseModel])
 RequestInstanceT = TypeVar("RequestInstanceT", bound=BaseModel)
 
 
-class Request:
+class Request[RequestModelT, RequestInstanceT]:
     _id: ident.UUID
     _created_at: float
     _completed_at: float | None
     _data: RequestInstanceT | None
+    _model: RequestModelT
     def __init__(self, model: RequestModelT):
-        self.model = model
+        self._model = model
         self._data = None
         self._id = ident.uuid()
         self._created_at = dt.now()
@@ -23,7 +24,7 @@ class Request:
         self._lock = asyncio.Lock()
 
     def __repr__(self):
-        s = f"{self.model.__name__}({self._id})"
+        s = f"{self._model.__name__}({self._id})"
         if self.completed:
             return f"{s}:\n {self.data}"
         return s
@@ -49,5 +50,5 @@ class Request:
         if self.completed:
             raise ValueError(f"An instance of {self} already exists")
         async with self._lock:
-            self._data = self.model(**kwargs)
+            self._data = self._model(**kwargs)
             self._completed_at = dt.now()
