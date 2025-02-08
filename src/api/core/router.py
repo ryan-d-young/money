@@ -1,8 +1,9 @@
+import functools
 from dataclasses import dataclass
 from importlib import import_module
 from pathlib import Path
-from typing import Callable, Union, AsyncGenerator, TypedDict, Unpack, ClassVar, Protocol
-import functools
+from typing import Callable, Union, AsyncGenerator, TypedDict, Unpack, ClassVar, Protocol, Awaitable
+from logging import Logger
 
 import pydantic
 from sqlalchemy import Table
@@ -36,9 +37,9 @@ class Info(TypedDict, total=False):
 
 @dataclass(slots=True)
 class Context:
-    logger: util.log.Logger
+    logger: Logger
     history: list[request.Request] | None = None
-    metadata: Metadata | None
+    metadata: Metadata | None = None
 
     def __post_init__(self):
         self.history = []
@@ -107,26 +108,35 @@ def metadata(**metadata: Unpack[Metadata]) -> Callable[[Router], Router]:
 
 class Registry:
     data: ClassVar[dict[str, dict[str, Router]]] = {}
+    _logger: Logger
 
     @classmethod
-    def scan(cls, ext_root: Path, logger: util.log.Logger):
+    def scan(cls, ext_root: Path, logger: Logger):
+        cls._logger = logger
         for fp in ext_root.walk():
             if fp.stem == "routers":
-                logger.info(f"Scanning provider {fp.parent}")
+                cls._logger.info(f"Scanning provider {fp.parent}")
                 routers = import_module(".".join("src", "ext", fp.parent, fp.stem))
                 for fname, fn in routers.__dict__.items():
                     if hasattr(fn, "info") and hasattr(fn, "context"):
-                        logger.info(f"Found router {fname}")
+                        cls._logger.info(f"Found router {fname}")
                         cls.data[fp.parent][fname] = fn
         return cls
 
-    def get(self, provider: str, router: str) -> Router:
-        if provider not in self.data:
-            raise ValueError(f"Provider {provider} not found")
-        if router not in self.data[provider]:
-            raise ValueError(f"Router {router} not found")
-        router = self.data[provider][router]
-        return router
+    @classmethod
+    def get(cls, provider: str, router: str) -> Router:
+        cls._logger.info(f"Router {router} from {provider} accessed")
+        return cls.data[provider][router]
+
+    @classmethod
+    def call(
+        cls, 
+        provider: str, 
+        router: str, 
+        request: request.Request, 
+        **kwargs: dict[str, dependency.Dependency]
+    ) -> Awaitable[response.Response]:
+        router = cls.get(provider, router)
+        coro = router(request, **kwargs)
+        return coro
     
-    def __getitem__(self, name: str) -> Router:
-        return self.get(name)

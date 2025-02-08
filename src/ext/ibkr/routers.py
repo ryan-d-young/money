@@ -218,7 +218,7 @@ async def iserver_secdef_search(
 
 
 @api.router(
-    returns=models_generated.IserverAccountsGetResponse,
+    returns=models_generated.GwApiV1AccountsGetResponse,
     requires={"client": api.dependencies.ClientSession}
 )
 async def iserver_accounts(

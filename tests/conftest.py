@@ -4,13 +4,11 @@ from typing import AsyncGenerator
 from aiohttp import ClientSession
 from yarl import URL
 
-from src.util import env 
-from src.api import dependencies
-
+from src import api, util
 
 @pytest.fixture
 def api_root() -> URL:
-    _env = env.load()
+    _env = util.env.load()
     return (
         URL.build(
             scheme="https", 
@@ -23,8 +21,14 @@ def api_root() -> URL:
 
 @pytest_asyncio.fixture
 async def client() -> AsyncGenerator[ClientSession, None]:
-    env_ = env.load()
-    session = await dependencies.ClientSession.start(env_)
+    env_ = util.env.load()
+    session = await api.dependencies.ClientSession.start(env_)
     yield session._instance
-    await dependencies.ClientSession.stop(env_)
-    
+    await api.dependencies.ClientSession.stop(env_)
+
+
+@pytest_asyncio.fixture
+async def session() -> AsyncGenerator[api.core.session.Session, None]:
+    session = await api.connect()
+    yield session
+    await api.disconnect(session)

@@ -14,10 +14,10 @@ class Response(_Data):
         if not isinstance(self.data, (Object, Record)):
             raise ValueError("data must be an Object or Record")
 
-    def serialize(self) -> dict:
+    def json(self) -> dict:
         return {
             "timestamp": self.timestamp,
             "identifier": self.identifier,
             "attribute": self.attribute,
-            "data": self.data.serialize()
+            "data": self.data.json
         }
