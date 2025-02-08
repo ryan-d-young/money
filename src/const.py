@@ -1,6 +1,4 @@
-import os
 from pathlib import Path
-from datetime import datetime
 
 PROJECT_NAME = "money"
 
@@ -9,4 +7,4 @@ PROJECT = ROOT / "src" / PROJECT_NAME
 SOURCES = PROJECT / "ext"
 
 HOME = Path("~") / f".{PROJECT_NAME}"
-HOME.mkdir(exist_ok=True)
+HOME.mkdir(exist_ok=True, parents=True)

@@ -1,7 +1,5 @@
-import asyncio
-from typing import AsyncContextManager, Callable
 from time import time, strptime as _strptime
-from datetime import datetime, _Time, _Date
+from datetime import datetime, date as _Date, time as _Time
 
 _ISODATE = "%Y-%m-%d"
 _ISOTIME = "%H:%M:%S"
@@ -11,6 +9,10 @@ _ISODATETIMETZ = _ISODATETIME + "Z"
 
 def now() -> _Time:
     return datetime.now().time()
+
+
+def isotime() -> str:
+    return now().strftime(_ISOTIME)
 
 
 def isonow() -> float:

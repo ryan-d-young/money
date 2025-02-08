@@ -9,10 +9,10 @@ from . import models_generated, models, tables
 
 try:
     ROOT = (
-        yarl.URL(
-            util.env.get("IBKR_HOST"), 
-            port=util.env.get("IBKR_PORT")
-        ).build()
+        yarl.URL.build(
+            host=util.env.get("IBKR_HOST"), 
+            port=int(util.env.get("IBKR_PORT"))
+        )
         / "v1"
         / "api"
     )  
@@ -20,7 +20,7 @@ except KeyError as e:
     raise EnvironmentError("Unable to obtain IBKR credentials from environment") from e
 
 
-@api.router.define(
+@api.router(
     accepts=models_generated.HmdsHistoryGetParametersQuery,
     returns=models.OHLCBar,
     stores=tables.OHLC,
@@ -46,7 +46,7 @@ async def hmds_historical_bars(
         }
     
 
-@api.router.define(
+@api.router(
     accepts=models_generated.IserverMarketdataHistoryGetParametersQuery,
     returns=models.OHLCBar,
     stores=tables.OHLC,
@@ -72,7 +72,7 @@ async def iserver_historical_bars(
         }
 
 
-@api.router.define(
+@api.router(
     accepts=models_generated.Currency,
     returns=models_generated.CurrencyPairs,
     requires={"client": api.dependencies.ClientSession}
@@ -89,7 +89,7 @@ async def iserver_currency_pairs(
     yield json
 
 
-@api.router.define(
+@api.router(
     accepts=models_generated.IserverExchangerateGetParametersQuery,
     returns=models.FXSpot,
     stores=tables.FXSpot,
@@ -107,7 +107,7 @@ async def iserver_exchange_rate(
     yield json
 
 
-@api.router.define(
+@api.router(
     accepts=models_generated.TrsrvAllConidsGetParametersQuery,
     returns=models_generated.TrsrvAllConidsGetResponse,
     requires={"client": api.dependencies.ClientSession}    
@@ -124,7 +124,7 @@ async def trsrv_conids(
     yield json    
 
 
-@api.router.define(
+@api.router(
     accepts=models_generated.TrsrvFuturesGetParametersQuery,
     returns=models.FuturesContract,
     stores=tables.FuturesChains,
@@ -144,7 +144,7 @@ async def trsrv_futures_from_symbol(
             yield contract
 
 
-@api.router.define(
+@api.router(
     accepts=models_generated.TrsrvSecdefScheduleGetParametersQuery,
     returns=models_generated.TradingSchedule,
     requires={"client": api.dependencies.ClientSession}
@@ -161,7 +161,7 @@ async def trsrv_schedule_from_symbol(
     yield json
 
 
-@api.router.define(
+@api.router(
     accepts=models.ContractId,
     returns=models_generated.IserverContractConidInfoAndRulesGetResponse,
     requires={"client": api.dependencies.ClientSession}
@@ -177,7 +177,7 @@ async def iserver_contract_info_from_conid(
     yield json
 
 
-@api.router.define(
+@api.router(
     accepts=models_generated.IserverSecdefStrikesGetParametersQuery,
     returns=models.OptionsStrikes,
     stores=tables.OptionsStrikes
@@ -200,7 +200,7 @@ async def iserver_strikes_from_conid(
     }
 
 
-@api.router.define(
+@api.router(
     accepts=models_generated.IserverSecdefSearchGetParametersQuery,
     returns=models_generated.SecdefSearchResponse,
     requires={"client": api.dependencies.ClientSession}
@@ -217,7 +217,21 @@ async def iserver_secdef_search(
     yield json
 
 
-@api.router.define(
+@api.router(
+    returns=models_generated.IserverAccountsGetResponse,
+    requires={"client": api.dependencies.ClientSession}
+)
+async def iserver_accounts(
+    client: ClientSession, 
+) -> AsyncGenerator[dict, None]:
+    url = ROOT / "iserver" / "accounts"
+    async with client.get(url) as response:
+        response.raise_for_status()
+        json = await response.json()
+    yield json
+
+
+@api.router(
     accepts=models_generated.IserverSecdefInfoGetParametersQuery,
     returns=models_generated.SecDefInfoResponse,
     requires={"client": api.dependencies.ClientSession}
@@ -234,7 +248,7 @@ async def iserver_secdef_info(
     yield json
 
 
-@api.router.define(
+@api.router(
     accepts=models.OrderId,
     returns=models_generated.OrderStatus,
     requires={"client": api.dependencies.ClientSession}
@@ -250,7 +264,7 @@ async def iserver_account_order_status(
     yield json
 
 
-@api.router.define(
+@api.router(
     returns=models_generated.OrderSubmitSuccess | models_generated.OrderSubmitError | 
     models_generated.OrderReplyMessage | models_generated.AdvancedOrderReject,
     requires={"client": api.dependencies.ClientSession}
@@ -282,7 +296,7 @@ async def iserver_account_post_order(
     yield model, instance.model_dump()
 
 
-@api.router.define(
+@api.router(
     requires={"client": api.dependencies.ClientSession},
     returns=models_generated.OrderCancelSuccess | models_generated.OrderSubmitError
 )
@@ -303,7 +317,7 @@ async def iserver_account_delete_order(
     raise ValueError(f"Unrecognized response format: {json}")
 
 
-@api.router.define(
+@api.router(
     requires={"client": api.dependencies.ClientSession},
     returns=models_generated.AccountAttributes
 )
@@ -320,7 +334,7 @@ async def portfolio_accounts(client: ClientSession) -> AsyncGenerator[dict, None
         )
 
 
-@api.router.define(
+@api.router(
     accepts=models.AccountId,
     returns=models.Ledger,
     stores=tables.AccountLedger,
@@ -338,7 +352,7 @@ async def portfolio_account_ledger(
         yield {"_ledger": models.Ledger(currency=currency, **ledger)}
 
 
-@api.router.define(
+@api.router(
     accepts=models.AccountId,
     returns=models_generated.PortfolioSummary,
     stores=tables.AccountSummary,
@@ -355,7 +369,7 @@ async def portfolio_account_summary(
     yield json
 
 
-@api.router.define(
+@api.router(
     accepts=models.AccountId,
     returns=models_generated.IndividualPosition,
     stores=tables.AccountPositions,

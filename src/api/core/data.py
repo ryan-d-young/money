@@ -1,14 +1,12 @@
-from abc import ABC, abstractmethod
 from typing import Any, TypedDict
 
 from pydantic import BaseModel
 
 
-class _Data(ABC, TypedDict):
+class _Data(TypedDict):
     @property
-    @abstractmethod
     def serialize(self) -> dict:
-        ...
+        raise NotImplementedError
 
 
 class Record(_Data):

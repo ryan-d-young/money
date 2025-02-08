@@ -36,3 +36,21 @@ class BaseDependency(Dependency, ABC):
     @abstractmethod
     async def stop(cls, env: dict[str, str]) -> None:
         raise NotImplementedError(f"{cls} stop method not implemented")
+
+
+class Manager:
+    def __init__(self, *dependencies: Dependency):
+        self.dependencies = {}
+        for dependency in dependencies:
+            self.dependencies[dependency.__name__.lower()] = dependency
+
+    async def start(self, env: dict[str, str]):
+        for dependency in self.dependencies.values():
+            await dependency.start(env)
+
+    def get(self, name: str) -> Dependency:
+        return self.dependencies[name]._instance
+
+    async def stop(self, env: dict[str, str]):
+        for dependency in self.dependencies.values():
+            await dependency.stop(env)
