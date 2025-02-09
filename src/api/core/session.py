@@ -1,6 +1,7 @@
+from functools import partial
 from logging import Logger
 
-from src import const, util
+from src import const
 from . import dependency, router
 
 
@@ -30,3 +31,10 @@ class Session:
     @property
     def env(self) -> dict[str, str]:
         return self._env
+
+    def inject(self, router: router.Router) -> router.Router:
+        deps = [
+            self.dependency(name) 
+            for name in router.info.requires
+        ]
+        return partial(router, *deps)

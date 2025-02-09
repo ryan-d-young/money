@@ -2,7 +2,8 @@ import functools
 from dataclasses import dataclass
 from importlib import import_module
 from pathlib import Path
-from typing import Callable, Union, AsyncGenerator, TypedDict, Unpack, ClassVar, Protocol, Awaitable
+from typing import Callable, Union, AsyncGenerator, TypedDict, Unpack, ClassVar, Protocol
+from types import ModuleType
 from logging import Logger
 
 import pydantic
@@ -106,8 +107,20 @@ def metadata(**metadata: Unpack[Metadata]) -> Callable[[Router], Router]:
     return decorator
 
 
+class Provider:
+    routers: dict[str, Router]
+    
+    def __init__(self, mod: ModuleType):
+        self._logger = util.log.get_logger(__name__)
+        self.routers = {}
+        for fname, fn in mod.__dict__.items():
+            if hasattr(fn, "info") and hasattr(fn, "context"):
+                self._logger.info(f"Found router {fname}")
+                self.routers[fname] = fn
+
+
 class Registry:
-    data: ClassVar[dict[str, dict[str, Router]]] = {}
+    providers: ClassVar[dict[str, Provider]] = {}
     _logger: Logger
 
     @classmethod
@@ -116,27 +129,11 @@ class Registry:
         for fp in ext_root.walk():
             if fp.stem == "routers":
                 cls._logger.info(f"Scanning provider {fp.parent}")
-                routers = import_module(".".join("src", "ext", fp.parent, fp.stem))
-                for fname, fn in routers.__dict__.items():
-                    if hasattr(fn, "info") and hasattr(fn, "context"):
-                        cls._logger.info(f"Found router {fname}")
-                        cls.data[fp.parent][fname] = fn
+                mod = import_module(".".join("src", "ext", fp.parent, fp.stem))
+                cls.providers[fp.parent.stem] = Provider(mod)
         return cls
 
     @classmethod
     def get(cls, provider: str, router: str) -> Router:
         cls._logger.info(f"Router {router} from {provider} accessed")
-        return cls.data[provider][router]
-
-    @classmethod
-    def call(
-        cls, 
-        provider: str, 
-        router: str, 
-        request: request.Request, 
-        **kwargs: dict[str, dependency.Dependency]
-    ) -> Awaitable[response.Response]:
-        router = cls.get(provider, router)
-        coro = router(request, **kwargs)
-        return coro
-    
+        return cls.providers[provider].routers[router]
