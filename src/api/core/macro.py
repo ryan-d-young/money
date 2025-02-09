@@ -6,8 +6,7 @@ from .request import Request
 from .response import Response
 
 
-class Command(Router):
-        ...
+class Command(Router): ...
 
 
 class Store(Command):
@@ -15,18 +14,10 @@ class Store(Command):
         self.router = router
         self.store = store
 
-    async def __call__(
-        self, 
-        session: Session, 
-        response: Response
-    ) -> Response:
+    async def __call__(self, session: Session, response: Response) -> Response:
         db_engine = session.dependency("db_engine")
         async with db_engine.begin() as conn:
-            await conn.execute(
-                self.store
-                .insert()
-                .values(response.json)
-            )
+            await conn.execute(self.store.insert().values(response.json))
         return response
 
 
@@ -35,11 +26,7 @@ class Bridge(Command):
         self.router = router
         self.bridge = bridge
 
-    async def __call__(
-        self, 
-        session: Session, 
-        response: Response
-    ) -> Response:
+    async def __call__(self, session: Session, response: Response) -> Response:
         response = await self.router(session, response)
         response = await self.bridge(session, response)
         return response
@@ -50,11 +37,7 @@ class Paginate(Command):
         self.router = router
         self.page_size = page_size
 
-    async def __call__(
-        self, 
-        session: Session, 
-        response: Response
-    ) -> list[Response]:
+    async def __call__(self, session: Session, response: Response) -> list[Response]:
         page_id = 1
         responses = []
         while True:
@@ -71,14 +54,13 @@ class Macro:
         self.steps = steps
 
     async def __call__(
-        self, 
-        session: Session, 
-        request: Request, 
+        self,
+        session: Session,
+        request: Request,
     ) -> Response:
         response = request
         for i, step in enumerate(self.steps):
             step = session.inject(step)
-            session.logger.info(f"Executing step {i+1} of {len(self.steps)}")
+            session.logger.info(f"Executing step {i + 1} of {len(self.steps)}")
             response = await step(session, response)
         return response
-    

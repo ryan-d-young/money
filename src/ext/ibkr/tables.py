@@ -25,7 +25,9 @@ class OHLC(Base):
 
 class FXSpot(Base):
     __tablename__ = "fx_spot"
-    timestamp: Mapped[datetime] = mapped_column(t.DateTime, primary_key=True, server_default=now())
+    timestamp: Mapped[datetime] = mapped_column(
+        t.DateTime, primary_key=True, server_default=now()
+    )
     base: Mapped[str] = mapped_column(t.String, primary_key=True)
     terms: Mapped[str] = mapped_column(t.String, primary_key=True)
     spot: Mapped[float] = mapped_column(t.Float)
@@ -33,17 +35,25 @@ class FXSpot(Base):
 
 class OptionsStrikes(Base):
     __tablename__ = "option_strikes"
-    timestamp: Mapped[datetime] = mapped_column(t.DateTime, primary_key=True, server_default=now())
+    timestamp: Mapped[datetime] = mapped_column(
+        t.DateTime, primary_key=True, server_default=now()
+    )
     conid: Mapped[int] = mapped_column(t.Integer, primary_key=True)
-    sectype: Mapped[models_generated.SecType] = mapped_column(t.Enum(models_generated.SecType), primary_key=True)
-    exchange: Mapped[models_generated.Exchange] = mapped_column(t.Enum(models_generated.Exchange))
+    sectype: Mapped[models_generated.SecType] = mapped_column(
+        t.Enum(models_generated.SecType), primary_key=True
+    )
+    exchange: Mapped[models_generated.Exchange] = mapped_column(
+        t.Enum(models_generated.Exchange)
+    )
     call: Mapped[list[int]] = mapped_column(t.ARRAY(t.Integer))
     put: Mapped[list[int]] = mapped_column(t.ARRAY(t.Integer))
 
 
 class FuturesChains(Base):
     __tablename__ = "futures_chains"
-    timestamp: Mapped[datetime] = mapped_column(t.DateTime, primary_key=True, server_default=now())
+    timestamp: Mapped[datetime] = mapped_column(
+        t.DateTime, primary_key=True, server_default=now()
+    )
     symbol: Mapped[str] = mapped_column(t.String, primary_key=True)
     conid: Mapped[int] = mapped_column(t.Integer, primary_key=True)
     underlying_conid: Mapped[int] = mapped_column(t.Integer)
@@ -55,7 +65,9 @@ class FuturesChains(Base):
 
 class AccountLedger(Base):
     __tablename__ = "account_ledger"
-    timestamp: Mapped[datetime] = mapped_column(t.DateTime, primary_key=True, server_default=now())
+    timestamp: Mapped[datetime] = mapped_column(
+        t.DateTime, primary_key=True, server_default=now()
+    )
     _ledger: Mapped[models.Ledger] = mapped_column("ledger", t.JSON)
 
     @hybrid_property
@@ -69,8 +81,12 @@ class AccountLedger(Base):
 
 class AccountSummary(Base):
     __tablename__ = "account_summary"
-    timestamp: Mapped[datetime] = mapped_column(t.DateTime, primary_key=True, server_default=now())
-    _summary: Mapped[models_generated.PortfolioSummary] = mapped_column("summary", t.JSON)
+    timestamp: Mapped[datetime] = mapped_column(
+        t.DateTime, primary_key=True, server_default=now()
+    )
+    _summary: Mapped[models_generated.PortfolioSummary] = mapped_column(
+        "summary", t.JSON
+    )
 
     @hybrid_property
     def summary(self) -> models_generated.PortfolioSummary:
@@ -83,9 +99,13 @@ class AccountSummary(Base):
 
 class AccountPositions(Base):
     __tablename__ = "account_positions"
-    timestamp: Mapped[datetime] = mapped_column(t.DateTime, primary_key=True, server_default=now())
-    _position: Mapped[models_generated.IndividualPosition] = mapped_column("position", t.JSON)
-    
+    timestamp: Mapped[datetime] = mapped_column(
+        t.DateTime, primary_key=True, server_default=now()
+    )
+    _position: Mapped[models_generated.IndividualPosition] = mapped_column(
+        "position", t.JSON
+    )
+
     @hybrid_property
     def position(self) -> models_generated.IndividualPosition:
         return models_generated.IndividualPosition(self._summary)

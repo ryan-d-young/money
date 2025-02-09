@@ -1,6 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import DeclarativeBase
-from sqlalchemy.sql import select, insert, delete
+from sqlalchemy.sql import delete as sql_delete
+from sqlalchemy.sql import insert, select
 
 
 async def create(table: DeclarativeBase, session: AsyncSession) -> None:
@@ -9,7 +10,9 @@ async def create(table: DeclarativeBase, session: AsyncSession) -> None:
         await tr.commit()
 
 
-async def read(table: DeclarativeBase, session: AsyncSession, **kwargs) -> list[DeclarativeBase]:
+async def read(
+    table: DeclarativeBase, session: AsyncSession, **kwargs
+) -> list[DeclarativeBase]:
     async with session.begin() as tr:
         stmt = select(table).where(**kwargs)
         result = await tr.execute(stmt)
@@ -25,6 +28,6 @@ async def update(table: DeclarativeBase, session: AsyncSession, **kwargs) -> Non
 
 async def delete(table: DeclarativeBase, session: AsyncSession) -> None:
     async with session.begin() as tr:
-        stmt = delete(table)
+        stmt = sql_delete(table)
         await tr.execute(stmt)
         await tr.commit()

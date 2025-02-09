@@ -1,16 +1,23 @@
 from typing import Iterable
 
 from textual.app import App
-from textual.worker import Worker
-from textual.containers import Vertical, Horizontal, Grid, VerticalScroll
 from textual.binding import Binding
+from textual.containers import Grid, Horizontal, Vertical, VerticalScroll
 from textual.reactive import reactive
-from textual.widgets import Header, Tab, TabPane, Tabs, Footer, TextArea, Input, Button, Label
+from textual.widgets import (
+    Button,
+    Footer,
+    Header,
+    Input,
+    Label,
+    Tab,
+    TabPane,
+    Tabs,
+    TextArea,
+)
+from textual.worker import Worker
 
 from src import api, db
-
-
-class 
 
 
 class Main(textual.App):
@@ -20,4 +27,3 @@ class Main(textual.App):
 
 if __name__ == "__main__":
     Main().run()
-    

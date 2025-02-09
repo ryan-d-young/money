@@ -1,5 +1,5 @@
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
 
 PROJECT_NAME = "money"
 
@@ -7,7 +7,7 @@ ROOT = Path(".").resolve()
 PROJECT = ROOT / "src"
 PROVIDERS = PROJECT / "ext"
 
-HOME = Path("~").resolve() / f".{PROJECT_NAME}"
+HOME = Path.home() / f".{PROJECT_NAME}"
 HOME.mkdir(exist_ok=True, parents=True)
 
 LOGS = HOME / "logs"

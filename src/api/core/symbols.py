@@ -1,7 +1,7 @@
 from abc import ABC
-from typing import ClassVar, Any
+from collections import UserList, UserString
 from datetime import datetime
-from collections import UserString, UserList
+from typing import Any, ClassVar
 
 from pydantic import RootModel
 
@@ -10,6 +10,7 @@ from src.util import dt
 
 class _Discriminated(ABC, UserString):
     discriminator: ClassVar[str]
+
     def __init__(self, data: str):
         seq = data.removeprefix(self.discriminator)
         super().__init__(seq)
@@ -38,7 +39,9 @@ class Timestamp(_Symbol):
             data = f"@{dt.isotoday()}"
         else:
             try:
-                datetime.strptime(data.removeprefix(self.discriminator), dt._ISODATETIME)
+                datetime.strptime(
+                    data.removeprefix(self.discriminator), dt._ISODATETIME
+                )
             except ValueError:
                 raise ValueError(f"Invalid timestamp format: {data}")
         super().__init__(data)
@@ -46,27 +49,24 @@ class Timestamp(_Symbol):
     @property
     def obj(self) -> datetime:
         return dt.convert(dt_str=self.data)
-            
-                
+
+
 class Attribute(_Symbol):
     discriminator: ClassVar[str] = "#"
-    
+
 
 class Collection(_Discriminated, UserList[_Symbol]):
     discriminator: ClassVar[str] = "+"
 
     @staticmethod
     def _raise_if_heterogenous(*symbols: _Symbol) -> None:
-        if len(set([
-            symbol.discriminator 
-            for symbol in symbols
-        ])) > 1:
+        if len(set([symbol.discriminator for symbol in symbols])) > 1:
             raise ValueError("Multiple discriminators encountered in provided symbols")
 
     def __init__(self, *symbols: _Symbol):
         self._raise_if_heterogenous(*symbols)
         super().__init__(symbols)
-            
+
     @classmethod
     def parse_li(cls, *symbols: str):
         symbols_out = []
@@ -80,7 +80,7 @@ class Collection(_Discriminated, UserList[_Symbol]):
             else:
                 raise ValueError(f"Invalid symbol encountered: {symbol}")
         return cls(*symbols_out)
-        
+
     @classmethod
     def parse_str(cls, symbols: str):
         symbols_li = list({symbol.strip() for symbol in symbols.split(",")})

@@ -3,7 +3,7 @@ from typing import TypeVar, Unpack
 
 from pydantic import BaseModel
 
-from src.util import ident, dt
+from src.util import dt, ident
 
 RequestModelT = TypeVar("RequestModelT", bound=type[BaseModel])
 RequestInstanceT = TypeVar("RequestInstanceT", bound=BaseModel)
@@ -15,6 +15,7 @@ class Request[RequestModelT, RequestInstanceT]:
     _completed_at: float | None
     _data: RequestInstanceT | None
     _model: RequestModelT
+
     def __init__(self, model: RequestModelT):
         self._model = model
         self._data = None
@@ -45,7 +46,7 @@ class Request[RequestModelT, RequestInstanceT]:
     def elapsed(self) -> float | None:
         if self.completed:
             return self._completed_at - self._created_at
-    
+
     async def make(self, **kwargs: Unpack[RequestModelT]) -> None:
         if self.completed:
             raise ValueError(f"An instance of {self} already exists")

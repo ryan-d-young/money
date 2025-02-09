@@ -12,7 +12,7 @@ class Session:
         self.dependency_manager = Manager(*dependencies)
         self.logger = logger
         self.registry = Registry.scan(const.PROVIDERS, logger=self.logger)
-    
+
     async def start(self):
         await self.dependency_manager.start(self._env)
         self.logger.info("Session started")
@@ -35,8 +35,5 @@ class Session:
         return self._env
 
     def inject(self, router: Router) -> Router:
-        deps = [
-            self.dependency(name) 
-            for name in router.info.requires
-        ]
+        deps = [self.dependency(name) for name in router.info.requires]
         return partial(router, *deps)

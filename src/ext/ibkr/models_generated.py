@@ -24,63 +24,63 @@ class ACHDetails(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    cust_init_ach: Optional[bool] = Field(None, alias='custInitAch')
-    bank_name: Optional[str] = Field(None, alias='bankName')
+    cust_init_ach: Optional[bool] = Field(None, alias="custInitAch")
+    bank_name: Optional[str] = Field(None, alias="bankName")
 
 
 class Type(Enum):
-    credit = 'CREDIT'
-    debit = 'DEBIT'
-    debit_credit = 'DEBIT_CREDIT'
+    credit = "CREDIT"
+    debit = "DEBIT"
+    debit_credit = "DEBIT_CREDIT"
 
 
 class Currency(Enum):
-    usd = 'USD'
-    eur = 'EUR'
-    gbp = 'GBP'
-    cad = 'CAD'
-    jpy = 'JPY'
-    hkd = 'HKD'
-    aud = 'AUD'
-    chf = 'CHF'
-    mxn = 'MXN'
-    sek = 'SEK'
-    nzd = 'NZD'
-    huf = 'HUF'
-    czk = 'CZK'
-    cnh = 'CNH'
-    dkk = 'DKK'
-    rub = 'RUB'
-    ils = 'ILS'
-    nok = 'NOK'
-    sgd = 'SGD'
-    pln = 'PLN'
-    zar = 'ZAR'
-    aed = 'AED'
-    krw = 'KRW'
-    sar = 'SAR'
-    try_ = 'TRY'
+    usd = "USD"
+    eur = "EUR"
+    gbp = "GBP"
+    cad = "CAD"
+    jpy = "JPY"
+    hkd = "HKD"
+    aud = "AUD"
+    chf = "CHF"
+    mxn = "MXN"
+    sek = "SEK"
+    nzd = "NZD"
+    huf = "HUF"
+    czk = "CZK"
+    cnh = "CNH"
+    dkk = "DKK"
+    rub = "RUB"
+    ils = "ILS"
+    nok = "NOK"
+    sgd = "SGD"
+    pln = "PLN"
+    zar = "ZAR"
+    aed = "AED"
+    krw = "KRW"
+    sar = "SAR"
+    try_ = "TRY"
 
 
 class AccountType(Enum):
-    savings = 'savings'
-    checking = 'checking'
+    savings = "savings"
+    checking = "checking"
 
 
 class ACHInstruction(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    cust_init_ach: Optional[bool] = Field(None, alias='custInitAch')
+    cust_init_ach: Optional[bool] = Field(None, alias="custInitAch")
     type: Optional[Type] = None
     name: Optional[str] = None
-    bank_name: Optional[str] = Field(None, alias='bankName')
-    ib_account: Optional[str] = Field(None, alias='ibAccount')
-    bank_country: Optional[str] = Field(None, alias='bankCountry')
+    bank_name: Optional[str] = Field(None, alias="bankName")
+    ib_account: Optional[str] = Field(None, alias="ibAccount")
+    bank_country: Optional[str] = Field(None, alias="bankCountry")
     currency: Optional[Currency] = None
-    routing_number: Optional[str] = Field(None, alias='routingNumber')
-    account_number: Optional[str] = Field(None, alias='accountNumber')
-    account_type: Optional[AccountType] = Field(None, alias='accountType')
+    routing_number: Optional[str] = Field(None, alias="routingNumber")
+    account_number: Optional[str] = Field(None, alias="accountNumber")
+    account_type: Optional[AccountType] = Field(None, alias="accountType")
 
 
 class AUSExposureDetailsType(BaseModel):
@@ -88,104 +88,104 @@ class AUSExposureDetailsType(BaseModel):
         populate_by_name=True,
     )
     aus_exposure_relationship: Optional[str] = Field(
-        None, alias='ausExposureRelationship'
+        None, alias="ausExposureRelationship"
     )
-    person_name: Optional[str] = Field(None, alias='personName')
-    license_number: Optional[int] = Field(None, alias='licenseNumber')
+    person_name: Optional[str] = Field(None, alias="personName")
+    license_number: Optional[int] = Field(None, alias="licenseNumber")
 
 
 class AbandonAccount(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
 
 
 class InvestmentObjective(Enum):
-    trading = 'Trading'
-    growth = 'Growth'
-    speculation = 'Speculation'
-    hedging = 'Hedging'
-    preservation = 'Preservation'
-    income = 'Income'
+    trading = "Trading"
+    growth = "Growth"
+    speculation = "Speculation"
+    hedging = "Hedging"
+    preservation = "Preservation"
+    income = "Income"
 
 
 class BrokerageServiceCode(Enum):
-    ib_clearing = 'IBClearing'
-    ib_execution = 'IBExecution'
-    ib_prime = 'IBPrime'
+    ib_clearing = "IBClearing"
+    ib_execution = "IBExecution"
+    ib_prime = "IBPrime"
 
 
 class Capability(Enum):
-    bond = 'BOND'
-    fop = 'FOP'
-    fund = 'FUND'
-    fut = 'FUT'
-    mrgn = 'MRGN'
-    mult = 'MULT'
-    opt = 'OPT'
-    ssf = 'SSF'
-    cfd = 'CFD'
-    stk = 'STK'
-    clp = 'CLP'
-    levfx = 'LEVFX'
-    cmdty = 'CMDTY'
+    bond = "BOND"
+    fop = "FOP"
+    fund = "FUND"
+    fut = "FUT"
+    mrgn = "MRGN"
+    mult = "MULT"
+    opt = "OPT"
+    ssf = "SSF"
+    cfd = "CFD"
+    stk = "STK"
+    clp = "CLP"
+    levfx = "LEVFX"
+    cmdty = "CMDTY"
 
 
 class BaseCurrency(Enum):
-    usd = 'USD'
-    eur = 'EUR'
-    gbp = 'GBP'
-    cad = 'CAD'
-    jpy = 'JPY'
-    hkd = 'HKD'
-    aud = 'AUD'
-    chf = 'CHF'
-    mxn = 'MXN'
-    sek = 'SEK'
-    nzd = 'NZD'
-    huf = 'HUF'
-    czk = 'CZK'
-    cnh = 'CNH'
-    dkk = 'DKK'
-    rub = 'RUB'
-    ils = 'ILS'
-    nok = 'NOK'
-    sgd = 'SGD'
-    pln = 'PLN'
-    zar = 'ZAR'
-    aed = 'AED'
-    krw = 'KRW'
-    sar = 'SAR'
-    try_ = 'TRY'
+    usd = "USD"
+    eur = "EUR"
+    gbp = "GBP"
+    cad = "CAD"
+    jpy = "JPY"
+    hkd = "HKD"
+    aud = "AUD"
+    chf = "CHF"
+    mxn = "MXN"
+    sek = "SEK"
+    nzd = "NZD"
+    huf = "HUF"
+    czk = "CZK"
+    cnh = "CNH"
+    dkk = "DKK"
+    rub = "RUB"
+    ils = "ILS"
+    nok = "NOK"
+    sgd = "SGD"
+    pln = "PLN"
+    zar = "ZAR"
+    aed = "AED"
+    krw = "KRW"
+    sar = "SAR"
+    try_ = "TRY"
 
 
 class IraType(Enum):
-    ri = 'RI'
-    ro = 'RO'
-    rt = 'RT'
-    sp = 'SP'
-    ed = 'ED'
-    th = 'TH'
-    rh = 'RH'
-    sh = 'SH'
-    rrsp = 'RRSP'
-    srrsp = 'SRRSP'
-    tfsa = 'TFSA'
-    simple = 'SIMPLE'
-    isa = 'ISA'
+    ri = "RI"
+    ro = "RO"
+    rt = "RT"
+    sp = "SP"
+    ed = "ED"
+    th = "TH"
+    rh = "RH"
+    sh = "SH"
+    rrsp = "RRSP"
+    srrsp = "SRRSP"
+    tfsa = "TFSA"
+    simple = "SIMPLE"
+    isa = "ISA"
 
 
 class AccountType1(Enum):
-    investment = 'Investment'
-    trading = 'Trading'
-    smsf = 'SMSF'
+    investment = "Investment"
+    trading = "Trading"
+    smsf = "SMSF"
 
 
 class BankInstructionMethod(Enum):
-    ach = 'ACH'
-    wire = 'WIRE'
-    check = 'CHECK'
+    ach = "ACH"
+    wire = "WIRE"
+    check = "CHECK"
 
 
 class WithdrawalInfo(BaseModel):
@@ -193,10 +193,10 @@ class WithdrawalInfo(BaseModel):
         populate_by_name=True,
     )
     bank_instruction_name: constr(min_length=1, max_length=150) = Field(
-        ..., alias='bankInstructionName', examples=['Bank Instruction Name']
+        ..., alias="bankInstructionName", examples=["Bank Instruction Name"]
     )
     bank_instruction_method: BankInstructionMethod = Field(
-        ..., alias='bankInstructionMethod', examples=['WIRE']
+        ..., alias="bankInstructionMethod", examples=["WIRE"]
     )
 
 
@@ -205,22 +205,22 @@ class AccountCloseInstruction(BaseModel):
         populate_by_name=True,
     )
     client_instruction_id: float = Field(
-        ..., alias='clientInstructionId', examples=[1012983]
+        ..., alias="clientInstructionId", examples=[1012983]
     )
     account_id: constr(min_length=1, max_length=32) = Field(
-        ..., alias='accountId', examples=['U46377']
+        ..., alias="accountId", examples=["U46377"]
     )
     close_reason: Optional[constr(min_length=1, max_length=2000)] = Field(
-        None, alias='closeReason', examples=['Input your reason of closure here']
+        None, alias="closeReason", examples=["Input your reason of closure here"]
     )
-    withdrawal_info: Optional[WithdrawalInfo] = Field(None, alias='withdrawalInfo')
+    withdrawal_info: Optional[WithdrawalInfo] = Field(None, alias="withdrawalInfo")
 
 
 class AccountConfiguration(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
     type: Optional[str] = None
     value: Optional[bool] = None
 
@@ -237,88 +237,88 @@ class AccountData(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    account_id: Optional[str] = Field(None, alias='accountId')
-    master_account_id: Optional[str] = Field(None, alias='masterAccountId')
-    main_account: Optional[str] = Field(None, alias='mainAccount')
-    source_account_id: Optional[str] = Field(None, alias='sourceAccountId')
-    primary_user: Optional[str] = Field(None, alias='primaryUser')
-    clearing_status: Optional[str] = Field(None, alias='clearingStatus')
+    account_id: Optional[str] = Field(None, alias="accountId")
+    master_account_id: Optional[str] = Field(None, alias="masterAccountId")
+    main_account: Optional[str] = Field(None, alias="mainAccount")
+    source_account_id: Optional[str] = Field(None, alias="sourceAccountId")
+    primary_user: Optional[str] = Field(None, alias="primaryUser")
+    clearing_status: Optional[str] = Field(None, alias="clearingStatus")
     clearing_status_description: Optional[str] = Field(
-        None, alias='clearingStatusDescription'
+        None, alias="clearingStatusDescription"
     )
-    state_code: Optional[str] = Field(None, alias='stateCode')
-    base_currency: Optional[str] = Field(None, alias='baseCurrency')
-    date_begun: Optional[str] = Field(None, alias='dateBegun')
-    date_approved: Optional[str] = Field(None, alias='dateApproved')
-    date_opened: Optional[str] = Field(None, alias='dateOpened')
-    date_funded: Optional[str] = Field(None, alias='dateFunded')
-    date_closed: Optional[str] = Field(None, alias='dateClosed')
-    date_linked: Optional[str] = Field(None, alias='dateLinked')
-    date_delinked: Optional[str] = Field(None, alias='dateDelinked')
-    account_title: Optional[str] = Field(None, alias='accountTitle')
-    official_title: Optional[str] = Field(None, alias='officialTitle')
-    account_alias: Optional[str] = Field(None, alias='accountAlias')
-    email_address: Optional[str] = Field(None, alias='emailAddress')
+    state_code: Optional[str] = Field(None, alias="stateCode")
+    base_currency: Optional[str] = Field(None, alias="baseCurrency")
+    date_begun: Optional[str] = Field(None, alias="dateBegun")
+    date_approved: Optional[str] = Field(None, alias="dateApproved")
+    date_opened: Optional[str] = Field(None, alias="dateOpened")
+    date_funded: Optional[str] = Field(None, alias="dateFunded")
+    date_closed: Optional[str] = Field(None, alias="dateClosed")
+    date_linked: Optional[str] = Field(None, alias="dateLinked")
+    date_delinked: Optional[str] = Field(None, alias="dateDelinked")
+    account_title: Optional[str] = Field(None, alias="accountTitle")
+    official_title: Optional[str] = Field(None, alias="officialTitle")
+    account_alias: Optional[str] = Field(None, alias="accountAlias")
+    email_address: Optional[str] = Field(None, alias="emailAddress")
     margin: Optional[str] = None
-    applicant_type: Optional[str] = Field(None, alias='applicantType')
-    sub_type: Optional[str] = Field(None, alias='subType')
+    applicant_type: Optional[str] = Field(None, alias="applicantType")
+    sub_type: Optional[str] = Field(None, alias="subType")
     stock_yield_program: Optional[Dict[str, str]] = Field(
-        None, alias='stockYieldProgram'
+        None, alias="stockYieldProgram"
     )
-    fee_template: Optional[Dict[str, str]] = Field(None, alias='feeTemplate')
+    fee_template: Optional[Dict[str, str]] = Field(None, alias="feeTemplate")
     capabilities: Optional[Dict[str, List[str]]] = None
-    limited_option_trading: Optional[str] = Field(None, alias='limitedOptionTrading')
+    limited_option_trading: Optional[str] = Field(None, alias="limitedOptionTrading")
     investment_objectives: Optional[List[str]] = Field(
-        None, alias='investmentObjectives'
+        None, alias="investmentObjectives"
     )
-    external_id: Optional[str] = Field(None, alias='externalId')
-    mifid_category: Optional[str] = Field(None, alias='mifidCategory')
-    mifir_status: Optional[str] = Field(None, alias='mifirStatus')
+    external_id: Optional[str] = Field(None, alias="externalId")
+    mifid_category: Optional[str] = Field(None, alias="mifidCategory")
+    mifir_status: Optional[str] = Field(None, alias="mifirStatus")
     equity: Optional[float] = None
     household: Optional[str] = None
-    property_profile: Optional[str] = Field(None, alias='propertyProfile')
-    process_type: Optional[str] = Field(None, alias='processType')
-    risk_score: Optional[int] = Field(None, alias='riskScore')
+    property_profile: Optional[str] = Field(None, alias="propertyProfile")
+    process_type: Optional[str] = Field(None, alias="processType")
+    risk_score: Optional[int] = Field(None, alias="riskScore")
     class_action_program: Optional[str] = None
-    trust_type: Optional[str] = Field(None, alias='trustType')
-    org_type: Optional[str] = Field(None, alias='orgType')
-    business_description: Optional[str] = Field(None, alias='businessDescription')
-    us_tax_purpose_type: Optional[str] = Field(None, alias='usTaxPurposeType')
-    trade_intention_type: Optional[str] = Field(None, alias='tradeIntentionType')
+    trust_type: Optional[str] = Field(None, alias="trustType")
+    org_type: Optional[str] = Field(None, alias="orgType")
+    business_description: Optional[str] = Field(None, alias="businessDescription")
+    us_tax_purpose_type: Optional[str] = Field(None, alias="usTaxPurposeType")
+    trade_intention_type: Optional[str] = Field(None, alias="tradeIntentionType")
     registered_address: Optional[Dict[str, str]] = Field(
-        None, alias='registeredAddress'
+        None, alias="registeredAddress"
     )
     mailing: Optional[Dict[str, str]] = None
-    country_of_corporation: Optional[str] = Field(None, alias='countryOfCorporation')
-    tax_ids: Optional[List[Dict[str, str]]] = Field(None, alias='taxIds')
+    country_of_corporation: Optional[str] = Field(None, alias="countryOfCorporation")
+    tax_ids: Optional[List[Dict[str, str]]] = Field(None, alias="taxIds")
     tax_treaty_details: Optional[List[Dict[str, str]]] = Field(
-        None, alias='taxTreatyDetails'
+        None, alias="taxTreatyDetails"
     )
 
 
 class Status(Enum):
-    n = 'N'
-    o = 'O'
-    p = 'P'
-    c = 'C'
-    a = 'A'
-    e = 'E'
-    f = 'F'
-    i = 'I'
-    j = 'J'
-    l = 'L'
-    m = 'M'
-    r = 'R'
-    w = 'W'
-    q = 'Q'
+    n = "N"
+    o = "O"
+    p = "P"
+    c = "C"
+    a = "A"
+    e = "E"
+    f = "F"
+    i = "I"
+    j = "J"
+    l = "L"
+    m = "M"
+    r = "R"
+    w = "W"
+    q = "Q"
 
 
 class AccountStatusRequest(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    start_date: date = Field(..., alias='startDate')
-    end_date: date = Field(..., alias='endDate')
+    start_date: date = Field(..., alias="startDate")
+    end_date: date = Field(..., alias="endDate")
     offset: Optional[conint(ge=0)] = None
     limit: Optional[conint(ge=1, le=1000)] = None
     status: Optional[Status] = None
@@ -328,23 +328,23 @@ class AccountStatusResponse(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    date_opened: Optional[datetime] = Field(None, alias='dateOpened')
-    date_started: Optional[datetime] = Field(None, alias='dateStarted')
-    date_closed: Optional[datetime] = Field(None, alias='dateClosed')
-    account_id: Optional[str] = Field(None, alias='accountId')
+    date_opened: Optional[datetime] = Field(None, alias="dateOpened")
+    date_started: Optional[datetime] = Field(None, alias="dateStarted")
+    date_closed: Optional[datetime] = Field(None, alias="dateClosed")
+    account_id: Optional[str] = Field(None, alias="accountId")
     status: Optional[str] = None
     description: Optional[str] = None
-    master_account_id: Optional[str] = Field(None, alias='masterAccountId')
+    master_account_id: Optional[str] = Field(None, alias="masterAccountId")
     state: Optional[str] = None
 
 
 class Type1(Enum):
-    financialinstitution = 'FINANCIALINSTITUTION'
-    proprietarytrading = 'PROPRIETARYTRADING'
-    familyinvvehicle = 'FAMILYINVVEHICLE'
-    operatingbusiness = 'OPERATINGBUSINESS'
-    brokerdealer = 'BROKERDEALER'
-    licensedadvisor = 'LICENSEDADVISOR'
+    financialinstitution = "FINANCIALINSTITUTION"
+    proprietarytrading = "PROPRIETARYTRADING"
+    familyinvvehicle = "FAMILYINVVEHICLE"
+    operatingbusiness = "OPERATINGBUSINESS"
+    brokerdealer = "BROKERDEALER"
+    licensedadvisor = "LICENSEDADVISOR"
 
 
 class AccreditedInvestorInformation(BaseModel):
@@ -359,20 +359,20 @@ class AccreditedInvestorInformation(BaseModel):
 
 
 class BankInstructionCode(Enum):
-    caach = 'CAACH'
-    usach = 'USACH'
+    caach = "CAACH"
+    usach = "USACH"
 
 
 class AchType(Enum):
-    debit = 'DEBIT'
-    credit = 'CREDIT'
-    debit_credit = 'DEBIT_CREDIT'
+    debit = "DEBIT"
+    credit = "CREDIT"
+    debit_credit = "DEBIT_CREDIT"
 
 
 class BankAccountTypeCode(Enum):
-    field_0 = '0'
-    field_1 = '1'
-    field_2 = '2'
+    field_0 = "0"
+    field_1 = "1"
+    field_2 = "2"
 
 
 class ClientAccountInfo(BaseModel):
@@ -380,16 +380,16 @@ class ClientAccountInfo(BaseModel):
         populate_by_name=True,
     )
     bank_routing_number: constr(min_length=1, max_length=24) = Field(
-        ..., alias='bankRoutingNumber', examples=['202012983']
+        ..., alias="bankRoutingNumber", examples=["202012983"]
     )
     bank_account_number: constr(min_length=1, max_length=32) = Field(
-        ..., alias='bankAccountNumber', examples=['-1811638121']
+        ..., alias="bankAccountNumber", examples=["-1811638121"]
     )
     bank_name: constr(min_length=1, max_length=100) = Field(
-        ..., alias='bankName', examples=['JPM Chase']
+        ..., alias="bankName", examples=["JPM Chase"]
     )
     bank_account_type_code: BankAccountTypeCode = Field(
-        ..., alias='bankAccountTypeCode'
+        ..., alias="bankAccountTypeCode"
     )
 
 
@@ -398,131 +398,131 @@ class AchInstruction(BaseModel):
         populate_by_name=True,
     )
     client_instruction_id: float = Field(
-        ..., alias='clientInstructionId', examples=[1012983]
+        ..., alias="clientInstructionId", examples=[1012983]
     )
     bank_instruction_code: BankInstructionCode = Field(
-        ..., alias='bankInstructionCode', examples=['USACH']
+        ..., alias="bankInstructionCode", examples=["USACH"]
     )
-    ach_type: AchType = Field(..., alias='achType', examples=['DEBIT_CREDIT'])
+    ach_type: AchType = Field(..., alias="achType", examples=["DEBIT_CREDIT"])
     bank_instruction_name: constr(min_length=1, max_length=100) = Field(
-        ..., alias='bankInstructionName', examples=['TestInstr']
+        ..., alias="bankInstructionName", examples=["TestInstr"]
     )
-    currency: constr(min_length=1, max_length=3) = Field(..., examples=['USD'])
+    currency: constr(min_length=1, max_length=3) = Field(..., examples=["USD"])
     account_id: constr(min_length=1, max_length=32) = Field(
-        ..., alias='accountId', examples=['U223454']
+        ..., alias="accountId", examples=["U223454"]
     )
-    client_account_info: ClientAccountInfo = Field(..., alias='clientAccountInfo')
+    client_account_info: ClientAccountInfo = Field(..., alias="clientAccountInfo")
 
 
 class AddLEVFXCapability(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
 
 
 class Name(Enum):
-    account_holder = 'Account_Holder'
-    spouse = 'Spouse'
-    firstholder = 'Firstholder'
-    secondholder = 'Secondholder'
-    trader = 'Trader'
-    secretary = 'Secretary'
-    treasurer = 'Treasurer'
-    ceo = 'Ceo'
-    owner = 'Owner'
-    trustee = 'Trustee'
-    beneficiary = 'Beneficiary'
-    grantor = 'Grantor'
-    director = 'Director'
-    principal = 'Principal'
-    shareholder = 'Shareholder'
-    partner = 'Partner'
-    controlling_officer = 'Controlling_Officer'
-    beneficialowner = 'Beneficialowner'
-    signatory = 'Signatory'
-    comp_officer = 'Comp_Officer'
-    superv_broker = 'Superv_Broker'
-    pooled_user = 'Pooled_User'
-    financial_user = 'Financial_User'
-    contingent = 'Contingent'
-    ira_beneficiary = 'Ira_Beneficiary'
-    employee = 'Employee'
-    non_employee = 'Non_Employee'
-    fund_admin = 'Fund_Admin'
-    fund_contact = 'Fund_Contact'
-    firm_admin = 'Firm_Admin'
-    firm_billing = 'Firm_Billing'
-    firm_clearing = 'Firm_Clearing'
-    firm_sales = 'Firm_Sales'
-    firm_trading = 'Firm_Trading'
-    firm_user = 'Firm_User'
-    account_admin = 'Account_Admin'
-    account_billing = 'Account_Billing'
-    account_clearing = 'Account_Clearing'
-    account_sales = 'Account_Sales'
-    account_trading = 'Account_Trading'
-    user_individual = 'User_Individual'
-    fund_manager = 'Fund_Manager'
-    investment_advisor = 'Investment_Advisor'
-    shf_investmanager = 'Shf_Investmanager'
-    advisory_principal = 'Advisory_Principal'
-    advisory_signatory = 'Advisory_Signatory'
-    associated_fund = 'Associated_Fund'
-    primary_contributor = 'Primary_Contributor'
-    administrator = 'Administrator'
-    contact = 'Contact'
-    lead_compliance_officer = 'Lead_Compliance_Officer'
-    compliance_officer = 'Compliance_Officer'
-    other_officer = 'Other_Officer'
-    apply_user = 'Apply_User'
-    transfer_on_death_legator = 'Transfer_On_Death_Legator'
-    tod_primary_beneficiary = 'Tod_Primary_Beneficiary'
-    tod_contingent_beneficiary = 'Tod_Contingent_Beneficiary'
-    nominee = 'Nominee'
-    nominee_guardian = 'Nominee_Guardian'
-    ira_decedent = 'Ira_Decedent'
-    authorized_person = 'Authorized_Person'
-    promoter = 'Promoter'
-    wholetime_director = 'Wholetime_Director'
-    nominee_owner = 'Nominee_Owner'
-    third_party_admin = 'Third_Party_Admin'
-    compliance_contact = 'Compliance_Contact'
-    trust_controller = 'Trust_Controller'
-    trust_applicant = 'Trust_Applicant'
-    organization_applicant = 'Organization_Applicant'
-    mm_contact = 'Mm_Contact'
-    reg_rep = 'Reg_Rep'
-    plan_sponsor = 'Plan_Sponsor'
-    plan_sponsor_officer = 'Plan_Sponsor_Officer'
-    pension_admin = 'Pension_Admin'
-    pension_admin_contact = 'Pension_Admin_Contact'
-    accountant = 'Accountant'
-    joint_applicant = 'Joint_Applicant'
-    custodian_employee = 'Custodian_Employee'
-    successor_custodian = 'Successor_Custodian'
-    custodian = 'Custodian'
-    successor_custodian_employee = 'Successor_Custodian_Employee'
-    chief_compliance_officer = 'Chief_Compliance_Officer'
-    chief_financial_officer = 'Chief_Financial_Officer'
-    trading_officer = 'Trading_Officer'
-    child = 'Child'
-    parent = 'Parent'
-    sibling = 'Sibling'
-    estate = 'Estate'
-    as_interest_may_appear = 'As_Interest_May_Appear'
-    ira_present_trust = 'Ira_Present_Trust'
-    other = 'Other'
-    life_partner = 'Life_Partner'
-    common_law_partner = 'Common_Law_Partner'
-    grandchild = 'Grandchild'
-    charity = 'Charity'
-    trust_ira = 'Trust_Ira'
-    successor_holder = 'Successor_Holder'
-    head_of_desk = 'Head_Of_Desk'
-    cftc_non_applicant_ocr_contact = 'Cftc_Non_Applicant_Ocr_Contact'
-    ocr_account_controller = 'Ocr_Account_Controller'
-    cftc_applicant_ocr_contact = 'Cftc_Applicant_Ocr_Contact'
+    account_holder = "Account_Holder"
+    spouse = "Spouse"
+    firstholder = "Firstholder"
+    secondholder = "Secondholder"
+    trader = "Trader"
+    secretary = "Secretary"
+    treasurer = "Treasurer"
+    ceo = "Ceo"
+    owner = "Owner"
+    trustee = "Trustee"
+    beneficiary = "Beneficiary"
+    grantor = "Grantor"
+    director = "Director"
+    principal = "Principal"
+    shareholder = "Shareholder"
+    partner = "Partner"
+    controlling_officer = "Controlling_Officer"
+    beneficialowner = "Beneficialowner"
+    signatory = "Signatory"
+    comp_officer = "Comp_Officer"
+    superv_broker = "Superv_Broker"
+    pooled_user = "Pooled_User"
+    financial_user = "Financial_User"
+    contingent = "Contingent"
+    ira_beneficiary = "Ira_Beneficiary"
+    employee = "Employee"
+    non_employee = "Non_Employee"
+    fund_admin = "Fund_Admin"
+    fund_contact = "Fund_Contact"
+    firm_admin = "Firm_Admin"
+    firm_billing = "Firm_Billing"
+    firm_clearing = "Firm_Clearing"
+    firm_sales = "Firm_Sales"
+    firm_trading = "Firm_Trading"
+    firm_user = "Firm_User"
+    account_admin = "Account_Admin"
+    account_billing = "Account_Billing"
+    account_clearing = "Account_Clearing"
+    account_sales = "Account_Sales"
+    account_trading = "Account_Trading"
+    user_individual = "User_Individual"
+    fund_manager = "Fund_Manager"
+    investment_advisor = "Investment_Advisor"
+    shf_investmanager = "Shf_Investmanager"
+    advisory_principal = "Advisory_Principal"
+    advisory_signatory = "Advisory_Signatory"
+    associated_fund = "Associated_Fund"
+    primary_contributor = "Primary_Contributor"
+    administrator = "Administrator"
+    contact = "Contact"
+    lead_compliance_officer = "Lead_Compliance_Officer"
+    compliance_officer = "Compliance_Officer"
+    other_officer = "Other_Officer"
+    apply_user = "Apply_User"
+    transfer_on_death_legator = "Transfer_On_Death_Legator"
+    tod_primary_beneficiary = "Tod_Primary_Beneficiary"
+    tod_contingent_beneficiary = "Tod_Contingent_Beneficiary"
+    nominee = "Nominee"
+    nominee_guardian = "Nominee_Guardian"
+    ira_decedent = "Ira_Decedent"
+    authorized_person = "Authorized_Person"
+    promoter = "Promoter"
+    wholetime_director = "Wholetime_Director"
+    nominee_owner = "Nominee_Owner"
+    third_party_admin = "Third_Party_Admin"
+    compliance_contact = "Compliance_Contact"
+    trust_controller = "Trust_Controller"
+    trust_applicant = "Trust_Applicant"
+    organization_applicant = "Organization_Applicant"
+    mm_contact = "Mm_Contact"
+    reg_rep = "Reg_Rep"
+    plan_sponsor = "Plan_Sponsor"
+    plan_sponsor_officer = "Plan_Sponsor_Officer"
+    pension_admin = "Pension_Admin"
+    pension_admin_contact = "Pension_Admin_Contact"
+    accountant = "Accountant"
+    joint_applicant = "Joint_Applicant"
+    custodian_employee = "Custodian_Employee"
+    successor_custodian = "Successor_Custodian"
+    custodian = "Custodian"
+    successor_custodian_employee = "Successor_Custodian_Employee"
+    chief_compliance_officer = "Chief_Compliance_Officer"
+    chief_financial_officer = "Chief_Financial_Officer"
+    trading_officer = "Trading_Officer"
+    child = "Child"
+    parent = "Parent"
+    sibling = "Sibling"
+    estate = "Estate"
+    as_interest_may_appear = "As_Interest_May_Appear"
+    ira_present_trust = "Ira_Present_Trust"
+    other = "Other"
+    life_partner = "Life_Partner"
+    common_law_partner = "Common_Law_Partner"
+    grandchild = "Grandchild"
+    charity = "Charity"
+    trust_ira = "Trust_Ira"
+    successor_holder = "Successor_Holder"
+    head_of_desk = "Head_Of_Desk"
+    cftc_non_applicant_ocr_contact = "Cftc_Non_Applicant_Ocr_Contact"
+    ocr_account_controller = "Ocr_Account_Controller"
+    cftc_applicant_ocr_contact = "Cftc_Applicant_Ocr_Contact"
 
 
 class AddRelationship(BaseModel):
@@ -530,7 +530,7 @@ class AddRelationship(BaseModel):
         populate_by_name=True,
     )
     name: Optional[Name] = None
-    ownership_percentage: Optional[int] = Field(None, alias='ownershipPercentage')
+    ownership_percentage: Optional[int] = Field(None, alias="ownershipPercentage")
 
 
 class Address(BaseModel):
@@ -542,53 +542,53 @@ class Address(BaseModel):
     city: Optional[str] = None
     state: Optional[str] = None
     country: Optional[str] = None
-    postal_code: Optional[str] = Field(None, alias='postalCode')
+    postal_code: Optional[str] = Field(None, alias="postalCode")
 
 
 class Suffix(Enum):
-    jr_ = 'Jr.'
-    sr_ = 'Sr.'
-    i = 'I'
-    ii = 'II'
-    iii = 'III'
-    iv = 'IV'
-    v = 'V'
+    jr_ = "Jr."
+    sr_ = "Sr."
+    i = "I"
+    ii = "II"
+    iii = "III"
+    iv = "IV"
+    v = "V"
 
 
 class AdministratorContactPersonType(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    first_name: Optional[str] = Field(None, alias='firstName')
-    middle_initial: Optional[str] = Field(None, alias='middleInitial')
-    last_name: Optional[str] = Field(None, alias='lastName')
+    first_name: Optional[str] = Field(None, alias="firstName")
+    middle_initial: Optional[str] = Field(None, alias="middleInitial")
+    last_name: Optional[str] = Field(None, alias="lastName")
     suffix: Optional[Suffix] = None
-    phone_number: Optional[str] = Field(None, alias='phoneNumber')
+    phone_number: Optional[str] = Field(None, alias="phoneNumber")
 
 
 class AdministratorType(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    first_name: Optional[str] = Field(None, alias='firstName')
-    middle_initial: Optional[str] = Field(None, alias='middleInitial')
-    last_name: Optional[str] = Field(None, alias='lastName')
+    first_name: Optional[str] = Field(None, alias="firstName")
+    middle_initial: Optional[str] = Field(None, alias="middleInitial")
+    last_name: Optional[str] = Field(None, alias="lastName")
     suffix: Optional[Suffix] = None
     address: Optional[Address] = None
 
 
 class Strategy(Enum):
-    automated = 'AUTOMATED'
-    directbilling = 'DIRECTBILLING'
-    no_fee = 'NO_FEE'
+    automated = "AUTOMATED"
+    directbilling = "DIRECTBILLING"
+    no_fee = "NO_FEE"
 
 
 class AffiliationRelationship(Enum):
-    self = 'Self'
-    spouse = 'Spouse'
-    parent = 'Parent'
-    child = 'Child'
-    other = 'Other'
+    self = "Self"
+    spouse = "Spouse"
+    parent = "Parent"
+    child = "Child"
+    other = "Other"
 
 
 class AffiliationDetailsType(BaseModel):
@@ -596,45 +596,45 @@ class AffiliationDetailsType(BaseModel):
         populate_by_name=True,
     )
     affiliation_relationship: Optional[AffiliationRelationship] = Field(
-        None, alias='affiliationRelationship'
+        None, alias="affiliationRelationship"
     )
-    person_name: Optional[str] = Field(None, alias='personName')
-    company_id: Optional[int] = Field(None, alias='companyId')
+    person_name: Optional[str] = Field(None, alias="personName")
+    company_id: Optional[int] = Field(None, alias="companyId")
     company: Optional[str] = None
     company_mailing_address: Optional[Address] = Field(
-        None, alias='companyMailingAddress'
+        None, alias="companyMailingAddress"
     )
-    company_phone: Optional[str] = Field(None, alias='companyPhone')
-    company_email_address: Optional[str] = Field(None, alias='companyEmailAddress')
-    duplicate_stmt_required: Optional[bool] = Field(None, alias='duplicateStmtRequired')
+    company_phone: Optional[str] = Field(None, alias="companyPhone")
+    company_email_address: Optional[str] = Field(None, alias="companyEmailAddress")
+    duplicate_stmt_required: Optional[bool] = Field(None, alias="duplicateStmtRequired")
 
 
 class AllocateVAN(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
     currency: Optional[Currency] = None
-    country_code: Optional[str] = Field(None, alias='countryCode')
+    country_code: Optional[str] = Field(None, alias="countryCode")
 
 
 class AmRequestStatusResponse(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    request_id: Optional[str] = Field(None, alias='requestId')
-    request_type: Optional[str] = Field(None, alias='requestType')
+    request_id: Optional[str] = Field(None, alias="requestId")
+    request_type: Optional[str] = Field(None, alias="requestType")
     status: Optional[str] = None
     message: Optional[str] = None
-    acct_id: Optional[str] = Field(None, alias='acctId')
+    acct_id: Optional[str] = Field(None, alias="acctId")
 
 
 class AnnualBlendedPercentage(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    blended_from: Optional[str] = Field(None, alias='blendedFrom')
-    blended_to: Optional[str] = Field(None, alias='blendedTo')
+    blended_from: Optional[str] = Field(None, alias="blendedFrom")
+    blended_to: Optional[str] = Field(None, alias="blendedTo")
     percentage: Optional[str] = None
 
 
@@ -647,18 +647,18 @@ class AnswerDetail(BaseModel):
 
 
 class InputLanguage(Enum):
-    en = 'en'
-    zh_hans = 'zh-Hans'
-    ja = 'ja'
-    ru = 'ru'
-    fr = 'fr'
-    pt = 'pt'
-    es = 'es'
-    it = 'it'
-    ar_ae = 'ar-AE'
-    de = 'de'
-    he_il = 'he-IL'
-    hu = 'hu'
+    en = "en"
+    zh_hans = "zh-Hans"
+    ja = "ja"
+    ru = "ru"
+    fr = "fr"
+    pt = "pt"
+    es = "es"
+    it = "it"
+    ar_ae = "ar-AE"
+    de = "de"
+    he_il = "he-IL"
+    hu = "hu"
 
 
 class ApplyFeeTemplateInstruction(BaseModel):
@@ -666,13 +666,13 @@ class ApplyFeeTemplateInstruction(BaseModel):
         populate_by_name=True,
     )
     client_instruction_id: float = Field(
-        ..., alias='clientInstructionId', examples=[1012983]
+        ..., alias="clientInstructionId", examples=[1012983]
     )
     account_id: constr(min_length=1, max_length=32) = Field(
-        ..., alias='accountId', examples=['U46377']
+        ..., alias="accountId", examples=["U46377"]
     )
     template_name: constr(min_length=1, max_length=64) = Field(
-        ..., alias='templateName', examples=['Test template']
+        ..., alias="templateName", examples=["Test template"]
     )
 
 
@@ -684,95 +684,95 @@ class ArrayNode(BaseModel):
 
 
 class AssetClass(Enum):
-    bill = 'BILL'
-    bond = 'BOND'
-    cash = 'CASH'
-    cfd = 'CFD'
-    comb = 'COMB'
-    fop = 'FOP'
-    fund = 'FUND'
-    fut = 'FUT'
-    opt = 'OPT'
-    ssf = 'SSF'
-    stk = 'STK'
-    war = 'WAR'
-    mrgn = 'MRGN'
+    bill = "BILL"
+    bond = "BOND"
+    cash = "CASH"
+    cfd = "CFD"
+    comb = "COMB"
+    fop = "FOP"
+    fund = "FUND"
+    fut = "FUT"
+    opt = "OPT"
+    ssf = "SSF"
+    stk = "STK"
+    war = "WAR"
+    mrgn = "MRGN"
 
 
 class KnowledgeLevel(Enum):
-    extensive = 'Extensive'
-    good = 'Good'
-    limited = 'Limited'
-    none = 'None'
+    extensive = "Extensive"
+    good = "Good"
+    limited = "Limited"
+    none = "None"
 
 
 class AssetExperience(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    asset_class: Optional[AssetClass] = Field(None, alias='assetClass')
-    years_trading: Optional[int] = Field(None, alias='yearsTrading')
-    trades_per_year: Optional[int] = Field(None, alias='tradesPerYear')
-    knowledge_level: Optional[KnowledgeLevel] = Field(None, alias='knowledgeLevel')
+    asset_class: Optional[AssetClass] = Field(None, alias="assetClass")
+    years_trading: Optional[int] = Field(None, alias="yearsTrading")
+    trades_per_year: Optional[int] = Field(None, alias="tradesPerYear")
+    knowledge_level: Optional[KnowledgeLevel] = Field(None, alias="knowledgeLevel")
 
 
 class Gender(Enum):
-    m = 'M'
-    f = 'F'
-    male = 'Male'
-    female = 'Female'
+    m = "M"
+    f = "F"
+    male = "Male"
+    female = "Female"
 
 
 class MaritalStatus(Enum):
-    s = 'S'
-    m = 'M'
-    w = 'W'
-    d = 'D'
-    c = 'C'
+    s = "S"
+    m = "M"
+    w = "W"
+    d = "D"
+    c = "C"
 
 
 class AssociatedPerson(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    entity_id: Optional[int] = Field(None, alias='entityId')
-    external_code: Optional[str] = Field(None, alias='externalCode')
-    first_name: Optional[str] = Field(None, alias='firstName')
-    middle_name: Optional[str] = Field(None, alias='middleName')
-    middle_initial: Optional[str] = Field(None, alias='middleInitial')
-    last_name: Optional[str] = Field(None, alias='lastName')
+    entity_id: Optional[int] = Field(None, alias="entityId")
+    external_code: Optional[str] = Field(None, alias="externalCode")
+    first_name: Optional[str] = Field(None, alias="firstName")
+    middle_name: Optional[str] = Field(None, alias="middleName")
+    middle_initial: Optional[str] = Field(None, alias="middleInitial")
+    last_name: Optional[str] = Field(None, alias="lastName")
     suffix: Optional[str] = None
     username: Optional[str] = None
-    password_date: Optional[str] = Field(None, alias='passwordDate')
-    user_status: Optional[str] = Field(None, alias='userStatus')
-    last_login: Optional[str] = Field(None, alias='lastLogin')
+    password_date: Optional[str] = Field(None, alias="passwordDate")
+    user_status: Optional[str] = Field(None, alias="userStatus")
+    last_login: Optional[str] = Field(None, alias="lastLogin")
     gender: Optional[str] = None
-    marital_status: Optional[str] = Field(None, alias='maritalStatus')
+    marital_status: Optional[str] = Field(None, alias="maritalStatus")
     salutation: Optional[str] = None
     email: Optional[str] = None
-    country_of_citizenship: Optional[str] = Field(None, alias='countryOfCitizenship')
-    country_of_birth: Optional[str] = Field(None, alias='countryOfBirth')
-    date_of_birth: Optional[str] = Field(None, alias='dateOfBirth')
-    moters_maiden_name: Optional[str] = Field(None, alias='motersMaidenName')
-    number_of_dependents: Optional[int] = Field(None, alias='numberOfDependents')
-    security_device: Optional[str] = Field(None, alias='securityDevice')
+    country_of_citizenship: Optional[str] = Field(None, alias="countryOfCitizenship")
+    country_of_birth: Optional[str] = Field(None, alias="countryOfBirth")
+    date_of_birth: Optional[str] = Field(None, alias="dateOfBirth")
+    moters_maiden_name: Optional[str] = Field(None, alias="motersMaidenName")
+    number_of_dependents: Optional[int] = Field(None, alias="numberOfDependents")
+    security_device: Optional[str] = Field(None, alias="securityDevice")
     commercial: Optional[str] = None
     phones: Optional[Dict[str, str]] = None
     residence: Optional[Dict[str, str]] = None
     mailing: Optional[Dict[str, str]] = None
     associations: Optional[List[str]] = None
     identity_documents: Optional[List[Dict[str, str]]] = Field(
-        None, alias='identityDocuments'
+        None, alias="identityDocuments"
     )
-    employment_type: Optional[str] = Field(None, alias='employmentType')
+    employment_type: Optional[str] = Field(None, alias="employmentType")
     employment_details: Optional[Dict[str, Dict[str, Any]]] = Field(
-        None, alias='employmentDetails'
+        None, alias="employmentDetails"
     )
     subscribed_services: Optional[List[Dict[str, Dict[str, Any]]]] = Field(
-        None, alias='subscribedServices'
+        None, alias="subscribedServices"
     )
     tax_treaty_details: Optional[List[Dict[str, str]]] = Field(
-        None, alias='taxTreatyDetails'
+        None, alias="taxTreatyDetails"
     )
 
 
@@ -782,36 +782,36 @@ class AsynchronousInstructionSetResponse(BaseModel):
     )
     status: int = Field(..., examples=[202])
     instruction_set_id: float = Field(
-        ..., alias='instructionSetId', examples=[-1988905739]
+        ..., alias="instructionSetId", examples=[-1988905739]
     )
-    instruction_results: Optional[List] = Field(None, alias='instructionResults')
+    instruction_results: Optional[List] = Field(None, alias="instructionResults")
 
 
 class AttachedFileType(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    file_name: Optional[str] = Field(None, alias='fileName')
-    file_length: Optional[int] = Field(None, alias='fileLength')
-    sha1_checksum: Optional[str] = Field(None, alias='sha1Checksum')
+    file_name: Optional[str] = Field(None, alias="fileName")
+    file_length: Optional[int] = Field(None, alias="fileLength")
+    sha1_checksum: Optional[str] = Field(None, alias="sha1Checksum")
 
 
 class Type2(Enum):
-    annualflatfee = 'ANNUALFLATFEE'
-    annualflatfee_monthly = 'ANNUALFLATFEE_MONTHLY'
-    annualflatfee_quaterly = 'ANNUALFLATFEE_QUATERLY'
-    percentofequity = 'PERCENTOFEQUITY'
-    percentofequity_monthly = 'PERCENTOFEQUITY_MONTHLY'
-    percentofequity_quaterly = 'PERCENTOFEQUITY_QUATERLY'
-    percentofequity_quarterly = 'PERCENTOFEQUITY_QUARTERLY'
-    blendedpercentofequity = 'BLENDEDPERCENTOFEQUITY'
-    blendedpercentofequity_monthly = 'BLENDEDPERCENTOFEQUITY_MONTHLY'
-    blendedpercentofequity_quarterly = 'BLENDEDPERCENTOFEQUITY_QUARTERLY'
-    percentofprofit = 'PERCENTOFPROFIT'
-    percentofprofit_quarter = 'PERCENTOFPROFIT_QUARTER'
-    invoice_limit = 'INVOICE_LIMIT'
-    invoice_limit_q = 'INVOICE_LIMIT_Q'
-    pertrade = 'PERTRADE'
+    annualflatfee = "ANNUALFLATFEE"
+    annualflatfee_monthly = "ANNUALFLATFEE_MONTHLY"
+    annualflatfee_quaterly = "ANNUALFLATFEE_QUATERLY"
+    percentofequity = "PERCENTOFEQUITY"
+    percentofequity_monthly = "PERCENTOFEQUITY_MONTHLY"
+    percentofequity_quaterly = "PERCENTOFEQUITY_QUATERLY"
+    percentofequity_quarterly = "PERCENTOFEQUITY_QUARTERLY"
+    blendedpercentofequity = "BLENDEDPERCENTOFEQUITY"
+    blendedpercentofequity_monthly = "BLENDEDPERCENTOFEQUITY_MONTHLY"
+    blendedpercentofequity_quarterly = "BLENDEDPERCENTOFEQUITY_QUARTERLY"
+    percentofprofit = "PERCENTOFPROFIT"
+    percentofprofit_quarter = "PERCENTOFPROFIT_QUARTER"
+    invoice_limit = "INVOICE_LIMIT"
+    invoice_limit_q = "INVOICE_LIMIT_Q"
+    pertrade = "PERTRADE"
 
 
 class Daily(BaseModel):
@@ -819,10 +819,10 @@ class Daily(BaseModel):
         populate_by_name=True,
     )
     start_date: Optional[str] = Field(
-        None, alias='startDate', description='daily report start date'
+        None, alias="startDate", description="daily report start date"
     )
     end_date: Optional[str] = Field(
-        None, alias='endDate', description='daily report end date'
+        None, alias="endDate", description="daily report end date"
     )
 
 
@@ -831,15 +831,15 @@ class Value(BaseModel):
         populate_by_name=True,
     )
     daily: Optional[Daily] = None
-    monthly: Optional[List[str]] = Field(None, description='monthly available reports')
-    annual: Optional[List[str]] = Field(None, description='annual available reports')
+    monthly: Optional[List[str]] = Field(None, description="monthly available reports")
+    annual: Optional[List[str]] = Field(None, description="annual available reports")
 
 
 class AvailableStatementDatesData(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    data_type: Optional[str] = Field(None, alias='dataType', examples=['String'])
+    data_type: Optional[str] = Field(None, alias="dataType", examples=["String"])
     value: Optional[Value] = None
 
 
@@ -847,14 +847,14 @@ class BadRequestResponse(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    type: str = Field(..., examples=['/invalid-argument'])
-    title: str = Field(..., examples=['Bad Request'])
+    type: str = Field(..., examples=["/invalid-argument"])
+    title: str = Field(..., examples=["Bad Request"])
     status: int = Field(..., examples=[400])
     detail: str = Field(
         ...,
         examples=["Input is not a JSON Object or doesn't contain all expected fields"],
     )
-    invalid_arguments: Optional[List] = Field(None, alias='invalidArguments')
+    invalid_arguments: Optional[List] = Field(None, alias="invalidArguments")
 
 
 class Base64UrlString(BaseModel):
@@ -870,9 +870,9 @@ class BulkMultiStatusResponse(BaseModel):
     )
     status: int = Field(..., examples=[207])
     instruction_set_id: float = Field(
-        ..., alias='instructionSetId', examples=[-1988905739]
+        ..., alias="instructionSetId", examples=[-1988905739]
     )
-    instruction_results: Optional[List] = Field(None, alias='instructionResults')
+    instruction_results: Optional[List] = Field(None, alias="instructionResults")
 
 
 class CancelInstruction(BaseModel):
@@ -880,38 +880,38 @@ class CancelInstruction(BaseModel):
         populate_by_name=True,
     )
     client_instruction_id: float = Field(
-        ..., alias='clientInstructionId', examples=[1012983]
+        ..., alias="clientInstructionId", examples=[1012983]
     )
     instruction_id: PositiveFloat = Field(
-        ..., alias='instructionId', examples=[43085477]
+        ..., alias="instructionId", examples=[43085477]
     )
-    reason: constr(min_length=1, max_length=256) = Field(..., examples=['Testing'])
+    reason: constr(min_length=1, max_length=256) = Field(..., examples=["Testing"])
 
 
 class ChangeBaseCurrency(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
-    new_base_currency: Optional[str] = Field(None, alias='newBaseCurrency')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
+    new_base_currency: Optional[str] = Field(None, alias="newBaseCurrency")
 
 
 class CheckDetails(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    check_number: Optional[str] = Field(None, alias='checkNumber')
-    routing_number: Optional[str] = Field(None, alias='routingNumber')
-    account_number: Optional[str] = Field(None, alias='accountNumber')
+    check_number: Optional[str] = Field(None, alias="checkNumber")
+    routing_number: Optional[str] = Field(None, alias="routingNumber")
+    account_number: Optional[str] = Field(None, alias="accountNumber")
 
 
 class ClientPublicKey(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    key_id: str = Field(..., alias='keyId')
-    key_bit_size: Optional[conint(ge=3072)] = Field(None, alias='keyBitSize')
-    key_status: Optional[str] = Field(None, alias='keyStatus')
+    key_id: str = Field(..., alias="keyId")
+    key_bit_size: Optional[conint(ge=3072)] = Field(None, alias="keyBitSize")
+    key_status: Optional[str] = Field(None, alias="keyStatus")
     active: Optional[bool] = None
     symmetric: Optional[bool] = None
     public: Optional[bool] = None
@@ -929,13 +929,13 @@ class ClientPublicKeySet(BaseModel):
 
 
 class Style(Enum):
-    bundled = 'Bundled'
-    unbundled = 'Unbundled'
+    bundled = "Bundled"
+    unbundled = "Unbundled"
 
 
 class Type3(Enum):
-    commodities = 'Commodities'
-    securities = 'Securities'
+    commodities = "Commodities"
+    securities = "Securities"
 
 
 class CommissionConfig(BaseModel):
@@ -947,27 +947,27 @@ class CommissionConfig(BaseModel):
 
 
 class Type4(Enum):
-    fa = 'FA'
-    fm = 'FM'
-    pm = 'PM'
+    fa = "FA"
+    fm = "FM"
+    pm = "PM"
 
 
 class PricingStructure(Enum):
-    fixed = 'FIXED'
-    tiered = 'TIERED'
+    fixed = "FIXED"
+    tiered = "TIERED"
 
 
 class CompleteLoginMessage(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    login_message_ids: Optional[List[int]] = Field(None, alias='loginMessageIds')
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
+    login_message_ids: Optional[List[int]] = Field(None, alias="loginMessageIds")
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
 
 
 class Direction(Enum):
-    in_ = 'IN'
-    out = 'OUT'
+    in_ = "IN"
+    out = "OUT"
 
 
 class Conid(RootModel[float]):
@@ -975,7 +975,7 @@ class Conid(RootModel[float]):
         populate_by_name=True,
     )
     root: float = Field(
-        ..., description='IB Contract Numeric Id (conid)', examples=[123456]
+        ..., description="IB Contract Numeric Id (conid)", examples=[123456]
     )
 
 
@@ -984,27 +984,27 @@ class ContraBrokerInfo(BaseModel):
         populate_by_name=True,
     )
     account_type: constr(min_length=1, max_length=32) = Field(
-        ..., alias='accountType', examples=['ORG']
+        ..., alias="accountType", examples=["ORG"]
     )
     broker_name: constr(min_length=1, max_length=128) = Field(
-        ..., alias='brokerName', examples=['JP MORGAN']
+        ..., alias="brokerName", examples=["JP MORGAN"]
     )
     depository_id: constr(min_length=1, max_length=64) = Field(
-        ..., alias='depositoryId', examples=['1234']
+        ..., alias="depositoryId", examples=["1234"]
     )
     broker_account_id: constr(min_length=1, max_length=64) = Field(
-        ..., alias='brokerAccountId', examples=['as3456567678578N']
+        ..., alias="brokerAccountId", examples=["as3456567678578N"]
     )
     country: constr(min_length=1, max_length=64) = Field(
-        ..., examples=['United States']
+        ..., examples=["United States"]
     )
     contact_name: Optional[constr(min_length=1, max_length=64)] = Field(
-        None, alias='contactName', examples=['as']
+        None, alias="contactName", examples=["as"]
     )
     contact_email: constr(min_length=1, max_length=64) = Field(
-        ..., alias='contactEmail', examples=['a@gmail.com']
+        ..., alias="contactEmail", examples=["a@gmail.com"]
     )
-    contact_phone: float = Field(..., alias='contactPhone', examples=[2039126155])
+    contact_phone: float = Field(..., alias="contactPhone", examples=[2039126155])
 
 
 class CreateSessionRequest(BaseModel):
@@ -1013,17 +1013,17 @@ class CreateSessionRequest(BaseModel):
     )
     iss: str = Field(
         ...,
-        description='The underlying client ID',
-        examples=['c23341f4-b51e-49a7-a655-7db2f07b1a26'],
+        description="The underlying client ID",
+        examples=["c23341f4-b51e-49a7-a655-7db2f07b1a26"],
     )
     jti: str = Field(
         ...,
-        description='A unique JWT ID used to prevent replay attacks',
-        examples=['8366182a-c92e-4e9c-bd4f-7a0a074dd230'],
+        description="A unique JWT ID used to prevent replay attacks",
+        examples=["8366182a-c92e-4e9c-bd4f-7a0a074dd230"],
     )
-    service: str = Field(..., examples=['AM_LOGIN'])
-    credential: str = Field(..., examples=['ddowney2'])
-    user_ip: Optional[str] = Field(None, alias='userIp', examples=['10.10.10.10'])
+    service: str = Field(..., examples=["AM_LOGIN"])
+    credential: str = Field(..., examples=["ddowney2"])
+    user_ip: Optional[str] = Field(None, alias="userIp", examples=["10.10.10.10"])
 
 
 class CreateSessionResponse(BaseModel):
@@ -1031,70 +1031,70 @@ class CreateSessionResponse(BaseModel):
         populate_by_name=True,
     )
     active: Optional[bool] = None
-    access_token: Optional[str] = Field(None, examples=['eyJ0eXAiOiJKV1...'])
+    access_token: Optional[str] = Field(None, examples=["eyJ0eXAiOiJKV1..."])
 
 
 class CreateUser(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
     prefix: Optional[str] = None
-    user_name: Optional[str] = Field(None, alias='userName')
+    user_name: Optional[str] = Field(None, alias="userName")
     id: Optional[str] = None
-    external_id: Optional[str] = Field(None, alias='externalId')
-    authorized_trader: Optional[bool] = Field(None, alias='authorizedTrader')
+    external_id: Optional[str] = Field(None, alias="externalId")
+    authorized_trader: Optional[bool] = Field(None, alias="authorizedTrader")
 
 
 class CreateUserForSecondHolder(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    user_name: Optional[str] = Field(None, alias='userName')
+    user_name: Optional[str] = Field(None, alias="userName")
     prefix: Optional[str] = None
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
 
 
 class Type5(Enum):
-    individual = 'INDIVIDUAL'
-    joint = 'JOINT'
-    trust = 'TRUST'
-    ugma = 'UGMA'
-    utma = 'UTMA'
-    org = 'ORG'
-    ira = 'IRA'
+    individual = "INDIVIDUAL"
+    joint = "JOINT"
+    trust = "TRUST"
+    ugma = "UGMA"
+    utma = "UTMA"
+    org = "ORG"
+    ira = "IRA"
 
 
 class Type6(Enum):
-    dtcid = 'DTCID'
-    nscc = 'NSCC'
-    cmta = 'CMTA'
-    gus = 'GUS'
-    occssf = 'OCCSSF'
+    dtcid = "DTCID"
+    nscc = "NSCC"
+    cmta = "CMTA"
+    gus = "GUS"
+    occssf = "OCCSSF"
 
 
 class Role(Enum):
-    e = 'E'
-    c = 'C'
-    b = 'B'
+    e = "E"
+    c = "C"
+    b = "B"
 
 
 class TxGroupCode(Enum):
-    g = 'G'
-    z = 'Z'
-    r = 'R'
-    n = 'N'
+    g = "G"
+    z = "Z"
+    r = "R"
+    n = "N"
 
 
 class Exchange(Enum):
-    nyse = 'NYSE'
-    amex = 'AMEX'
-    nasdaq = 'NASDAQ'
-    cboe = 'CBOE'
-    ise = 'ISE'
-    box = 'BOX'
-    phlx = 'PHLX'
-    pse = 'PSE'
+    nyse = "NYSE"
+    amex = "AMEX"
+    nasdaq = "NASDAQ"
+    cboe = "CBOE"
+    ise = "ISE"
+    box = "BOX"
+    phlx = "PHLX"
+    pse = "PSE"
 
 
 class DVPInstruction(BaseModel):
@@ -1102,23 +1102,23 @@ class DVPInstruction(BaseModel):
         populate_by_name=True,
     )
     id: Optional[str] = None
-    external_id: Optional[str] = Field(None, alias='externalId')
-    external_account_id: Optional[str] = Field(None, alias='externalAccountID')
-    account_id: Optional[str] = Field(None, alias='accountID')
+    external_id: Optional[str] = Field(None, alias="externalId")
+    external_account_id: Optional[str] = Field(None, alias="externalAccountID")
+    account_id: Optional[str] = Field(None, alias="accountID")
     name: Optional[str] = None
     type: Optional[Type6] = None
     role: Optional[Role] = None
-    agent_id: Optional[str] = Field(None, alias='agentID')
-    firm_id: Optional[str] = Field(None, alias='firmID')
-    agent_name: Optional[str] = Field(None, alias='agentName')
-    account_name: Optional[str] = Field(None, alias='accountName')
-    day_do_id: Optional[str] = Field(None, alias='dayDoID')
-    tx_group_code: Optional[TxGroupCode] = Field(None, alias='txGroupCode')
-    broker_code: Optional[str] = Field(None, alias='brokerCode')
-    asset_class: Optional[AssetClass] = Field(None, alias='assetClass')
+    agent_id: Optional[str] = Field(None, alias="agentID")
+    firm_id: Optional[str] = Field(None, alias="firmID")
+    agent_name: Optional[str] = Field(None, alias="agentName")
+    account_name: Optional[str] = Field(None, alias="accountName")
+    day_do_id: Optional[str] = Field(None, alias="dayDoID")
+    tx_group_code: Optional[TxGroupCode] = Field(None, alias="txGroupCode")
+    broker_code: Optional[str] = Field(None, alias="brokerCode")
+    asset_class: Optional[AssetClass] = Field(None, alias="assetClass")
     exchange: Optional[Exchange] = None
-    prepay_tax: Optional[bool] = Field(None, alias='prepayTax')
-    prepay_commission: Optional[bool] = Field(None, alias='prepayCommission')
+    prepay_tax: Optional[bool] = Field(None, alias="prepayTax")
+    prepay_commission: Optional[bool] = Field(None, alias="prepayCommission")
     expiry: Optional[date] = None
     default: Optional[bool] = None
 
@@ -1127,23 +1127,23 @@ class DateOfBirth(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    date_of_birth: Optional[str] = Field(None, alias='dateOfBirth')
+    date_of_birth: Optional[str] = Field(None, alias="dateOfBirth")
 
 
 class Asset(Enum):
-    bill = 'BILL'
-    bond = 'BOND'
-    cash = 'CASH'
-    cfd = 'CFD'
-    comb = 'COMB'
-    fop = 'FOP'
-    fund = 'FUND'
-    fut = 'FUT'
-    opt = 'OPT'
-    ssf = 'SSF'
-    stk = 'STK'
-    war = 'WAR'
-    mrgn = 'MRGN'
+    bill = "BILL"
+    bond = "BOND"
+    cash = "CASH"
+    cfd = "CFD"
+    comb = "COMB"
+    fop = "FOP"
+    fund = "FUND"
+    fut = "FUT"
+    opt = "OPT"
+    ssf = "SSF"
+    stk = "STK"
+    war = "WAR"
+    mrgn = "MRGN"
 
 
 class DayQuantityLimit(BaseModel):
@@ -1155,8 +1155,8 @@ class DayQuantityLimit(BaseModel):
 
 
 class BankInstructionMethod1(Enum):
-    wire = 'WIRE'
-    ach = 'ACH'
+    wire = "WIRE"
+    ach = "ACH"
 
 
 class DeleteBankInstruction(BaseModel):
@@ -1164,25 +1164,25 @@ class DeleteBankInstruction(BaseModel):
         populate_by_name=True,
     )
     client_instruction_id: float = Field(
-        ..., alias='clientInstructionId', examples=[1012983]
+        ..., alias="clientInstructionId", examples=[1012983]
     )
     account_id: constr(min_length=1, max_length=32) = Field(
-        ..., alias='accountId', examples=['U32343']
+        ..., alias="accountId", examples=["U32343"]
     )
     bank_instruction_name: constr(min_length=1, max_length=150) = Field(
-        ..., alias='bankInstructionName', examples=['Test-instruction']
+        ..., alias="bankInstructionName", examples=["Test-instruction"]
     )
     bank_instruction_method: BankInstructionMethod1 = Field(
-        ..., alias='bankInstructionMethod', examples=['WIRE']
+        ..., alias="bankInstructionMethod", examples=["WIRE"]
     )
-    currency: constr(min_length=1, max_length=3) = Field(..., examples=['USD'])
+    currency: constr(min_length=1, max_length=3) = Field(..., examples=["USD"])
 
 
 class DeleteEntity(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    ib_entity_id: Optional[int] = Field(None, alias='ibEntityId')
+    ib_entity_id: Optional[int] = Field(None, alias="ibEntityId")
 
 
 class DeleteRelationship(BaseModel):
@@ -1193,37 +1193,37 @@ class DeleteRelationship(BaseModel):
 
 
 class BankInstructionMethod2(Enum):
-    ach = 'ACH'
-    wire = 'WIRE'
+    ach = "ACH"
+    wire = "WIRE"
 
 
 class IraContributionType(Enum):
-    rollover = 'ROLLOVER'
-    late_rollover = 'LATE_ROLLOVER'
-    direct_rollover = 'DIRECT_ROLLOVER'
-    contribution = 'CONTRIBUTION'
-    spousal_contribution = 'SPOUSAL_CONTRIBUTION'
-    employer_sep_contribution = 'EMPLOYER_SEP_CONTRIBUTION'
+    rollover = "ROLLOVER"
+    late_rollover = "LATE_ROLLOVER"
+    direct_rollover = "DIRECT_ROLLOVER"
+    contribution = "CONTRIBUTION"
+    spousal_contribution = "SPOUSAL_CONTRIBUTION"
+    employer_sep_contribution = "EMPLOYER_SEP_CONTRIBUTION"
 
 
 class IraTaxYearType(Enum):
-    current = 'CURRENT'
-    prior = 'PRIOR'
+    current = "CURRENT"
+    prior = "PRIOR"
 
 
 class FromIraType(Enum):
-    none = 'NONE'
-    traditional = 'TRADITIONAL'
-    rollover = 'ROLLOVER'
-    roth = 'ROTH'
-    sep = 'SEP'
-    education = 'EDUCATION'
-    traditional_inherited = 'TRADITIONAL_INHERITED'
-    roth_inherited = 'ROTH_INHERITED'
-    sep_inherited = 'SEP_INHERITED'
-    retirement_saving_plan = 'RETIREMENT_SAVING_PLAN'
-    spousal_retirement_saving_plan = 'SPOUSAL_RETIREMENT_SAVING_PLAN'
-    tax_free_saving_account = 'TAX_FREE_SAVING_ACCOUNT'
+    none = "NONE"
+    traditional = "TRADITIONAL"
+    rollover = "ROLLOVER"
+    roth = "ROTH"
+    sep = "SEP"
+    education = "EDUCATION"
+    traditional_inherited = "TRADITIONAL_INHERITED"
+    roth_inherited = "ROTH_INHERITED"
+    sep_inherited = "SEP_INHERITED"
+    retirement_saving_plan = "RETIREMENT_SAVING_PLAN"
+    spousal_retirement_saving_plan = "SPOUSAL_RETIREMENT_SAVING_PLAN"
+    tax_free_saving_account = "TAX_FREE_SAVING_ACCOUNT"
 
 
 class IraDepositDetail(BaseModel):
@@ -1231,13 +1231,13 @@ class IraDepositDetail(BaseModel):
         populate_by_name=True,
     )
     ira_contribution_type: IraContributionType = Field(
-        ..., alias='iraContributionType', examples=['ROLLOVER']
+        ..., alias="iraContributionType", examples=["ROLLOVER"]
     )
     ira_tax_year_type: IraTaxYearType = Field(
-        ..., alias='iraTaxYearType', examples=['CURRENT']
+        ..., alias="iraTaxYearType", examples=["CURRENT"]
     )
     from_ira_type: FromIraType = Field(
-        ..., alias='fromIraType', examples=['TRADITIONAL']
+        ..., alias="fromIraType", examples=["TRADITIONAL"]
     )
 
 
@@ -1247,14 +1247,14 @@ class DepositDetails(BaseModel):
     )
     amount: float
     currency: str
-    when_available: str = Field(..., alias='whenAvailable')
+    when_available: str = Field(..., alias="whenAvailable")
 
 
 class Type7(Enum):
-    check = 'CHECK'
-    wire = 'WIRE'
-    ach = 'ACH'
-    skip_deposit = 'SKIP_DEPOSIT'
+    check = "CHECK"
+    wire = "WIRE"
+    ach = "ACH"
+    skip_deposit = "SKIP_DEPOSIT"
 
 
 class Details(BaseModel):
@@ -1269,97 +1269,97 @@ class DisableAccountInBrokerage(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
 
 
 class DocumentType(Enum):
-    check = 'Check'
-    company_ownership = 'Company Ownership'
-    divorce_settlement = 'Divorce Settlement'
-    employer_confirmation = 'Employer Confirmation'
-    entitlement_to_payments = 'Entitlement to Payments'
-    letter = 'Letter'
-    ownership = 'Ownership'
-    pay_slip = 'Pay Slip'
-    proof_of_sale = 'Proof of Sale'
-    proof_of_winnings = 'Proof of Winnings'
-    severance = 'Severance'
-    tax_return = 'Tax Return'
-    will = 'Will'
-    bank_statement = 'Bank Statement'
-    brokerage_statement = 'Brokerage Statement'
-    current_lease = 'Current Lease'
-    financial_statement = 'Financial Statement'
-    certificate_of_incorporation_formation = 'Certificate of Incorporation/Formation'
-    certificate_of_registratios = 'Certificate of Registratios'
-    company_charter = 'Company Charter'
-    certificate_of_good_standing = 'Certificate of Good Standing'
-    government_issued_business_license = 'Government-issued Business License'
-    corporate_charter = 'Corporate Charter'
-    articles_of_incorporation = 'Articles of Incorporation'
-    bank_passbook_statement = 'Bank Passbook/Statement'
-    certified_proof_of_identity = 'Certified Proof of Identity'
-    certified_proof_of_address = 'Certified Proof of Address'
-    income_tax_return = 'Income Tax Return'
-    additional_proof_of_identity_document = 'Additional Proof of Identity Document'
+    check = "Check"
+    company_ownership = "Company Ownership"
+    divorce_settlement = "Divorce Settlement"
+    employer_confirmation = "Employer Confirmation"
+    entitlement_to_payments = "Entitlement to Payments"
+    letter = "Letter"
+    ownership = "Ownership"
+    pay_slip = "Pay Slip"
+    proof_of_sale = "Proof of Sale"
+    proof_of_winnings = "Proof of Winnings"
+    severance = "Severance"
+    tax_return = "Tax Return"
+    will = "Will"
+    bank_statement = "Bank Statement"
+    brokerage_statement = "Brokerage Statement"
+    current_lease = "Current Lease"
+    financial_statement = "Financial Statement"
+    certificate_of_incorporation_formation = "Certificate of Incorporation/Formation"
+    certificate_of_registratios = "Certificate of Registratios"
+    company_charter = "Company Charter"
+    certificate_of_good_standing = "Certificate of Good Standing"
+    government_issued_business_license = "Government-issued Business License"
+    corporate_charter = "Corporate Charter"
+    articles_of_incorporation = "Articles of Incorporation"
+    bank_passbook_statement = "Bank Passbook/Statement"
+    certified_proof_of_identity = "Certified Proof of Identity"
+    certified_proof_of_address = "Certified Proof of Address"
+    income_tax_return = "Income Tax Return"
+    additional_proof_of_identity_document = "Additional Proof of Identity Document"
     proof_of_principal_place_of_business_and_registration = (
-        'Proof of Principal Place of Business and Registration'
+        "Proof of Principal Place of Business and Registration"
     )
-    utility_bill = 'Utility Bill'
-    evidence_of_ownership_of_property = 'Evidence of Ownership of Property'
+    utility_bill = "Utility Bill"
+    evidence_of_ownership_of_property = "Evidence of Ownership of Property"
     authorization_to_open_account___evidence = (
-        'Authorization to Open Account - Evidence'
+        "Authorization to Open Account - Evidence"
     )
     authorization_to_open_account___certification = (
-        'Authorization to Open Account - Certification'
+        "Authorization to Open Account - Certification"
     )
-    italian_health_card__tessera_sanitaria_ = 'Italian Health Card (Tessera Sanitaria)'
-    crs_card_of_lombardy = 'CRS card of Lombardy'
-    italian_electronic_id_card___cie = 'Italian Electronic ID Card - CIE'
-    court__or_govt_issued_document = 'Court- or Govt-issued document'
+    italian_health_card__tessera_sanitaria_ = "Italian Health Card (Tessera Sanitaria)"
+    crs_card_of_lombardy = "CRS card of Lombardy"
+    italian_electronic_id_card___cie = "Italian Electronic ID Card - CIE"
+    court__or_govt_issued_document = "Court- or Govt-issued document"
     copy_of_passport__national_id_or_driver_s_license = (
-        'Copy of Passport, National Id or Driver\'s License'
+        "Copy of Passport, National Id or Driver's License"
     )
-    passport = 'Passport'
-    national_id = 'National ID'
+    passport = "Passport"
+    national_id = "National ID"
 
 
 class ProofOfIdentityType(Enum):
-    driver_license = 'Driver License'
-    passport = 'Passport'
-    alien_id_card = 'Alien ID Card'
-    national_id_card = 'National ID Card'
-    bank_statement = 'Bank Statement'
-    evidence_of_ownership_of_property = 'Evidence of Ownership of Property'
-    credit_card_statement = 'Credit Card Statement'
-    utility_bill = 'Utility Bill'
-    brokerage_statement = 'Brokerage Statement'
-    t4_statement = 'T4 Statement'
-    cra_assessment = 'CRA Assessment'
+    driver_license = "Driver License"
+    passport = "Passport"
+    alien_id_card = "Alien ID Card"
+    national_id_card = "National ID Card"
+    bank_statement = "Bank Statement"
+    evidence_of_ownership_of_property = "Evidence of Ownership of Property"
+    credit_card_statement = "Credit Card Statement"
+    utility_bill = "Utility Bill"
+    brokerage_statement = "Brokerage Statement"
+    t4_statement = "T4 Statement"
+    cra_assessment = "CRA Assessment"
 
 
 class ProofOfAddressType(Enum):
-    driver_license = 'Driver License'
-    bank_statement = 'Bank Statement'
-    brokerage_statement = 'Brokerage Statement'
-    homeowner_insurance_policy_bill = 'Homeowner Insurance Policy Bill'
-    homeowner_insurance_policy_document = 'Homeowner Insurance Policy Document'
-    renter_insurance_policy_bill = 'Renter Insurance Policy bill'
-    renter_insurance_policy_document = 'Renter Insurance Policy Document'
-    security_system_bill = 'Security System Bill'
-    government_issued_letters = 'Government Issued Letters'
-    utility_bill = 'Utility Bill'
-    current_lease = 'Current Lease'
-    evidence_of_ownership_of_property = 'Evidence of Ownership of Property'
-    other_document = 'Other Document'
+    driver_license = "Driver License"
+    bank_statement = "Bank Statement"
+    brokerage_statement = "Brokerage Statement"
+    homeowner_insurance_policy_bill = "Homeowner Insurance Policy Bill"
+    homeowner_insurance_policy_document = "Homeowner Insurance Policy Document"
+    renter_insurance_policy_bill = "Renter Insurance Policy bill"
+    renter_insurance_policy_document = "Renter Insurance Policy Document"
+    security_system_bill = "Security System Bill"
+    government_issued_letters = "Government Issued Letters"
+    utility_bill = "Utility Bill"
+    current_lease = "Current Lease"
+    evidence_of_ownership_of_property = "Evidence of Ownership of Property"
+    other_document = "Other Document"
 
 
 class DuplicateAccount(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
-    number_of_duplicates: Optional[int] = Field(None, alias='numberOfDuplicates')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
+    number_of_duplicates: Optional[int] = Field(None, alias="numberOfDuplicates")
 
 
 class EFPQuantityLimits(BaseModel):
@@ -1367,16 +1367,16 @@ class EFPQuantityLimits(BaseModel):
         populate_by_name=True,
     )
     max_nominal_efp_per_order: Optional[int] = Field(
-        None, alias='maxNominalEfpPerOrder'
+        None, alias="maxNominalEfpPerOrder"
     )
-    max_net_efp_trades: Optional[int] = Field(None, alias='maxNetEfpTrades')
-    max_gross_efp_trades: Optional[int] = Field(None, alias='maxGrossEfpTrades')
+    max_net_efp_trades: Optional[int] = Field(None, alias="maxNetEfpTrades")
+    max_gross_efp_trades: Optional[int] = Field(None, alias="maxGrossEfpTrades")
 
 
 class DebtorIdentificationDocumentType(Enum):
-    hk_id = 'hkId'
-    passport = 'passport'
-    china_id = 'chinaId'
+    hk_id = "hkId"
+    passport = "passport"
+    china_id = "chinaId"
 
 
 class EddaInstruction(BaseModel):
@@ -1384,32 +1384,32 @@ class EddaInstruction(BaseModel):
         populate_by_name=True,
     )
     client_instruction_id: float = Field(
-        ..., alias='clientInstructionId', examples=[1012983]
+        ..., alias="clientInstructionId", examples=[1012983]
     )
     bank_instruction_name: constr(min_length=1, max_length=100) = Field(
-        ..., alias='bankInstructionName', examples=['Instruction Name']
+        ..., alias="bankInstructionName", examples=["Instruction Name"]
     )
-    currency: constr(min_length=1, max_length=3) = Field(..., examples=['CNH'])
+    currency: constr(min_length=1, max_length=3) = Field(..., examples=["CNH"])
     account_id: constr(min_length=1, max_length=32) = Field(
-        ..., alias='accountId', examples=['U2323232']
+        ..., alias="accountId", examples=["U2323232"]
     )
     bank_branch_code: constr(min_length=1, max_length=3) = Field(
-        ..., alias='bankBranchCode', examples=['003']
+        ..., alias="bankBranchCode", examples=["003"]
     )
     bank_account_number: constr(min_length=1, max_length=32) = Field(
-        ..., alias='bankAccountNumber', examples=['132456']
+        ..., alias="bankAccountNumber", examples=["132456"]
     )
     bank_clearing_code: constr(min_length=1, max_length=3) = Field(
-        ..., alias='bankClearingCode', examples=['003']
+        ..., alias="bankClearingCode", examples=["003"]
     )
     debtor_identification_document_type: DebtorIdentificationDocumentType = Field(
-        ..., alias='debtorIdentificationDocumentType', examples=['hkId']
+        ..., alias="debtorIdentificationDocumentType", examples=["hkId"]
     )
 
 
 class Code(Enum):
-    discretionary_basis = 'DiscretionaryBasis'
-    high_risk = 'HighRisk'
+    discretionary_basis = "DiscretionaryBasis"
+    high_risk = "HighRisk"
 
 
 class EligibleContractParticipantDetails(BaseModel):
@@ -1427,11 +1427,11 @@ class EmploymentDetails(BaseModel):
     employer: Optional[str] = None
     occupation: Optional[str] = None
     description: Optional[str] = None
-    employer_business: Optional[str] = Field(None, alias='employerBusiness')
-    employer_address: Optional[Address] = Field(None, alias='employerAddress')
-    employer_phone: Optional[str] = Field(None, alias='employerPhone')
+    employer_business: Optional[str] = Field(None, alias="employerBusiness")
+    employer_address: Optional[Address] = Field(None, alias="employerAddress")
+    employer_phone: Optional[str] = Field(None, alias="employerPhone")
     empl_country_res_country_details: Optional[str] = Field(
-        None, alias='emplCountryResCountryDetails'
+        None, alias="emplCountryResCountryDetails"
     )
 
 
@@ -1439,14 +1439,14 @@ class EnableAccountInBrokerage(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
 
 
 class EnrollInDRIP(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
 
 
 class EntityIRABene(BaseModel):
@@ -1454,19 +1454,19 @@ class EntityIRABene(BaseModel):
         populate_by_name=True,
     )
     name: Optional[str] = None
-    entity_type: Optional[str] = Field(None, alias='entityType')
+    entity_type: Optional[str] = Field(None, alias="entityType")
     type: Optional[str] = None
     location: Optional[Dict[str, str]] = None
-    article_of_will: Optional[str] = Field(None, alias='articleOfWill')
+    article_of_will: Optional[str] = Field(None, alias="articleOfWill")
 
 
 class EnumerationResponse(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    enumerations_type: Optional[str] = Field(None, alias='enumerationsType')
-    form_number: Optional[str] = Field(None, alias='formNumber')
-    json_data: Optional[ArrayNode] = Field(None, alias='jsonData')
+    enumerations_type: Optional[str] = Field(None, alias="enumerationsType")
+    form_number: Optional[str] = Field(None, alias="formNumber")
+    json_data: Optional[ArrayNode] = Field(None, alias="jsonData")
 
 
 class ErrorResponse(BaseModel):
@@ -1474,62 +1474,62 @@ class ErrorResponse(BaseModel):
         populate_by_name=True,
     )
     error: Optional[ErrorResponse] = None
-    has_error: Optional[bool] = Field(None, alias='hasError')
-    error_description: Optional[str] = Field(None, alias='errorDescription')
+    has_error: Optional[bool] = Field(None, alias="hasError")
+    error_description: Optional[str] = Field(None, alias="errorDescription")
 
 
 class ExchangeAccess(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    asset_class: Optional[AssetClass] = Field(None, alias='assetClass')
+    asset_class: Optional[AssetClass] = Field(None, alias="assetClass")
     exchange: Optional[Exchange] = None
 
 
 class Type8(Enum):
-    full = 'FULL'
-    partial = 'PARTIAL'
+    full = "FULL"
+    partial = "PARTIAL"
 
 
 class SubType(Enum):
-    acats = 'ACATS'
-    aton = 'ATON'
+    acats = "ACATS"
+    aton = "ATON"
 
 
 class SrcIraType(Enum):
-    ri = 'RI'
-    ro = 'RO'
-    rt = 'RT'
-    sp = 'SP'
-    ed = 'ED'
-    th = 'TH'
-    rh = 'RH'
-    sh = 'SH'
-    rrsp = 'RRSP'
-    srrsp = 'SRRSP'
-    tfsa = 'TFSA'
-    simple = 'SIMPLE'
-    isa = 'ISA'
+    ri = "RI"
+    ro = "RO"
+    rt = "RT"
+    sp = "SP"
+    ed = "ED"
+    th = "TH"
+    rh = "RH"
+    sh = "SH"
+    rrsp = "RRSP"
+    srrsp = "SRRSP"
+    tfsa = "TFSA"
+    simple = "SIMPLE"
+    isa = "ISA"
 
 
 class Type9(Enum):
-    full = 'FULL'
+    full = "FULL"
 
 
 class Subtype(Enum):
-    acats = 'ACATS'
-    aton = 'ATON'
+    acats = "ACATS"
+    aton = "ATON"
 
 
 class SourceIraType(Enum):
-    ro = 'RO'
-    ri = 'RI'
-    rt = 'RT'
-    sp = 'SP'
-    ed = 'ED'
-    th = 'TH'
-    rh = 'RH'
-    sh = 'SH'
+    ro = "RO"
+    ri = "RI"
+    rt = "RT"
+    sp = "SP"
+    ed = "ED"
+    th = "TH"
+    rh = "RH"
+    sh = "SH"
 
 
 class ExternalPositionTransfer(BaseModel):
@@ -1537,27 +1537,27 @@ class ExternalPositionTransfer(BaseModel):
         populate_by_name=True,
     )
     client_instruction_id: float = Field(
-        ..., alias='clientInstructionId', examples=[1012983]
+        ..., alias="clientInstructionId", examples=[1012983]
     )
-    type: Type9 = Field(..., examples=['FULL'])
-    subtype: Subtype = Field(..., examples=['ACATS'])
+    type: Type9 = Field(..., examples=["FULL"])
+    subtype: Subtype = Field(..., examples=["ACATS"])
     broker_id: constr(min_length=1, max_length=20) = Field(
-        ..., alias='brokerId', examples=['0226']
+        ..., alias="brokerId", examples=["0226"]
     )
     broker_name: constr(min_length=1, max_length=256) = Field(
-        ..., alias='brokerName', examples=['Wall Street Financial Group']
+        ..., alias="brokerName", examples=["Wall Street Financial Group"]
     )
     account_at_broker: constr(min_length=1, max_length=34) = Field(
-        ..., alias='accountAtBroker', examples=['SOL12345']
+        ..., alias="accountAtBroker", examples=["SOL12345"]
     )
     source_ira_type: Optional[SourceIraType] = Field(
-        None, alias='sourceIRAType', examples=['RO']
+        None, alias="sourceIRAType", examples=["RO"]
     )
     account_id: constr(min_length=1, max_length=32) = Field(
-        ..., alias='accountId', examples=['U2323232']
+        ..., alias="accountId", examples=["U2323232"]
     )
     signature: constr(min_length=1, max_length=140) = Field(
-        ..., examples=['sample signature']
+        ..., examples=["sample signature"]
     )
 
 
@@ -1573,43 +1573,43 @@ class FileDetailsResponse(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    account_id: Optional[str] = Field(None, alias='accountId')
-    request_file_name: Optional[str] = Field(None, alias='requestFileName')
-    response_file_name: Optional[str] = Field(None, alias='responseFileName')
+    account_id: Optional[str] = Field(None, alias="accountId")
+    request_file_name: Optional[str] = Field(None, alias="requestFileName")
+    response_file_name: Optional[str] = Field(None, alias="responseFileName")
 
 
 class FilePayload(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    mime_type: Optional[str] = Field(None, alias='mimeType')
+    mime_type: Optional[str] = Field(None, alias="mimeType")
     data: Optional[str] = None
 
 
 class ControllingPersonDesignation(Enum):
-    senior_mgmt_officer = 'SENIOR_MGMT_OFFICER'
-    by_ownership = 'BY_OWNERSHIP'
-    by_other_means = 'BY_OTHER_MEANS'
+    senior_mgmt_officer = "SENIOR_MGMT_OFFICER"
+    by_ownership = "BY_OWNERSHIP"
+    by_other_means = "BY_OTHER_MEANS"
 
 
 class OecdStatus(Enum):
-    depository_institution = 'DEPOSITORY_INSTITUTION'
-    custodial_institution = 'CUSTODIAL_INSTITUTION'
-    specified_insurance_company = 'SPECIFIED_INSURANCE_COMPANY'
+    depository_institution = "DEPOSITORY_INSTITUTION"
+    custodial_institution = "CUSTODIAL_INSTITUTION"
+    specified_insurance_company = "SPECIFIED_INSURANCE_COMPANY"
     investment_entity_in_nonparticipating_jurisdiction = (
-        'INVESTMENT_ENTITY_IN_NONPARTICIPATING_JURISDICTION'
+        "INVESTMENT_ENTITY_IN_NONPARTICIPATING_JURISDICTION"
     )
-    investment_entity_not_listed = 'INVESTMENT_ENTITY_NOT_LISTED'
+    investment_entity_not_listed = "INVESTMENT_ENTITY_NOT_LISTED"
     publicly_traded_corporation_or_affiliate = (
-        'PUBLICLY_TRADED_CORPORATION_OR_AFFILIATE'
+        "PUBLICLY_TRADED_CORPORATION_OR_AFFILIATE"
     )
-    other_active_non_financial_entity = 'OTHER_ACTIVE_NON_FINANCIAL_ENTITY'
-    passive_non_financial_entity = 'PASSIVE_NON_FINANCIAL_ENTITY'
-    exempt_retirement_plan = 'EXEMPT_RETIREMENT_PLAN'
-    non_reporting_fi = 'NON_REPORTING_FI'
-    other_investment_entity = 'OTHER_INVESTMENT_ENTITY'
-    financial_institution = 'FINANCIAL_INSTITUTION'
-    non_reporting_financial_institution = 'NON_REPORTING_FINANCIAL_INSTITUTION'
+    other_active_non_financial_entity = "OTHER_ACTIVE_NON_FINANCIAL_ENTITY"
+    passive_non_financial_entity = "PASSIVE_NON_FINANCIAL_ENTITY"
+    exempt_retirement_plan = "EXEMPT_RETIREMENT_PLAN"
+    non_reporting_fi = "NON_REPORTING_FI"
+    other_investment_entity = "OTHER_INVESTMENT_ENTITY"
+    financial_institution = "FINANCIAL_INSTITUTION"
+    non_reporting_financial_institution = "NON_REPORTING_FINANCIAL_INSTITUTION"
 
 
 class FormCRS(BaseModel):
@@ -1617,126 +1617,126 @@ class FormCRS(BaseModel):
         populate_by_name=True,
     )
     controlling_person_designation: Optional[ControllingPersonDesignation] = Field(
-        None, alias='controllingPersonDesignation'
+        None, alias="controllingPersonDesignation"
     )
-    oecd_status: Optional[OecdStatus] = Field(None, alias='oecdStatus')
+    oecd_status: Optional[OecdStatus] = Field(None, alias="oecdStatus")
 
 
 class FormPayload(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    mime_type: Optional[str] = Field(None, alias='mimeType')
+    mime_type: Optional[str] = Field(None, alias="mimeType")
     data: Optional[str] = None
 
 
 class Explanation(Enum):
-    us_tin = 'US_TIN'
-    tin_not_disclosed = 'TIN_NOT_DISCLOSED'
-    tin_not_required = 'TIN_NOT_REQUIRED'
-    tin_not_issued = 'TIN_NOT_ISSUED'
+    us_tin = "US_TIN"
+    tin_not_disclosed = "TIN_NOT_DISCLOSED"
+    tin_not_required = "TIN_NOT_REQUIRED"
+    tin_not_issued = "TIN_NOT_ISSUED"
 
 
 class SignatureType(Enum):
-    electronic = 'Electronic'
-    physical = 'Physical'
+    electronic = "Electronic"
+    physical = "Physical"
 
 
 class EntityType(Enum):
-    corporation = 'CORPORATION'
-    disregarded_entity = 'DISREGARDED_ENTITY'
-    partnership = 'PARTNERSHIP'
-    simple_trust = 'SIMPLE_TRUST'
-    grantor_trust = 'GRANTOR_TRUST'
-    complex_trust = 'COMPLEX_TRUST'
-    estate = 'ESTATE'
-    government = 'GOVERNMENT'
-    central_bank_of_issue = 'CENTRAL_BANK_OF_ISSUE'
-    tax_exempt_organization = 'TAX_EXEMPT_ORGANIZATION'
-    private_foundation = 'PRIVATE_FOUNDATION'
+    corporation = "CORPORATION"
+    disregarded_entity = "DISREGARDED_ENTITY"
+    partnership = "PARTNERSHIP"
+    simple_trust = "SIMPLE_TRUST"
+    grantor_trust = "GRANTOR_TRUST"
+    complex_trust = "COMPLEX_TRUST"
+    estate = "ESTATE"
+    government = "GOVERNMENT"
+    central_bank_of_issue = "CENTRAL_BANK_OF_ISSUE"
+    tax_exempt_organization = "TAX_EXEMPT_ORGANIZATION"
+    private_foundation = "PRIVATE_FOUNDATION"
 
 
 class FatcaStatus(Enum):
-    nonparticipating_ffi = 'NONPARTICIPATING_FFI'
-    paricipating_ffi = 'PARICIPATING_FFI'
-    reporting_model_1_ffi = 'REPORTING_MODEL_1_FFI'
-    reporting_model_2_ffi = 'REPORTING_MODEL_2_FFI'
-    registered_deemed_compliant_ffi = 'REGISTERED_DEEMED_COMPLIANT_FFI'
-    sponsored_ffi = 'SPONSORED_FFI'
+    nonparticipating_ffi = "NONPARTICIPATING_FFI"
+    paricipating_ffi = "PARICIPATING_FFI"
+    reporting_model_1_ffi = "REPORTING_MODEL_1_FFI"
+    reporting_model_2_ffi = "REPORTING_MODEL_2_FFI"
+    registered_deemed_compliant_ffi = "REGISTERED_DEEMED_COMPLIANT_FFI"
+    sponsored_ffi = "SPONSORED_FFI"
     certified_deemed_compliant_nonregistering_local_bank = (
-        'CERTIFIED_DEEMED_COMPLIANT_NONREGISTERING_LOCAL_BANK'
+        "CERTIFIED_DEEMED_COMPLIANT_NONREGISTERING_LOCAL_BANK"
     )
-    certified_deemed_compliant_ffi = 'CERTIFIED_DEEMED_COMPLIANT_FFI'
+    certified_deemed_compliant_ffi = "CERTIFIED_DEEMED_COMPLIANT_FFI"
     certified_deemed_compliant_sponsored_vehicle = (
-        'CERTIFIED_DEEMED_COMPLIANT_SPONSORED_VEHICLE'
+        "CERTIFIED_DEEMED_COMPLIANT_SPONSORED_VEHICLE"
     )
     certified_deemed_compliant_limited_life_debt = (
-        'CERTIFIED_DEEMED_COMPLIANT_LIMITED_LIFE_DEBT'
+        "CERTIFIED_DEEMED_COMPLIANT_LIMITED_LIFE_DEBT"
     )
     certified_deemed_compliant_investment_advisors = (
-        'CERTIFIED_DEEMED_COMPLIANT_INVESTMENT_ADVISORS'
+        "CERTIFIED_DEEMED_COMPLIANT_INVESTMENT_ADVISORS"
     )
-    owner_documented_ffi = 'OWNER_DOCUMENTED_FFI'
-    restricted_distributor = 'RESTRICTED_DISTRIBUTOR'
-    nonreporting_iga_ffi = 'NONREPORTING_IGA_FFI'
-    foreign_government = 'FOREIGN_GOVERNMENT'
-    international_organization = 'INTERNATIONAL_ORGANIZATION'
-    exempt_retirement_plans = 'EXEMPT_RETIREMENT_PLANS'
+    owner_documented_ffi = "OWNER_DOCUMENTED_FFI"
+    restricted_distributor = "RESTRICTED_DISTRIBUTOR"
+    nonreporting_iga_ffi = "NONREPORTING_IGA_FFI"
+    foreign_government = "FOREIGN_GOVERNMENT"
+    international_organization = "INTERNATIONAL_ORGANIZATION"
+    exempt_retirement_plans = "EXEMPT_RETIREMENT_PLANS"
     entity_owned_by_exempt_beneficial_owners = (
-        'ENTITY_OWNED_BY_EXEMPT_BENEFICIAL_OWNERS'
+        "ENTITY_OWNED_BY_EXEMPT_BENEFICIAL_OWNERS"
     )
-    territory_financial_institution = 'TERRITORY_FINANCIAL_INSTITUTION'
-    nonfinancial_group = 'NONFINANCIAL_GROUP'
-    excepted_nonfinancial_startup = 'EXCEPTED_NONFINANCIAL_STARTUP'
-    excepted_nonfinancial_entity = 'EXCEPTED_NONFINANCIAL_ENTITY'
-    an_501_c_organization = 'AN_501_C_ORGANIZATION'
-    nonprofit_organization = 'NONPROFIT_ORGANIZATION'
-    publicly_traded_nffe = 'PUBLICLY_TRADED_NFFE'
-    excepted_territory_nffe = 'EXCEPTED_TERRITORY_NFFE'
-    active_nffe = 'ACTIVE_NFFE'
-    passive_nffe = 'PASSIVE_NFFE'
-    excepted_inter_affiliate_ffi = 'EXCEPTED_INTER_AFFILIATE_FFI'
-    direct_reporting_nffe = 'DIRECT_REPORTING_NFFE'
-    sponsored_direct_reporting_nffe = 'SPONSORED_DIRECT_REPORTING_NFFE'
+    territory_financial_institution = "TERRITORY_FINANCIAL_INSTITUTION"
+    nonfinancial_group = "NONFINANCIAL_GROUP"
+    excepted_nonfinancial_startup = "EXCEPTED_NONFINANCIAL_STARTUP"
+    excepted_nonfinancial_entity = "EXCEPTED_NONFINANCIAL_ENTITY"
+    an_501_c_organization = "AN_501_C_ORGANIZATION"
+    nonprofit_organization = "NONPROFIT_ORGANIZATION"
+    publicly_traded_nffe = "PUBLICLY_TRADED_NFFE"
+    excepted_territory_nffe = "EXCEPTED_TERRITORY_NFFE"
+    active_nffe = "ACTIVE_NFFE"
+    passive_nffe = "PASSIVE_NFFE"
+    excepted_inter_affiliate_ffi = "EXCEPTED_INTER_AFFILIATE_FFI"
+    direct_reporting_nffe = "DIRECT_REPORTING_NFFE"
+    sponsored_direct_reporting_nffe = "SPONSORED_DIRECT_REPORTING_NFFE"
 
 
 class Box11Status(Enum):
-    limited_branch = 'LIMITED_BRANCH'
-    us_branch = 'US_BRANCH'
-    participating_ffi = 'PARTICIPATING_FFI'
-    reporting_model_1_ffi = 'REPORTING_MODEL_1_FFI'
-    reporting_model_2_ffi = 'REPORTING_MODEL_2_FFI'
+    limited_branch = "LIMITED_BRANCH"
+    us_branch = "US_BRANCH"
+    participating_ffi = "PARTICIPATING_FFI"
+    reporting_model_1_ffi = "REPORTING_MODEL_1_FFI"
+    reporting_model_2_ffi = "REPORTING_MODEL_2_FFI"
 
 
 class Part314B(Enum):
     company_meets_ownership_and_base_erosion_test = (
-        'CompanyMeetsOwnershipAndBaseErosionTest'
+        "CompanyMeetsOwnershipAndBaseErosionTest"
     )
-    tax_exempt_pension_trust_or_pension_fund = 'TaxExemptPensionTrustOrPensionFund'
-    company_meets_derivative_benefits_test = 'CompanyMeetsDerivativeBenefitsTest'
-    tax_exempt_organization = 'TaxExemptOrganization'
-    company_with_income_active_business = 'CompanyWithIncomeActiveBusiness'
-    publicly_traded_corporation = 'PubliclyTradedCorporation'
-    favorable_discretionary_determination = 'FavorableDiscretionaryDetermination'
+    tax_exempt_pension_trust_or_pension_fund = "TaxExemptPensionTrustOrPensionFund"
+    company_meets_derivative_benefits_test = "CompanyMeetsDerivativeBenefitsTest"
+    tax_exempt_organization = "TaxExemptOrganization"
+    company_with_income_active_business = "CompanyWithIncomeActiveBusiness"
+    publicly_traded_corporation = "PubliclyTradedCorporation"
+    favorable_discretionary_determination = "FavorableDiscretionaryDetermination"
     subsidiary_of_a_publicly_traded_corporation = (
-        'SubsidiaryOfAPubliclyTradedCorporation'
+        "SubsidiaryOfAPubliclyTradedCorporation"
     )
-    government = 'Government'
-    no_lob_article_in_treaty = 'NoLobArticleInTreaty'
-    other = 'Other'
+    government = "Government"
+    no_lob_article_in_treaty = "NoLobArticleInTreaty"
+    other = "Other"
 
 
 class Part1226Desc3(Enum):
-    collective_investment_vehicle = 'CollectiveInvestmentVehicle'
-    exempt_beneficial_owner_retirement_plan = 'ExemptBeneficialOwner-RetirementPlan'
+    collective_investment_vehicle = "CollectiveInvestmentVehicle"
+    exempt_beneficial_owner_retirement_plan = "ExemptBeneficialOwner-RetirementPlan"
     financial_institutionwithlocal_client_base = (
-        'FinancialInstitutionwithlocalClientBase'
+        "FinancialInstitutionwithlocalClientBase"
     )
-    investment_advisorsand_managers = 'InvestmentAdvisorsandManagers'
-    local_bank = 'LocalBank'
-    sponsored_closely_held_investment_vehicle = 'SponsoredCloselyHeldInvestmentVehicle'
-    sponsored_investment_entity = 'SponsoredInvestmentEntity'
-    trustee_documented_trust = 'TrusteeDocumentedTrust'
+    investment_advisorsand_managers = "InvestmentAdvisorsandManagers"
+    local_bank = "LocalBank"
+    sponsored_closely_held_investment_vehicle = "SponsoredCloselyHeldInvestmentVehicle"
+    sponsored_investment_entity = "SponsoredInvestmentEntity"
+    trustee_documented_trust = "TrusteeDocumentedTrust"
 
 
 class FormW8BENE(BaseModel):
@@ -1744,136 +1744,136 @@ class FormW8BENE(BaseModel):
         populate_by_name=True,
     )
     substantial_us_owner_external_ids: Optional[List[str]] = Field(
-        None, alias='substantialUsOwnerExternalIds'
+        None, alias="substantialUsOwnerExternalIds"
     )
     name: Optional[str] = None
-    country_of_organization: Optional[str] = Field(None, alias='countryOfOrganization')
-    disregarded_entity_name: Optional[str] = Field(None, alias='disregardedEntityName')
-    entity_type: Optional[EntityType] = Field(None, alias='entityType')
-    fatca_status: Optional[FatcaStatus] = Field(None, alias='fatcaStatus')
-    us_tin: Optional[str] = Field(None, alias='usTin')
+    country_of_organization: Optional[str] = Field(None, alias="countryOfOrganization")
+    disregarded_entity_name: Optional[str] = Field(None, alias="disregardedEntityName")
+    entity_type: Optional[EntityType] = Field(None, alias="entityType")
+    fatca_status: Optional[FatcaStatus] = Field(None, alias="fatcaStatus")
+    us_tin: Optional[str] = Field(None, alias="usTin")
     giin: Optional[str] = None
-    foreign_tin: Optional[str] = Field(None, alias='foreignTin')
+    foreign_tin: Optional[str] = Field(None, alias="foreignTin")
     tin_or_explanation_required: Optional[bool] = Field(
-        None, alias='tinOrExplanationRequired'
+        None, alias="tinOrExplanationRequired"
     )
     explanation: Optional[Explanation] = None
-    reference_number: Optional[int] = Field(None, alias='referenceNumber')
-    submit_date: Optional[str] = Field(None, alias='submitDate')
-    box11_status: Optional[Box11Status] = Field(None, alias='box11Status')
-    part314_a: Optional[bool] = Field(None, alias='part314A')
-    part314_a_country: Optional[str] = Field(None, alias='part314ACountry')
-    part314_b: Optional[Part314B] = Field(None, alias='part314B')
-    part314_c: Optional[bool] = Field(None, alias='part314C')
+    reference_number: Optional[int] = Field(None, alias="referenceNumber")
+    submit_date: Optional[str] = Field(None, alias="submitDate")
+    box11_status: Optional[Box11Status] = Field(None, alias="box11Status")
+    part314_a: Optional[bool] = Field(None, alias="part314A")
+    part314_a_country: Optional[str] = Field(None, alias="part314ACountry")
+    part314_b: Optional[Part314B] = Field(None, alias="part314B")
+    part314_c: Optional[bool] = Field(None, alias="part314C")
     part416: Optional[str] = None
-    part417_i: Optional[bool] = Field(None, alias='part417I')
-    part417_ii: Optional[bool] = Field(None, alias='part417Ii')
+    part417_i: Optional[bool] = Field(None, alias="part417I")
+    part417_ii: Optional[bool] = Field(None, alias="part417Ii")
     part518: Optional[bool] = None
     part619: Optional[bool] = None
     part720: Optional[str] = None
     part721: Optional[bool] = None
     part822: Optional[bool] = None
     part923: Optional[bool] = None
-    part1024_a: Optional[bool] = Field(None, alias='part1024A')
-    part1024_b: Optional[bool] = Field(None, alias='part1024B')
-    part1024_c: Optional[bool] = Field(None, alias='part1024C')
-    part1024_d: Optional[bool] = Field(None, alias='part1024D')
-    part1125_a: Optional[bool] = Field(None, alias='part1125A')
-    part1125_b: Optional[bool] = Field(None, alias='part1125B')
-    part1125_c: Optional[bool] = Field(None, alias='part1125C')
+    part1024_a: Optional[bool] = Field(None, alias="part1024A")
+    part1024_b: Optional[bool] = Field(None, alias="part1024B")
+    part1024_c: Optional[bool] = Field(None, alias="part1024C")
+    part1024_d: Optional[bool] = Field(None, alias="part1024D")
+    part1125_a: Optional[bool] = Field(None, alias="part1125A")
+    part1125_b: Optional[bool] = Field(None, alias="part1125B")
+    part1125_c: Optional[bool] = Field(None, alias="part1125C")
     part1226: Optional[bool] = None
-    part1226_desc1: Optional[str] = Field(None, alias='part1226Desc1')
-    part1226_desc2: Optional[str] = Field(None, alias='part1226Desc2')
-    part1226_desc3: Optional[Part1226Desc3] = Field(None, alias='part1226Desc3')
-    part1226_desc4: Optional[str] = Field(None, alias='part1226Desc4')
+    part1226_desc1: Optional[str] = Field(None, alias="part1226Desc1")
+    part1226_desc2: Optional[str] = Field(None, alias="part1226Desc2")
+    part1226_desc3: Optional[Part1226Desc3] = Field(None, alias="part1226Desc3")
+    part1226_desc4: Optional[str] = Field(None, alias="part1226Desc4")
     part1327: Optional[bool] = None
-    part1428_a: Optional[bool] = Field(None, alias='part1428A')
-    part1428_b: Optional[bool] = Field(None, alias='part1428B')
-    part1529_a: Optional[bool] = Field(None, alias='part1529A')
-    part1529_b: Optional[bool] = Field(None, alias='part1529B')
-    part1529_c: Optional[bool] = Field(None, alias='part1529C')
-    part1529_d: Optional[bool] = Field(None, alias='part1529D')
-    part1529_e: Optional[bool] = Field(None, alias='part1529E')
-    part1529_f: Optional[bool] = Field(None, alias='part1529F')
+    part1428_a: Optional[bool] = Field(None, alias="part1428A")
+    part1428_b: Optional[bool] = Field(None, alias="part1428B")
+    part1529_a: Optional[bool] = Field(None, alias="part1529A")
+    part1529_b: Optional[bool] = Field(None, alias="part1529B")
+    part1529_c: Optional[bool] = Field(None, alias="part1529C")
+    part1529_d: Optional[bool] = Field(None, alias="part1529D")
+    part1529_e: Optional[bool] = Field(None, alias="part1529E")
+    part1529_f: Optional[bool] = Field(None, alias="part1529F")
     part1630: Optional[bool] = None
     part1731: Optional[bool] = None
     part1832: Optional[bool] = None
     part1933: Optional[bool] = None
     part2034: Optional[bool] = None
     part2135: Optional[bool] = None
-    part2135_date: Optional[str] = Field(None, alias='part2135Date')
+    part2135_date: Optional[str] = Field(None, alias="part2135Date")
     part2236: Optional[bool] = None
-    part2337_a: Optional[bool] = Field(None, alias='part2337A')
-    part2337_a_desc: Optional[str] = Field(None, alias='part2337ADesc')
-    part2337_b: Optional[bool] = Field(None, alias='part2337B')
-    part2337_b_desc1: Optional[str] = Field(None, alias='part2337BDesc1')
-    part2337_b_desc2: Optional[str] = Field(None, alias='part2337BDesc2')
+    part2337_a: Optional[bool] = Field(None, alias="part2337A")
+    part2337_a_desc: Optional[str] = Field(None, alias="part2337ADesc")
+    part2337_b: Optional[bool] = Field(None, alias="part2337B")
+    part2337_b_desc1: Optional[str] = Field(None, alias="part2337BDesc1")
+    part2337_b_desc2: Optional[str] = Field(None, alias="part2337BDesc2")
     part2438: Optional[bool] = None
     part2539: Optional[bool] = None
-    part2640_a: Optional[bool] = Field(None, alias='part2640A')
-    part2640_b: Optional[bool] = Field(None, alias='part2640B')
-    part2640_c: Optional[bool] = Field(None, alias='part2640C')
+    part2640_a: Optional[bool] = Field(None, alias="part2640A")
+    part2640_b: Optional[bool] = Field(None, alias="part2640B")
+    part2640_c: Optional[bool] = Field(None, alias="part2640C")
     part2741: Optional[bool] = None
     part2842: Optional[str] = None
     part2843: Optional[bool] = None
     cert: Optional[bool] = None
-    signature_type: Optional[SignatureType] = Field(None, alias='signatureType')
-    blank_form: Optional[bool] = Field(None, alias='blankForm')
-    tax_form_file: Optional[str] = Field(None, alias='taxFormFile')
-    proprietary_form_number: Optional[int] = Field(None, alias='proprietaryFormNumber')
-    electronic_format: Optional[bool] = Field(None, alias='electronicFormat')
+    signature_type: Optional[SignatureType] = Field(None, alias="signatureType")
+    blank_form: Optional[bool] = Field(None, alias="blankForm")
+    tax_form_file: Optional[str] = Field(None, alias="taxFormFile")
+    proprietary_form_number: Optional[int] = Field(None, alias="proprietaryFormNumber")
+    electronic_format: Optional[bool] = Field(None, alias="electronicFormat")
 
 
 class EntityType1(Enum):
-    qualified_intermediary = 'QUALIFIED_INTERMEDIARY'
-    nonqualified_intermediary = 'NONQUALIFIED_INTERMEDIARY'
-    territory_financial = 'TERRITORY_FINANCIAL'
-    us_branch = 'US_BRANCH'
-    withholding_foreign_partnership = 'WITHHOLDING_FOREIGN_PARTNERSHIP'
-    withholding_foreign_trust = 'WITHHOLDING_FOREIGN_TRUST'
-    nonwithholding_foreign_partnership = 'NONWITHHOLDING_FOREIGN_PARTNERSHIP'
-    nonwithholding_foreign_simple_trust = 'NONWITHHOLDING_FOREIGN_SIMPLE_TRUST'
-    nonwithholding_foreign_grantor_trust = 'NONWITHHOLDING_FOREIGN_GRANTOR_TRUST'
+    qualified_intermediary = "QUALIFIED_INTERMEDIARY"
+    nonqualified_intermediary = "NONQUALIFIED_INTERMEDIARY"
+    territory_financial = "TERRITORY_FINANCIAL"
+    us_branch = "US_BRANCH"
+    withholding_foreign_partnership = "WITHHOLDING_FOREIGN_PARTNERSHIP"
+    withholding_foreign_trust = "WITHHOLDING_FOREIGN_TRUST"
+    nonwithholding_foreign_partnership = "NONWITHHOLDING_FOREIGN_PARTNERSHIP"
+    nonwithholding_foreign_simple_trust = "NONWITHHOLDING_FOREIGN_SIMPLE_TRUST"
+    nonwithholding_foreign_grantor_trust = "NONWITHHOLDING_FOREIGN_GRANTOR_TRUST"
 
 
 class FatcaStatus1(Enum):
-    nonparticipating_ffi = 'NONPARTICIPATING_FFI'
-    participating_ffi = 'PARTICIPATING_FFI'
-    reporting_model1_ffi = 'REPORTING_MODEL1_FFI'
-    reporting_model2_ffi = 'REPORTING_MODEL2_FFI'
-    registered_deemed_complaint = 'REGISTERED_DEEMED_COMPLAINT'
-    territory_financial_institution = 'TERRITORY_FINANCIAL_INSTITUTION'
-    sponsored_ffi = 'SPONSORED_FFI'
-    certified_deemed_complaint_ffi = 'CERTIFIED_DEEMED_COMPLAINT_FFI'
-    certified_deemed_complaint_sponsored = 'CERTIFIED_DEEMED_COMPLAINT_SPONSORED'
+    nonparticipating_ffi = "NONPARTICIPATING_FFI"
+    participating_ffi = "PARTICIPATING_FFI"
+    reporting_model1_ffi = "REPORTING_MODEL1_FFI"
+    reporting_model2_ffi = "REPORTING_MODEL2_FFI"
+    registered_deemed_complaint = "REGISTERED_DEEMED_COMPLAINT"
+    territory_financial_institution = "TERRITORY_FINANCIAL_INSTITUTION"
+    sponsored_ffi = "SPONSORED_FFI"
+    certified_deemed_complaint_ffi = "CERTIFIED_DEEMED_COMPLAINT_FFI"
+    certified_deemed_complaint_sponsored = "CERTIFIED_DEEMED_COMPLAINT_SPONSORED"
     certified_deemed_complaint_limited_life_debt = (
-        'CERTIFIED_DEEMED_COMPLAINT_LIMITED_LIFE_DEBT'
+        "CERTIFIED_DEEMED_COMPLAINT_LIMITED_LIFE_DEBT"
     )
-    owner_documented_ffi = 'OWNER_DOCUMENTED_FFI'
-    restricted_distributor = 'RESTRICTED_DISTRIBUTOR'
-    foreign_central_bank_issue = 'FOREIGN_CENTRAL_BANK_ISSUE'
-    nonreporting_iga_ffo = 'NONREPORTING_IGA_FFO'
-    exempt_retirement_plan = 'EXEMPT_RETIREMENT_PLAN'
-    excepted_nonfinancial_group_entity = 'EXCEPTED_NONFINANCIAL_GROUP_ENTITY'
-    excepted_nonfinancial_startup_company = 'EXCEPTED_NONFINANCIAL_STARTUP_COMPANY'
+    owner_documented_ffi = "OWNER_DOCUMENTED_FFI"
+    restricted_distributor = "RESTRICTED_DISTRIBUTOR"
+    foreign_central_bank_issue = "FOREIGN_CENTRAL_BANK_ISSUE"
+    nonreporting_iga_ffo = "NONREPORTING_IGA_FFO"
+    exempt_retirement_plan = "EXEMPT_RETIREMENT_PLAN"
+    excepted_nonfinancial_group_entity = "EXCEPTED_NONFINANCIAL_GROUP_ENTITY"
+    excepted_nonfinancial_startup_company = "EXCEPTED_NONFINANCIAL_STARTUP_COMPANY"
     excepted_nonfinancial_entity_in_liquidation = (
-        'EXCEPTED_NONFINANCIAL_ENTITY_IN_LIQUIDATION'
+        "EXCEPTED_NONFINANCIAL_ENTITY_IN_LIQUIDATION"
     )
-    publicly_traded_nffe = 'PUBLICLY_TRADED_NFFE'
-    excepted_territory_nffe = 'EXCEPTED_TERRITORY_NFFE'
-    active_nffe = 'ACTIVE_NFFE'
-    passive_nffe = 'PASSIVE_NFFE'
-    direct_reporting_nffe = 'DIRECT_REPORTING_NFFE'
-    sponsored_direct_reporting_nffe = 'SPONSORED_DIRECT_REPORTING_NFFE'
+    publicly_traded_nffe = "PUBLICLY_TRADED_NFFE"
+    excepted_territory_nffe = "EXCEPTED_TERRITORY_NFFE"
+    active_nffe = "ACTIVE_NFFE"
+    passive_nffe = "PASSIVE_NFFE"
+    direct_reporting_nffe = "DIRECT_REPORTING_NFFE"
+    sponsored_direct_reporting_nffe = "SPONSORED_DIRECT_REPORTING_NFFE"
 
 
 class UsTinType(Enum):
-    qi_ein = 'QI-EIN'
-    wp_ein = 'WP-EIN'
-    wt_ein = 'WT-EIN'
-    ein = 'EIN'
-    ssn = 'SSN'
-    itin = 'ITIN'
+    qi_ein = "QI-EIN"
+    wp_ein = "WP-EIN"
+    wt_ein = "WT-EIN"
+    ein = "EIN"
+    ssn = "SSN"
+    itin = "ITIN"
 
 
 class FormW8IMY(BaseModel):
@@ -1882,74 +1882,74 @@ class FormW8IMY(BaseModel):
     )
     name: Optional[str] = None
     country_of_incorporation: Optional[str] = Field(
-        None, alias='countryOfIncorporation'
+        None, alias="countryOfIncorporation"
     )
-    disregarded_entity_name: Optional[str] = Field(None, alias='disregardedEntityName')
-    entity_type: Optional[EntityType1] = Field(None, alias='entityType')
-    fatca_status: Optional[FatcaStatus1] = Field(None, alias='fatcaStatus')
-    us_tin: Optional[str] = Field(None, alias='usTin')
-    us_tin_type: Optional[UsTinType] = Field(None, alias='usTinType')
+    disregarded_entity_name: Optional[str] = Field(None, alias="disregardedEntityName")
+    entity_type: Optional[EntityType1] = Field(None, alias="entityType")
+    fatca_status: Optional[FatcaStatus1] = Field(None, alias="fatcaStatus")
+    us_tin: Optional[str] = Field(None, alias="usTin")
+    us_tin_type: Optional[UsTinType] = Field(None, alias="usTinType")
     giin: Optional[str] = None
-    reference_number: Optional[int] = Field(None, alias='referenceNumber')
-    box11_status: Optional[Box11Status] = Field(None, alias='box11Status')
-    part314_a: Optional[bool] = Field(None, alias='part314A')
-    part314_b: Optional[bool] = Field(None, alias='part314B')
-    part314_c: Optional[bool] = Field(None, alias='part314C')
-    part314_c_desc: Optional[str] = Field(None, alias='part314CDesc')
-    part314_d: Optional[bool] = Field(None, alias='part314D')
-    part314_d_desc: Optional[str] = Field(None, alias='part314DDesc')
-    part314_e: Optional[bool] = Field(None, alias='part314E')
-    part314_e_desc: Optional[str] = Field(None, alias='part314EDesc')
-    part314_ei: Optional[bool] = Field(None, alias='part314EI')
-    part314_e_ii: Optional[bool] = Field(None, alias='part314EIi')
-    part415_a: Optional[bool] = Field(None, alias='part415A')
-    part415_b: Optional[bool] = Field(None, alias='part415B')
-    part415_c: Optional[bool] = Field(None, alias='part415C')
-    part415_d: Optional[bool] = Field(None, alias='part415D')
-    part516_a: Optional[bool] = Field(None, alias='part516A')
-    part516_b: Optional[bool] = Field(None, alias='part516B')
-    part516_c: Optional[bool] = Field(None, alias='part516C')
-    part617_a: Optional[bool] = Field(None, alias='part617A')
-    part617_b: Optional[bool] = Field(None, alias='part617B')
-    part617_c: Optional[bool] = Field(None, alias='part617C')
+    reference_number: Optional[int] = Field(None, alias="referenceNumber")
+    box11_status: Optional[Box11Status] = Field(None, alias="box11Status")
+    part314_a: Optional[bool] = Field(None, alias="part314A")
+    part314_b: Optional[bool] = Field(None, alias="part314B")
+    part314_c: Optional[bool] = Field(None, alias="part314C")
+    part314_c_desc: Optional[str] = Field(None, alias="part314CDesc")
+    part314_d: Optional[bool] = Field(None, alias="part314D")
+    part314_d_desc: Optional[str] = Field(None, alias="part314DDesc")
+    part314_e: Optional[bool] = Field(None, alias="part314E")
+    part314_e_desc: Optional[str] = Field(None, alias="part314EDesc")
+    part314_ei: Optional[bool] = Field(None, alias="part314EI")
+    part314_e_ii: Optional[bool] = Field(None, alias="part314EIi")
+    part415_a: Optional[bool] = Field(None, alias="part415A")
+    part415_b: Optional[bool] = Field(None, alias="part415B")
+    part415_c: Optional[bool] = Field(None, alias="part415C")
+    part415_d: Optional[bool] = Field(None, alias="part415D")
+    part516_a: Optional[bool] = Field(None, alias="part516A")
+    part516_b: Optional[bool] = Field(None, alias="part516B")
+    part516_c: Optional[bool] = Field(None, alias="part516C")
+    part617_a: Optional[bool] = Field(None, alias="part617A")
+    part617_b: Optional[bool] = Field(None, alias="part617B")
+    part617_c: Optional[bool] = Field(None, alias="part617C")
     part718: Optional[bool] = None
     part819: Optional[bool] = None
     part920: Optional[bool] = None
     part1021: Optional[str] = None
-    part1021_a: Optional[str] = Field(None, alias='part1021A')
-    part1021_b: Optional[bool] = Field(None, alias='part1021B')
-    part1021_c: Optional[bool] = Field(None, alias='part1021C')
-    part1122_a: Optional[bool] = Field(None, alias='part1122A')
-    part1122_b: Optional[bool] = Field(None, alias='part1122B')
-    part1122_c: Optional[bool] = Field(None, alias='part1122C')
+    part1021_a: Optional[str] = Field(None, alias="part1021A")
+    part1021_b: Optional[bool] = Field(None, alias="part1021B")
+    part1021_c: Optional[bool] = Field(None, alias="part1021C")
+    part1122_a: Optional[bool] = Field(None, alias="part1122A")
+    part1122_b: Optional[bool] = Field(None, alias="part1122B")
+    part1122_c: Optional[bool] = Field(None, alias="part1122C")
     part1223: Optional[bool] = None
     part1324: Optional[bool] = None
-    part1425_a: Optional[str] = Field(None, alias='part1425A')
-    part1425_b: Optional[bool] = Field(None, alias='part1425B')
+    part1425_a: Optional[str] = Field(None, alias="part1425A")
+    part1425_b: Optional[bool] = Field(None, alias="part1425B")
     part1526: Optional[bool] = None
-    part1627_a: Optional[bool] = Field(None, alias='part1627A')
-    part1627_b: Optional[bool] = Field(None, alias='part1627B')
-    part1627_c: Optional[bool] = Field(None, alias='part1627C')
+    part1627_a: Optional[bool] = Field(None, alias="part1627A")
+    part1627_b: Optional[bool] = Field(None, alias="part1627B")
+    part1627_c: Optional[bool] = Field(None, alias="part1627C")
     part1728: Optional[bool] = None
     part1829: Optional[bool] = None
-    part1829_desc1: Optional[str] = Field(None, alias='part1829Desc1')
-    part1829_desc2: Optional[str] = Field(None, alias='part1829Desc2')
-    part1829_desc3: Optional[str] = Field(None, alias='part1829Desc3')
-    part1930_a: Optional[bool] = Field(None, alias='part1930A')
-    part1930_b: Optional[bool] = Field(None, alias='part1930B')
-    part1930_c: Optional[bool] = Field(None, alias='part1930C')
-    part1930_d: Optional[bool] = Field(None, alias='part1930D')
-    part1930_e: Optional[bool] = Field(None, alias='part1930E')
-    part1930_f: Optional[bool] = Field(None, alias='part1930F')
+    part1829_desc1: Optional[str] = Field(None, alias="part1829Desc1")
+    part1829_desc2: Optional[str] = Field(None, alias="part1829Desc2")
+    part1829_desc3: Optional[str] = Field(None, alias="part1829Desc3")
+    part1930_a: Optional[bool] = Field(None, alias="part1930A")
+    part1930_b: Optional[bool] = Field(None, alias="part1930B")
+    part1930_c: Optional[bool] = Field(None, alias="part1930C")
+    part1930_d: Optional[bool] = Field(None, alias="part1930D")
+    part1930_e: Optional[bool] = Field(None, alias="part1930E")
+    part1930_f: Optional[bool] = Field(None, alias="part1930F")
     part2031: Optional[bool] = None
     part2132: Optional[bool] = None
-    part2132_desc: Optional[str] = Field(None, alias='part2132Desc')
+    part2132_desc: Optional[str] = Field(None, alias="part2132Desc")
     part2233: Optional[bool] = None
-    part2233_desc: Optional[str] = Field(None, alias='part2233Desc')
-    part2334_a: Optional[bool] = Field(None, alias='part2334A')
-    part2334_a_desc: Optional[str] = Field(None, alias='part2334ADesc')
-    part2334_b: Optional[bool] = Field(None, alias='part2334B')
-    part2334_b_desc: Optional[str] = Field(None, alias='part2334BDesc')
+    part2233_desc: Optional[str] = Field(None, alias="part2233Desc")
+    part2334_a: Optional[bool] = Field(None, alias="part2334A")
+    part2334_a_desc: Optional[str] = Field(None, alias="part2334ADesc")
+    part2334_b: Optional[bool] = Field(None, alias="part2334B")
+    part2334_b_desc: Optional[str] = Field(None, alias="part2334BDesc")
     part2435: Optional[bool] = None
     part2536: Optional[bool] = None
     part2637: Optional[bool] = None
@@ -1959,17 +1959,17 @@ class FormW8IMY(BaseModel):
 
 
 class CustomerType(Enum):
-    individual = 'Individual'
-    corporation = 'Corporation'
-    partnership = 'Partnership'
-    llc = 'LLC'
-    other = 'Other'
+    individual = "Individual"
+    corporation = "Corporation"
+    partnership = "Partnership"
+    llc = "LLC"
+    other = "Other"
 
 
 class TinType(Enum):
-    ssn = 'SSN'
-    ein = 'EIN'
-    non_us_national_id = 'NonUS_NationalId'
+    ssn = "SSN"
+    ein = "EIN"
+    non_us_national_id = "NonUS_NationalId"
 
 
 class GetAvailableStmtDatesResponse(BaseModel):
@@ -1998,18 +1998,18 @@ class ParticipatingBanks(BaseModel):
         populate_by_name=True,
     )
     institution_name: str = Field(
-        ..., alias='institutionName', examples=['WELAB BANK LIMITED']
+        ..., alias="institutionName", examples=["WELAB BANK LIMITED"]
     )
-    clearing_code: str = Field(..., alias='clearingCode', examples=['390'])
-    bic: str = Field(..., alias='BIC', examples=['WEDIHKHHXXX'])
+    clearing_code: str = Field(..., alias="clearingCode", examples=["390"])
+    bic: str = Field(..., alias="BIC", examples=["WEDIHKHHXXX"])
 
 
 class GetParticipatingListResponse(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    type: str = Field(..., examples=['eDDA'])
-    participating_banks: ParticipatingBanks = Field(..., alias='participatingBanks')
+    type: str = Field(..., examples=["eDDA"])
+    participating_banks: ParticipatingBanks = Field(..., alias="participatingBanks")
 
 
 class Data(BaseModel):
@@ -2017,24 +2017,24 @@ class Data(BaseModel):
         populate_by_name=True,
     )
     data_type: Optional[str] = Field(
-        None, alias='dataType', description='the data type of the value after decoding'
+        None, alias="dataType", description="the data type of the value after decoding"
     )
-    encoding: Optional[str] = Field(None, description='encoding used for the value')
+    encoding: Optional[str] = Field(None, description="encoding used for the value")
     value: Optional[str] = Field(
         None,
-        description='Base 64 encoded String of byte[]. Byte[] represents compressed data when gzip is true',
+        description="Base 64 encoded String of byte[]. Byte[] represents compressed data when gzip is true",
     )
     mime_type: Optional[str] = Field(
         None,
-        alias='mimeType',
-        description='mimeType of document after decoding and serializing the value',
+        alias="mimeType",
+        description="mimeType of document after decoding and serializing the value",
     )
     gzip: Optional[bool] = Field(
         None,
-        description='content encoding flag. Represents whether the response is compressed',
+        description="content encoding flag. Represents whether the response is compressed",
     )
     accept: Optional[str] = Field(
-        None, description='specify response media types that are acceptable'
+        None, description="specify response media types that are acceptable"
     )
 
 
@@ -2049,114 +2049,114 @@ class HighWaterMarkConfigurationType(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    number_of_periods: Optional[int] = Field(None, alias='numberOfPeriods')
-    prorate_for_withdrawals: Optional[bool] = Field(None, alias='prorateForWithdrawals')
+    number_of_periods: Optional[int] = Field(None, alias="numberOfPeriods")
+    prorate_for_withdrawals: Optional[bool] = Field(None, alias="prorateForWithdrawals")
 
 
 class Relationship(Enum):
-    brother = 'Brother'
-    daughter = 'Daughter'
-    estate = 'Estate'
-    father = 'Father'
-    husband = 'Husband'
-    mother = 'Mother'
-    other = 'Other'
-    sister = 'Sister'
-    son = 'Son'
-    wife = 'Wife'
-    charity = 'Charity'
-    trust = 'Trust'
-    spouse = 'Spouse'
-    child = 'Child'
-    sibling = 'Sibling'
-    parent = 'Parent'
-    grandchild = 'Grandchild'
-    common_law_partner = 'Common Law Partner'
+    brother = "Brother"
+    daughter = "Daughter"
+    estate = "Estate"
+    father = "Father"
+    husband = "Husband"
+    mother = "Mother"
+    other = "Other"
+    sister = "Sister"
+    son = "Son"
+    wife = "Wife"
+    charity = "Charity"
+    trust = "Trust"
+    spouse = "Spouse"
+    child = "Child"
+    sibling = "Sibling"
+    parent = "Parent"
+    grandchild = "Grandchild"
+    common_law_partner = "Common Law Partner"
 
 
 class EntityType2(Enum):
-    trust = 'Trust'
-    estate = 'Estate'
-    charity = 'Charity'
+    trust = "Trust"
+    estate = "Estate"
+    charity = "Charity"
 
 
 class InheritorType(Enum):
-    s = 'S'
-    i = 'I'
-    t = 'T'
-    o = 'O'
+    s = "S"
+    i = "I"
+    t = "T"
+    o = "O"
 
 
 class Relationship2(Enum):
-    other = 'Other'
-    trust = 'Trust'
-    spouse = 'Spouse'
-    individual = 'Individual'
+    other = "Other"
+    trust = "Trust"
+    spouse = "Spouse"
+    individual = "Individual"
 
 
 class DepositType(Enum):
-    contribution = 'contribution'
-    rollover = 'rollover'
+    contribution = "contribution"
+    rollover = "rollover"
 
 
 class TaxYear(Enum):
-    current = 'current'
-    prior = 'prior'
+    current = "current"
+    prior = "prior"
 
 
 class FromIraType1(Enum):
-    ri = 'RI'
-    ro = 'RO'
-    rt = 'RT'
-    sp = 'SP'
-    ed = 'ED'
-    th = 'TH'
-    rh = 'RH'
-    sh = 'SH'
-    rrsp = 'RRSP'
-    srrsp = 'SRRSP'
-    tfsa = 'TFSA'
-    simple = 'SIMPLE'
-    isa = 'ISA'
+    ri = "RI"
+    ro = "RO"
+    rt = "RT"
+    sp = "SP"
+    ed = "ED"
+    th = "TH"
+    rh = "RH"
+    sh = "SH"
+    rrsp = "RRSP"
+    srrsp = "SRRSP"
+    tfsa = "TFSA"
+    simple = "SIMPLE"
+    isa = "ISA"
 
 
 class IRADepositDetails(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    deposit_type: Optional[DepositType] = Field(None, alias='depositType')
-    tax_year: Optional[TaxYear] = Field(None, alias='taxYear')
-    from_ira_type: Optional[FromIraType1] = Field(None, alias='fromIraType')
+    deposit_type: Optional[DepositType] = Field(None, alias="depositType")
+    tax_year: Optional[TaxYear] = Field(None, alias="taxYear")
+    from_ira_type: Optional[FromIraType1] = Field(None, alias="fromIraType")
 
 
 class Relationship3(Enum):
-    brother = 'Brother'
-    daughter = 'Daughter'
-    estate = 'Estate'
-    father = 'Father'
-    husband = 'Husband'
-    mother = 'Mother'
-    other = 'Other'
-    sister = 'Sister'
-    son = 'Son'
-    wife = 'Wife'
-    charity = 'Charity'
-    trust = 'Trust'
-    spouse = 'Spouse'
-    child = 'Child'
-    sibling = 'Sibling'
-    parent = 'Parent'
-    grandchild = 'Grandchild'
-    common_law_partner = 'Common Law Partner'
+    brother = "Brother"
+    daughter = "Daughter"
+    estate = "Estate"
+    father = "Father"
+    husband = "Husband"
+    mother = "Mother"
+    other = "Other"
+    sister = "Sister"
+    son = "Son"
+    wife = "Wife"
+    charity = "Charity"
+    trust = "Trust"
+    spouse = "Spouse"
+    child = "Child"
+    sibling = "Sibling"
+    parent = "Parent"
+    grandchild = "Grandchild"
+    common_law_partner = "Common Law Partner"
 
 
 class DistributionType(Enum):
-    normal = 'NORMAL'
-    early = 'EARLY'
-    early_except = 'EARLY_EXCEPT'
-    death = 'DEATH'
-    disability = 'DISABILITY'
-    excess_contrib = 'EXCESS_CONTRIB'
+    normal = "NORMAL"
+    early = "EARLY"
+    early_except = "EARLY_EXCEPT"
+    death = "DEATH"
+    disability = "DISABILITY"
+    excess_contrib = "EXCESS_CONTRIB"
 
 
 class IRAWithdrawalDetails(BaseModel):
@@ -2164,18 +2164,18 @@ class IRAWithdrawalDetails(BaseModel):
         populate_by_name=True,
     )
     distribution_type: Optional[DistributionType] = Field(
-        None, alias='distributionType'
+        None, alias="distributionType"
     )
-    excess_contrib_yr: Optional[int] = Field(None, alias='excessContribYr')
-    fed_tax_rate: Optional[float] = Field(None, alias='fedTaxRate')
-    legal_residence_state: Optional[str] = Field(None, alias='legalResidenceState')
-    state_tax_rate: Optional[float] = Field(None, alias='stateTaxRate')
+    excess_contrib_yr: Optional[int] = Field(None, alias="excessContribYr")
+    fed_tax_rate: Optional[float] = Field(None, alias="fedTaxRate")
+    legal_residence_state: Optional[str] = Field(None, alias="legalResidenceState")
+    state_tax_rate: Optional[float] = Field(None, alias="stateTaxRate")
 
 
 class CardColor(Enum):
-    blue = 'BLUE'
-    green = 'GREEN'
-    yellow = 'YELLOW'
+    blue = "BLUE"
+    green = "GREEN"
+    yellow = "YELLOW"
 
 
 class Identification(BaseModel):
@@ -2196,72 +2196,72 @@ class Identification(BaseModel):
     )
     ssn: Optional[str] = Field(
         None,
-        description='Social security number, required for US Residents and citizens.',
+        description="Social security number, required for US Residents and citizens.",
     )
     sin: Optional[str] = Field(
         None,
-        description='Social insurance number, required for Canada Residents and citizens.',
+        description="Social insurance number, required for Canada Residents and citizens.",
     )
     drivers_license: Optional[str] = Field(
         None,
-        alias='driversLicense',
-        description='Drivers License<br>Pattern for AUS: ^.{0,64}$<br>Pattern for NZL: ^[A-Z]{2}\\d{6}$',
+        alias="driversLicense",
+        description="Drivers License<br>Pattern for AUS: ^.{0,64}$<br>Pattern for NZL: ^[A-Z]{2}\\d{6}$",
     )
-    passport: Optional[str] = Field(None, description='Passport')
-    alien_card: Optional[str] = Field(None, alias='alienCard', description='Alien Card')
+    passport: Optional[str] = Field(None, description="Passport")
+    alien_card: Optional[str] = Field(None, alias="alienCard", description="Alien Card")
     medicare_card: Optional[str] = Field(
         None,
-        alias='medicareCard',
-        description='Only applicable for Australia residents.',
+        alias="medicareCard",
+        description="Only applicable for Australia residents.",
     )
     card_color: Optional[CardColor] = Field(
-        None, alias='cardColor', description='Required if MedicareCard is provided.'
+        None, alias="cardColor", description="Required if MedicareCard is provided."
     )
     medicare_reference: Optional[str] = Field(
         None,
-        alias='medicareReference',
-        description='Required if MedicareCard is provided.',
+        alias="medicareReference",
+        description="Required if MedicareCard is provided.",
     )
     national_card: Optional[str] = Field(
         None,
-        alias='nationalCard',
-        description='National Identification Card<br>Pattern by Country-<br> ARG: ^\\d{8}$<br>AUS: ^(\\d{8}|\\d{9})$<br>BRA: ^\\d{11}$<br>CHN: ^\\d{17}(\\d|X)$<br>DNK: ^\\d{10}$<br>ESP: ^\\d{8}[A-Z]$<br>FRA: ^\\d{15}$<br>FRA: ^\\d{4}([A-Z]|\\d){3}\\d{5}$<br>ITA: ^([A-Z]{2}\\d{7}|\\d{7}[A-Z]{2}|[A-Z]{2}\\d{5}[A-Z]{2})$<br>ITA: ^[A-Z]{6}\\d{2}[A-Z]\\d{2}[A-Z]\\d{3}[A-Z]$<br>MEX: ^[A-Z]{4}\\d{6}[A-Z]{6}\\d{2}$<br>MYZ: ^\\d{12}$<br>RUS: ^\\d{10}$<br>RUS: ^\\d{9}$<br>SGP: ^[A-Z]\\d{7}[A-Z]$<br>SWE: ^(\\d{10}|\\d{12})$<br>TUR: ^\\d{11}$<br>ZAF: ^\\d{13}$',
+        alias="nationalCard",
+        description="National Identification Card<br>Pattern by Country-<br> ARG: ^\\d{8}$<br>AUS: ^(\\d{8}|\\d{9})$<br>BRA: ^\\d{11}$<br>CHN: ^\\d{17}(\\d|X)$<br>DNK: ^\\d{10}$<br>ESP: ^\\d{8}[A-Z]$<br>FRA: ^\\d{15}$<br>FRA: ^\\d{4}([A-Z]|\\d){3}\\d{5}$<br>ITA: ^([A-Z]{2}\\d{7}|\\d{7}[A-Z]{2}|[A-Z]{2}\\d{5}[A-Z]{2})$<br>ITA: ^[A-Z]{6}\\d{2}[A-Z]\\d{2}[A-Z]\\d{3}[A-Z]$<br>MEX: ^[A-Z]{4}\\d{6}[A-Z]{6}\\d{2}$<br>MYZ: ^\\d{12}$<br>RUS: ^\\d{10}$<br>RUS: ^\\d{9}$<br>SGP: ^[A-Z]\\d{7}[A-Z]$<br>SWE: ^(\\d{10}|\\d{12})$<br>TUR: ^\\d{11}$<br>ZAF: ^\\d{13}$",
     )
     issuing_country: Optional[str] = Field(
-        None, alias='issuingCountry', description='Issuing country of the ID document.'
+        None, alias="issuingCountry", description="Issuing country of the ID document."
     )
     issuing_state: Optional[str] = Field(
-        None, alias='issuingState', description='Issuing state of the ID document.'
+        None, alias="issuingState", description="Issuing state of the ID document."
     )
     rta: Optional[str] = Field(
         None,
-        description='Only applicable IF ID_Type=DriversLicense AND IssuingCountry=AUS',
+        description="Only applicable IF ID_Type=DriversLicense AND IssuingCountry=AUS",
     )
-    legal_residence_country: Optional[str] = Field(None, alias='legalResidenceCountry')
-    legal_residence_state: Optional[str] = Field(None, alias='legalResidenceState')
+    legal_residence_country: Optional[str] = Field(None, alias="legalResidenceCountry")
+    legal_residence_state: Optional[str] = Field(None, alias="legalResidenceState")
     educational_qualification: Optional[str] = Field(
-        None, alias='educationalQualification'
+        None, alias="educationalQualification"
     )
-    fathers_name: Optional[str] = Field(None, alias='fathersName')
-    green_card: Optional[bool] = Field(None, alias='greenCard')
+    fathers_name: Optional[str] = Field(None, alias="fathersName")
+    green_card: Optional[bool] = Field(None, alias="greenCard")
     pan_number: Optional[str] = Field(
         None,
-        alias='panNumber',
-        description='India PanCard, required for India Residents and citizens.',
+        alias="panNumber",
+        description="India PanCard, required for India Residents and citizens.",
     )
     tax_id: Optional[str] = Field(
         None,
-        alias='taxId',
-        description='Tax ID TIN within <TaxResidencies>foreign_tax_id within <W8Ben>',
+        alias="taxId",
+        description="Tax ID TIN within <TaxResidencies>foreign_tax_id within <W8Ben>",
     )
-    proof_of_age_card: Optional[str] = Field(None, alias='proofOfAgeCard')
+    proof_of_age_card: Optional[str] = Field(None, alias="proofOfAgeCard")
     expire: Optional[bool] = Field(
-        None, description='Indicate IF ID document has an ExpirationDate.'
+        None, description="Indicate IF ID document has an ExpirationDate."
     )
     expiration_date: Optional[date] = Field(
         None,
-        alias='expirationDate',
-        description='Provide expiration date of the ID document. Cannot be past date.',
+        alias="expirationDate",
+        description="Provide expiration date of the ID document. Cannot be past date.",
     )
 
 
@@ -2269,24 +2269,24 @@ class IndividualIRABene(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    first_name: Optional[str] = Field(None, alias='firstName')
-    last_name: Optional[str] = Field(None, alias='lastName')
-    date_of_birth: Optional[str] = Field(None, alias='dateOfBirth')
+    first_name: Optional[str] = Field(None, alias="firstName")
+    last_name: Optional[str] = Field(None, alias="lastName")
+    date_of_birth: Optional[str] = Field(None, alias="dateOfBirth")
     type: Optional[str] = None
     identification: Optional[Dict[str, str]] = None
     location: Optional[Dict[str, str]] = None
     relationship: Optional[str] = None
     ownership: Optional[int] = None
-    per_stripes: Optional[str] = Field(None, alias='perStripes')
+    per_stripes: Optional[str] = Field(None, alias="perStripes")
 
 
 class Salutation(Enum):
-    mr_ = 'Mr.'
-    mrs_ = 'Mrs.'
-    ms_ = 'Ms.'
-    dr_ = 'Dr.'
-    mx_ = 'Mx.'
-    ind_ = 'Ind.'
+    mr_ = "Mr."
+    mrs_ = "Mrs."
+    ms_ = "Ms."
+    dr_ = "Dr."
+    mx_ = "Mx."
+    ind_ = "Ind."
 
 
 class IndividualName(BaseModel):
@@ -2305,37 +2305,37 @@ class Error(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    error_code: str = Field(..., alias='errorCode')
-    error_message: str = Field(..., alias='errorMessage')
+    error_code: str = Field(..., alias="errorCode")
+    error_message: str = Field(..., alias="errorMessage")
 
 
 class InstructionType(Enum):
-    account_close = 'ACCOUNT_CLOSE'
-    ach_instruction = 'ACH_INSTRUCTION'
-    apply_fee_template = 'APPLY_FEE_TEMPLATE'
-    cancel_instruction = 'CANCEL_INSTRUCTION'
-    complex_asset_transfer = 'COMPLEX_ASSET_TRANSFER'
-    delete_bank_instruction = 'DELETE_BANK_INSTRUCTION'
-    deposit = 'DEPOSIT'
-    dwac = 'DWAC'
-    external_position_transfer = 'EXTERNAL_POSITION_TRANSFER'
-    fop = 'FOP'
-    query_recent_instructions = 'QUERY_RECENT_INSTRUCTIONS'
+    account_close = "ACCOUNT_CLOSE"
+    ach_instruction = "ACH_INSTRUCTION"
+    apply_fee_template = "APPLY_FEE_TEMPLATE"
+    cancel_instruction = "CANCEL_INSTRUCTION"
+    complex_asset_transfer = "COMPLEX_ASSET_TRANSFER"
+    delete_bank_instruction = "DELETE_BANK_INSTRUCTION"
+    deposit = "DEPOSIT"
+    dwac = "DWAC"
+    external_position_transfer = "EXTERNAL_POSITION_TRANSFER"
+    fop = "FOP"
+    query_recent_instructions = "QUERY_RECENT_INSTRUCTIONS"
     query_withdawable_funds_internal_position_transfer = (
-        'QUERY_WITHDAWABLE_FUNDS INTERNAL_POSITION_TRANSFER'
+        "QUERY_WITHDAWABLE_FUNDS INTERNAL_POSITION_TRANSFER"
     )
-    internal_cash_transfer = 'INTERNAL_CASH_TRANSFER'
-    micro_amount = 'MICRO_AMOUNT'
+    internal_cash_transfer = "INTERNAL_CASH_TRANSFER"
+    micro_amount = "MICRO_AMOUNT"
     predefined_destination_instruction_traditional_bank_instruction_verification = (
-        'PREDEFINED_DESTINATION_INSTRUCTION TRADITIONAL_BANK_INSTRUCTION_VERIFICATION'
+        "PREDEFINED_DESTINATION_INSTRUCTION TRADITIONAL_BANK_INSTRUCTION_VERIFICATION"
     )
-    withdrawal = 'WITHDRAWAL'
-    query_ira_contributions = 'QUERY_IRA_CONTRIBUTIONS'
+    withdrawal = "WITHDRAWAL"
+    query_ira_contributions = "QUERY_IRA_CONTRIBUTIONS"
 
 
 class InstructionStatus(Enum):
-    pending = 'PENDING'
-    processed = 'PROCESSED'
+    pending = "PENDING"
+    processed = "PROCESSED"
 
 
 class InstructionResult(BaseModel):
@@ -2343,20 +2343,20 @@ class InstructionResult(BaseModel):
         populate_by_name=True,
     )
     client_instruction_id: str = Field(
-        ..., alias='clientInstructionId', examples=['1012983']
+        ..., alias="clientInstructionId", examples=["1012983"]
     )
     instruction_type: InstructionType = Field(
-        ..., alias='instructionType', examples=['INTERNAL_CASH_TRANSFER']
+        ..., alias="instructionType", examples=["INTERNAL_CASH_TRANSFER"]
     )
     instruction_status: InstructionStatus = Field(
-        ..., alias='instructionStatus', examples=['PENDING']
+        ..., alias="instructionStatus", examples=["PENDING"]
     )
-    instruction_id: float = Field(..., alias='instructionId', examples=[45123654])
+    instruction_id: float = Field(..., alias="instructionId", examples=[45123654])
     ib_reference_id: Optional[float] = Field(
-        None, alias='ibReferenceId', examples=[23456745]
+        None, alias="ibReferenceId", examples=[23456745]
     )
     description: Optional[str] = Field(
-        None, examples=['Please poll for status after 10 minutes']
+        None, examples=["Please poll for status after 10 minutes"]
     )
 
 
@@ -2364,11 +2364,11 @@ class InsufficientScopeResponse(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    type: str = Field(..., examples=['/simple'])
-    title: str = Field(..., examples=['Forbidden'])
+    type: str = Field(..., examples=["/simple"])
+    title: str = Field(..., examples=["Forbidden"])
     status: int = Field(..., examples=[403])
     detail: Optional[str] = Field(
-        None, examples=['The access token fails to have sufficient scope']
+        None, examples=["The access token fails to have sufficient scope"]
     )
 
 
@@ -2377,22 +2377,22 @@ class InterestMarkupType(BaseModel):
         populate_by_name=True,
     )
     currency: Optional[Currency] = None
-    debit_markup: Optional[float] = Field(None, alias='debitMarkup')
-    ib_debit_markup: Optional[float] = Field(None, alias='ibDebitMarkup')
-    credit_markdown: Optional[float] = Field(None, alias='creditMarkdown')
-    short_credit_markdown: Optional[float] = Field(None, alias='shortCreditMarkdown')
+    debit_markup: Optional[float] = Field(None, alias="debitMarkup")
+    ib_debit_markup: Optional[float] = Field(None, alias="ibDebitMarkup")
+    credit_markdown: Optional[float] = Field(None, alias="creditMarkdown")
+    short_credit_markdown: Optional[float] = Field(None, alias="shortCreditMarkdown")
     short_cfd_credit_markdown: Optional[float] = Field(
-        None, alias='shortCfdCreditMarkdown'
+        None, alias="shortCfdCreditMarkdown"
     )
-    long_cfd_debit_markdown: Optional[float] = Field(None, alias='longCfdDebitMarkdown')
+    long_cfd_debit_markdown: Optional[float] = Field(None, alias="longCfdDebitMarkdown")
     short_index_cfd_credit_markdown: Optional[float] = Field(
-        None, alias='shortIndexCfdCreditMarkdown'
+        None, alias="shortIndexCfdCreditMarkdown"
     )
     long_index_cfd_debit_markdown: Optional[float] = Field(
-        None, alias='longIndexCfdDebitMarkdown'
+        None, alias="longIndexCfdDebitMarkdown"
     )
-    short_fx_cfd_markup: Optional[float] = Field(None, alias='shortFxCfdMarkup')
-    long_fx_cfd_markdown: Optional[float] = Field(None, alias='longFxCfdMarkdown')
+    short_fx_cfd_markup: Optional[float] = Field(None, alias="shortFxCfdMarkup")
+    long_fx_cfd_markdown: Optional[float] = Field(None, alias="longFxCfdMarkdown")
 
 
 class InternalCashTransferInstruction(BaseModel):
@@ -2400,25 +2400,25 @@ class InternalCashTransferInstruction(BaseModel):
         populate_by_name=True,
     )
     client_instruction_id: float = Field(
-        ..., alias='clientInstructionId', examples=[1012983]
+        ..., alias="clientInstructionId", examples=[1012983]
     )
     source_account_id: constr(min_length=1, max_length=32) = Field(
-        ..., alias='sourceAccountId', examples=['U46377']
+        ..., alias="sourceAccountId", examples=["U46377"]
     )
     target_account_id: constr(min_length=1, max_length=32) = Field(
-        ..., alias='targetAccountId', examples=['U15667']
+        ..., alias="targetAccountId", examples=["U15667"]
     )
     amount: PositiveFloat = Field(..., examples=[123])
-    currency: constr(min_length=1, max_length=3) = Field(..., examples=['GBP'])
-    date_time_to_occur: Optional[datetime] = Field(None, alias='dateTimeToOccur')
+    currency: constr(min_length=1, max_length=3) = Field(..., examples=["GBP"])
+    date_time_to_occur: Optional[datetime] = Field(None, alias="dateTimeToOccur")
 
 
 class InternalServerErrorResponse(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    type: str = Field(..., examples=['/simple'])
-    title: str = Field(..., examples=['Internal Server Error'])
+    type: str = Field(..., examples=["/simple"])
+    title: str = Field(..., examples=["Internal Server Error"])
     status: int = Field(..., examples=[500])
 
 
@@ -2426,11 +2426,11 @@ class InvalidAccessTokenResponse(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    type: str = Field(..., examples=['/simple'])
-    title: str = Field(..., examples=['Unauthorized'])
+    type: str = Field(..., examples=["/simple"])
+    title: str = Field(..., examples=["Unauthorized"])
     status: int = Field(..., examples=[401])
     detail: Optional[str] = Field(
-        None, examples=['The access token request is invalid']
+        None, examples=["The access token request is invalid"]
     )
 
 
@@ -2438,16 +2438,16 @@ class InvalidArgument(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    field: str = Field(..., examples=['accountId'])
-    description: Optional[str] = Field(None, examples=['Missing required parameter'])
+    field: str = Field(..., examples=["accountId"])
+    description: Optional[str] = Field(None, examples=["Missing required parameter"])
 
 
 class Type10(Enum):
-    community = 'community'
-    joint_tenants = 'joint_tenants'
-    tenants_common = 'tenants_common'
-    tbe = 'tbe'
-    au_joint_account = 'au_joint_account'
+    community = "community"
+    joint_tenants = "joint_tenants"
+    tenants_common = "tenants_common"
+    tbe = "tbe"
+    au_joint_account = "au_joint_account"
 
 
 class JoseHeader(BaseModel):
@@ -2468,20 +2468,20 @@ class LeaveDRIP(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
 
 
 class LeaveSYEP(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
 
 
 class FormationType(Enum):
-    public = 'PUBLIC'
-    private = 'PRIVATE'
-    other = 'OTHER'
+    public = "PUBLIC"
+    private = "PRIVATE"
+    other = "OTHER"
 
 
 class LegalEntityIdentification(BaseModel):
@@ -2489,53 +2489,53 @@ class LegalEntityIdentification(BaseModel):
         populate_by_name=True,
     )
     place_of_business_address: Optional[Address] = Field(
-        None, alias='placeOfBusinessAddress'
+        None, alias="placeOfBusinessAddress"
     )
-    mailing_address: Optional[Address] = Field(None, alias='mailingAddress')
+    mailing_address: Optional[Address] = Field(None, alias="mailingAddress")
     identification: Optional[str] = None
-    identification_country: Optional[str] = Field(None, alias='identificationCountry')
-    formation_country: Optional[str] = Field(None, alias='formationCountry')
-    formation_type: Optional[FormationType] = Field(None, alias='formationType')
-    exchange_code: Optional[str] = Field(None, alias='exchangeCode')
-    exchange_symbol: Optional[str] = Field(None, alias='exchangeSymbol')
-    same_mail_address: Optional[bool] = Field(None, alias='sameMailAddress')
+    identification_country: Optional[str] = Field(None, alias="identificationCountry")
+    formation_country: Optional[str] = Field(None, alias="formationCountry")
+    formation_type: Optional[FormationType] = Field(None, alias="formationType")
+    exchange_code: Optional[str] = Field(None, alias="exchangeCode")
+    exchange_symbol: Optional[str] = Field(None, alias="exchangeSymbol")
+    same_mail_address: Optional[bool] = Field(None, alias="sameMailAddress")
 
 
 class LinkDuplicateAccount(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
-    external_account_id: Optional[str] = Field(None, alias='externalAccountId')
-    client_active_trading: Optional[bool] = Field(None, alias='clientActiveTrading')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
+    external_account_id: Optional[str] = Field(None, alias="externalAccountId")
+    client_active_trading: Optional[bool] = Field(None, alias="clientActiveTrading")
 
 
 class TaxAuthority(Enum):
-    israel_ta = 'ISRAEL_TA'
-    canada_ta = 'CANADA_TA'
-    russia_ta = 'RUSSIA_TA'
-    sweden_ta = 'SWEDEN_TA'
-    australia_ta = 'AUSTRALIA_TA'
+    israel_ta = "ISRAEL_TA"
+    canada_ta = "CANADA_TA"
+    russia_ta = "RUSSIA_TA"
+    sweden_ta = "SWEDEN_TA"
+    australia_ta = "AUSTRALIA_TA"
 
 
 class LocalTaxForm(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    tax_authority: Optional[TaxAuthority] = Field(None, alias='taxAuthority')
+    tax_authority: Optional[TaxAuthority] = Field(None, alias="taxAuthority")
     qualified: Optional[bool] = None
-    treaty_country: Optional[str] = Field(None, alias='treatyCountry')
+    treaty_country: Optional[str] = Field(None, alias="treatyCountry")
 
 
 class LoginMessage(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    record_date: Optional[datetime] = Field(None, alias='recordDate')
+    record_date: Optional[datetime] = Field(None, alias="recordDate")
     id: Optional[int] = None
     username: Optional[str] = None
-    message_type: Optional[str] = Field(None, alias='messageType')
-    content_id: Optional[int] = Field(None, alias='contentId')
+    message_type: Optional[str] = Field(None, alias="messageType")
+    content_id: Optional[int] = Field(None, alias="contentId")
     state: Optional[str] = None
     description: Optional[str] = None
 
@@ -2544,8 +2544,8 @@ class LoginMessageRequest(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    start_date: date = Field(..., alias='startDate')
-    end_date: date = Field(..., alias='endDate')
+    start_date: date = Field(..., alias="startDate")
+    end_date: date = Field(..., alias="endDate")
     offset: Optional[conint(ge=0)] = None
     limit: Optional[conint(ge=1, le=1000)] = None
     status: Optional[Status] = None
@@ -2556,13 +2556,13 @@ class LoginMessageResponse(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    account_id: Optional[str] = Field(None, alias='accountId')
-    clearing_status: Optional[str] = Field(None, alias='clearingStatus')
+    account_id: Optional[str] = Field(None, alias="accountId")
+    clearing_status: Optional[str] = Field(None, alias="clearingStatus")
     clearing_status_description: Optional[str] = Field(
-        None, alias='clearingStatusDescription'
+        None, alias="clearingStatusDescription"
     )
-    login_messages: Optional[List[LoginMessage]] = Field(None, alias='loginMessages')
-    login_message_present: Optional[bool] = Field(None, alias='loginMessagePresent')
+    login_messages: Optional[List[LoginMessage]] = Field(None, alias="loginMessages")
+    login_message_present: Optional[bool] = Field(None, alias="loginMessagePresent")
 
 
 class MailingAddress(BaseModel):
@@ -2570,7 +2570,7 @@ class MailingAddress(BaseModel):
         populate_by_name=True,
     )
     street1: Optional[str] = None
-    postal_code: Optional[str] = Field(None, alias='postalCode')
+    postal_code: Optional[str] = Field(None, alias="postalCode")
     country: Optional[str] = None
     city: Optional[str] = None
     state: Optional[str] = None
@@ -2580,8 +2580,8 @@ class ManagingOwner(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    external_id: Optional[str] = Field(None, alias='externalId')
-    is25_percent_owner: Optional[bool] = Field(None, alias='is25PercentOwner')
+    external_id: Optional[str] = Field(None, alias="externalId")
+    is25_percent_owner: Optional[bool] = Field(None, alias="is25PercentOwner")
 
 
 class MarkupStaircaseType(BaseModel):
@@ -2589,18 +2589,18 @@ class MarkupStaircaseType(BaseModel):
         populate_by_name=True,
     )
     amount: Optional[float] = None
-    break_: Optional[float] = Field(None, alias='break')
+    break_: Optional[float] = Field(None, alias="break")
 
 
 class MissingRequiredParameterResponse(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    type: str = Field(..., examples=['/invalid-argument'])
-    title: str = Field(..., examples=['Bad Request'])
+    type: str = Field(..., examples=["/invalid-argument"])
+    title: str = Field(..., examples=["Bad Request"])
     status: int = Field(..., examples=[400])
     invalid_arguments: Optional[List[InvalidArgument]] = Field(
-        None, alias='invalidArguments'
+        None, alias="invalidArguments"
     )
 
 
@@ -2610,7 +2610,7 @@ class NAVRangeType(BaseModel):
     )
     min: Optional[float] = None
     max: Optional[float] = None
-    max_fee: Optional[float] = Field(None, alias='maxFee')
+    max_fee: Optional[float] = Field(None, alias="maxFee")
 
 
 class Name2(BaseModel):
@@ -2625,43 +2625,43 @@ class NoSuchInstructionResponse(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    type: str = Field(..., examples=['/simple'])
-    title: str = Field(..., examples=['Not found'])
+    type: str = Field(..., examples=["/simple"])
+    title: str = Field(..., examples=["Not found"])
     status: int = Field(..., examples=[404])
-    detail: Optional[str] = Field(None, examples=['No such instruction found'])
+    detail: Optional[str] = Field(None, examples=["No such instruction found"])
 
 
 class NoSuchInstructionSetResponse(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    type: str = Field(..., examples=['/simple'])
-    title: str = Field(..., examples=['Not found'])
+    type: str = Field(..., examples=["/simple"])
+    title: str = Field(..., examples=["Not found"])
     status: int = Field(..., examples=[404])
-    detail: Optional[str] = Field(None, examples=['No such instruction set found'])
-    instruction_set_id: int = Field(..., alias='instructionSetId', examples=[8389943])
+    detail: Optional[str] = Field(None, examples=["No such instruction set found"])
+    instruction_set_id: int = Field(..., alias="instructionSetId", examples=[8389943])
 
 
 class NonDisclosedDetail(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    trade_date: str = Field(..., alias='tradeDate', examples=['2023-07-08'])
-    settle_date: str = Field(..., alias='settleDate', examples=['2023-07-18'])
+    trade_date: str = Field(..., alias="tradeDate", examples=["2023-07-08"])
+    settle_date: str = Field(..., alias="settleDate", examples=["2023-07-18"])
     pset_bic: Optional[constr(min_length=0, max_length=64)] = Field(
-        None, alias='psetBic', examples=['DTCYUS33XXX']
+        None, alias="psetBic", examples=["DTCYUS33XXX"]
     )
     reag_deag_bic: Optional[constr(min_length=0, max_length=64)] = Field(
-        None, alias='reagDeagBic', examples=['CH100164']
+        None, alias="reagDeagBic", examples=["CH100164"]
     )
     buyer_sell_bic: Optional[constr(min_length=0, max_length=64)] = Field(
-        None, alias='buyerSellBic', examples=['320043']
+        None, alias="buyerSellBic", examples=["320043"]
     )
     member_account_id: Optional[constr(min_length=0, max_length=64)] = Field(
-        None, alias='memberAccountId', examples=['123456']
+        None, alias="memberAccountId", examples=["123456"]
     )
     safe_keeping_account_id: Optional[constr(min_length=0, max_length=64)] = Field(
-        None, alias='safeKeepingAccountId', examples=['123456']
+        None, alias="safeKeepingAccountId", examples=["123456"]
     )
 
 
@@ -2669,10 +2669,10 @@ class ORGRegulatorType(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    regulator_name: Optional[str] = Field(None, alias='regulatorName')
-    regulator_country: Optional[str] = Field(None, alias='regulatorCountry')
-    regulated_in_capacity: Optional[str] = Field(None, alias='regulatedInCapacity')
-    regulator_id: Optional[str] = Field(None, alias='regulatorId')
+    regulator_name: Optional[str] = Field(None, alias="regulatorName")
+    regulator_country: Optional[str] = Field(None, alias="regulatorCountry")
+    regulated_in_capacity: Optional[str] = Field(None, alias="regulatedInCapacity")
+    regulator_id: Optional[str] = Field(None, alias="regulatorId")
 
 
 class OrderQuantityLimit(BaseModel):
@@ -2687,36 +2687,36 @@ class OrderValueLimits(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    max_order_value: Optional[float] = Field(None, alias='maxOrderValue')
-    max_gross_value: Optional[float] = Field(None, alias='maxGrossValue')
-    max_net_value: Optional[float] = Field(None, alias='maxNetValue')
-    net_contract_limit: Optional[float] = Field(None, alias='netContractLimit')
+    max_order_value: Optional[float] = Field(None, alias="maxOrderValue")
+    max_gross_value: Optional[float] = Field(None, alias="maxGrossValue")
+    max_net_value: Optional[float] = Field(None, alias="maxNetValue")
+    net_contract_limit: Optional[float] = Field(None, alias="netContractLimit")
 
 
 class TypeOfTrading(Enum):
-    firm = 'FIRM'
-    customer = 'CUSTOMER'
+    firm = "FIRM"
+    customer = "CUSTOMER"
 
 
 class Type11(Enum):
-    llc = 'LLC'
-    corporation = 'CORPORATION'
-    partnership = 'PARTNERSHIP'
-    unincorporated_business = 'UNINCORPORATED BUSINESS'
+    llc = "LLC"
+    corporation = "CORPORATION"
+    partnership = "PARTNERSHIP"
+    unincorporated_business = "UNINCORPORATED BUSINESS"
 
 
 class UsTaxPurposeType(Enum):
-    c = 'C'
-    p = 'P'
-    e = 'E'
+    c = "C"
+    p = "P"
+    e = "E"
 
 
 class PartialBondPosition(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    cusip_number: Optional[str] = Field(None, alias='cusipNumber')
-    number_of_bonds: Optional[int] = Field(None, alias='numberOfBonds')
+    cusip_number: Optional[str] = Field(None, alias="cusipNumber")
+    number_of_bonds: Optional[int] = Field(None, alias="numberOfBonds")
     all: Optional[bool] = None
 
 
@@ -2725,8 +2725,8 @@ class PartialCashPosition(BaseModel):
         populate_by_name=True,
     )
     amount: Optional[float] = None
-    margin_loan: Optional[bool] = Field(None, alias='marginLoan')
-    full_cash: Optional[bool] = Field(None, alias='fullCash')
+    margin_loan: Optional[bool] = Field(None, alias="marginLoan")
+    full_cash: Optional[bool] = Field(None, alias="fullCash")
 
 
 class PartialFundPosition(BaseModel):
@@ -2734,18 +2734,18 @@ class PartialFundPosition(BaseModel):
         populate_by_name=True,
     )
     symbol: Optional[str] = None
-    number_of_shares: Optional[int] = Field(None, alias='numberOfShares')
+    number_of_shares: Optional[int] = Field(None, alias="numberOfShares")
     all: Optional[bool] = None
 
 
 class Position(Enum):
-    long = 'LONG'
-    short = 'SHORT'
+    long = "LONG"
+    short = "SHORT"
 
 
 class OptionType(Enum):
-    call = 'CALL'
-    put = 'PUT'
+    call = "CALL"
+    put = "PUT"
 
 
 class PartialOptionPosition(BaseModel):
@@ -2753,12 +2753,12 @@ class PartialOptionPosition(BaseModel):
         populate_by_name=True,
     )
     symbol: Optional[str] = None
-    number_of_contracts: Optional[int] = Field(None, alias='numberOfContracts')
+    number_of_contracts: Optional[int] = Field(None, alias="numberOfContracts")
     all: Optional[bool] = None
     position: Optional[Position] = None
-    option_type: Optional[OptionType] = Field(None, alias='optionType')
-    strike_price: Optional[int] = Field(None, alias='strikePrice')
-    expiration_date: Optional[str] = Field(None, alias='expirationDate')
+    option_type: Optional[OptionType] = Field(None, alias="optionType")
+    strike_price: Optional[int] = Field(None, alias="strikePrice")
+    expiration_date: Optional[str] = Field(None, alias="expirationDate")
 
 
 class PartialStockPosition(BaseModel):
@@ -2766,7 +2766,7 @@ class PartialStockPosition(BaseModel):
         populate_by_name=True,
     )
     symbol: Optional[str] = None
-    number_of_shares: Optional[int] = Field(None, alias='numberOfShares')
+    number_of_shares: Optional[int] = Field(None, alias="numberOfShares")
     all: Optional[bool] = None
     position: Optional[Position] = None
     exchange: Optional[str] = None
@@ -2777,35 +2777,35 @@ class PartialWarrantPosition(BaseModel):
         populate_by_name=True,
     )
     symbol: Optional[str] = None
-    number_of_shares: Optional[int] = Field(None, alias='numberOfShares')
+    number_of_shares: Optional[int] = Field(None, alias="numberOfShares")
     all: Optional[bool] = None
     position: Optional[Position] = None
-    option_type: Optional[OptionType] = Field(None, alias='optionType')
-    strike_price: Optional[int] = Field(None, alias='strikePrice')
-    expiration_date: Optional[str] = Field(None, alias='expirationDate')
+    option_type: Optional[OptionType] = Field(None, alias="optionType")
+    strike_price: Optional[int] = Field(None, alias="strikePrice")
+    expiration_date: Optional[str] = Field(None, alias="expirationDate")
 
 
 class PendingTask(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    task_number: Optional[int] = Field(None, alias='taskNumber')
-    form_number: Optional[int] = Field(None, alias='formNumber')
-    form_name: Optional[str] = Field(None, alias='formName')
+    task_number: Optional[int] = Field(None, alias="taskNumber")
+    form_number: Optional[int] = Field(None, alias="formNumber")
+    form_name: Optional[str] = Field(None, alias="formName")
     action: Optional[str] = None
-    external_id: Optional[str] = Field(None, alias='externalId')
+    external_id: Optional[str] = Field(None, alias="externalId")
     state: Optional[str] = None
     url: Optional[str] = None
-    au10tix_created_date: Optional[datetime] = Field(None, alias='au10tixCreatedDate')
-    au10tix_expiry_date: Optional[datetime] = Field(None, alias='au10tixExpiryDate')
-    entity_id: Optional[int] = Field(None, alias='entityId')
-    online_task: Optional[bool] = Field(None, alias='onlineTask')
-    required_for_approval: Optional[bool] = Field(None, alias='requiredForApproval')
+    au10tix_created_date: Optional[datetime] = Field(None, alias="au10tixCreatedDate")
+    au10tix_expiry_date: Optional[datetime] = Field(None, alias="au10tixExpiryDate")
+    entity_id: Optional[int] = Field(None, alias="entityId")
+    online_task: Optional[bool] = Field(None, alias="onlineTask")
+    required_for_approval: Optional[bool] = Field(None, alias="requiredForApproval")
     documentreject_reason: Optional[List[str]] = Field(
-        None, alias='documentrejectReason'
+        None, alias="documentrejectReason"
     )
     startdate: Optional[datetime] = None
-    required_for_trading: Optional[bool] = Field(None, alias='requiredForTrading')
+    required_for_trading: Optional[bool] = Field(None, alias="requiredForTrading")
 
 
 class PendingTasksResponse(BaseModel):
@@ -2813,25 +2813,25 @@ class PendingTasksResponse(BaseModel):
         populate_by_name=True,
     )
     error: Optional[ErrorResponse] = None
-    has_error: Optional[bool] = Field(None, alias='hasError')
-    error_description: Optional[str] = Field(None, alias='errorDescription')
-    account_id: Optional[str] = Field(None, alias='accountId')
+    has_error: Optional[bool] = Field(None, alias="hasError")
+    error_description: Optional[str] = Field(None, alias="errorDescription")
+    account_id: Optional[str] = Field(None, alias="accountId")
     status: Optional[str] = None
     description: Optional[str] = None
     state: Optional[str] = None
-    pending_tasks: Optional[List[PendingTask]] = Field(None, alias='pendingTasks')
-    pending_task_present: Optional[bool] = Field(None, alias='pendingTaskPresent')
+    pending_tasks: Optional[List[PendingTask]] = Field(None, alias="pendingTasks")
+    pending_task_present: Optional[bool] = Field(None, alias="pendingTaskPresent")
 
 
 class Type12(Enum):
-    work = 'Work'
-    home = 'Home'
-    fax = 'Fax'
-    mobile = 'Mobile'
-    mobile__work_ = 'Mobile (work)'
-    mobile__other_ = 'Mobile (other)'
-    business = 'Business'
-    other__voice_ = 'Other (voice)'
+    work = "Work"
+    home = "Home"
+    fax = "Fax"
+    mobile = "Mobile"
+    mobile__work_ = "Mobile (work)"
+    mobile__other_ = "Mobile (other)"
+    business = "Business"
+    other__voice_ = "Other (voice)"
 
 
 class PhoneInfo(BaseModel):
@@ -2848,39 +2848,39 @@ class PoliticalMilitaryDiplomaticDetailsType(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    person_name: Optional[str] = Field(None, alias='personName')
+    person_name: Optional[str] = Field(None, alias="personName")
     title: Optional[str] = None
     organization: Optional[str] = None
     country: Optional[str] = None
 
 
 class InstructionType1(Enum):
-    account_close = 'ACCOUNT_CLOSE'
-    ach_instruction = 'ACH_INSTRUCTION'
-    apply_fee_template = 'APPLY_FEE_TEMPLATE'
-    cancel_instruction = 'CANCEL_INSTRUCTION'
-    complex_asset_transfer = 'COMPLEX_ASSET_TRANSFER'
-    delete_bank_instruction = 'DELETE_BANK_INSTRUCTION'
-    deposit = 'DEPOSIT'
-    dwac = 'DWAC'
-    external_position_transfer = 'EXTERNAL_POSITION_TRANSFER'
-    fop = 'FOP'
-    query_recent_instructions = 'QUERY_RECENT_INSTRUCTIONS'
+    account_close = "ACCOUNT_CLOSE"
+    ach_instruction = "ACH_INSTRUCTION"
+    apply_fee_template = "APPLY_FEE_TEMPLATE"
+    cancel_instruction = "CANCEL_INSTRUCTION"
+    complex_asset_transfer = "COMPLEX_ASSET_TRANSFER"
+    delete_bank_instruction = "DELETE_BANK_INSTRUCTION"
+    deposit = "DEPOSIT"
+    dwac = "DWAC"
+    external_position_transfer = "EXTERNAL_POSITION_TRANSFER"
+    fop = "FOP"
+    query_recent_instructions = "QUERY_RECENT_INSTRUCTIONS"
     query_withdawable_funds_internal_position_transfer = (
-        'QUERY_WITHDAWABLE_FUNDS INTERNAL_POSITION_TRANSFER'
+        "QUERY_WITHDAWABLE_FUNDS INTERNAL_POSITION_TRANSFER"
     )
-    internal_cash_transfer = 'INTERNAL_CASH_TRANSFER'
-    micro_amount = 'MICRO_AMOUNT'
+    internal_cash_transfer = "INTERNAL_CASH_TRANSFER"
+    micro_amount = "MICRO_AMOUNT"
     predefined_destination_instruction_traditional_bank_instruction_verification = (
-        'PREDEFINED_DESTINATION_INSTRUCTION TRADITIONAL_BANK_INSTRUCTION_VERIFICATION'
+        "PREDEFINED_DESTINATION_INSTRUCTION TRADITIONAL_BANK_INSTRUCTION_VERIFICATION"
     )
-    withdrawal = 'WITHDRAWAL'
+    withdrawal = "WITHDRAWAL"
 
 
 class InstructionStatus1(Enum):
-    pending = 'PENDING'
-    rejected = 'REJECTED'
-    processed = 'PROCESSED'
+    pending = "PENDING"
+    rejected = "REJECTED"
+    processed = "PROCESSED"
 
 
 class PollingInstructionResult(BaseModel):
@@ -2888,55 +2888,55 @@ class PollingInstructionResult(BaseModel):
         populate_by_name=True,
     )
     client_instruction_id: str = Field(
-        ..., alias='clientInstructionId', examples=['1012983']
+        ..., alias="clientInstructionId", examples=["1012983"]
     )
     instruction_type: InstructionType1 = Field(
-        ..., alias='instructionType', examples=['INTERNAL_CASH_TRANSFER']
+        ..., alias="instructionType", examples=["INTERNAL_CASH_TRANSFER"]
     )
     instruction_status: InstructionStatus1 = Field(
-        ..., alias='instructionStatus', examples=['PENDING']
+        ..., alias="instructionStatus", examples=["PENDING"]
     )
-    instruction_id: float = Field(..., alias='instructionId', examples=[45123654])
+    instruction_id: float = Field(..., alias="instructionId", examples=[45123654])
     ib_reference_id: Optional[float] = Field(
-        None, alias='ibReferenceId', examples=[23456745]
+        None, alias="ibReferenceId", examples=[23456745]
     )
     description: Optional[str] = Field(
-        None, examples=['Please poll for status after 10 minutes']
+        None, examples=["Please poll for status after 10 minutes"]
     )
     error: Optional[Error] = None
 
 
 class BankInstructionMethod3(Enum):
-    lvp = 'LVP'
-    sepa = 'SEPA'
-    wire = 'WIRE'
-    ach = 'ACH'
-    cpa = 'CPA'
+    lvp = "LVP"
+    sepa = "SEPA"
+    wire = "WIRE"
+    ach = "ACH"
+    cpa = "CPA"
 
 
 class BranchCodeType(Enum):
-    bsb_aud = 'BSB_AUD'
-    bank_code_cad = 'BANK_CODE_CAD'
-    none = 'NONE'
+    bsb_aud = "BSB_AUD"
+    bank_code_cad = "BANK_CODE_CAD"
+    none = "NONE"
 
 
 class FinancialInstitution(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    name: constr(min_length=1, max_length=100) = Field(..., examples=['SBI BANK'])
+    name: constr(min_length=1, max_length=100) = Field(..., examples=["SBI BANK"])
     branch_code: Optional[constr(min_length=0, max_length=32)] = Field(
-        None, alias='branchCode'
+        None, alias="branchCode"
     )
-    branch_code_type: Optional[BranchCodeType] = Field(None, alias='branchCodeType')
+    branch_code_type: Optional[BranchCodeType] = Field(None, alias="branchCodeType")
     identifier: constr(min_length=1, max_length=24) = Field(
-        ..., examples=['SBIN001000']
+        ..., examples=["SBIN001000"]
     )
     identifier_type: constr(min_length=1, max_length=16) = Field(
-        ..., alias='identifierType', examples=['IFSC']
+        ..., alias="identifierType", examples=["IFSC"]
     )
     client_account_id: constr(min_length=1, max_length=32) = Field(
-        ..., alias='clientAccountId', examples=['132456789']
+        ..., alias="clientAccountId", examples=["132456789"]
     )
 
 
@@ -2945,20 +2945,20 @@ class PredefinedDestinationInstruction(BaseModel):
         populate_by_name=True,
     )
     client_instruction_id: float = Field(
-        ..., alias='clientInstructionId', examples=[1012983]
+        ..., alias="clientInstructionId", examples=[1012983]
     )
     bank_instruction_name: constr(min_length=1, max_length=100) = Field(
-        ..., alias='bankInstructionName', examples=['Instruction']
+        ..., alias="bankInstructionName", examples=["Instruction"]
     )
     bank_instruction_method: BankInstructionMethod3 = Field(
-        ..., alias='bankInstructionMethod', examples=['ACH']
+        ..., alias="bankInstructionMethod", examples=["ACH"]
     )
     account_id: constr(min_length=1, max_length=10) = Field(
-        ..., alias='accountId', examples=['U2323232']
+        ..., alias="accountId", examples=["U2323232"]
     )
-    currency: constr(min_length=1, max_length=3) = Field(..., examples=['USD'])
+    currency: constr(min_length=1, max_length=3) = Field(..., examples=["USD"])
     financial_institution: Optional[FinancialInstitution] = Field(
-        None, alias='financialInstitution'
+        None, alias="financialInstitution"
     )
 
 
@@ -2976,14 +2976,14 @@ class PrimaryContributorType(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    first_name: Optional[str] = Field(None, alias='firstName')
-    middle_initial: Optional[str] = Field(None, alias='middleInitial')
-    last_name: Optional[str] = Field(None, alias='lastName')
+    first_name: Optional[str] = Field(None, alias="firstName")
+    middle_initial: Optional[str] = Field(None, alias="middleInitial")
+    last_name: Optional[str] = Field(None, alias="lastName")
     suffix: Optional[Suffix] = None
     employer: Optional[str] = None
     occupation: Optional[str] = None
     address: Optional[Address] = None
-    source_of_funds: Optional[str] = Field(None, alias='sourceOfFunds')
+    source_of_funds: Optional[str] = Field(None, alias="sourceOfFunds")
 
 
 class ProblemDetailResponse(BaseModel):
@@ -2998,13 +2998,13 @@ class ProblemDetailResponse(BaseModel):
 
 
 class Code1(Enum):
-    passport = 'PASSPORT'
-    citizenship = 'CITIZENSHIP'
-    businessdealings = 'BUSINESSDEALINGS'
-    financialaccounts = 'FINANCIALACCOUNTS'
-    resident = 'RESIDENT'
-    multi = 'MULTI'
-    birth = 'BIRTH'
+    passport = "PASSPORT"
+    citizenship = "CITIZENSHIP"
+    businessdealings = "BUSINESSDEALINGS"
+    financialaccounts = "FINANCIALACCOUNTS"
+    resident = "RESIDENT"
+    multi = "MULTI"
+    birth = "BIRTH"
 
 
 class ProhibitedQuestionnaireDetail(BaseModel):
@@ -3020,13 +3020,13 @@ class PublicCompanyInfoType(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    exchange_traded_on: Optional[str] = Field(None, alias='exchangeTradedOn')
-    quoted_symbol: Optional[str] = Field(None, alias='quotedSymbol')
+    exchange_traded_on: Optional[str] = Field(None, alias="exchangeTradedOn")
+    quoted_symbol: Optional[str] = Field(None, alias="quotedSymbol")
 
 
 class Code2(Enum):
-    investment_company_act = 'InvestmentCompanyAct'
-    discretionary_basis = 'DiscretionaryBasis'
+    investment_company_act = "InvestmentCompanyAct"
+    discretionary_basis = "DiscretionaryBasis"
 
 
 class QualifiedPurchaserDetails(BaseModel):
@@ -3042,10 +3042,10 @@ class QueryAccountBalances(BaseModel):
         populate_by_name=True,
     )
     client_instruction_id: float = Field(
-        ..., alias='clientInstructionId', examples=[1012983]
+        ..., alias="clientInstructionId", examples=[1012983]
     )
     account_id: constr(min_length=1) = Field(
-        ..., alias='accountId', examples=['U399192']
+        ..., alias="accountId", examples=["U399192"]
     )
 
 
@@ -3054,28 +3054,28 @@ class QueryBankInstruction(BaseModel):
         populate_by_name=True,
     )
     client_instruction_id: float = Field(
-        ..., alias='clientInstructionId', examples=[1012983]
+        ..., alias="clientInstructionId", examples=[1012983]
     )
     account_id: constr(min_length=1) = Field(
-        ..., alias='accountId', examples=['U32343']
+        ..., alias="accountId", examples=["U32343"]
     )
     bank_instruction_method: constr(min_length=1) = Field(
-        ..., alias='bankInstructionMethod', examples=['WIRE']
+        ..., alias="bankInstructionMethod", examples=["WIRE"]
     )
 
 
 class BankInstructionMethod4(Enum):
-    wire = 'WIRE'
-    ach = 'ACH'
+    wire = "WIRE"
+    ach = "ACH"
 
 
 class QueryBankInstructionResult(InstructionResult):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    account_id: str = Field(..., alias='accountId')
+    account_id: str = Field(..., alias="accountId")
     bank_instruction_method: BankInstructionMethod4 = Field(
-        ..., alias='bankInstructionMethod'
+        ..., alias="bankInstructionMethod"
     )
 
 
@@ -3084,10 +3084,10 @@ class QueryFeeTemplate(BaseModel):
         populate_by_name=True,
     )
     client_instruction_id: float = Field(
-        ..., alias='clientInstructionId', examples=[1012983]
+        ..., alias="clientInstructionId", examples=[1012983]
     )
     account_id: constr(min_length=1) = Field(
-        ..., alias='accountId', examples=['U32343']
+        ..., alias="accountId", examples=["U32343"]
     )
 
 
@@ -3095,15 +3095,15 @@ class TemplateDetails(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    account_id: Optional[str] = Field(None, alias='accountId')
-    template_name: Optional[str] = Field(None, alias='templateName')
+    account_id: Optional[str] = Field(None, alias="accountId")
+    template_name: Optional[str] = Field(None, alias="templateName")
 
 
 class QueryFeeTemplateResult(InstructionResult):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    template_details: TemplateDetails = Field(..., alias='templateDetails')
+    template_details: TemplateDetails = Field(..., alias="templateDetails")
 
 
 class QueryIRAContributions(BaseModel):
@@ -3111,30 +3111,30 @@ class QueryIRAContributions(BaseModel):
         populate_by_name=True,
     )
     client_instruction_id: float = Field(
-        ..., alias='clientInstructionId', examples=[1012983]
+        ..., alias="clientInstructionId", examples=[1012983]
     )
     account_id: constr(min_length=1) = Field(
-        ..., alias='accountId', examples=['U68903']
+        ..., alias="accountId", examples=["U68903"]
     )
-    year: str = Field(..., examples=['2003'])
+    year: str = Field(..., examples=["2003"])
 
 
 class Contribution(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    maximum_contribution_limit: float = Field(..., alias='maximumContributionLimit')
-    year_to_date_contribution: float = Field(..., alias='yearToDateContribution')
-    allowed_contribution_limit: float = Field(..., alias='allowedContributionLimit')
+    maximum_contribution_limit: float = Field(..., alias="maximumContributionLimit")
+    year_to_date_contribution: float = Field(..., alias="yearToDateContribution")
+    allowed_contribution_limit: float = Field(..., alias="allowedContributionLimit")
 
 
 class QueryIRAContributionsResult(PollingInstructionResult):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    account_id: str = Field(..., alias='accountId')
+    account_id: str = Field(..., alias="accountId")
     year: str
-    ira_type: str = Field(..., alias='iraType')
+    ira_type: str = Field(..., alias="iraType")
     contributions: List[Contribution]
 
 
@@ -3142,12 +3142,12 @@ class Result(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    client_instruction_id: float = Field(..., alias='clientInstructionId')
-    ib_instruction_id: float = Field(..., alias='ibInstructionId')
-    instruction_type: str = Field(..., alias='instructionType')
-    request_date: str = Field(..., alias='requestDate')
+    client_instruction_id: float = Field(..., alias="clientInstructionId")
+    ib_instruction_id: float = Field(..., alias="ibInstructionId")
+    instruction_type: str = Field(..., alias="instructionType")
+    request_date: str = Field(..., alias="requestDate")
     status: str
-    instruction_set_id: float = Field(..., alias='instructionSetId')
+    instruction_set_id: float = Field(..., alias="instructionSetId")
 
 
 class InstructionHistory(BaseModel):
@@ -3155,10 +3155,10 @@ class InstructionHistory(BaseModel):
         populate_by_name=True,
     )
     history_max_depth_number_of_days: int = Field(
-        ..., alias='historyMaxDepthNumberOfDays'
+        ..., alias="historyMaxDepthNumberOfDays"
     )
     history_max_depth_number_of_instruction: int = Field(
-        ..., alias='historyMaxDepthNumberOfInstruction'
+        ..., alias="historyMaxDepthNumberOfInstruction"
     )
     result: Result
 
@@ -3167,16 +3167,16 @@ class QueryRecentInstructionResult(PollingInstructionResult):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    instruction_history: InstructionHistory = Field(..., alias='instructionHistory')
+    instruction_history: InstructionHistory = Field(..., alias="instructionHistory")
 
 
 class TransactionHistory(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    days_to_go_back: float = Field(..., alias='daysToGoBack', examples=[5])
+    days_to_go_back: float = Field(..., alias="daysToGoBack", examples=[5])
     transaction_type: Optional[str] = Field(
-        None, alias='transactionType', examples=['INTERNAL_CASH_TRANSFER']
+        None, alias="transactionType", examples=["INTERNAL_CASH_TRANSFER"]
     )
 
 
@@ -3185,17 +3185,17 @@ class QueryRecentInstructions(BaseModel):
         populate_by_name=True,
     )
     client_instruction_id: float = Field(
-        ..., alias='clientInstructionId', examples=[1012983]
+        ..., alias="clientInstructionId", examples=[1012983]
     )
-    account_id: str = Field(..., alias='accountId', examples=['U32343'])
-    transaction_history: TransactionHistory = Field(..., alias='transactionHistory')
+    account_id: str = Field(..., alias="accountId", examples=["U32343"])
+    transaction_history: TransactionHistory = Field(..., alias="transactionHistory")
 
 
 class ResultItem(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    ib_request_id: Optional[int] = Field(None, alias='ibRequestId')
+    ib_request_id: Optional[int] = Field(None, alias="ibRequestId")
     status: Optional[str] = None
 
 
@@ -3204,7 +3204,7 @@ class TransactionHistory1(BaseModel):
         populate_by_name=True,
     )
     max_number_of_transactions: Optional[int] = Field(
-        None, alias='maxNumberOfTransactions'
+        None, alias="maxNumberOfTransactions"
     )
     result: Optional[List[ResultItem]] = None
 
@@ -3213,13 +3213,13 @@ class QueryRecentRecurringEventResult(InstructionResult):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    recurring_instruction_name: str = Field(..., alias='recurringInstructionName')
-    recurring_transaction_type: str = Field(..., alias='recurringTransactionType')
-    recurring_transaction_status: str = Field(..., alias='recurringTransactionStatus')
+    recurring_instruction_name: str = Field(..., alias="recurringInstructionName")
+    recurring_transaction_type: str = Field(..., alias="recurringTransactionType")
+    recurring_transaction_status: str = Field(..., alias="recurringTransactionStatus")
     amount: float
     currency: str
     method: str
-    transaction_history: TransactionHistory1 = Field(..., alias='transactionHistory')
+    transaction_history: TransactionHistory1 = Field(..., alias="transactionHistory")
 
 
 class QueryRecentRecurringEvents(BaseModel):
@@ -3227,13 +3227,13 @@ class QueryRecentRecurringEvents(BaseModel):
         populate_by_name=True,
     )
     client_instruction_id: float = Field(
-        ..., alias='clientInstructionId', examples=[1012983]
+        ..., alias="clientInstructionId", examples=[1012983]
     )
     ib_reference_id: constr(min_length=1) = Field(
-        ..., alias='ibReferenceId', examples=['-343872793']
+        ..., alias="ibReferenceId", examples=["-343872793"]
     )
     number_of_transactions: Optional[float] = Field(
-        None, alias='numberOfTransactions', examples=[15]
+        None, alias="numberOfTransactions", examples=[15]
     )
 
 
@@ -3242,36 +3242,36 @@ class QueryRecurringInstructions(BaseModel):
         populate_by_name=True,
     )
     client_instruction_id: float = Field(
-        ..., alias='clientInstructionId', examples=[1012983]
+        ..., alias="clientInstructionId", examples=[1012983]
     )
     account_id: constr(min_length=1) = Field(
-        ..., alias='accountId', examples=['U399192']
+        ..., alias="accountId", examples=["U399192"]
     )
-    currency: constr(min_length=1) = Field(..., examples=['USD'])
+    currency: constr(min_length=1) = Field(..., examples=["USD"])
 
 
 class RecurringInstruction(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    request_id: Optional[int] = Field(None, alias='requestId')
-    bank_instruction_name: Optional[str] = Field(None, alias='bankInstructionName')
-    transaction_type: Optional[str] = Field(None, alias='transactionType')
-    bank_instruction_method: Optional[str] = Field(None, alias='bankInstructionMethod')
+    request_id: Optional[int] = Field(None, alias="requestId")
+    bank_instruction_name: Optional[str] = Field(None, alias="bankInstructionName")
+    transaction_type: Optional[str] = Field(None, alias="transactionType")
+    bank_instruction_method: Optional[str] = Field(None, alias="bankInstructionMethod")
     amount: Optional[float] = None
     currency: Optional[str] = None
     frequency: Optional[str] = None
-    start_date: Optional[datetime] = Field(None, alias='startDate')
-    end_date: Optional[datetime] = Field(None, alias='endDate')
+    start_date: Optional[datetime] = Field(None, alias="startDate")
+    end_date: Optional[datetime] = Field(None, alias="endDate")
 
 
 class QueryRecurringInstructionsResult(InstructionResult):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    account_id: str = Field(..., alias='accountId')
+    account_id: str = Field(..., alias="accountId")
     recurring_instructions: List[RecurringInstruction] = Field(
-        ..., alias='recurringInstructions'
+        ..., alias="recurringInstructions"
     )
 
 
@@ -3279,17 +3279,17 @@ class QueryWithdrawableAmountsInstructionResult(PollingInstructionResult):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    account_id: str = Field(..., alias='accountId')
+    account_id: str = Field(..., alias="accountId")
     currency: str
-    withdrawable_amount: float = Field(..., alias='withdrawableAmount')
+    withdrawable_amount: float = Field(..., alias="withdrawableAmount")
     withdrawable_amount_no_borrow: float = Field(
-        ..., alias='withdrawableAmountNoBorrow'
+        ..., alias="withdrawableAmountNoBorrow"
     )
     allowed_transfer_amount_to_master: float = Field(
-        ..., alias='allowedTransferAmountToMaster'
+        ..., alias="allowedTransferAmountToMaster"
     )
     withdrawable_amount_without_origination_hold_no_borrow: float = Field(
-        ..., alias='withdrawableAmountWithoutOriginationHoldNoBorrow'
+        ..., alias="withdrawableAmountWithoutOriginationHoldNoBorrow"
     )
 
 
@@ -3297,13 +3297,13 @@ class QueryWithdrawableAmountsWithoutOriginHoldResult(PollingInstructionResult):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    account_id: str = Field(..., alias='accountId')
+    account_id: str = Field(..., alias="accountId")
     currency: str
     withdrawable_amount_without_origination_hold: float = Field(
-        ..., alias='withdrawableAmountWithoutOriginationHold'
+        ..., alias="withdrawableAmountWithoutOriginationHold"
     )
     withdrawable_amount_without_origination_hold_no_borrow: float = Field(
-        ..., alias='withdrawableAmountWithoutOriginationHoldNoBorrow'
+        ..., alias="withdrawableAmountWithoutOriginationHoldNoBorrow"
     )
 
 
@@ -3312,10 +3312,10 @@ class QueryWithdrawableFunds(BaseModel):
         populate_by_name=True,
     )
     bank_routing_number: Optional[constr(min_length=0)] = Field(
-        None, alias='bankRoutingNumber', examples=['122199983']
+        None, alias="bankRoutingNumber", examples=["122199983"]
     )
     bank_client_account_number: Optional[constr(min_length=0)] = Field(
-        None, alias='bankClientAccountNumber', examples=['9876543210']
+        None, alias="bankClientAccountNumber", examples=["9876543210"]
     )
 
 
@@ -3324,10 +3324,10 @@ class QueryWithdrawableWithoutOriginHoldFunds(BaseModel):
         populate_by_name=True,
     )
     bank_routing_number: constr(min_length=0) = Field(
-        ..., alias='bankRoutingNumber', examples=['122199983']
+        ..., alias="bankRoutingNumber", examples=["122199983"]
     )
     bank_client_account_number: Optional[constr(min_length=0)] = Field(
-        None, alias='bankClientAccountNumber', examples=['9876543210']
+        None, alias="bankClientAccountNumber", examples=["9876543210"]
     )
 
 
@@ -3335,14 +3335,14 @@ class QuestionnaireType(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    form_number: Optional[int] = Field(None, alias='formNumber')
+    form_number: Optional[int] = Field(None, alias="formNumber")
     detail: Optional[str] = None
 
 
 class Frequency(Enum):
-    monthly = 'MONTHLY'
-    quarterly = 'QUARTERLY'
-    yearly = 'YEARLY'
+    monthly = "MONTHLY"
+    quarterly = "QUARTERLY"
+    yearly = "YEARLY"
 
 
 class RecurringInstructionDetail(BaseModel):
@@ -3350,56 +3350,56 @@ class RecurringInstructionDetail(BaseModel):
         populate_by_name=True,
     )
     instruction_name: constr(min_length=1, max_length=64) = Field(
-        ..., alias='instructionName', examples=['Arkansas-Test']
+        ..., alias="instructionName", examples=["Arkansas-Test"]
     )
-    frequency: Frequency = Field(..., examples=['MONTHLY'])
-    start_date: str = Field(..., alias='startDate', examples=['2023-10-16'])
-    end_date: Optional[str] = Field(None, alias='endDate', examples=['2023-10-16'])
+    frequency: Frequency = Field(..., examples=["MONTHLY"])
+    start_date: str = Field(..., alias="startDate", examples=["2023-10-16"])
+    end_date: Optional[str] = Field(None, alias="endDate", examples=["2023-10-16"])
 
 
 class Type13(Enum):
-    deposit = 'DEPOSIT'
-    withdrawal = 'WITHDRAWAL'
+    deposit = "DEPOSIT"
+    withdrawal = "WITHDRAWAL"
 
 
 class Method(Enum):
-    check = 'CHECK'
-    wire = 'WIRE'
-    ach = 'ACH'
-    skip_deposit = 'SKIP_DEPOSIT'
+    check = "CHECK"
+    wire = "WIRE"
+    ach = "ACH"
+    skip_deposit = "SKIP_DEPOSIT"
 
 
 class RecurringTransaction(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    ach_instruction: Optional[ACHInstruction] = Field(None, alias='achInstruction')
+    ach_instruction: Optional[ACHInstruction] = Field(None, alias="achInstruction")
     ira_withdrawal_details: Optional[IRAWithdrawalDetails] = Field(
-        None, alias='iraWithdrawalDetails'
+        None, alias="iraWithdrawalDetails"
     )
     type: Optional[Type13] = None
     method: Optional[Method] = None
     instruction: Optional[str] = None
     frequency: Optional[Frequency] = None
-    start_date: Optional[date] = Field(None, alias='startDate')
-    end_date: Optional[date] = Field(None, alias='endDate')
+    start_date: Optional[date] = Field(None, alias="startDate")
+    end_date: Optional[date] = Field(None, alias="endDate")
     name: Optional[str] = None
     amount: Optional[float] = None
     currency: Optional[Currency] = None
-    ib_account: Optional[str] = Field(None, alias='ibAccount')
+    ib_account: Optional[str] = Field(None, alias="ibAccount")
 
 
 class ClientType(Enum):
-    confidential = 'CONFIDENTIAL'
-    public = 'PUBLIC'
-    test = 'TEST'
+    confidential = "CONFIDENTIAL"
+    public = "PUBLIC"
+    test = "TEST"
 
 
 class ClientStatus(Enum):
-    requested = 'REQUESTED'
-    active = 'ACTIVE'
-    revoked = 'REVOKED'
-    unknown = 'UNKNOWN'
+    requested = "REQUESTED"
+    active = "ACTIVE"
+    revoked = "REVOKED"
+    unknown = "UNKNOWN"
 
 
 class RegisteredClient(BaseModel):
@@ -3426,14 +3426,14 @@ class RegistrationTask(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    external_id: Optional[str] = Field(None, alias='externalId')
-    form_name: Optional[str] = Field(None, alias='formName')
+    external_id: Optional[str] = Field(None, alias="externalId")
+    form_name: Optional[str] = Field(None, alias="formName")
     action: Optional[str] = None
     is_required_for_approval: Optional[bool] = Field(
-        None, alias='isRequiredForApproval'
+        None, alias="isRequiredForApproval"
     )
-    is_completed: Optional[bool] = Field(None, alias='isCompleted')
-    date_completed: Optional[datetime] = Field(None, alias='dateCompleted')
+    is_completed: Optional[bool] = Field(None, alias="isCompleted")
+    date_completed: Optional[datetime] = Field(None, alias="dateCompleted")
     state: Optional[str] = None
 
 
@@ -3442,17 +3442,17 @@ class RegistrationTasksResponse(BaseModel):
         populate_by_name=True,
     )
     error: Optional[ErrorResponse] = None
-    has_error: Optional[bool] = Field(None, alias='hasError')
-    error_description: Optional[str] = Field(None, alias='errorDescription')
-    account_id: Optional[str] = Field(None, alias='accountId')
+    has_error: Optional[bool] = Field(None, alias="hasError")
+    error_description: Optional[str] = Field(None, alias="errorDescription")
+    account_id: Optional[str] = Field(None, alias="accountId")
     status: Optional[str] = None
     description: Optional[str] = None
     state: Optional[str] = None
     registration_task_present: Optional[bool] = Field(
-        None, alias='registrationTaskPresent'
+        None, alias="registrationTaskPresent"
     )
     registration_tasks: Optional[List[RegistrationTask]] = Field(
-        None, alias='registrationTasks'
+        None, alias="registrationTasks"
     )
 
 
@@ -3460,42 +3460,42 @@ class RegulatedMembership(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    organization_code: Optional[str] = Field(None, alias='organizationCode')
-    membership_id: Optional[str] = Field(None, alias='membershipId')
+    organization_code: Optional[str] = Field(None, alias="organizationCode")
+    membership_id: Optional[str] = Field(None, alias="membershipId")
 
 
 class Code3(Enum):
-    criminal = 'CRIMINAL'
-    affiliation = 'AFFILIATION'
-    cftcregistered = 'CFTCREGISTERED'
-    ibaccounts = 'IBACCOUNTS'
-    regulatorycontrol = 'REGULATORYCONTROL'
-    employee_pub_trade = 'EmployeePubTrade'
-    control_pub_traded = 'ControlPubTraded'
-    brokerdealer = 'BROKERDEALER'
-    exchangemembership = 'EXCHANGEMEMBERSHIP'
-    stockcontrol = 'STOCKCONTROL'
-    dispute = 'DISPUTE'
-    investigation = 'INVESTIGATION'
-    membership = 'MEMBERSHIP'
-    ausexposure = 'AUSEXPOSURE'
-    controller = 'CONTROLLER'
-    politicalmilitarydiplomatic = 'POLITICALMILITARYDIPLOMATIC'
-    foreign_bank = 'FOREIGN_BANK'
-    broker_dealer = 'BROKER_DEALER'
-    futures_commission_merchant = 'FUTURES_COMMISSION_MERCHANT'
-    mutual_fund = 'MUTUAL_FUND'
-    foreign_exchange = 'FOREIGN_EXCHANGE'
-    money_transmitter = 'MONEY_TRANSMITTER'
-    employee_benefit_plan = 'EMPLOYEE_BENEFIT_PLAN'
-    us_bank = 'US_BANK'
-    us_swap_dealer = 'US_SWAP_DEALER'
-    us_swap_participant = 'US_SWAP_PARTICIPANT'
-    us_insurance_company = 'US_INSURANCE_COMPANY'
-    non_us_insurance_company = 'NON_US_INSURANCE_COMPANY'
-    us_dept = 'US_DEPT'
-    financial_advisor = 'FINANCIAL_ADVISOR'
-    high_risk_contribution = 'HIGH_RISK_CONTRIBUTION'
+    criminal = "CRIMINAL"
+    affiliation = "AFFILIATION"
+    cftcregistered = "CFTCREGISTERED"
+    ibaccounts = "IBACCOUNTS"
+    regulatorycontrol = "REGULATORYCONTROL"
+    employee_pub_trade = "EmployeePubTrade"
+    control_pub_traded = "ControlPubTraded"
+    brokerdealer = "BROKERDEALER"
+    exchangemembership = "EXCHANGEMEMBERSHIP"
+    stockcontrol = "STOCKCONTROL"
+    dispute = "DISPUTE"
+    investigation = "INVESTIGATION"
+    membership = "MEMBERSHIP"
+    ausexposure = "AUSEXPOSURE"
+    controller = "CONTROLLER"
+    politicalmilitarydiplomatic = "POLITICALMILITARYDIPLOMATIC"
+    foreign_bank = "FOREIGN_BANK"
+    broker_dealer = "BROKER_DEALER"
+    futures_commission_merchant = "FUTURES_COMMISSION_MERCHANT"
+    mutual_fund = "MUTUAL_FUND"
+    foreign_exchange = "FOREIGN_EXCHANGE"
+    money_transmitter = "MONEY_TRANSMITTER"
+    employee_benefit_plan = "EMPLOYEE_BENEFIT_PLAN"
+    us_bank = "US_BANK"
+    us_swap_dealer = "US_SWAP_DEALER"
+    us_swap_participant = "US_SWAP_PARTICIPANT"
+    us_insurance_company = "US_INSURANCE_COMPANY"
+    non_us_insurance_company = "NON_US_INSURANCE_COMPANY"
+    us_dept = "US_DEPT"
+    financial_advisor = "FINANCIAL_ADVISOR"
+    high_risk_contribution = "HIGH_RISK_CONTRIBUTION"
 
 
 class RegulatoryDetail(BaseModel):
@@ -3506,21 +3506,21 @@ class RegulatoryDetail(BaseModel):
     status: Optional[bool] = None
     details: Optional[str] = None
     detail: Optional[str] = None
-    external_individual_id: Optional[str] = Field(None, alias='externalIndividualId')
+    external_individual_id: Optional[str] = Field(None, alias="externalIndividualId")
 
 
 class ReopenAccount(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
 
 
 class RepDetail(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    rep_id: Optional[str] = Field(None, alias='repId')
+    rep_id: Optional[str] = Field(None, alias="repId")
     percentage: Optional[int] = None
 
 
@@ -3528,7 +3528,7 @@ class RepresentativeDetail(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    representative_id: Optional[str] = Field(None, alias='representativeId')
+    representative_id: Optional[str] = Field(None, alias="representativeId")
     percentage: Optional[int] = None
 
 
@@ -3536,19 +3536,19 @@ class RequestDetail(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    request_id: Optional[int] = Field(None, alias='requestId')
-    date_submitted: Optional[str] = Field(None, alias='dateSubmitted')
+    request_id: Optional[int] = Field(None, alias="requestId")
+    date_submitted: Optional[str] = Field(None, alias="dateSubmitted")
     status: Optional[str] = None
-    account_id: Optional[str] = Field(None, alias='accountID')
-    request_type: Optional[str] = Field(None, alias='requestType')
+    account_id: Optional[str] = Field(None, alias="accountID")
+    request_type: Optional[str] = Field(None, alias="requestType")
 
 
 class RequestDetailsRequest(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    start_date: date = Field(..., alias='startDate')
-    end_date: date = Field(..., alias='endDate')
+    start_date: date = Field(..., alias="startDate")
+    end_date: date = Field(..., alias="endDate")
     offset: Optional[conint(ge=0)] = None
     limit: Optional[conint(ge=1, le=1000)] = None
     status: Optional[Status] = None
@@ -3558,7 +3558,7 @@ class RequestDetailsResponse(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    request_details: Optional[List[RequestDetail]] = Field(None, alias='requestDetails')
+    request_details: Optional[List[RequestDetail]] = Field(None, alias="requestDetails")
     offset: Optional[int] = None
     limit: Optional[int] = None
     total: Optional[int] = None
@@ -3568,15 +3568,15 @@ class RequestInfoResponse(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    request_id: Optional[int] = Field(None, alias='requestId')
-    executed_at: Optional[str] = Field(None, alias='executedAt')
+    request_id: Optional[int] = Field(None, alias="requestId")
+    executed_at: Optional[str] = Field(None, alias="executedAt")
 
 
 class ResetAbandonedAccount(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
 
 
 class Residence(BaseModel):
@@ -3584,7 +3584,7 @@ class Residence(BaseModel):
         populate_by_name=True,
     )
     street1: Optional[str] = None
-    postal_code: Optional[str] = Field(None, alias='postalCode')
+    postal_code: Optional[str] = Field(None, alias="postalCode")
     country: Optional[str] = None
     city: Optional[str] = None
     state: Optional[str] = None
@@ -3594,19 +3594,19 @@ class ResidenceAddress(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    street1: Optional[str] = Field(None, description='Street which applicant resides')
-    street2: Optional[str] = Field(None, description='Street which applicant resides')
-    city: Optional[str] = Field(None, description='City which the applicant resides.')
+    street1: Optional[str] = Field(None, description="Street which applicant resides")
+    street2: Optional[str] = Field(None, description="Street which applicant resides")
+    city: Optional[str] = Field(None, description="City which the applicant resides.")
     state: Optional[str] = Field(
-        None, description='State/Province which the applicant resides.'
+        None, description="State/Province which the applicant resides."
     )
     country: Optional[str] = Field(
-        None, description='Country which the applicant resides.'
+        None, description="Country which the applicant resides."
     )
     postal_code: Optional[str] = Field(
         None,
-        alias='postalCode',
-        description='Postal / Zip code.For countries that do not provide postal code, please enter 00000',
+        alias="postalCode",
+        description="Postal / Zip code.For countries that do not provide postal code, please enter 00000",
     )
 
 
@@ -3615,9 +3615,9 @@ class ResponseFileResponse(BaseModel):
         populate_by_name=True,
     )
     error: Optional[ErrorResponse] = None
-    has_error: Optional[bool] = Field(None, alias='hasError')
-    error_description: Optional[str] = Field(None, alias='errorDescription')
-    is_processed: Optional[bool] = Field(None, alias='isProcessed')
+    has_error: Optional[bool] = Field(None, alias="hasError")
+    error_description: Optional[str] = Field(None, alias="errorDescription")
+    is_processed: Optional[bool] = Field(None, alias="isProcessed")
     name: Optional[str] = None
     data: Optional[Dict[str, Any]] = None
 
@@ -3627,7 +3627,7 @@ class RestrictionInfo(BaseModel):
         populate_by_name=True,
     )
     id: Optional[int] = None
-    by_ib: Optional[bool] = Field(None, alias='byIB')
+    by_ib: Optional[bool] = Field(None, alias="byIB")
     name: Optional[str] = None
 
 
@@ -3643,8 +3643,8 @@ class SecurityQuestions(BaseModel):
         populate_by_name=True,
     )
     details: Optional[List[Details]] = None
-    reference_user_name: Optional[str] = Field(None, alias='referenceUserName')
-    input_language: Optional[InputLanguage] = Field(None, alias='inputLanguage')
+    reference_user_name: Optional[str] = Field(None, alias="referenceUserName")
+    input_language: Optional[InputLanguage] = Field(None, alias="inputLanguage")
 
 
 class SelfRegulatedMembershipType(BaseModel):
@@ -3656,54 +3656,54 @@ class SelfRegulatedMembershipType(BaseModel):
 
 
 class SourceType(Enum):
-    consulting = 'CONSULTING'
-    disability = 'DISABILITY'
-    inheritance = 'INHERITANCE'
-    interest = 'INTEREST'
-    realestate = 'REALESTATE'
-    rental = 'RENTAL'
-    severance = 'SEVERANCE'
-    spouse = 'SPOUSE'
-    tradingandinvestments = 'TRADINGANDINVESTMENTS'
-    pensionandsocialsecurity = 'PENSIONANDSOCIALSECURITY'
-    unemployment = 'UNEMPLOYMENT'
-    other = 'OTHER'
+    consulting = "CONSULTING"
+    disability = "DISABILITY"
+    inheritance = "INHERITANCE"
+    interest = "INTEREST"
+    realestate = "REALESTATE"
+    rental = "RENTAL"
+    severance = "SEVERANCE"
+    spouse = "SPOUSE"
+    tradingandinvestments = "TRADINGANDINVESTMENTS"
+    pensionandsocialsecurity = "PENSIONANDSOCIALSECURITY"
+    unemployment = "UNEMPLOYMENT"
+    other = "OTHER"
 
 
 class SourceOfIncomeType(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    source_type: Optional[SourceType] = Field(None, alias='sourceType')
+    source_type: Optional[SourceType] = Field(None, alias="sourceType")
     percentage: Optional[int] = None
     description: Optional[str] = None
 
 
 class SourceType1(Enum):
-    sow_ind_allowance = 'SOW-IND-Allowance'
-    sow_ind_disability = 'SOW-IND-Disability'
-    sow_ind_income = 'SOW-IND-Income'
-    sow_ind_inheritance = 'SOW-IND-Inheritance'
-    sow_ind_interest = 'SOW-IND-Interest'
-    sow_ind_market_profit = 'SOW-IND-MarketProfit'
-    sow_ind_other = 'SOW-IND-Other'
-    sow_ind_pension = 'SOW-IND-Pension'
-    sow_ind_property = 'SOW-IND-Property'
-    sow_org_business = 'SOW-ORG-Business'
-    sow_org_market_trading_profits = 'SOW-ORG-MarketTradingProfits'
-    sow_org_other = 'SOW-ORG-Other'
-    sow_org_owner_equity = 'SOW-ORG-OwnerEquity'
-    sow_org_property = 'SOW-ORG-Property'
-    sow_org_retained_earnings = 'SOW-ORG-RetainedEarnings'
+    sow_ind_allowance = "SOW-IND-Allowance"
+    sow_ind_disability = "SOW-IND-Disability"
+    sow_ind_income = "SOW-IND-Income"
+    sow_ind_inheritance = "SOW-IND-Inheritance"
+    sow_ind_interest = "SOW-IND-Interest"
+    sow_ind_market_profit = "SOW-IND-MarketProfit"
+    sow_ind_other = "SOW-IND-Other"
+    sow_ind_pension = "SOW-IND-Pension"
+    sow_ind_property = "SOW-IND-Property"
+    sow_org_business = "SOW-ORG-Business"
+    sow_org_market_trading_profits = "SOW-ORG-MarketTradingProfits"
+    sow_org_other = "SOW-ORG-Other"
+    sow_org_owner_equity = "SOW-ORG-OwnerEquity"
+    sow_org_property = "SOW-ORG-Property"
+    sow_org_retained_earnings = "SOW-ORG-RetainedEarnings"
 
 
 class SourceOfWealthType(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    source_type: Optional[SourceType1] = Field(None, alias='sourceType')
+    source_type: Optional[SourceType1] = Field(None, alias="sourceType")
     percentage: Optional[int] = None
-    used_for_funds: Optional[bool] = Field(None, alias='usedForFunds')
+    used_for_funds: Optional[bool] = Field(None, alias="usedForFunds")
     description: Optional[str] = None
 
 
@@ -3711,65 +3711,65 @@ class StatusResponse(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    request_id: Optional[int] = Field(None, alias='requestId')
-    date_submitted: Optional[datetime] = Field(None, alias='dateSubmitted')
-    file_data: Optional[FileData] = Field(None, alias='fileData')
+    request_id: Optional[int] = Field(None, alias="requestId")
+    date_submitted: Optional[datetime] = Field(None, alias="dateSubmitted")
+    file_data: Optional[FileData] = Field(None, alias="fileData")
 
 
 class StmtRequest(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    account_id: str = Field(..., alias='accountId', description='account id')
+    account_id: str = Field(..., alias="accountId", description="account id")
     account_ids: Optional[List[str]] = Field(
         None,
-        alias='accountIds',
+        alias="accountIds",
         description="array of account id's",
-        examples=[['U123', 'U456']],
+        examples=[["U123", "U456"]],
     )
-    start_date: str = Field(..., alias='startDate', description='from date')
-    end_date: str = Field(..., alias='endDate', description='to date')
+    start_date: str = Field(..., alias="startDate", description="from date")
+    end_date: str = Field(..., alias="endDate", description="to date")
     multi_account_format: Optional[str] = Field(
         None,
-        alias='multiAccountFormat',
-        description='possible values are consolidate, concatenate, or customConsolidate',
+        alias="multiAccountFormat",
+        description="possible values are consolidate, concatenate, or customConsolidate",
     )
     crypto_consol_if_available: Optional[bool] = Field(
         False,
-        alias='cryptoConsolIfAvailable',
-        description='crypto consolidate flag, If request contains any accounts with crypto segment, will turn request into Crypto Consolidated',
+        alias="cryptoConsolIfAvailable",
+        description="crypto consolidate flag, If request contains any accounts with crypto segment, will turn request into Crypto Consolidated",
     )
     mime_type: Optional[str] = Field(
         None,
-        alias='mimeType',
-        description='output format',
-        examples=['application/pdf, text/html, or text/csv'],
+        alias="mimeType",
+        description="output format",
+        examples=["application/pdf, text/html, or text/csv"],
     )
     language: Optional[str] = Field(
-        'en',
-        description='two character ISO language code',
-        examples=['en, fr defaults to en (english)'],
+        "en",
+        description="two character ISO language code",
+        examples=["en, fr defaults to en (english)"],
     )
     gzip: Optional[bool] = Field(
-        False, description='to gzip the whole response pass true'
+        False, description="to gzip the whole response pass true"
     )
 
 
 class Type14(Enum):
-    pending = 'pending'
-    registration = 'registration'
+    pending = "pending"
+    registration = "registration"
 
 
 class TaskRequest(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    start_date: date = Field(..., alias='startDate')
-    end_date: date = Field(..., alias='endDate')
+    start_date: date = Field(..., alias="startDate")
+    end_date: date = Field(..., alias="endDate")
     offset: Optional[conint(ge=0)] = None
     limit: Optional[conint(ge=1, le=10)] = None
     type: Type14
-    form_number: Optional[int] = Field(None, alias='formNumber')
+    form_number: Optional[int] = Field(None, alias="formNumber")
 
 
 class TaxResidency(BaseModel):
@@ -3778,40 +3778,40 @@ class TaxResidency(BaseModel):
     )
     country: Optional[str] = None
     tin: Optional[str] = None
-    tin_type: Optional[TinType] = Field(None, alias='tinType')
+    tin_type: Optional[TinType] = Field(None, alias="tinType")
 
 
 class Code4(Enum):
-    account_holder = 'Account Holder'
-    first_holder = 'FIRST HOLDER'
-    second_holder = 'SECOND HOLDER'
-    trader = 'TRADER'
-    ceo = 'CEO'
-    secretary = 'SECRETARY'
-    treasurer = 'TREASURER'
-    owner = 'OWNER'
-    principal = 'PRINCIPAL'
-    shareholder = 'SHAREHOLDER'
-    trustee = 'TRUSTEE'
-    beneficiary = 'BENEFICIARY'
-    grantor = 'GRANTOR'
-    employee = 'Employee'
-    contingent = 'CONTINGENT'
-    ira_beneficiary = 'IRA_BENEFICIARY'
-    ira_decedent = 'IRA DECEDENT'
-    comp_officer = 'COMP_OFFICER'
-    other_officer = 'Other Officer'
-    controlling_officer = 'Controlling Officer'
-    signatory = 'SIGNATORY'
-    non_employee = 'NON-EMPLOYEE'
-    custodian = 'CUSTODIAN'
-    successor_custodian = 'SUCCESSOR_CUSTODIAN'
-    director = 'DIRECTOR'
-    partner = 'PARTNER'
-    custodian_employee = 'CUSTODIAN EMPLOYEE'
-    successor_custodian_employee = 'SUCCESSOR CUSTODIAN EMPLOYEE'
-    spouse = 'SPOUSE'
-    successor_holder = 'Successor Holder'
+    account_holder = "Account Holder"
+    first_holder = "FIRST HOLDER"
+    second_holder = "SECOND HOLDER"
+    trader = "TRADER"
+    ceo = "CEO"
+    secretary = "SECRETARY"
+    treasurer = "TREASURER"
+    owner = "OWNER"
+    principal = "PRINCIPAL"
+    shareholder = "SHAREHOLDER"
+    trustee = "TRUSTEE"
+    beneficiary = "BENEFICIARY"
+    grantor = "GRANTOR"
+    employee = "Employee"
+    contingent = "CONTINGENT"
+    ira_beneficiary = "IRA_BENEFICIARY"
+    ira_decedent = "IRA DECEDENT"
+    comp_officer = "COMP_OFFICER"
+    other_officer = "Other Officer"
+    controlling_officer = "Controlling Officer"
+    signatory = "SIGNATORY"
+    non_employee = "NON-EMPLOYEE"
+    custodian = "CUSTODIAN"
+    successor_custodian = "SUCCESSOR_CUSTODIAN"
+    director = "DIRECTOR"
+    partner = "PARTNER"
+    custodian_employee = "CUSTODIAN EMPLOYEE"
+    successor_custodian_employee = "SUCCESSOR CUSTODIAN EMPLOYEE"
+    spouse = "SPOUSE"
+    successor_holder = "Successor Holder"
 
 
 class Title(BaseModel):
@@ -3826,9 +3826,9 @@ class TokenIntrospectRequest(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    token: str = Field(..., description='The token to introspect.')
+    token: str = Field(..., description="The token to introspect.")
     token_type_hint: Optional[str] = Field(
-        None, description='An optional hint to help the server identify the token type'
+        None, description="An optional hint to help the server identify the token type"
     )
 
 
@@ -3852,20 +3852,20 @@ class TokenRequest(BaseModel):
     )
     grant_type: str = Field(
         ...,
-        description='The [authorization grant flow](https://dataetracker.ietf.org/doc/html/rfc6749#section-1.3) for the creation of the tokens.',
+        description="The [authorization grant flow](https://dataetracker.ietf.org/doc/html/rfc6749#section-1.3) for the creation of the tokens.",
     )
     client_assertion: str = Field(
         ...,
-        description='The compact [client assertion](https://www.rfc-editor.org/rfc/rfc7521.html) token used to authenticate you as a registered client.',
+        description="The compact [client assertion](https://www.rfc-editor.org/rfc/rfc7521.html) token used to authenticate you as a registered client.",
     )
     client_assertion_type: str = Field(
         ...,
-        description='The [client assertion type](https://www.rfc-editor.org/rfc/rfc7521.html#section-4.2) that identifies the client assertion.',
+        description="The [client assertion type](https://www.rfc-editor.org/rfc/rfc7521.html#section-4.2) that identifies the client assertion.",
     )
     scope: Optional[constr(min_length=4, max_length=1024)] = Field(
         None,
-        description='The space-delimited list of scopes',
-        examples=['echo.read echo.write'],
+        description="The space-delimited list of scopes",
+        examples=["echo.read echo.write"],
     )
 
 
@@ -3883,19 +3883,19 @@ class TradingInstrument1(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    currency: constr(min_length=1, max_length=3) = Field(..., examples=['USD'])
+    currency: constr(min_length=1, max_length=3) = Field(..., examples=["USD"])
 
 
 class SecurityIdType(Enum):
-    cusip = 'CUSIP'
-    isin = 'ISIN'
-    cash = 'CASH'
+    cusip = "CUSIP"
+    isin = "ISIN"
+    cash = "CASH"
 
 
 class AssetType(Enum):
-    stk = 'STK'
-    cash = 'CASH'
-    unknown = 'UNKNOWN'
+    stk = "STK"
+    cash = "CASH"
+    unknown = "UNKNOWN"
 
 
 class TradingInstrumentDescription(BaseModel):
@@ -3903,10 +3903,10 @@ class TradingInstrumentDescription(BaseModel):
         populate_by_name=True,
     )
     security_id_type: SecurityIdType = Field(
-        ..., alias='securityIdType', examples=['ISIN']
+        ..., alias="securityIdType", examples=["ISIN"]
     )
-    security_id: str = Field(..., alias='securityId', examples=['459200101'])
-    asset_type: AssetType = Field(..., alias='assetType', examples=['STK'])
+    security_id: str = Field(..., alias="securityId", examples=["459200101"])
+    asset_type: AssetType = Field(..., alias="assetType", examples=["STK"])
 
 
 class TradingLimits(BaseModel):
@@ -3914,71 +3914,71 @@ class TradingLimits(BaseModel):
         populate_by_name=True,
     )
     order_value_limits: Optional[OrderValueLimits] = Field(
-        None, alias='orderValueLimits'
+        None, alias="orderValueLimits"
     )
     efp_quantity_limits: Optional[EFPQuantityLimits] = Field(
-        None, alias='efpQuantityLimits'
+        None, alias="efpQuantityLimits"
     )
     order_quantity_limits: Optional[List[OrderQuantityLimit]] = Field(
-        None, alias='orderQuantityLimits'
+        None, alias="orderQuantityLimits"
     )
     day_quantity_limits: Optional[List[DayQuantityLimit]] = Field(
-        None, alias='dayQuantityLimits'
+        None, alias="dayQuantityLimits"
     )
 
 
 class Country(Enum):
-    all = 'ALL'
-    australia = 'AUSTRALIA'
-    austria = 'AUSTRIA'
-    belgium = 'BELGIUM'
-    canada = 'CANADA'
-    france = 'FRANCE'
-    germany = 'GERMANY'
-    hong_kong = 'HONG KONG'
-    italy = 'ITALY'
-    japan = 'JAPAN'
-    korea = 'KOREA'
-    mexico = 'MEXICO'
-    norway = 'NORWAY'
-    singapore = 'SINGAPORE'
-    spain = 'SPAIN'
-    sweden = 'SWEDEN'
-    switzerland = 'SWITZERLAND'
-    the_netherlands = 'THE NETHERLANDS'
-    united_kingdom = 'UNITED KINGDOM'
-    united_states = 'UNITED STATES'
-    hk_china = 'HK-CHINA'
+    all = "ALL"
+    australia = "AUSTRALIA"
+    austria = "AUSTRIA"
+    belgium = "BELGIUM"
+    canada = "CANADA"
+    france = "FRANCE"
+    germany = "GERMANY"
+    hong_kong = "HONG KONG"
+    italy = "ITALY"
+    japan = "JAPAN"
+    korea = "KOREA"
+    mexico = "MEXICO"
+    norway = "NORWAY"
+    singapore = "SINGAPORE"
+    spain = "SPAIN"
+    sweden = "SWEDEN"
+    switzerland = "SWITZERLAND"
+    the_netherlands = "THE NETHERLANDS"
+    united_kingdom = "UNITED KINGDOM"
+    united_states = "UNITED STATES"
+    hk_china = "HK-CHINA"
 
 
 class Product(Enum):
-    bonds = 'BONDS'
-    futures = 'FUTURES'
-    forex = 'FOREX'
-    futures_options = 'FUTURES OPTIONS'
-    mutual_funds = 'MUTUAL FUNDS'
-    stocks = 'STOCKS'
-    single_stock_futures = 'SINGLE STOCK FUTURES'
-    options = 'OPTIONS'
-    stock_options = 'STOCK OPTIONS'
-    warrants = 'WARRANTS'
+    bonds = "BONDS"
+    futures = "FUTURES"
+    forex = "FOREX"
+    futures_options = "FUTURES OPTIONS"
+    mutual_funds = "MUTUAL FUNDS"
+    stocks = "STOCKS"
+    single_stock_futures = "SINGLE STOCK FUTURES"
+    options = "OPTIONS"
+    stock_options = "STOCK OPTIONS"
+    warrants = "WARRANTS"
 
 
 class TradingPermission(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    asset_class: Optional[AssetClass] = Field(None, alias='assetClass')
-    exchange_group: Optional[str] = Field(None, alias='exchangeGroup')
+    asset_class: Optional[AssetClass] = Field(None, alias="assetClass")
+    exchange_group: Optional[str] = Field(None, alias="exchangeGroup")
     country: Optional[Country] = None
     product: Optional[Product] = None
 
 
 class BankInstructionCode1(Enum):
-    usach = 'USACH'
-    caach = 'CAACH'
-    achus = 'ACHUS'
-    wire = 'WIRE'
+    usach = "USACH"
+    caach = "CAACH"
+    achus = "ACHUS"
+    wire = "WIRE"
 
 
 class TraditionalBankInstructionVerification(BaseModel):
@@ -3986,45 +3986,45 @@ class TraditionalBankInstructionVerification(BaseModel):
         populate_by_name=True,
     )
     client_instruction_id: float = Field(
-        ..., alias='clientInstructionId', examples=[1012983]
+        ..., alias="clientInstructionId", examples=[1012983]
     )
     bank_instruction_code: BankInstructionCode1 = Field(
-        ..., alias='bankInstructionCode', examples=['USACH']
+        ..., alias="bankInstructionCode", examples=["USACH"]
     )
     bank_instruction_name: constr(min_length=1, max_length=100) = Field(
-        ..., alias='bankInstructionName', examples=['TestInstr']
+        ..., alias="bankInstructionName", examples=["TestInstr"]
     )
     account_id: constr(min_length=1, max_length=32) = Field(
-        ..., alias='accountId', examples=['U453454']
+        ..., alias="accountId", examples=["U453454"]
     )
     pending_instruction_id: float = Field(
-        ..., alias='pendingInstructionId', examples=[35354345]
+        ..., alias="pendingInstructionId", examples=[35354345]
     )
-    credit_amount1: PositiveFloat = Field(..., alias='creditAmount1', examples=[1])
-    credit_amount2: PositiveFloat = Field(..., alias='creditAmount2', examples=[2])
+    credit_amount1: PositiveFloat = Field(..., alias="creditAmount1", examples=[1])
+    credit_amount2: PositiveFloat = Field(..., alias="creditAmount2", examples=[2])
 
 
 class TrustType(Enum):
-    complex_trust = 'COMPLEX_TRUST'
-    single_trust = 'SINGLE_TRUST'
-    grantor_trust = 'GRANTOR_TRUST'
-    us_taxable_trust = 'US_TAXABLE_TRUST'
+    complex_trust = "COMPLEX_TRUST"
+    single_trust = "SINGLE_TRUST"
+    grantor_trust = "GRANTOR_TRUST"
+    us_taxable_trust = "US_TAXABLE_TRUST"
 
 
 class TypeOfTrust(Enum):
-    irrevoc = 'IRREVOC'
-    smsf = 'SMSF'
-    revocable = 'REVOCABLE'
-    testamentary = 'TESTAMENTARY'
-    retirement = 'RETIREMENT'
-    erisa = 'ERISA'
-    other = 'OTHER'
+    irrevoc = "IRREVOC"
+    smsf = "SMSF"
+    revocable = "REVOCABLE"
+    testamentary = "TESTAMENTARY"
+    retirement = "RETIREMENT"
+    erisa = "ERISA"
+    other = "OTHER"
 
 
 class RegistrationType(Enum):
-    ssn = 'SSN'
-    ein = 'EIN'
-    non_us_national_id = 'NonUS_NationalId'
+    ssn = "SSN"
+    ein = "EIN"
+    non_us_national_id = "NonUS_NationalId"
 
 
 class TrustIdentification(BaseModel):
@@ -4032,21 +4032,21 @@ class TrustIdentification(BaseModel):
         populate_by_name=True,
     )
     address: Optional[Address] = None
-    mailing_address: Optional[Address] = Field(None, alias='mailingAddress')
+    mailing_address: Optional[Address] = Field(None, alias="mailingAddress")
     phones: Optional[List[PhoneInfo]] = None
     name: Optional[str] = None
     description: Optional[str] = None
-    type_of_trust: Optional[TypeOfTrust] = Field(None, alias='typeOfTrust')
-    purpose_of_trust: Optional[str] = Field(None, alias='purposeOfTrust')
-    date_formed: Optional[date] = Field(None, alias='dateFormed')
-    formation_country: Optional[str] = Field(None, alias='formationCountry')
-    formation_state: Optional[str] = Field(None, alias='formationState')
-    registration_number: Optional[str] = Field(None, alias='registrationNumber')
+    type_of_trust: Optional[TypeOfTrust] = Field(None, alias="typeOfTrust")
+    purpose_of_trust: Optional[str] = Field(None, alias="purposeOfTrust")
+    date_formed: Optional[date] = Field(None, alias="dateFormed")
+    formation_country: Optional[str] = Field(None, alias="formationCountry")
+    formation_state: Optional[str] = Field(None, alias="formationState")
+    registration_number: Optional[str] = Field(None, alias="registrationNumber")
     registration_type: Optional[RegistrationType] = Field(
-        None, alias='registrationType'
+        None, alias="registrationType"
     )
-    registration_country: Optional[str] = Field(None, alias='registrationCountry')
-    same_mail_address: Optional[bool] = Field(None, alias='sameMailAddress')
+    registration_country: Optional[str] = Field(None, alias="registrationCountry")
+    same_mail_address: Optional[bool] = Field(None, alias="sameMailAddress")
     translated: Optional[bool] = None
 
 
@@ -4054,11 +4054,11 @@ class UnauthorizedAccessResponse(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    type: str = Field(..., examples=['/simple'])
-    title: str = Field(..., examples=['Unauthorized'])
+    type: str = Field(..., examples=["/simple"])
+    title: str = Field(..., examples=["Unauthorized"])
     status: int = Field(..., examples=[402])
     detail: Optional[str] = Field(
-        None, examples=['The request cannot be fulfilled for the account']
+        None, examples=["The request cannot be fulfilled for the account"]
     )
 
 
@@ -4066,8 +4066,8 @@ class UpdateAccountAlias(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
-    account_alias: Optional[str] = Field(None, alias='accountAlias')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
+    account_alias: Optional[str] = Field(None, alias="accountAlias")
 
 
 class UpdateAccountRepresentatives(BaseModel):
@@ -4075,18 +4075,18 @@ class UpdateAccountRepresentatives(BaseModel):
         populate_by_name=True,
     )
     representative_details: Optional[List[RepresentativeDetail]] = Field(
-        None, alias='representativeDetails'
+        None, alias="representativeDetails"
     )
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
 
 
 class UpdateBCAN(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
     bcan: Optional[str] = None
-    ce_number: Optional[str] = Field(None, alias='ceNumber')
+    ce_number: Optional[str] = Field(None, alias="ceNumber")
 
 
 class UpdateEmail(BaseModel):
@@ -4096,24 +4096,24 @@ class UpdateEmail(BaseModel):
     email: Optional[str] = None
     token: Optional[str] = None
     access: Optional[bool] = None
-    external_id: Optional[str] = Field(None, alias='externalId')
-    entity_id: Optional[str] = Field(None, alias='entityId')
+    external_id: Optional[str] = Field(None, alias="externalId")
+    entity_id: Optional[str] = Field(None, alias="entityId")
 
 
 class UpdateExternalId(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
-    new_external_id: Optional[str] = Field(None, alias='newExternalId')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
+    new_external_id: Optional[str] = Field(None, alias="newExternalId")
 
 
 class UpdatePassword(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    encrypted_password: Optional[str] = Field(None, alias='encryptedPassword')
-    encrypted_key_name: Optional[str] = Field(None, alias='encryptedKeyName')
+    encrypted_password: Optional[str] = Field(None, alias="encryptedPassword")
+    encrypted_key_name: Optional[str] = Field(None, alias="encryptedKeyName")
     token: Optional[str] = None
 
 
@@ -4121,37 +4121,37 @@ class UpdatePropertyProfile(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
-    property_profile: Optional[str] = Field(None, alias='propertyProfile')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
+    property_profile: Optional[str] = Field(None, alias="propertyProfile")
 
 
 class UpdateUserAccessRights(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    sub_accounts: Optional[List[str]] = Field(None, alias='subAccounts')
-    rep_id: Optional[str] = Field(None, alias='repId')
+    sub_accounts: Optional[List[str]] = Field(None, alias="subAccounts")
+    rep_id: Optional[str] = Field(None, alias="repId")
     action: Optional[str] = None
 
 
 class FatcaCompliantType(Enum):
-    fatca_compliant = 'FATCA_COMPLIANT'
-    non_consenting_us_account = 'NON_CONSENTING_US_ACCOUNT'
-    non_cooperative_account = 'NON_COOPERATIVE_ACCOUNT'
+    fatca_compliant = "FATCA_COMPLIANT"
+    non_consenting_us_account = "NON_CONSENTING_US_ACCOUNT"
+    non_cooperative_account = "NON_COOPERATIVE_ACCOUNT"
 
 
 class UpdateWithholdingStatement(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
     fatca_compliant_type: Optional[FatcaCompliantType] = Field(
-        None, alias='fatcaCompliantType'
+        None, alias="fatcaCompliantType"
     )
-    us_income_tax: Optional[bool] = Field(None, alias='usIncomeTax')
-    treaty_country: Optional[str] = Field(None, alias='treatyCountry')
-    cert_w8_imy: Optional[bool] = Field(None, alias='certW8Imy')
-    effective_date: Optional[date] = Field(None, alias='effectiveDate')
+    us_income_tax: Optional[bool] = Field(None, alias="usIncomeTax")
+    treaty_country: Optional[str] = Field(None, alias="treatyCountry")
+    cert_w8_imy: Optional[bool] = Field(None, alias="certW8Imy")
+    effective_date: Optional[date] = Field(None, alias="effectiveDate")
 
 
 class UserDetails(BaseModel):
@@ -4160,13 +4160,13 @@ class UserDetails(BaseModel):
     )
     name: Optional[Name2] = None
     email: Optional[str] = None
-    residence_address: Optional[Residence] = Field(None, alias='residenceAddress')
-    mailing_address: Optional[MailingAddress] = Field(None, alias='mailingAddress')
+    residence_address: Optional[Residence] = Field(None, alias="residenceAddress")
+    mailing_address: Optional[MailingAddress] = Field(None, alias="mailingAddress")
     identification: Optional[Identification] = None
-    tax_residencies: Optional[List[TaxResidency]] = Field(None, alias='taxResidencies')
-    date_of_birth: Optional[DateOfBirth] = Field(None, alias='dateOfBirth')
-    same_mail_address: Optional[bool] = Field(None, alias='sameMailAddress')
-    external_id: Optional[str] = Field(None, alias='externalId')
+    tax_residencies: Optional[List[TaxResidency]] = Field(None, alias="taxResidencies")
+    date_of_birth: Optional[DateOfBirth] = Field(None, alias="dateOfBirth")
+    same_mail_address: Optional[bool] = Field(None, alias="sameMailAddress")
+    external_id: Optional[str] = Field(None, alias="externalId")
 
 
 class UserNameAvailableResponse(BaseModel):
@@ -4174,25 +4174,25 @@ class UserNameAvailableResponse(BaseModel):
         populate_by_name=True,
     )
     error: Optional[ErrorResponse] = None
-    has_error: Optional[bool] = Field(None, alias='hasError')
-    error_description: Optional[str] = Field(None, alias='errorDescription')
-    is_valid: Optional[bool] = Field(None, alias='isValid')
-    is_available: Optional[bool] = Field(None, alias='isAvailable')
-    suggested_user_name: Optional[List[str]] = Field(None, alias='suggestedUserName')
+    has_error: Optional[bool] = Field(None, alias="hasError")
+    error_description: Optional[str] = Field(None, alias="errorDescription")
+    is_valid: Optional[bool] = Field(None, alias="isValid")
+    is_available: Optional[bool] = Field(None, alias="isAvailable")
+    suggested_user_name: Optional[List[str]] = Field(None, alias="suggestedUserName")
 
 
 class Privilege(Enum):
-    owner = 'OWNER'
-    trader = 'TRADER'
-    custom = 'CUSTOM'
-    none = 'NONE'
+    owner = "OWNER"
+    trader = "TRADER"
+    custom = "CUSTOM"
+    none = "NONE"
 
 
 class UserPrivilege(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    external_account_id: Optional[str] = Field(None, alias='externalAccountId')
+    external_account_id: Optional[str] = Field(None, alias="externalAccountId")
     privilege: Optional[Privilege] = None
 
 
@@ -4200,9 +4200,9 @@ class VerifySignatureRequest(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    token: str = Field(..., description='The token to verify.')
+    token: str = Field(..., description="The token to verify.")
     token_type_hint: Optional[str] = Field(
-        None, description='An optional hint to help the server identify the token type'
+        None, description="An optional hint to help the server identify the token type"
     )
 
 
@@ -4224,30 +4224,30 @@ class WireDetails(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    bank_name: Optional[str] = Field(None, alias='bankName')
-    bank_account_number: Optional[str] = Field(None, alias='bankAccountNumber')
-    bank_code: Optional[str] = Field(None, alias='bankCode')
-    routing_number: Optional[str] = Field(None, alias='routingNumber')
+    bank_name: Optional[str] = Field(None, alias="bankName")
+    bank_account_number: Optional[str] = Field(None, alias="bankAccountNumber")
+    bank_code: Optional[str] = Field(None, alias="bankCode")
+    routing_number: Optional[str] = Field(None, alias="routingNumber")
     instruction: Optional[str] = None
-    country_code: Optional[str] = Field(None, alias='countryCode')
-    reference_number: Optional[str] = Field(None, alias='referenceNumber')
+    country_code: Optional[str] = Field(None, alias="countryCode")
+    reference_number: Optional[str] = Field(None, alias="referenceNumber")
 
 
 class BankInstructionMethod5(Enum):
-    ach = 'ACH'
-    wire = 'WIRE'
-    check = 'CHECK'
+    ach = "ACH"
+    wire = "WIRE"
+    check = "CHECK"
 
 
 class IraWithholdType(Enum):
-    direct_rollover = 'DIRECT_ROLLOVER'
-    roth_distribution = 'ROTH_DISTRIBUTION'
-    normal = 'NORMAL'
-    early = 'EARLY'
-    death = 'DEATH'
-    excess_cy = 'EXCESS_CY'
-    excess_py = 'EXCESS_PY'
-    excess_sc = 'EXCESS_SC'
+    direct_rollover = "DIRECT_ROLLOVER"
+    roth_distribution = "ROTH_DISTRIBUTION"
+    normal = "NORMAL"
+    early = "EARLY"
+    death = "DEATH"
+    excess_cy = "EXCESS_CY"
+    excess_py = "EXCESS_PY"
+    excess_sc = "EXCESS_SC"
 
 
 class IraWithdrawalDetail(BaseModel):
@@ -4255,16 +4255,16 @@ class IraWithdrawalDetail(BaseModel):
         populate_by_name=True,
     )
     fed_income_tax_percentage: Optional[PositiveFloat] = Field(
-        None, alias='fedIncomeTaxPercentage', examples=[12]
+        None, alias="fedIncomeTaxPercentage", examples=[12]
     )
     state_income_tax_percentage: Optional[PositiveFloat] = Field(
-        None, alias='stateIncomeTaxPercentage', examples=[10]
+        None, alias="stateIncomeTaxPercentage", examples=[10]
     )
     state_cd: Optional[constr(min_length=1, max_length=2)] = Field(
-        None, alias='stateCd', examples=['TE']
+        None, alias="stateCd", examples=["TE"]
     )
     ira_withhold_type: Optional[IraWithholdType] = Field(
-        None, alias='iraWithholdType', examples=['NORMAL']
+        None, alias="iraWithholdType", examples=["NORMAL"]
     )
 
 
@@ -4273,25 +4273,25 @@ class WithdrawFundsInstruction(BaseModel):
         populate_by_name=True,
     )
     client_instruction_id: float = Field(
-        ..., alias='clientInstructionId', examples=[1012983]
+        ..., alias="clientInstructionId", examples=[1012983]
     )
     account_id: constr(min_length=1, max_length=32) = Field(
-        ..., alias='accountId', examples=['U46377']
+        ..., alias="accountId", examples=["U46377"]
     )
-    currency: constr(min_length=1, max_length=3) = Field(..., examples=['USD'])
+    currency: constr(min_length=1, max_length=3) = Field(..., examples=["USD"])
     amount: PositiveFloat = Field(..., examples=[100])
     bank_instruction_name: constr(min_length=1, max_length=150) = Field(
-        ..., alias='bankInstructionName', examples=['Instruction']
+        ..., alias="bankInstructionName", examples=["Instruction"]
     )
     bank_instruction_method: BankInstructionMethod5 = Field(
-        ..., alias='bankInstructionMethod', examples=['WIRE']
+        ..., alias="bankInstructionMethod", examples=["WIRE"]
     )
-    date_time_to_occur: Optional[datetime] = Field(None, alias='dateTimeToOccur')
+    date_time_to_occur: Optional[datetime] = Field(None, alias="dateTimeToOccur")
     ira_withdrawal_detail: Optional[IraWithdrawalDetail] = Field(
-        None, alias='iraWithdrawalDetail'
+        None, alias="iraWithdrawalDetail"
     )
     recurring_instruction_detail: Optional[RecurringInstructionDetail] = Field(
-        None, alias='recurringInstructionDetail'
+        None, alias="recurringInstructionDetail"
     )
 
 
@@ -4299,19 +4299,19 @@ class WithholdingStatementType(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    account_id: Optional[str] = Field(None, alias='accountId')
+    account_id: Optional[str] = Field(None, alias="accountId")
     fatca_compliant_type: Optional[FatcaCompliantType] = Field(
-        None, alias='fatcaCompliantType'
+        None, alias="fatcaCompliantType"
     )
-    us_backup_withholding: Optional[bool] = Field(None, alias='usBackupWithholding')
-    treaty_country: Optional[str] = Field(None, alias='treatyCountry')
+    us_backup_withholding: Optional[bool] = Field(None, alias="usBackupWithholding")
+    treaty_country: Optional[str] = Field(None, alias="treatyCountry")
     corporation: Optional[bool] = None
-    flow_through: Optional[bool] = Field(None, alias='flowThrough')
-    effective_date: Optional[date] = Field(None, alias='effectiveDate')
-    dividend_rate: Optional[float] = Field(None, alias='dividendRate')
-    interest_rate: Optional[float] = Field(None, alias='interestRate')
-    us_other_rate: Optional[float] = Field(None, alias='usOtherRate')
-    eci_rate: Optional[float] = Field(None, alias='eciRate')
+    flow_through: Optional[bool] = Field(None, alias="flowThrough")
+    effective_date: Optional[date] = Field(None, alias="effectiveDate")
+    dividend_rate: Optional[float] = Field(None, alias="dividendRate")
+    interest_rate: Optional[float] = Field(None, alias="interestRate")
+    us_other_rate: Optional[float] = Field(None, alias="usOtherRate")
+    eci_rate: Optional[float] = Field(None, alias="eciRate")
 
 
 class YodleeSession(BaseModel):
@@ -4320,68 +4320,68 @@ class YodleeSession(BaseModel):
     )
     request: Optional[str] = None
     username: Optional[str] = None
-    item_account_id: Optional[str] = Field(None, alias='itemAccountId')
-    account_id: Optional[str] = Field(None, alias='accountId')
+    item_account_id: Optional[str] = Field(None, alias="itemAccountId")
+    account_id: Optional[str] = Field(None, alias="accountId")
 
 
 class BusinessType(Enum):
-    ib_sales = 'IB_SALES'
-    ib_proserve = 'IB_PROSERVE'
+    ib_sales = "IB_SALES"
+    ib_proserve = "IB_PROSERVE"
 
 
 class ClearingStatus(Enum):
-    o = 'O'
-    p = 'P'
-    n = 'N'
-    a = 'A'
-    r = 'R'
-    c = 'C'
+    o = "O"
+    p = "P"
+    n = "N"
+    a = "A"
+    r = "R"
+    c = "C"
 
 
 class Currency5(Enum):
-    usd = 'USD'
+    usd = "USD"
 
 
 class IbEntity(Enum):
-    ibllc_us = 'IBLLC-US'
-    ib_can = 'IB-CAN'
-    ib_uk = 'IB-UK'
-    ib_ie = 'IB-IE'
+    ibllc_us = "IBLLC-US"
+    ib_can = "IB-CAN"
+    ib_uk = "IB-UK"
+    ib_ie = "IB-IE"
 
 
 class Parent(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    mmc: Optional[List] = Field(None, description='Money manager client.')
+    mmc: Optional[List] = Field(None, description="Money manager client.")
     account_id: Optional[str] = Field(
         None,
-        alias='accountId',
-        description='Account ID of the parent account in a multiplex account structure.',
+        alias="accountId",
+        description="Account ID of the parent account in a multiplex account structure.",
     )
     is_m_child: Optional[bool] = Field(
         None,
-        alias='isMChild',
-        description='Indicates that the given account is a multiplex child account.',
+        alias="isMChild",
+        description="Indicates that the given account is a multiplex child account.",
     )
     is_m_parent: Optional[bool] = Field(
         None,
-        alias='isMParent',
-        description='Indicates that the given account is itself a multiplex parent account.',
+        alias="isMParent",
+        description="Indicates that the given account is itself a multiplex parent account.",
     )
     is_multiplex: Optional[bool] = Field(
         None,
-        alias='isMultiplex',
-        description='Indicates that the account is a multiplex account.',
+        alias="isMultiplex",
+        description="Indicates that the account is a multiplex account.",
     )
 
 
 class TradingType(Enum):
-    stknopt = 'STKNOPT'
+    stknopt = "STKNOPT"
 
 
 class Type15(Enum):
-    demo = 'DEMO'
+    demo = "DEMO"
 
 
 class AccountAttributes(BaseModel):
@@ -4390,99 +4390,99 @@ class AccountAttributes(BaseModel):
     )
     account_alias: Optional[str] = Field(
         None,
-        alias='accountAlias',
-        description='User-defined alias assigned to the account for easy identification.',
+        alias="accountAlias",
+        description="User-defined alias assigned to the account for easy identification.",
     )
     account_status: Optional[int] = Field(
         None,
-        alias='accountStatus',
-        description='Unix epoch timestamp of account opening.',
+        alias="accountStatus",
+        description="Unix epoch timestamp of account opening.",
     )
     account_title: Optional[str] = Field(
         None,
-        alias='accountTitle',
-        description='A name assigned to the account, typically the account holder name or business entity.',
+        alias="accountTitle",
+        description="A name assigned to the account, typically the account holder name or business entity.",
     )
     account_van: Optional[str] = Field(
         None,
-        alias='accountVan',
+        alias="accountVan",
         description="The account's virtual account number, or otherwise its IB accountId if no VAN is set.",
     )
     acct_cust_type: Optional[str] = Field(
         None,
-        alias='acctCustType',
-        description='Identifies the type of client with which the account is associated, such as an individual or LLC.',
+        alias="acctCustType",
+        description="Identifies the type of client with which the account is associated, such as an individual or LLC.",
     )
     brokerage_access: Optional[bool] = Field(
         None,
-        alias='brokerageAccess',
-        description='Indicates whether account can receive live orders (do not mix with paper trading).',
+        alias="brokerageAccess",
+        description="Indicates whether account can receive live orders (do not mix with paper trading).",
     )
     business_type: Optional[BusinessType] = Field(
         None,
-        alias='businessType',
-        description='A descriptor of the nature of the account, reflecting the responsible group within IB.',
+        alias="businessType",
+        description="A descriptor of the nature of the account, reflecting the responsible group within IB.",
     )
     clearing_status: Optional[ClearingStatus] = Field(
         None,
-        alias='clearingStatus',
-        description='Status of the account with respect to clearing at IB. O is open, P pending, N new, A abandoned, C closed, R rejected.',
+        alias="clearingStatus",
+        description="Status of the account with respect to clearing at IB. O is open, P pending, N new, A abandoned, C closed, R rejected.",
     )
-    covestor: Optional[bool] = Field(None, description='Indicates a Covestor account.')
+    covestor: Optional[bool] = Field(None, description="Indicates a Covestor account.")
     currency: Optional[Currency5] = Field(
-        None, description='Base currency of the account.'
+        None, description="Base currency of the account."
     )
     desc: Optional[str] = Field(
-        None, description='Internal human-readable description of the account.'
+        None, description="Internal human-readable description of the account."
     )
     display_name: Optional[str] = Field(
         None,
-        alias='displayName',
-        description='Displayed name of the account in UI. Will reflect either the accountId or accountAlias, if set.',
+        alias="displayName",
+        description="Displayed name of the account in UI. Will reflect either the accountId or accountAlias, if set.",
     )
     fa_client: Optional[bool] = Field(
         None,
-        alias='faClient',
-        description='Indicates that the account is managed by a financial advisor.',
+        alias="faClient",
+        description="Indicates that the account is managed by a financial advisor.",
     )
     ib_entity: Optional[IbEntity] = Field(
         None,
-        alias='ibEntity',
-        description='IB business entity under which the account resides.',
+        alias="ibEntity",
+        description="IB business entity under which the account resides.",
     )
     id: Optional[str] = Field(None, description="The account's IB accountId.")
     no_client_trading: Optional[bool] = Field(
         None,
-        alias='noClientTrading',
-        description='Indicates that trading by the client is disabled in the account.',
+        alias="noClientTrading",
+        description="Indicates that trading by the client is disabled in the account.",
     )
     parent: Optional[Parent] = Field(
         None,
-        description='Describes account relations in partitioned or multiplexed (segemented) account structures.',
+        description="Describes account relations in partitioned or multiplexed (segemented) account structures.",
     )
     prepaid_crypto_p: Optional[bool] = Field(
         None,
-        alias='PrepaidCrypto-P',
-        description='Indicates whether account has a prepaid crypto segment (Crypto Plus) with PAXOS.',
+        alias="PrepaidCrypto-P",
+        description="Indicates whether account has a prepaid crypto segment (Crypto Plus) with PAXOS.",
     )
     prepaid_crypto_z: Optional[bool] = Field(
         None,
-        alias='PrepaidCrypto-Z',
-        description='Indicates whether account has a prepaid crypto segment (Crypto Plus) with ZEROHASH.',
+        alias="PrepaidCrypto-Z",
+        description="Indicates whether account has a prepaid crypto segment (Crypto Plus) with ZEROHASH.",
     )
     track_virtual_fx_portfolio: Optional[bool] = Field(
         None,
-        alias='trackVirtualFXPortfolio',
-        description='Indicates that virtual forex positions are tracked in the account.',
+        alias="trackVirtualFXPortfolio",
+        description="Indicates that virtual forex positions are tracked in the account.",
     )
     trading_type: Optional[TradingType] = Field(
         None,
-        alias='tradingType',
-        description='Internal identifier used by IB to reflect the trading permissions of the account.',
+        alias="tradingType",
+        description="Internal identifier used by IB to reflect the trading permissions of the account.",
     )
     type: Optional[Type15] = Field(
         None,
-        description='Indicates whether the account exists in production, paper, or demo environments.',
+        description="Indicates whether the account exists in production, paper, or demo environments.",
     )
 
 
@@ -4495,12 +4495,12 @@ class CashBalance(BaseModel):
         description='The currency the values represent. Base currency represented as "Total (in {BaseCurrency})"\n',
     )
     balance: Optional[int] = Field(
-        None, description='The total available currency held in the account.'
+        None, description="The total available currency held in the account."
     )
     settled_cash: Optional[int] = Field(
         None,
-        alias='settledCash',
-        description='The available settled cash that can be withdrawn from the account.',
+        alias="settledCash",
+        description="The available settled cash that can be withdrawn from the account.",
     )
 
 
@@ -4510,83 +4510,83 @@ class AccountSummaryResponse(BaseModel):
     )
     account_type: Optional[str] = Field(
         None,
-        alias='accountType',
-        description='Describes the unique account type. For standard individual accounts, an empty string is returned.',
+        alias="accountType",
+        description="Describes the unique account type. For standard individual accounts, an empty string is returned.",
     )
     status: Optional[str] = Field(
         None,
-        description='If the account is currently non-tradeable, a status message will be dispalyed.',
+        description="If the account is currently non-tradeable, a status message will be dispalyed.",
     )
     balance: Optional[int] = Field(
-        None, description='Returns the total account balance.'
+        None, description="Returns the total account balance."
     )
     sma: Optional[int] = Field(
-        None, alias='SMA', description='Simple Moving Average of the account.'
+        None, alias="SMA", description="Simple Moving Average of the account."
     )
     buying_power: Optional[int] = Field(
         None,
-        alias='buyingPower',
-        description='Total buying power available for the account.',
+        alias="buyingPower",
+        description="Total buying power available for the account.",
     )
     available_funds: Optional[int] = Field(
         None,
-        alias='availableFunds',
-        description='The amount of equity you have available for trading. For both the Securities and Commodities segments, this is calculated as: Equity with Loan Value – Initial Margin.',
+        alias="availableFunds",
+        description="The amount of equity you have available for trading. For both the Securities and Commodities segments, this is calculated as: Equity with Loan Value – Initial Margin.",
     )
     excess_liquidity: Optional[int] = Field(
         None,
-        alias='excessLiquidity',
-        description='The amount of cash in excess of the usual requirement in your account.',
+        alias="excessLiquidity",
+        description="The amount of cash in excess of the usual requirement in your account.",
     )
     net_liquidation_value: Optional[int] = Field(
         None,
-        alias='netLiquidationValue',
-        description='The basis for determining the price of the assets in your account.',
+        alias="netLiquidationValue",
+        description="The basis for determining the price of the assets in your account.",
     )
     equity_with_loan_value: Optional[int] = Field(
         None,
-        alias='equityWithLoanValue',
-        description='The basis for determining whether you have the necessary assets to either initiate or maintain security assets.',
+        alias="equityWithLoanValue",
+        description="The basis for determining whether you have the necessary assets to either initiate or maintain security assets.",
     )
     reg_t_loan: Optional[int] = Field(
         None,
-        alias='regTLoan',
-        description='The Federal Reserve Board regulation governing the amount of credit that broker dealers may extend to clients who borrow money to buy securities on margin.',
+        alias="regTLoan",
+        description="The Federal Reserve Board regulation governing the amount of credit that broker dealers may extend to clients who borrow money to buy securities on margin.",
     )
     securities_gvp: Optional[int] = Field(
         None,
-        alias='securitiesGVP',
-        description='Absolute value of the Long Stock Value + Short Stock Value + Long Option Value + Short Option Value + Fund Value.',
+        alias="securitiesGVP",
+        description="Absolute value of the Long Stock Value + Short Stock Value + Long Option Value + Short Option Value + Fund Value.",
     )
     total_cash_value: Optional[int] = Field(
         None,
-        alias='totalCashValue',
-        description='Cash recognized at the time of trade + futures P&L. This value reflects real-time currency positions, including:\n *  Trades executed directly through the FX market.\n *  Trades executed as a result of automatic IB conversions, which occur when you trade a product in a non-base currency.\n *  Trades deliberately executed to close non-base currency positions using the FXCONV destination.\n',
+        alias="totalCashValue",
+        description="Cash recognized at the time of trade + futures P&L. This value reflects real-time currency positions, including:\n *  Trades executed directly through the FX market.\n *  Trades executed as a result of automatic IB conversions, which occur when you trade a product in a non-base currency.\n *  Trades deliberately executed to close non-base currency positions using the FXCONV destination.\n",
     )
     accrued_interest: Optional[int] = Field(
         None,
-        alias='accruedInterest',
-        description='Accrued interest is the interest accruing on a security since the previous coupon date. If a security is sold between two payment dates, the buyer usually compensates the seller for the interest accrued, either within the price or as a separate payment.',
+        alias="accruedInterest",
+        description="Accrued interest is the interest accruing on a security since the previous coupon date. If a security is sold between two payment dates, the buyer usually compensates the seller for the interest accrued, either within the price or as a separate payment.",
     )
     reg_t_margin: Optional[int] = Field(
         None,
-        alias='regTMargin',
-        description='The initial margin requirements calculated under US Regulation T rules for both the securities and commodities segment of your account.',
+        alias="regTMargin",
+        description="The initial margin requirements calculated under US Regulation T rules for both the securities and commodities segment of your account.",
     )
     initial_margin: Optional[int] = Field(
         None,
-        alias='initialMargin',
-        description='The available initial margin for the account.',
+        alias="initialMargin",
+        description="The available initial margin for the account.",
     )
     maintenance_margin: Optional[int] = Field(
         None,
-        alias='maintenanceMargin',
-        description='The available maintenance margin for the account.',
+        alias="maintenanceMargin",
+        description="The available maintenance margin for the account.",
     )
     cash_balances: Optional[List[CashBalance]] = Field(
         None,
-        alias='cashBalances',
-        description='An array containing balance information for all currencies held by the account.',
+        alias="cashBalances",
+        description="An array containing balance information for all currencies held by the account.",
     )
 
 
@@ -4596,36 +4596,36 @@ class AdvancedOrderReject(BaseModel):
     )
     order_id: Optional[int] = Field(
         None,
-        alias='orderId',
-        description='The order ID assigned by IB to the rejected order ticket.',
+        alias="orderId",
+        description="The order ID assigned by IB to the rejected order ticket.",
     )
     req_id: Optional[str] = Field(
         None,
-        alias='reqId',
+        alias="reqId",
         description="IB's internal identifier assigned to the returned message.",
     )
     dismissable: Optional[List] = Field(
-        None, description='Indicates whether this prompt is dismissable.'
+        None, description="Indicates whether this prompt is dismissable."
     )
     text: Optional[str] = Field(
         None,
-        description='Human-readable text of the messages emitted by IB in response to order submission.',
+        description="Human-readable text of the messages emitted by IB in response to order submission.",
     )
     options: Optional[List[str]] = Field(
         None,
-        description='Choices available to the client in response to the rejection message.',
+        description="Choices available to the client in response to the rejection message.",
     )
     type: Optional[str] = Field(
-        None, description='The specific type of message returned.'
+        None, description="The specific type of message returned."
     )
     message_id: Optional[str] = Field(
         None,
-        alias='messageId',
-        description='IB internal identifier for the nature or category of the returned message.',
+        alias="messageId",
+        description="IB internal identifier for the nature or category of the returned message.",
     )
     prompt: Optional[bool] = Field(
         None,
-        description='Indicates that the message is a prompt offering a set of decisions, one or more of which may permit the rejected order to be resubmitted.',
+        description="Indicates that the message is a prompt offering a set of decisions, one or more of which may permit the rejected order to be resubmitted.",
     )
 
 
@@ -4633,24 +4633,24 @@ class Alert(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    order_id: Optional[int] = Field(None, description='The order id (alert id)')
+    order_id: Optional[int] = Field(None, description="The order id (alert id)")
     account: Optional[str] = Field(
-        None, description='The account the alert was attributed to.'
+        None, description="The account the alert was attributed to."
     )
     alert_name: Optional[str] = Field(
-        None, description='The requested name for the alert.'
+        None, description="The requested name for the alert."
     )
     alert_active: Optional[int] = Field(
-        None, description='Determines if the alert is active [1] or not [0]'
+        None, description="Determines if the alert is active [1] or not [0]"
     )
     order_time: Optional[str] = Field(
-        None, description='UTC-formatted time of the alert’s creation.'
+        None, description="UTC-formatted time of the alert’s creation."
     )
     alert_triggered: Optional[bool] = Field(
-        None, description='Confirms if the order is triggered or not.'
+        None, description="Confirms if the order is triggered or not."
     )
     alert_repeatable: Optional[int] = Field(
-        None, description='Confirms if the alert is enabled to occur more than once.'
+        None, description="Confirms if the alert is enabled to occur more than once."
     )
 
 
@@ -4658,11 +4658,11 @@ class AlertActivationRequest(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    alert_id: int = Field(..., alias='alertId', description='The alert Identifier')
+    alert_id: int = Field(..., alias="alertId", description="The alert Identifier")
     alert_active: int = Field(
         ...,
-        alias='alertActive',
-        description='Set whether or not the alert should be active (1) or inactive (0).',
+        alias="alertActive",
+        description="Set whether or not the alert should be active (1) or inactive (0).",
     )
 
 
@@ -4673,16 +4673,16 @@ class AlertActivationResponse(BaseModel):
     request_id: Optional[int] = None
     order_id: Optional[int] = Field(
         None,
-        description='The tracking number of the alert. Occasssionally referenced as the alertId or alert_id.\n',
+        description="The tracking number of the alert. Occasssionally referenced as the alertId or alert_id.\n",
     )
     success: Optional[bool] = Field(
-        None, description='Displays result status of alert request'
+        None, description="Displays result status of alert request"
     )
     text: Optional[str] = Field(
-        None, description='Response message to clarify success status reason.'
+        None, description="Response message to clarify success status reason."
     )
     failure_list: Optional[str] = Field(
-        None, description='If “success” returns false, will list failed order Ids'
+        None, description="If “success” returns false, will list failed order Ids"
     )
 
 
@@ -4691,32 +4691,32 @@ class AlertCondition(BaseModel):
         populate_by_name=True,
     )
     condition_type: Optional[int] = Field(
-        None, description='The type of condition set.'
+        None, description="The type of condition set."
     )
     conidex: Optional[str] = Field(
-        None, description='Returns conid and exchange in the format “conid@exchange”'
+        None, description="Returns conid and exchange in the format “conid@exchange”"
     )
     contract_description_1: Optional[str] = Field(
-        None, description='Includes relevant descriptions (if applicable).'
+        None, description="Includes relevant descriptions (if applicable)."
     )
     condition_operator: Optional[str] = Field(
-        None, description='Condition operator set for alert.'
+        None, description="Condition operator set for alert."
     )
     condition_trigger_method: Optional[int] = Field(
-        None, description='TriggerMethod value set.'
+        None, description="TriggerMethod value set."
     )
-    condition_value: Optional[str] = Field(None, description='Condition value set.')
+    condition_value: Optional[str] = Field(None, description="Condition value set.")
     condition_logic_bind: Optional[bool] = Field(
-        None, description='Condition logic_bind value set.'
+        None, description="Condition logic_bind value set."
     )
     condition_time_zone: Optional[str] = Field(
-        None, description='Condition timeZone value set.'
+        None, description="Condition timeZone value set."
     )
 
 
 class Tif(Enum):
-    gtc = 'GTC'
-    gtd = 'GTD'
+    gtc = "GTC"
+    gtd = "GTD"
 
 
 class AlertCreationRequest(BaseModel):
@@ -4725,49 +4725,49 @@ class AlertCreationRequest(BaseModel):
     )
     order_id: Optional[int] = Field(
         None,
-        alias='orderId',
-        description='optional; used in case of modification and represent Alert Id',
+        alias="orderId",
+        description="optional; used in case of modification and represent Alert Id",
     )
-    alert_name: str = Field(..., alias='alertName', description='Alert name.')
+    alert_name: str = Field(..., alias="alertName", description="Alert name.")
     alert_message: str = Field(
-        ..., alias='alertMessage', description='Alert message which will be sent'
+        ..., alias="alertMessage", description="Alert message which will be sent"
     )
     alert_repeatable: int = Field(
         ...,
-        alias='alertRepeatable',
-        description='Boolean number (0, 1) signifies if an alert can be triggered more than once. A value of ‘1’ is required for MTA alerts',
+        alias="alertRepeatable",
+        description="Boolean number (0, 1) signifies if an alert can be triggered more than once. A value of ‘1’ is required for MTA alerts",
     )
     email: Optional[str] = Field(
-        None, description='Email address you want to send email alerts to'
+        None, description="Email address you want to send email alerts to"
     )
     expire_time: Optional[str] = Field(
         None,
-        alias='expireTime',
-        description='Used with a tif of “GTD” only. Signifies time when the alert should terminate if no alert is triggered.',
+        alias="expireTime",
+        description="Used with a tif of “GTD” only. Signifies time when the alert should terminate if no alert is triggered.",
     )
     i_tws_orders_only: Optional[int] = Field(
         None,
-        alias='iTWSOrdersOnly',
-        description='allow (0) or disallow (1) alerts to trigger alerts through the mobile app',
+        alias="iTWSOrdersOnly",
+        description="allow (0) or disallow (1) alerts to trigger alerts through the mobile app",
     )
     outside_rth: int = Field(
         ...,
-        alias='outsideRth',
-        description='Allow (1) or disallow (0) the alert to be triggered outside of regular trading hours',
+        alias="outsideRth",
+        description="Allow (1) or disallow (0) the alert to be triggered outside of regular trading hours",
     )
     send_message: Optional[int] = Field(
         None,
-        alias='sendMessage',
-        description='allow (1) or disallow (0) alerts to trigger email messages',
+        alias="sendMessage",
+        description="allow (1) or disallow (0) alerts to trigger email messages",
     )
     show_popup: Optional[int] = Field(
         None,
-        alias='showPopup',
-        description='allow (1) or disallow (0) alerts to trigger TWS Pop-up messages',
+        alias="showPopup",
+        description="allow (1) or disallow (0) alerts to trigger TWS Pop-up messages",
     )
-    tif: Tif = Field(..., description='Time in Force duration of alert.')
+    tif: Tif = Field(..., description="Time in Force duration of alert.")
     conditions: List = Field(
-        ..., description='Container for all conditions applied for an alert to trigger.'
+        ..., description="Container for all conditions applied for an alert to trigger."
     )
 
 
@@ -4775,134 +4775,134 @@ class AlertCreationResponse(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    request_id: Optional[int] = Field(None, description='Not applicable')
+    request_id: Optional[int] = Field(None, description="Not applicable")
     order_id: Optional[int] = Field(
         None,
-        description='The tracking number of the alert. Alert identifier internally referenced as order id.',
+        description="The tracking number of the alert. Alert identifier internally referenced as order id.",
     )
     success: Optional[bool] = Field(
-        None, description='Displays result status of alert request'
+        None, description="Displays result status of alert request"
     )
     text: Optional[str] = Field(
-        None, description='Response message to clarify submission status.'
+        None, description="Response message to clarify submission status."
     )
-    order_status: Optional[str] = Field(None, description='Not applicable')
-    warning_message: Optional[str] = Field(None, description='Returns ‘null’')
+    order_status: Optional[str] = Field(None, description="Not applicable")
+    warning_message: Optional[str] = Field(None, description="Returns ‘null’")
 
 
 class AlertDeletionResponse(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    request_id: Optional[int] = Field(None, description='Not applicable')
+    request_id: Optional[int] = Field(None, description="Not applicable")
     order_id: Optional[int] = Field(
         None,
-        description='The tracking number of the alert. Occasssionally referenced as the alertId or alert_id.\n',
+        description="The tracking number of the alert. Occasssionally referenced as the alertId or alert_id.\n",
     )
     success: Optional[bool] = Field(
-        None, description='Displays result status of alert request'
+        None, description="Displays result status of alert request"
     )
     text: Optional[str] = Field(
-        None, description='Response message to clarify success status reason.'
+        None, description="Response message to clarify success status reason."
     )
     failure_list: Optional[str] = Field(
-        None, description='If “success” returns false, will list failed order Ids'
+        None, description="If “success” returns false, will list failed order Ids"
     )
 
 
 class OrderStatus(Enum):
-    presubmitted = 'Presubmitted'
-    submitted = 'Submitted'
+    presubmitted = "Presubmitted"
+    submitted = "Submitted"
 
 
 class AlertDetails(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    account: Optional[str] = Field(None, description='Requestor’s account ID')
+    account: Optional[str] = Field(None, description="Requestor’s account ID")
     order_id: Optional[int] = Field(
         None,
-        description='Alert’s tracking ID. Can be used for modifying or deleting alerts.',
+        description="Alert’s tracking ID. Can be used for modifying or deleting alerts.",
     )
     alert_name: Optional[str] = Field(
-        None, alias='alertName', description='Human readable name of the alert.'
+        None, alias="alertName", description="Human readable name of the alert."
     )
     tif: Optional[str] = Field(
-        None, description='Time in Force effective for the Alert'
+        None, description="Time in Force effective for the Alert"
     )
     expire_time: Optional[str] = Field(
-        None, description='Returns the UTC formatted date used in GTD orders.'
+        None, description="Returns the UTC formatted date used in GTD orders."
     )
     alert_active: Optional[int] = Field(
-        None, description='Returns if the alert is active [1] or disabled [0].'
+        None, description="Returns if the alert is active [1] or disabled [0]."
     )
     alert_repeatable: Optional[int] = Field(
-        None, description='Returns if the alert can be sent more than once.'
+        None, description="Returns if the alert can be sent more than once."
     )
     alert_email: Optional[str] = Field(
         None,
-        description='Returns the designated email address for sendMessage functionality.',
+        description="Returns the designated email address for sendMessage functionality.",
     )
     alert_send_message: Optional[int] = Field(
-        None, description='Returns whether or not the alert will send an email.'
+        None, description="Returns whether or not the alert will send an email."
     )
     alert_message: Optional[str] = Field(
         None,
-        description='Returns the body content of what your alert will report once triggered',
+        description="Returns the body content of what your alert will report once triggered",
     )
     alert_show_popup: Optional[int] = Field(
         None,
-        description='Returns whether or not the alert will trigger TWS Pop-up messages',
+        description="Returns whether or not the alert will trigger TWS Pop-up messages",
     )
     alert_play_audio: Optional[int] = Field(
-        None, description='Returns whether or not the alert will play audio'
+        None, description="Returns whether or not the alert will play audio"
     )
     order_status: Optional[OrderStatus] = Field(
-        None, description='represent order statusAlways returns “Presubmitted”.'
+        None, description="represent order statusAlways returns “Presubmitted”."
     )
     alert_triggered: Optional[int] = Field(
-        None, description='Returns whether or not the alert was triggered yet.'
+        None, description="Returns whether or not the alert was triggered yet."
     )
     fg_color: Optional[str] = Field(
-        None, description='Foreground color. Not applicable to API.'
+        None, description="Foreground color. Not applicable to API."
     )
     bg_color: Optional[str] = Field(
-        None, description='Background color. Not applicable to API.'
+        None, description="Background color. Not applicable to API."
     )
     order_not_editable: Optional[bool] = Field(
-        None, description='Returns if the order can be edited.'
+        None, description="Returns if the order can be edited."
     )
     itws_orders_only: Optional[int] = Field(
         None,
-        description='Returns whether or not the alert will trigger mobile notifications.',
+        description="Returns whether or not the alert will trigger mobile notifications.",
     )
     alert_mta_currency: Optional[str] = Field(
         None,
-        description='Returns currency set for MTA alerts. Only valid for alert type 8 & 9.',
+        description="Returns currency set for MTA alerts. Only valid for alert type 8 & 9.",
     )
     alert_mta_defaults: Optional[str] = Field(
-        None, description='Returns current MTA default values.'
+        None, description="Returns current MTA default values."
     )
     tool_id: Optional[int] = Field(
         None,
-        description='Tracking ID for MTA alerts only. Returns ‘null’ for standard alerts.',
+        description="Tracking ID for MTA alerts only. Returns ‘null’ for standard alerts.",
     )
     time_zone: Optional[str] = Field(
-        None, description='Returned for time-specific conditions.'
+        None, description="Returned for time-specific conditions."
     )
     alert_default_type: Optional[int] = Field(
         None,
-        description='Returns default type set for alerts. Configured in Client Portal.',
+        description="Returns default type set for alerts. Configured in Client Portal.",
     )
     condition_size: Optional[int] = Field(
-        None, description='Returns the total number of conditions in the alert.'
+        None, description="Returns the total number of conditions in the alert."
     )
     condition_outside_rth: Optional[int] = Field(
         None,
-        description='Returns whether or not the alert will trigger outside of regular trading hours.',
+        description="Returns whether or not the alert will trigger outside of regular trading hours.",
     )
     conditions: Optional[List[AlertCondition]] = Field(
-        None, description='Returns all conditions'
+        None, description="Returns all conditions"
     )
 
 
@@ -4914,11 +4914,11 @@ class Alerts(RootModel[List[Alert]]):
 
 
 class ValueClassName(Enum):
-    string = 'String'
-    boolean = 'Boolean'
-    time = 'Time'
-    double = 'Double'
-    integer = 'Integer'
+    string = "String"
+    boolean = "Boolean"
+    time = "Time"
+    double = "Double"
+    integer = "Integer"
 
 
 class AlgoParam(BaseModel):
@@ -4927,30 +4927,30 @@ class AlgoParam(BaseModel):
     )
     gui_rank: Optional[int] = Field(
         None,
-        alias='guiRank',
-        description='Positional ranking for the algo. Used for Client Portal.',
+        alias="guiRank",
+        description="Positional ranking for the algo. Used for Client Portal.",
     )
     default_value: Optional[Union[str, int, bool, float]] = Field(
         None,
-        alias='defaultValue',
-        description='Default parameter value. Type defined in valueClassName field',
+        alias="defaultValue",
+        description="Default parameter value. Type defined in valueClassName field",
     )
-    min_value: Optional[int] = Field(None, alias='minValue')
-    max_value: Optional[int] = Field(None, alias='maxValue')
-    name: Optional[str] = Field(None, description='Parameter name.')
-    id: Optional[str] = Field(None, description='Parameter identifier for the algo.')
+    min_value: Optional[int] = Field(None, alias="minValue")
+    max_value: Optional[int] = Field(None, alias="maxValue")
+    name: Optional[str] = Field(None, description="Parameter name.")
+    id: Optional[str] = Field(None, description="Parameter identifier for the algo.")
     description: Optional[str] = None
     legal_strings: Optional[List[str]] = Field(
-        None, alias='legalStrings', description='Allowed values for the parameter.'
+        None, alias="legalStrings", description="Allowed values for the parameter."
     )
     required: Optional[bool] = Field(
         None,
-        description='States whether the parameter is required for the given algo order to place.',
+        description="States whether the parameter is required for the given algo order to place.",
     )
     value_class_name: Optional[ValueClassName] = Field(
         None,
-        alias='valueClassName',
-        description='Returns the variable type of the parameter.',
+        alias="valueClassName",
+        description="Returns the variable type of the parameter.",
     )
 
 
@@ -4959,7 +4959,7 @@ class AlgosResponse(BaseModel):
         populate_by_name=True,
     )
     algos: Optional[List] = Field(
-        None, description='Contains all relevant algos for the contract.'
+        None, description="Contains all relevant algos for the contract."
     )
 
 
@@ -4969,18 +4969,18 @@ class AllocationGroups(BaseModel):
     )
     data: Optional[List] = Field(
         None,
-        description='array, which contains all allocation groups under the advisor account',
+        description="array, which contains all allocation groups under the advisor account",
     )
 
 
 class AllocationMethod(Enum):
-    a = 'A'
-    e = 'E'
-    n = 'N'
-    c = 'C'
-    p = 'P'
-    r = 'R'
-    s = 'S'
+    a = "A"
+    e = "E"
+    n = "N"
+    c = "C"
+    p = "P"
+    r = "R"
+    s = "S"
 
 
 class Total(BaseModel):
@@ -4989,43 +4989,43 @@ class Total(BaseModel):
     )
     current_available: Optional[str] = Field(
         None,
-        description='Describes currently avialable funds in your account for trading.',
+        description="Describes currently avialable funds in your account for trading.",
     )
     current_excess: Optional[str] = Field(
-        None, description='Describes total value of the account.'
+        None, description="Describes total value of the account."
     )
     prdctd_pst_xpry_excss: Optional[str] = Field(
         None,
-        alias='Prdctd Pst-xpry Excss',
-        description='Displays predicted post-expiration account value.',
+        alias="Prdctd Pst-xpry Excss",
+        description="Displays predicted post-expiration account value.",
     )
     lk_ahd_avlbl_fnds: Optional[str] = Field(
         None,
-        alias='Lk Ahd Avlbl Fnds',
-        description='This value reflects your available funds at the next margin change.',
+        alias="Lk Ahd Avlbl Fnds",
+        description="This value reflects your available funds at the next margin change.",
     )
     lk_ahd_excss_lqdty: Optional[str] = Field(
         None,
-        alias='Lk Ahd Excss Lqdty',
-        description='* `Securities` - Equity with loan value. Look ahead maintenance margin.\n * `Commodities` - Net Liquidation value. Look ahead maintenance margin.\n',
+        alias="Lk Ahd Excss Lqdty",
+        description="* `Securities` - Equity with loan value. Look ahead maintenance margin.\n * `Commodities` - Net Liquidation value. Look ahead maintenance margin.\n",
     )
     overnight_available: Optional[str] = Field(
-        None, description='Describes available funds for overnight trading.'
+        None, description="Describes available funds for overnight trading."
     )
     overnight_excess: Optional[str] = Field(
         None,
-        description='Overnight refers to the window of time after the local market trading day is closed. \n  * `Securities` - Equivalent to regular trading hours. \n   * `Commodities` - Commodities Net Liquidation value. Overnight Maintenance margin.\n',
+        description="Overnight refers to the window of time after the local market trading day is closed. \n  * `Securities` - Equivalent to regular trading hours. \n   * `Commodities` - Commodities Net Liquidation value. Overnight Maintenance margin.\n",
     )
     buying_power: Optional[str] = Field(
         None,
-        description='Describes the total buying power of the account including existing balance with margin.',
+        description="Describes the total buying power of the account including existing balance with margin.",
     )
     leverage: Optional[str] = Field(
-        None, description='Describes the total combined leverage.'
+        None, description="Describes the total combined leverage."
     )
     lk_ahd_nxt_chng: Optional[str] = Field(
         None,
-        alias='Lk Ahd Nxt Chng',
+        alias="Lk Ahd Nxt Chng",
         description="Describes when the next 'Look Ahead' calculation will take place.",
     )
     day_trades_left: Optional[str] = Field(
@@ -5040,44 +5040,44 @@ class Securities(BaseModel):
     )
     current_available: Optional[str] = Field(
         None,
-        description='Describes currently avialable funds in your account for trading.',
+        description="Describes currently avialable funds in your account for trading.",
     )
     current_excess: Optional[str] = Field(
-        None, description='Describes total value of the account.'
+        None, description="Describes total value of the account."
     )
     prdctd_pst_xpry_excss: Optional[str] = Field(
         None,
-        alias='Prdctd Pst-xpry Excss',
-        description='Displays predicted post-expiration account value.',
+        alias="Prdctd Pst-xpry Excss",
+        description="Displays predicted post-expiration account value.",
     )
-    sma: Optional[str] = Field(None, alias='SMA')
+    sma: Optional[str] = Field(None, alias="SMA")
     lk_ahd_avlbl_fnds: Optional[str] = Field(
         None,
-        alias='Lk Ahd Avlbl Fnds',
-        description='This value reflects your available funds at the next margin change.',
+        alias="Lk Ahd Avlbl Fnds",
+        description="This value reflects your available funds at the next margin change.",
     )
     lk_ahd_excss_lqdty: Optional[str] = Field(
         None,
-        alias='Lk Ahd Excss Lqdty',
-        description='* `Securities` - Equity with loan value. Look ahead maintenance margin.\n * `Commodities` - Net Liquidation value. Look ahead maintenance margin.\n',
+        alias="Lk Ahd Excss Lqdty",
+        description="* `Securities` - Equity with loan value. Look ahead maintenance margin.\n * `Commodities` - Net Liquidation value. Look ahead maintenance margin.\n",
     )
     overnight_available: Optional[str] = Field(
-        None, description='Describes available funds for overnight trading.'
+        None, description="Describes available funds for overnight trading."
     )
     overnight_excess: Optional[str] = Field(
         None,
-        description='Overnight refers to the window of time after the local market trading day is closed. \n  * `Securities` - Equivalent to regular trading hours. \n   * `Commodities` - Commodities Net Liquidation value. Overnight Maintenance margin.\n',
+        description="Overnight refers to the window of time after the local market trading day is closed. \n  * `Securities` - Equivalent to regular trading hours. \n   * `Commodities` - Commodities Net Liquidation value. Overnight Maintenance margin.\n",
     )
     leverage: Optional[str] = Field(
-        None, description='Describes the total combined leverage.'
+        None, description="Describes the total combined leverage."
     )
 
 
 class DisplayText(Enum):
-    maturity_date = 'Maturity Date'
-    issue_date = 'Issue Date'
-    coupon = 'Coupon'
-    currency = 'Currency'
+    maturity_date = "Maturity Date"
+    issue_date = "Issue Date"
+    coupon = "Coupon"
+    currency = "Currency"
 
 
 class Option(BaseModel):
@@ -5086,11 +5086,11 @@ class Option(BaseModel):
     )
     text: Optional[str] = Field(
         None,
-        description='In some instances, a text value will be returned, which indicates the standardized value format such as plaintext dates, rather than solely numerical values.',
+        description="In some instances, a text value will be returned, which indicates the standardized value format such as plaintext dates, rather than solely numerical values.",
     )
     value: str = Field(
         ...,
-        description='Returns value directly correlating to the displayText key. This may include exchange, maturity date, issue date, coupon, or currency.',
+        description="Returns value directly correlating to the displayText key. This may include exchange, maturity date, issue date, coupon, or currency.",
     )
 
 
@@ -5100,17 +5100,17 @@ class BondFilter(BaseModel):
     )
     display_text: Optional[DisplayText] = Field(
         None,
-        alias='displayText',
-        description='An identifier used to document returned options/values. This can be thought of as a key value.',
+        alias="displayText",
+        description="An identifier used to document returned options/values. This can be thought of as a key value.",
     )
     column_id: Optional[int] = Field(
         None,
-        alias='columnId',
-        description='Used for user interfaces. Internal use only.',
+        alias="columnId",
+        description="Used for user interfaces. Internal use only.",
     )
     options: Optional[List[Option]] = Field(
         None,
-        description='Contains all objects with values corresponding to the parent displayText key.',
+        description="Contains all objects with values corresponding to the parent displayText key.",
     )
 
 
@@ -5120,8 +5120,8 @@ class BondFiltersResponse(BaseModel):
     )
     bond_filters: Optional[List[BondFilter]] = Field(
         None,
-        alias='bondFilters',
-        description='Contains all filters pertaining to the given issuerId',
+        alias="bondFilters",
+        description="Contains all filters pertaining to the given issuerId",
     )
 
 
@@ -5131,11 +5131,11 @@ class BrokerageSessionInitRequest(BaseModel):
     )
     publish: Optional[bool] = Field(
         None,
-        description='publish brokerage session token at the same time when brokerage session initialized. If set false, then session token should be published before calling init. Setting true is preferred way.',
+        description="publish brokerage session token at the same time when brokerage session initialized. If set false, then session token should be published before calling init. Setting true is preferred way.",
     )
     compete: Optional[bool] = Field(
         None,
-        description='Determines if other brokerage sessions should be disconnected to prioritize this connection.',
+        description="Determines if other brokerage sessions should be disconnected to prioritize this connection.",
     )
 
 
@@ -5145,17 +5145,17 @@ class ServerInfo(BaseModel):
     )
     server_name: Optional[str] = Field(
         None,
-        alias='serverName',
-        description='IBKR server information. Internal use only.',
+        alias="serverName",
+        description="IBKR server information. Internal use only.",
     )
     server_version: Optional[str] = Field(
         None,
-        alias='serverVersion',
-        description='IBKR version information. Internal use only.',
+        alias="serverVersion",
+        description="IBKR version information. Internal use only.",
     )
     fail: Optional[str] = Field(
         None,
-        description='Returns the reason for failing to retrieve authentication status.',
+        description="Returns the reason for failing to retrieve authentication status.",
     )
 
 
@@ -5165,20 +5165,20 @@ class BrokerageSessionStatus(BaseModel):
     )
     authenticated: Optional[bool] = Field(
         None,
-        description='Returns whether your brokerage session is authenticated or not.',
+        description="Returns whether your brokerage session is authenticated or not.",
     )
     competing: Optional[bool] = Field(
         None,
-        description='Returns whether you have a competing brokerage session in another connection.',
+        description="Returns whether you have a competing brokerage session in another connection.",
     )
     connected: Optional[bool] = Field(
-        None, description='Returns whether you are connected to the gateway or not.'
+        None, description="Returns whether you are connected to the gateway or not."
     )
     message: Optional[str] = Field(
-        None, description='A message about your authenticate status if any.'
+        None, description="A message about your authenticate status if any."
     )
-    mac: Optional[str] = Field(None, alias='MAC', description='Device MAC information.')
-    server_info: Optional[ServerInfo] = Field(None, alias='serverInfo')
+    mac: Optional[str] = Field(None, alias="MAC", description="Device MAC information.")
+    server_info: Optional[ServerInfo] = Field(None, alias="serverInfo")
 
 
 class ContractInfo(BaseModel):
@@ -5186,129 +5186,129 @@ class ContractInfo(BaseModel):
         populate_by_name=True,
     )
     cfi_code: Optional[str] = Field(
-        None, description='Classification of Financial Instrument codes'
+        None, description="Classification of Financial Instrument codes"
     )
-    symbol: Optional[str] = Field(None, description='Underlying symbol')
+    symbol: Optional[str] = Field(None, description="Underlying symbol")
     cusip: Optional[str] = Field(
         None,
-        description='Returns the CUSIP for the given instrument. Only used in BOND trading.',
+        description="Returns the CUSIP for the given instrument. Only used in BOND trading.",
     )
     expiry_full: Optional[str] = Field(
-        None, description='Returns the expiration month of the contract.'
+        None, description="Returns the expiration month of the contract."
     )
     con_id: Optional[int] = Field(
-        None, description='Indicates the contract identifier of the given contract.'
+        None, description="Indicates the contract identifier of the given contract."
     )
     maturity_date: Optional[str] = Field(
-        None, description='Indicates the final maturity date of the given contract.'
+        None, description="Indicates the final maturity date of the given contract."
     )
     industry: Optional[str] = Field(
-        None, description='Specific group of companies or businesses.'
+        None, description="Specific group of companies or businesses."
     )
     instrument_type: Optional[str] = Field(
-        None, description='Asset class of the instrument.'
+        None, description="Asset class of the instrument."
     )
     trading_class: Optional[str] = Field(
-        None, description='Designated trading class of the contract.'
+        None, description="Designated trading class of the contract."
     )
     valid_exchanges: Optional[str] = Field(
-        None, description='Comma separated list of support exchanges or trading venues.'
+        None, description="Comma separated list of support exchanges or trading venues."
     )
     allow_sell_long: Optional[bool] = Field(
-        None, description='Allowed to sell shares you own.'
+        None, description="Allowed to sell shares you own."
     )
     is_zero_commission_security: Optional[bool] = Field(
-        None, description='Indicates if the contract supports zero commission trading.'
+        None, description="Indicates if the contract supports zero commission trading."
     )
     local_symbol: Optional[str] = Field(
         None,
-        description='Contract’s symbol from primary exchange. For options it is the OCC symbol.',
+        description="Contract’s symbol from primary exchange. For options it is the OCC symbol.",
     )
     contract_clarification_type: Optional[str] = None
     classifier: Optional[str] = None
     currency: Optional[str] = Field(
-        None, description='Base currency contract is traded in.'
+        None, description="Base currency contract is traded in."
     )
     text: Optional[str] = Field(
         None,
-        description='Indicates the display name of the contract, as shown with Client Portal.',
+        description="Indicates the display name of the contract, as shown with Client Portal.",
     )
     underlying_con_id: Optional[int] = Field(
-        None, description='Underlying contract identifier for the requested contract.'
+        None, description="Underlying contract identifier for the requested contract."
     )
     r_t_h: Optional[bool] = Field(
         None,
-        description='Indicates if the contract can be traded outside regular trading hours or not.',
+        description="Indicates if the contract can be traded outside regular trading hours or not.",
     )
     multiplier: Optional[str] = Field(
-        None, description='Indicates the multiplier of the contract.'
+        None, description="Indicates the multiplier of the contract."
     )
     underlying_issuer: Optional[str] = Field(
-        None, description='Indicates the issuer of the underlying.'
+        None, description="Indicates the issuer of the underlying."
     )
     contract_month: Optional[str] = Field(
-        None, description='Indicates the year and month the contract expires.'
+        None, description="Indicates the year and month the contract expires."
     )
     company_name: Optional[str] = Field(
-        None, description='Indicates the name of the company or index.'
+        None, description="Indicates the name of the company or index."
     )
     smart_available: Optional[bool] = Field(
-        None, description='Indicates if the contract can be smart routed or not.'
+        None, description="Indicates if the contract can be smart routed or not."
     )
     exchange: Optional[str] = Field(
         None,
-        description='Indicates the primary exchange for which the contract can be traded.',
+        description="Indicates the primary exchange for which the contract can be traded.",
     )
     category: Optional[str] = Field(
-        None, description='Indicates the industry category of the instrument.'
+        None, description="Indicates the industry category of the instrument."
     )
 
 
 class OrderType(Enum):
-    limit = 'limit'
-    midprice = 'midprice'
-    market = 'market'
-    stop = 'stop'
-    stop_limit = 'stop_limit'
-    mit = 'mit'
-    lit = 'lit'
-    trailing_stop = 'trailing_stop'
-    trailing_stop_limit = 'trailing_stop_limit'
-    relative = 'relative'
-    marketonclose = 'marketonclose'
-    limitonclose = 'limitonclose'
+    limit = "limit"
+    midprice = "midprice"
+    market = "market"
+    stop = "stop"
+    stop_limit = "stop_limit"
+    mit = "mit"
+    lit = "lit"
+    trailing_stop = "trailing_stop"
+    trailing_stop_limit = "trailing_stop_limit"
+    relative = "relative"
+    marketonclose = "marketonclose"
+    limitonclose = "limitonclose"
 
 
 class IbAlgoType(Enum):
-    limit = 'limit'
-    stop_limit = 'stop_limit'
-    lit = 'lit'
-    trailing_stop_limit = 'trailing_stop_limit'
-    relative = 'relative'
-    marketonclose = 'marketonclose'
-    limitonclose = 'limitonclose'
+    limit = "limit"
+    stop_limit = "stop_limit"
+    lit = "lit"
+    trailing_stop_limit = "trailing_stop_limit"
+    relative = "relative"
+    marketonclose = "marketonclose"
+    limitonclose = "limitonclose"
 
 
 class FraqType(Enum):
-    limit = 'limit'
-    market = 'market'
-    stop = 'stop'
-    stop_limit = 'stop_limit'
-    mit = 'mit'
-    lit = 'lit'
-    trailing_stop = 'trailing_stop'
-    trailing_stop_limit = 'trailing_stop_limit'
+    limit = "limit"
+    market = "market"
+    stop = "stop"
+    stop_limit = "stop_limit"
+    mit = "mit"
+    lit = "lit"
+    trailing_stop = "trailing_stop"
+    trailing_stop_limit = "trailing_stop_limit"
 
 
 class CqtType(Enum):
-    limit = 'limit'
-    market = 'market'
-    stop = 'stop'
-    stop_limit = 'stop_limit'
-    mit = 'mit'
-    lit = 'lit'
-    trailing_stop = 'trailing_stop'
-    trailing_stop_limit = 'trailing_stop_limit'
+    limit = "limit"
+    market = "market"
+    stop = "stop"
+    stop_limit = "stop_limit"
+    mit = "mit"
+    lit = "lit"
+    trailing_stop = "trailing_stop"
+    trailing_stop_limit = "trailing_stop_limit"
 
 
 class Lmt(BaseModel):
@@ -5316,7 +5316,7 @@ class Lmt(BaseModel):
         populate_by_name=True,
     )
     lp: Optional[str] = Field(
-        None, alias='LP', description='Indicates a Limit Price default value.'
+        None, alias="LP", description="Indicates a Limit Price default value."
     )
 
 
@@ -5324,15 +5324,15 @@ class OrderDefaults(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    lmt: Optional[Lmt] = Field(None, alias='LMT')
+    lmt: Optional[Lmt] = Field(None, alias="LMT")
 
 
 class OrderTypesOutsideEnum(Enum):
-    limit = 'limit'
-    stop_limit = 'stop_limit'
-    lit = 'lit'
-    trailing_stop_limit = 'trailing_stop_limit'
-    relative = 'relative'
+    limit = "limit"
+    stop_limit = "stop_limit"
+    lit = "lit"
+    trailing_stop_limit = "trailing_stop_limit"
+    relative = "relative"
 
 
 class TifDefaults(BaseModel):
@@ -5340,15 +5340,15 @@ class TifDefaults(BaseModel):
         populate_by_name=True,
     )
     tif: Optional[str] = Field(
-        None, alias='TIF', description='The default TIF type for orders.'
+        None, alias="TIF", description="The default TIF type for orders."
     )
     size: Optional[str] = Field(
-        None, alias='SIZE', description='The default size value for orders.'
+        None, alias="SIZE", description="The default size value for orders."
     )
     default_acct: Optional[str] = Field(
-        None, alias='DEFAULT_ACCT', description='default account (multi account only)'
+        None, alias="DEFAULT_ACCT", description="default account (multi account only)"
     )
-    pmalgo: Optional[bool] = Field(None, alias='PMALGO')
+    pmalgo: Optional[bool] = Field(None, alias="PMALGO")
 
 
 class IncrementRule(BaseModel):
@@ -5357,12 +5357,12 @@ class IncrementRule(BaseModel):
     )
     lower_edge: Optional[int] = Field(
         None,
-        alias='lowerEdge',
-        description='If the current mark price of the instrument is at or above the lower edge, the given increment value is used for order prices.',
+        alias="lowerEdge",
+        description="If the current mark price of the instrument is at or above the lower edge, the given increment value is used for order prices.",
     )
     increment: Optional[int] = Field(
         None,
-        description='The price of the instrument must be submitted as a mulitple of the increment value.',
+        description="The price of the instrument must be submitted as a mulitple of the increment value.",
     )
 
 
@@ -5372,156 +5372,156 @@ class ContractRules(BaseModel):
     )
     algo_eligible: Optional[bool] = Field(
         None,
-        alias='algoEligible',
-        description='Indicates if the contract can trade algos or not.',
+        alias="algoEligible",
+        description="Indicates if the contract can trade algos or not.",
     )
     overnight_eligible: Optional[bool] = Field(
         None,
-        alias='overnightEligible',
-        description='Indicates if outsideRTH trading is permitted for the instrument',
+        alias="overnightEligible",
+        description="Indicates if outsideRTH trading is permitted for the instrument",
     )
     cost_report: Optional[bool] = Field(
         None,
-        alias='costReport',
-        description='Indicates whether or not a cost report has been requested (Client Portal only).',
+        alias="costReport",
+        description="Indicates whether or not a cost report has been requested (Client Portal only).",
     )
     can_trade_acct_ids: Optional[List[str]] = Field(
         None,
-        alias='canTradeAcctIds',
-        description='Indicates permitted accountIDs that may trade the contract.',
+        alias="canTradeAcctIds",
+        description="Indicates permitted accountIDs that may trade the contract.",
     )
     error: Optional[str] = Field(
         None,
-        description='If rules information can not be received for any reason, it will be expressed here.',
+        description="If rules information can not be received for any reason, it will be expressed here.",
     )
     order_types: Optional[List[OrderType]] = Field(
         None,
-        alias='orderTypes',
-        description='Indicates permitted order types for use with standard quantity trading.',
+        alias="orderTypes",
+        description="Indicates permitted order types for use with standard quantity trading.",
     )
     ib_algo_types: Optional[List[IbAlgoType]] = Field(
         None,
-        alias='ibAlgoTypes',
-        description='Indicates permitted algo types for use with the given contract.',
+        alias="ibAlgoTypes",
+        description="Indicates permitted algo types for use with the given contract.",
     )
     fraq_types: Optional[List[FraqType]] = Field(
         None,
-        alias='fraqTypes',
-        description='Indicates permitted order types for use with fractional trading.',
+        alias="fraqTypes",
+        description="Indicates permitted order types for use with fractional trading.",
     )
     force_order_preview: Optional[bool] = Field(
         None,
-        alias='forceOrderPreview',
-        description='Indicates if the order preview is forced upon the user before submission.',
+        alias="forceOrderPreview",
+        description="Indicates if the order preview is forced upon the user before submission.",
     )
     cqt_types: Optional[List[CqtType]] = Field(
         None,
-        alias='cqtTypes',
-        description='Indicates accepted order types for use with cash quantity.',
+        alias="cqtTypes",
+        description="Indicates accepted order types for use with cash quantity.",
     )
     order_defaults: Optional[OrderDefaults] = Field(
         None,
-        alias='orderDefaults',
-        description='Indicates default order type for the given security type.',
+        alias="orderDefaults",
+        description="Indicates default order type for the given security type.",
     )
     order_types_outside: Optional[List[OrderTypesOutsideEnum]] = Field(
         None,
-        alias='orderTypesOutside',
-        description='Indicates permitted order types for use outside of regular trading hours.',
+        alias="orderTypesOutside",
+        description="Indicates permitted order types for use outside of regular trading hours.",
     )
     default_size: Optional[int] = Field(
         None,
-        alias='defaultSize',
-        description='Default total quantity value for orders.',
+        alias="defaultSize",
+        description="Default total quantity value for orders.",
     )
     cash_size: Optional[int] = Field(
-        None, alias='cashSize', description='Default cash value quantity.'
+        None, alias="cashSize", description="Default cash value quantity."
     )
     size_increment: Optional[int] = Field(
         None,
-        alias='sizeIncrement',
-        description='Indicates quantity increase for the contract.',
+        alias="sizeIncrement",
+        description="Indicates quantity increase for the contract.",
     )
     tif_types: Optional[List[str]] = Field(
         None,
-        alias='tifTypes',
-        description='Indicates allowed tif types supported for the contract.',
+        alias="tifTypes",
+        description="Indicates allowed tif types supported for the contract.",
     )
     tif_defaults: Optional[TifDefaults] = Field(
         None,
-        alias='tifDefaults',
-        description='Object containing details about your TIF value defaults. These defaults can be viewed and modified in TWS’s within the Global Configuration.\n',
+        alias="tifDefaults",
+        description="Object containing details about your TIF value defaults. These defaults can be viewed and modified in TWS’s within the Global Configuration.\n",
     )
     limit_price: Optional[int] = Field(
         None,
-        alias='limitPrice',
-        description='Default limit price for the given contract.',
+        alias="limitPrice",
+        description="Default limit price for the given contract.",
     )
     stop_price: Optional[int] = Field(
         None,
-        alias='stopPrice',
-        description='Default stop price for the given contract.',
+        alias="stopPrice",
+        description="Default stop price for the given contract.",
     )
     order_origination: Optional[str] = Field(
         None,
-        alias='orderOrigination',
-        description='Order origin designation for US securities options and Options Clearing Corporation',
+        alias="orderOrigination",
+        description="Order origin designation for US securities options and Options Clearing Corporation",
     )
     preview: Optional[bool] = Field(
         None,
-        description='Indicates if the order preview is required (for client portal only)',
+        description="Indicates if the order preview is required (for client portal only)",
     )
     display_size: Optional[int] = Field(
         None,
-        alias='displaySize',
-        description='Standard display increment rule for the instrument.',
+        alias="displaySize",
+        description="Standard display increment rule for the instrument.",
     )
     fraq_int: Optional[int] = Field(
         None,
-        alias='fraqInt',
-        description='Indicates decimal places for fractional order size.',
+        alias="fraqInt",
+        description="Indicates decimal places for fractional order size.",
     )
     cash_ccy: Optional[str] = Field(
-        None, alias='cashCcy', description='Indicates base currency for the instrument.'
+        None, alias="cashCcy", description="Indicates base currency for the instrument."
     )
     cash_qty_incr: Optional[int] = Field(
         None,
-        alias='cashQtyIncr',
-        description='Indicates cash quantity increment rules.',
+        alias="cashQtyIncr",
+        description="Indicates cash quantity increment rules.",
     )
     price_magnifier: Optional[int] = Field(
         None,
-        alias='priceMagnifier',
-        description='Signifies the magnifier of a given contract. This is separate from the price multiplier, and will typically return ‘null’\n',
+        alias="priceMagnifier",
+        description="Signifies the magnifier of a given contract. This is separate from the price multiplier, and will typically return ‘null’\n",
     )
     negative_capable: Optional[bool] = Field(
         None,
-        alias='negativeCapable',
-        description='Indicates if the value of the contract can be negative (true) or if it is always positive (false).',
+        alias="negativeCapable",
+        description="Indicates if the value of the contract can be negative (true) or if it is always positive (false).",
     )
     increment_type: Optional[int] = Field(
         None,
-        alias='incrementType',
-        description='Indicates the type of increment style.',
+        alias="incrementType",
+        description="Indicates the type of increment style.",
     )
     increment_rules: Optional[List[IncrementRule]] = Field(
         None,
-        alias='incrementRules',
-        description='Indicates increment rule values including lowerEdge and increment value.',
+        alias="incrementRules",
+        description="Indicates increment rule values including lowerEdge and increment value.",
     )
-    has_secondary: Optional[bool] = Field(None, alias='hasSecondary')
+    has_secondary: Optional[bool] = Field(None, alias="hasSecondary")
     mod_types: Optional[List] = Field(
         None,
-        alias='modTypes',
-        description='Lists the available order types supported when modifying the order.',
+        alias="modTypes",
+        description="Lists the available order types supported when modifying the order.",
     )
     increment: Optional[int] = Field(
-        None, description='Minimum increment values for prices'
+        None, description="Minimum increment values for prices"
     )
     increment_digits: Optional[int] = Field(
         None,
-        alias='incrementDigits',
-        description='Number of decimal places to indicate the increment value.',
+        alias="incrementDigits",
+        description="Number of decimal places to indicate the increment value.",
     )
 
 
@@ -5530,13 +5530,13 @@ class CurrencyPair(BaseModel):
         populate_by_name=True,
     )
     symbol: Optional[str] = Field(
-        None, description='The official symbol of the given currency pair.'
+        None, description="The official symbol of the given currency pair."
     )
     conid: Optional[int] = Field(
-        None, description='The official contract identifier of the given currency pair.'
+        None, description="The official contract identifier of the given currency pair."
     )
     ccy_pair: Optional[int] = Field(
-        None, alias='ccyPair', description='Returns the symbol counterpart.'
+        None, alias="ccyPair", description="Returns the symbol counterpart."
     )
 
 
@@ -5552,10 +5552,10 @@ class DeliveryOptions(BaseModel):
         populate_by_name=True,
     )
     m: Optional[int] = Field(
-        None, alias='M', description='Email option is enabled or not.'
+        None, alias="M", description="Email option is enabled or not."
     )
     e: Optional[List] = Field(
-        None, alias='E', description='Returns an array of device information.'
+        None, alias="E", description="Returns an array of device information."
     )
 
 
@@ -5565,25 +5565,25 @@ class DetailedContractInformation(BaseModel):
     )
     currency_type: Optional[str] = Field(
         None,
-        alias='currencyType',
-        description='Confirms if the currency type. If trading exclusively in your base currency, “base” will be returned.',
+        alias="currencyType",
+        description="Confirms if the currency type. If trading exclusively in your base currency, “base” will be returned.",
     )
     rc: Optional[int] = Field(
-        None, description='Returns the data identifier (Internal Use Only).'
+        None, description="Returns the data identifier (Internal Use Only)."
     )
     view: Optional[List[str]] = Field(
-        None, description='Returns the accountIds being viewed and returned.'
+        None, description="Returns the accountIds being viewed and returned."
     )
-    nd: Optional[int] = Field(None, description='Returns the total data points.')
+    nd: Optional[int] = Field(None, description="Returns the total data points.")
     id: Optional[str] = Field(
-        None, description='Returns the request identifier, getPerformanceAllPeriods.'
+        None, description="Returns the request identifier, getPerformanceAllPeriods."
     )
     included: Optional[List[str]] = Field(
-        None, description='Returns an array containing accounts reviewed.'
+        None, description="Returns an array containing accounts reviewed."
     )
     pm: Optional[str] = Field(
         None,
-        description='Portfolio Measure. Used to indicate TWR or MWR values returned.',
+        description="Portfolio Measure. Used to indicate TWR or MWR values returned.",
     )
 
 
@@ -5592,10 +5592,10 @@ class DisclaimerInfo(BaseModel):
         populate_by_name=True,
     )
     fc: Optional[str] = Field(
-        None, alias='FC', description='Returns the Typecode for the given disclaimer.'
+        None, alias="FC", description="Returns the Typecode for the given disclaimer."
     )
     dt: Optional[str] = Field(
-        None, alias='DT', description='Returns the Disclaimer message.'
+        None, alias="DT", description="Returns the Disclaimer message."
     )
 
 
@@ -5605,17 +5605,17 @@ class MatchedAccount(BaseModel):
     )
     account_id: Optional[str] = Field(
         None,
-        alias='accountId',
-        description='Returns a matching account ID that corresponds to the matching value.',
+        alias="accountId",
+        description="Returns a matching account ID that corresponds to the matching value.",
     )
     alias: Optional[str] = Field(
         None,
-        description='Returns the corresponding alias or alternative name for the specific account ID. May be a duplicate of the accountId value in most cases.',
+        description="Returns the corresponding alias or alternative name for the specific account ID. May be a duplicate of the accountId value in most cases.",
     )
     allocation_id: Optional[str] = Field(
         None,
-        alias='allocationId',
-        description='Returns the allocation identifier used internally for the account.',
+        alias="allocationId",
+        description="Returns the allocation identifier used internally for the account.",
     )
 
 
@@ -5625,11 +5625,11 @@ class DynAccountSearchResponse(BaseModel):
     )
     matched_accounts: Optional[List[MatchedAccount]] = Field(
         None,
-        alias='matchedAccounts',
-        description='Contains a series of objects that pertain to the account information requested.',
+        alias="matchedAccounts",
+        description="Contains a series of objects that pertain to the account information requested.",
     )
     pattern: Optional[str] = Field(
-        None, description='Displays the searchPattern used for the request.'
+        None, description="Displays the searchPattern used for the request."
     )
 
 
@@ -5637,16 +5637,16 @@ class ErrorOnlyResponse(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    error: Optional[str] = Field(None, description='error reason')
+    error: Optional[str] = Field(None, description="error reason")
 
 
 class ErrorResponse1(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    error: Optional[str] = Field(None, description='error reason')
+    error: Optional[str] = Field(None, description="error reason")
     status_code: Optional[str] = Field(
-        None, alias='statusCode', description='mimic response status code'
+        None, alias="statusCode", description="mimic response status code"
     )
 
 
@@ -5655,7 +5655,7 @@ class FailedTickleResponse(BaseModel):
         populate_by_name=True,
     )
     error: Optional[str] = Field(
-        None, description='reason why tickle was accepted by not processed'
+        None, description="reason why tickle was accepted by not processed"
     )
 
 
@@ -5665,7 +5665,7 @@ class Features(BaseModel):
     )
     symbol: Optional[List] = Field(
         None,
-        description='Displayed as the string of your symbol Contains a series of objects for each symbol that matches the requested.\n',
+        description="Displayed as the string of your symbol Contains a series of objects for each symbol that matches the requested.\n",
     )
 
 
@@ -5675,27 +5675,27 @@ class Funds(BaseModel):
     )
     current_available: Optional[str] = Field(
         None,
-        description='Describes currently avialable funds in your account for trading.',
+        description="Describes currently avialable funds in your account for trading.",
     )
     current_excess: Optional[str] = Field(
-        None, description='Describes total value of the account.'
+        None, description="Describes total value of the account."
     )
     prdctd_pst_xpry_excss: Optional[str] = Field(
         None,
-        alias='Prdctd Pst-xpry Excss',
-        description='Displays predicted post-expiration account value.',
+        alias="Prdctd Pst-xpry Excss",
+        description="Displays predicted post-expiration account value.",
     )
     lk_ahd_avlbl_fnds: Optional[str] = Field(
         None,
-        alias='Lk Ahd Avlbl Fnds',
-        description='This value reflects your available funds at the next margin change.',
+        alias="Lk Ahd Avlbl Fnds",
+        description="This value reflects your available funds at the next margin change.",
     )
     overnight_available: Optional[str] = Field(
-        None, description='Describes available funds for overnight trading.'
+        None, description="Describes available funds for overnight trading."
     )
     overnight_excess: Optional[str] = Field(
         None,
-        description='Overnight refers to the window of time after the local market trading day is closed. \n  * `Securities` - Equivalent to regular trading hours. \n   * `Commodities` - Commodities Net Liquidation value. Overnight Maintenance margin.\n',
+        description="Overnight refers to the window of time after the local market trading day is closed. \n  * `Securities` - Equivalent to regular trading hours. \n   * `Commodities` - Commodities Net Liquidation value. Overnight Maintenance margin.\n",
     )
 
 
@@ -5703,10 +5703,10 @@ class FyiEnableDeviceOption(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    device_name: Optional[str] = Field(None, alias='deviceName')
-    device_id: Optional[str] = Field(None, alias='deviceId')
-    ui_name: Optional[str] = Field(None, alias='uiName')
-    enabled: Optional[bool] = Field(None, description='enable or disable device')
+    device_name: Optional[str] = Field(None, alias="deviceName")
+    device_id: Optional[str] = Field(None, alias="deviceId")
+    ui_name: Optional[str] = Field(None, alias="uiName")
+    enabled: Optional[bool] = Field(None, description="enable or disable device")
 
 
 class FyiSetting(BaseModel):
@@ -5715,24 +5715,24 @@ class FyiSetting(BaseModel):
     )
     a: Optional[int] = Field(
         None,
-        alias='A',
-        description='Returns ony if the subscription can be disabled/enabled manually. See /fyi/settings/{typecode} for how to enable/disable.\n',
+        alias="A",
+        description="Returns ony if the subscription can be disabled/enabled manually. See /fyi/settings/{typecode} for how to enable/disable.\n",
     )
     fc: Optional[str] = Field(
         None,
-        alias='FC',
-        description='Fyi code for enabling or disabling the notification.',
+        alias="FC",
+        description="Fyi code for enabling or disabling the notification.",
     )
     h: Optional[int] = Field(
-        None, alias='H', description='Disclaimer if the notification was read.'
+        None, alias="H", description="Disclaimer if the notification was read."
     )
     fd: Optional[str] = Field(
-        None, alias='FD', description='Returns a detailed description of the topic.'
+        None, alias="FD", description="Returns a detailed description of the topic."
     )
     fn: Optional[str] = Field(
         None,
-        alias='FN',
-        description='Returns a human readable title for the notification.',
+        alias="FN",
+        description="Returns a human readable title for the notification.",
     )
 
 
@@ -5748,10 +5748,10 @@ class FyiVT(BaseModel):
         populate_by_name=True,
     )
     v: Optional[int] = Field(
-        None, alias='V', description='Returns 1 to state message was acknowledged.'
+        None, alias="V", description="Returns 1 to state message was acknowledged."
     )
     t: Optional[int] = Field(
-        None, alias='T', description='Returns the time in ms to complete the edit.'
+        None, alias="T", description="Returns the time in ms to complete the edit."
     )
 
 
@@ -5760,13 +5760,13 @@ class ScanTypeList(BaseModel):
         populate_by_name=True,
     )
     display_name: Optional[str] = Field(
-        None, description='Human readable name for the scanner “type”'
+        None, description="Human readable name for the scanner “type”"
     )
     code: Optional[str] = Field(
-        None, description='Value used for the market scanner request.'
+        None, description="Value used for the market scanner request."
     )
     instruments: Optional[List] = Field(
-        None, description='Returns all instruments the scanner type can be used with.'
+        None, description="Returns all instruments the scanner type can be used with."
     )
 
 
@@ -5775,14 +5775,14 @@ class InstrumentList(BaseModel):
         populate_by_name=True,
     )
     display_name: Optional[str] = Field(
-        None, description='Human readable representation of the instrument type.'
+        None, description="Human readable representation of the instrument type."
     )
     type: Optional[str] = Field(
-        None, description='Value used for the market scanner request.'
+        None, description="Value used for the market scanner request."
     )
     filters: Optional[List] = Field(
         None,
-        description='Returns an array of all filters uniquely avaliable to that instrument type.',
+        description="Returns an array of all filters uniquely avaliable to that instrument type.",
     )
 
 
@@ -5792,13 +5792,13 @@ class Locations(BaseModel):
     )
     display_name: Optional[str] = Field(
         None,
-        description='Returns the human-readable value of the market scanner’s location value.',
+        description="Returns the human-readable value of the market scanner’s location value.",
     )
     type: Optional[str] = Field(
-        None, description='Returns the code value of the market scanner location value.'
+        None, description="Returns the code value of the market scanner location value."
     )
     locations: Optional[List] = Field(
-        None, description='Always returns an empty array at this depth.'
+        None, description="Always returns an empty array at this depth."
     )
 
 
@@ -5808,11 +5808,11 @@ class LocationTree(BaseModel):
     )
     display_name: Optional[str] = Field(
         None,
-        description='Returns the overarching instrument type to designate the location.',
+        description="Returns the overarching instrument type to designate the location.",
     )
     type: Optional[str] = Field(
         None,
-        description='Returns the code value of the market scanner instrument type value.',
+        description="Returns the code value of the market scanner instrument type value.",
     )
     locations: Optional[Union[List, Locations]] = None
 
@@ -5823,15 +5823,15 @@ class HmdsScannerParams(BaseModel):
     )
     scan_type_list: Optional[Union[List, ScanTypeList]] = Field(
         None,
-        description='Contains all values used as the scanner “type” in the request.',
+        description="Contains all values used as the scanner “type” in the request.",
     )
     instrument_list: Optional[Union[List, InstrumentList]] = Field(
         None,
-        description='Contains all values relevant to the scanner “instrument” request field.',
+        description="Contains all values relevant to the scanner “instrument” request field.",
     )
     location_tree: Optional[Union[List, LocationTree]] = Field(
         None,
-        description='Contains all values relevant to the location field of the market scanner request.',
+        description="Contains all values relevant to the location field of the market scanner request.",
     )
 
 
@@ -5839,7 +5839,7 @@ class Filters(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    field_filter_key_: Optional[str] = Field(None, alias='{filter key}')
+    field_filter_key_: Optional[str] = Field(None, alias="{filter key}")
 
 
 class HmdsScannerRunRequest(BaseModel):
@@ -5848,29 +5848,29 @@ class HmdsScannerRunRequest(BaseModel):
     )
     instrument: Optional[str] = Field(
         None,
-        description='Specify the type of instrument for the request. Found under the “instrument_list” value of the /hmds/scanner/params request.',
+        description="Specify the type of instrument for the request. Found under the “instrument_list” value of the /hmds/scanner/params request.",
     )
     locations: Optional[str] = Field(
         None,
-        description='Specify the type of location for the request. Found under the “location_tree” value of the /hmds/scanner/params request.',
+        description="Specify the type of location for the request. Found under the “location_tree” value of the /hmds/scanner/params request.",
     )
     scan_code: Optional[str] = Field(
         None,
-        alias='scanCode',
-        description='Specify the scanner type for the request. Found under the “scan_type_list” value of the /hmds/scanner/params request.',
+        alias="scanCode",
+        description="Specify the scanner type for the request. Found under the “scan_type_list” value of the /hmds/scanner/params request.",
     )
     sec_type: Optional[str] = Field(
         None,
-        alias='secType',
-        description='Specify the type of security type for the request. Found under the “location_tree” value of the /hmds/scanner/params request.',
+        alias="secType",
+        description="Specify the type of security type for the request. Found under the “location_tree” value of the /hmds/scanner/params request.",
     )
-    delayed_locations: Optional[str] = Field(None, alias='delayedLocations')
+    delayed_locations: Optional[str] = Field(None, alias="delayedLocations")
     max_items: Optional[int] = Field(
-        250, alias='maxItems', description='Specify how many items should be returned.'
+        250, alias="maxItems", description="Specify how many items should be returned."
     )
     filters: Optional[Union[List, Filters]] = Field(
         None,
-        description='Array of objects containing all filters upon the scanner request. Content contains a series of key:value pairs. While “filters” must be specified in the body, no content in the array needs to be passed.\n',
+        description="Array of objects containing all filters upon the scanner request. Content contains a series of key:value pairs. While “filters” must be specified in the body, no content in the array needs to be passed.\n",
     )
 
 
@@ -5879,15 +5879,15 @@ class DisplayRuleStepItem(BaseModel):
         populate_by_name=True,
     )
     decimal_digits: Optional[int] = Field(
-        None, alias='decimalDigits', description='Number of decimal digits to display.'
+        None, alias="decimalDigits", description="Number of decimal digits to display."
     )
     lower_edge: Optional[float] = Field(
         None,
-        alias='lowerEdge',
-        description='Lower edge from which the display rule is effective.',
+        alias="lowerEdge",
+        description="Lower edge from which the display rule is effective.",
     )
     whole_digits: Optional[int] = Field(
-        None, alias='wholeDigits', description='Number of integer digits to display.'
+        None, alias="wholeDigits", description="Number of integer digits to display."
     )
 
 
@@ -5897,11 +5897,11 @@ class DisplayRule(BaseModel):
     )
     display_rule_step: Optional[List[DisplayRuleStepItem]] = Field(
         None,
-        alias='displayRuleStep',
-        description='Array containing objects corresponding to display rule increments.',
+        alias="displayRuleStep",
+        description="Array containing objects corresponding to display rule increments.",
     )
     magnification: Optional[int] = Field(
-        None, description='Magnifier applied to pricing, if applicable.'
+        None, description="Magnifier applied to pricing, if applicable."
     )
 
 
@@ -5909,17 +5909,17 @@ class IncrementRule1(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    increment: Optional[float] = Field(None, description='The pricing increment.')
+    increment: Optional[float] = Field(None, description="The pricing increment.")
     lower_edge: Optional[float] = Field(
         None,
-        alias='lowerEdge',
-        description='Lower edge from which the price increment rule is effective.',
+        alias="lowerEdge",
+        description="Lower edge from which the price increment rule is effective.",
     )
 
 
 class PutOrCall(Enum):
-    p = 'P'
-    c = 'C'
+    p = "P"
+    c = "C"
 
 
 class IndividualPosition(BaseModel):
@@ -5928,192 +5928,192 @@ class IndividualPosition(BaseModel):
     )
     acct_id: Optional[str] = Field(
         None,
-        alias='acctId',
-        description='IB accountId of an account with a position in the requested conid.',
+        alias="acctId",
+        description="IB accountId of an account with a position in the requested conid.",
     )
     all_exchanges: Optional[str] = Field(
         None,
-        alias='allExchanges',
-        description='Comma separated all exchanges on which the instrument trades.',
+        alias="allExchanges",
+        description="Comma separated all exchanges on which the instrument trades.",
     )
     asset_class: Optional[str] = Field(
-        None, alias='assetClass', description='Asset class of the requested instrument.'
+        None, alias="assetClass", description="Asset class of the requested instrument."
     )
     avg_cost: Optional[float] = Field(
         None,
-        alias='avgCost',
+        alias="avgCost",
         description="The account's average cost for its position.",
     )
     avg_price: Optional[float] = Field(
         None,
-        alias='avgPrice',
+        alias="avgPrice",
         description="The account's average price for its position.",
     )
     base_avg_cost: Optional[float] = Field(
         None,
-        alias='baseAvgCost',
+        alias="baseAvgCost",
         description="Average cost in the account's base currency.",
     )
     base_avg_price: Optional[float] = Field(
         None,
-        alias='baseAvgPrice',
+        alias="baseAvgPrice",
         description="Average price in the account's base currency.",
     )
     base_mkt_price: Optional[float] = Field(
         None,
-        alias='baseMktPrice',
+        alias="baseMktPrice",
         description="Market price of instrument in the account's base currency.",
     )
     base_mkt_value: Optional[float] = Field(
         None,
-        alias='baseMktValue',
+        alias="baseMktValue",
         description="Market value of the position in the account's base currency.",
     )
     base_realized_pnl: Optional[float] = Field(
         None,
-        alias='baseRealizedPnl',
+        alias="baseRealizedPnl",
         description="Realized PnL for the instrument in the account's base currency.",
     )
     base_unrealized_pnl: Optional[float] = Field(
         None,
-        alias='baseUnrealizedPnl',
+        alias="baseUnrealizedPnl",
         description="Unrealized PnL for the instrument in the account's base currency.",
     )
     chinese_name: Optional[str] = Field(
-        None, alias='chineseName', description='Chinese name of the instrument.'
+        None, alias="chineseName", description="Chinese name of the instrument."
     )
-    con_exch_map: Optional[List] = Field(None, alias='conExchMap')
-    conid: Optional[int] = Field(None, description='IB contract ID for the instrument.')
+    con_exch_map: Optional[List] = Field(None, alias="conExchMap")
+    conid: Optional[int] = Field(None, description="IB contract ID for the instrument.")
     contract_desc: Optional[str] = Field(
         None,
-        alias='contractDesc',
-        description='Human-readable description of the instrument.',
+        alias="contractDesc",
+        description="Human-readable description of the instrument.",
     )
     country_code: Optional[str] = Field(
         None,
-        alias='countryCode',
-        description='Country in which the instrument is issued.',
+        alias="countryCode",
+        description="Country in which the instrument is issued.",
     )
     currency: Optional[str] = Field(
-        None, description='Currency in which the instrument trades.'
+        None, description="Currency in which the instrument trades."
     )
     display_rule: Optional[DisplayRule] = Field(
         None,
-        alias='displayRule',
-        description='Object defining minimum increments used in displaying market data for the instrument.',
+        alias="displayRule",
+        description="Object defining minimum increments used in displaying market data for the instrument.",
     )
     exchs: Optional[Dict[str, Any]] = None
     exercise_style: Optional[str] = Field(
-        None, alias='exerciseStyle', description='Style of exercise for options.'
+        None, alias="exerciseStyle", description="Style of exercise for options."
     )
     expiry: Optional[str] = Field(
-        None, description='Expiration of instrument, if applicable.'
+        None, description="Expiration of instrument, if applicable."
     )
     full_name: Optional[str] = Field(
-        None, alias='fullName', description='Full display name of the instrument.'
+        None, alias="fullName", description="Full display name of the instrument."
     )
     group: Optional[str] = Field(
-        None, description='Industry sub-categorization of the instrument.'
+        None, description="Industry sub-categorization of the instrument."
     )
     has_options: Optional[bool] = Field(
         None,
-        alias='hasOptions',
-        description='Indicates whether instrument has options contracts available for trading at IB.',
+        alias="hasOptions",
+        description="Indicates whether instrument has options contracts available for trading at IB.",
     )
     increment_rules: Optional[List[IncrementRule1]] = Field(
         None,
-        alias='incrementRules',
-        description='Array containing increment rules used when pricing orders for the instrument.',
+        alias="incrementRules",
+        description="Array containing increment rules used when pricing orders for the instrument.",
     )
     is_event_contract: Optional[bool] = Field(
         None,
-        alias='isEventContract',
-        description='Indicates whether the instrument is an Event Contract.',
+        alias="isEventContract",
+        description="Indicates whether the instrument is an Event Contract.",
     )
     is_us: Optional[bool] = Field(
         None,
-        alias='isUS',
-        description='Indicates whether the instrument is issued in the US.',
+        alias="isUS",
+        description="Indicates whether the instrument is issued in the US.",
     )
     last_trading_day: Optional[str] = Field(
         None,
-        alias='lastTradingDay',
-        description='Last day of trading in the instrument, if applicable. Formatted `YYYYMMDD`.',
+        alias="lastTradingDay",
+        description="Last day of trading in the instrument, if applicable. Formatted `YYYYMMDD`.",
     )
     listing_exchange: Optional[str] = Field(
         None,
-        alias='listingExchange',
-        description='The exchange on which the instrument is listed, or the primary exchange recognized by IB for the instrument.',
+        alias="listingExchange",
+        description="The exchange on which the instrument is listed, or the primary exchange recognized by IB for the instrument.",
     )
     mkt_price: Optional[float] = Field(
         None,
-        alias='mktPrice',
+        alias="mktPrice",
         description="Current market price of the instrument, in the instrument's currency.",
     )
     mkt_value: Optional[float] = Field(
         None,
-        alias='mktValue',
+        alias="mktValue",
         description="Current market value of the account's position in the instrument, in the instrument's currency.",
     )
     model: Optional[str] = Field(
         None,
-        description='Name of the model portfolio in which the account is invested that contributes this position.',
+        description="Name of the model portfolio in which the account is invested that contributes this position.",
     )
     multiplier: Optional[float] = Field(
         None, description="Instrument's multiplier, if applicable."
     )
     name: Optional[str] = Field(
         None,
-        description='Formal name of the entity or asset to which the instrument relates.',
+        description="Formal name of the entity or asset to which the instrument relates.",
     )
     page_size: Optional[int] = Field(
         None,
-        alias='pageSize',
-        description='Maximum number of accounts that can be returned in a single request.',
+        alias="pageSize",
+        description="Maximum number of accounts that can be returned in a single request.",
     )
     position: Optional[float] = Field(
-        None, description='Size of position in units of instrument.'
+        None, description="Size of position in units of instrument."
     )
     put_or_call: Optional[PutOrCall] = Field(
         None,
-        alias='putOrCall',
-        description='The right of an options contract, if applicable.',
+        alias="putOrCall",
+        description="The right of an options contract, if applicable.",
     )
     realized_pnl: Optional[float] = Field(
         None,
-        alias='realizedPnl',
+        alias="realizedPnl",
         description="Realized PnL for the instrument in the instrument's currency.",
     )
     sector: Optional[str] = Field(
-        None, description='Industry sector categorization of the instrument.'
+        None, description="Industry sector categorization of the instrument."
     )
     sector_group: Optional[str] = Field(
         None,
-        alias='sectorGroup',
-        description='Industry sub-categorization of the instrument.',
+        alias="sectorGroup",
+        description="Industry sub-categorization of the instrument.",
     )
     strike: Optional[str] = Field(
-        None, description='Strike price, if applicable. Returned as string.'
+        None, description="Strike price, if applicable. Returned as string."
     )
     ticker: Optional[str] = Field(
-        None, description='Symbol associated with the instrument.'
+        None, description="Symbol associated with the instrument."
     )
     time: Optional[int] = Field(
-        None, description='Time taken to retrieve position data in milliseconds.'
+        None, description="Time taken to retrieve position data in milliseconds."
     )
     type: Optional[str] = Field(
         None,
-        description='Description of instrument, used to differentiate classes, if applicable.',
+        description="Description of instrument, used to differentiate classes, if applicable.",
     )
     und_conid: Optional[int] = Field(
         None,
-        alias='undConid',
-        description='Contract ID of underlying instrument, if applicable.',
+        alias="undConid",
+        description="Contract ID of underlying instrument, if applicable.",
     )
     unrealized_pnl: Optional[float] = Field(
         None,
-        alias='unrealizedPnl',
-        description='Unrealized PnL for the instrument in the account.',
+        alias="unrealizedPnl",
+        description="Unrealized PnL for the instrument in the account.",
     )
 
 
@@ -6129,13 +6129,13 @@ class ScanTypeListItem(BaseModel):
         populate_by_name=True,
     )
     display_name: Optional[str] = Field(
-        None, description='Human readable name for the scanner “type”'
+        None, description="Human readable name for the scanner “type”"
     )
     code: Optional[str] = Field(
-        None, description='Value used for the market scanner request.'
+        None, description="Value used for the market scanner request."
     )
     instruments: Optional[List] = Field(
-        None, description='Returns all instruments the scanner type can be used with.'
+        None, description="Returns all instruments the scanner type can be used with."
     )
 
 
@@ -6144,14 +6144,14 @@ class InstrumentListItem(BaseModel):
         populate_by_name=True,
     )
     display_name: Optional[str] = Field(
-        None, description='Human readable representation of the instrument type.'
+        None, description="Human readable representation of the instrument type."
     )
     type: Optional[str] = Field(
-        None, description='Value used for the market scanner request.'
+        None, description="Value used for the market scanner request."
     )
     filters: Optional[List] = Field(
         None,
-        description='Returns an array of all filters uniquely avaliable to that instrument type.',
+        description="Returns an array of all filters uniquely avaliable to that instrument type.",
     )
 
 
@@ -6168,20 +6168,20 @@ class FilterListItem(BaseModel):
         populate_by_name=True,
     )
     group: Optional[str] = Field(
-        None, description='Returns the group of filters the request is affiliated with.'
+        None, description="Returns the group of filters the request is affiliated with."
     )
     display_name: Optional[str] = Field(
-        None, description='Returns the human-readable identifier for the filter.'
+        None, description="Returns the human-readable identifier for the filter."
     )
     code: Optional[str] = Field(
-        None, description='Value used for the market scanner request.'
+        None, description="Value used for the market scanner request."
     )
     type: Optional[str] = Field(
         None,
-        description='Returns the type of value to be used in the request. This can indicate a range based value, or if it should be a single value.',
+        description="Returns the type of value to be used in the request. This can indicate a range based value, or if it should be a single value.",
     )
     combo_values: Optional[List[ComboValue]] = Field(
-        None, description='combo values when type equals to combo'
+        None, description="combo values when type equals to combo"
     )
 
 
@@ -6199,10 +6199,10 @@ class Location(BaseModel):
     )
     display_name: Optional[str] = Field(
         None,
-        description='Returns the human-readable value of the market scanner’s location value.',
+        description="Returns the human-readable value of the market scanner’s location value.",
     )
     type: Optional[str] = Field(
-        None, description='Returns the code value of the market scanner location value.'
+        None, description="Returns the code value of the market scanner location value."
     )
     locations: Optional[List[Location1]] = None
 
@@ -6213,11 +6213,11 @@ class LocationTreeItem(BaseModel):
     )
     display_name: Optional[str] = Field(
         None,
-        description='Returns the overarching instrument type to designate the location.',
+        description="Returns the overarching instrument type to designate the location.",
     )
     type: Optional[str] = Field(
         None,
-        description='Returns the code value of the market scanner instrument type value.',
+        description="Returns the code value of the market scanner instrument type value.",
     )
     locations: Optional[List[Location]] = None
 
@@ -6228,16 +6228,16 @@ class IserverScannerParams(BaseModel):
     )
     scan_type_list: Optional[List[ScanTypeListItem]] = Field(
         None,
-        description='Contains all values used as the scanner “type” in the request.',
+        description="Contains all values used as the scanner “type” in the request.",
     )
     instrument_list: Optional[List[InstrumentListItem]] = Field(
         None,
-        description='Contains all values relevant to the scanner “instrument” request field.',
+        description="Contains all values relevant to the scanner “instrument” request field.",
     )
     filter_list: Optional[List[FilterListItem]] = None
     location_tree: Optional[List[LocationTreeItem]] = Field(
         None,
-        description='Contains all values relevant to the location field of the market scanner request.',
+        description="Contains all values relevant to the location field of the market scanner request.",
     )
 
 
@@ -6247,10 +6247,10 @@ class FilterItem(BaseModel):
     )
     code: Optional[str] = Field(
         None,
-        description='Code value of the filter. Based on the “code” value within the “filter_list” section of the /iserver/scanner/params response.',
+        description="Code value of the filter. Based on the “code” value within the “filter_list” section of the /iserver/scanner/params response.",
     )
     value: Optional[Union[str, int, bool, float]] = Field(
-        None, description='Value corresponding to the input for “code”.'
+        None, description="Value corresponding to the input for “code”."
     )
 
 
@@ -6260,19 +6260,19 @@ class IserverScannerRunRequest(BaseModel):
     )
     instrument: Optional[str] = Field(
         None,
-        description='Instrument type as the target of the market scanner request. Found in the “instrument_list” section of the /iserver/scanner/params response.',
+        description="Instrument type as the target of the market scanner request. Found in the “instrument_list” section of the /iserver/scanner/params response.",
     )
     type: Optional[str] = Field(
         None,
-        description='Scanner value the market scanner is sorted by. Based on the “scan_type_list” section of the /iserver/scanner/params response.',
+        description="Scanner value the market scanner is sorted by. Based on the “scan_type_list” section of the /iserver/scanner/params response.",
     )
     location: Optional[str] = Field(
         None,
-        description='Location value the market scanner is searching through. Based on the “location_tree” section of the /iserver/scanner/params response.',
+        description="Location value the market scanner is searching through. Based on the “location_tree” section of the /iserver/scanner/params response.",
     )
     filter: Optional[List[FilterItem]] = Field(
         None,
-        description='Contains any additional filters that should apply to response.',
+        description="Contains any additional filters that should apply to response.",
     )
 
 
@@ -6282,35 +6282,35 @@ class Contract(BaseModel):
     )
     server_id: Optional[str] = Field(
         None,
-        description='Contract’s index in relation to the market scanner type’s sorting priority.',
+        description="Contract’s index in relation to the market scanner type’s sorting priority.",
     )
     column_name: Optional[str] = Field(
-        None, description='Always returned for the first contract.'
+        None, description="Always returned for the first contract."
     )
     symbol: Optional[str] = Field(
-        None, description='Returns the contract’s ticker symbol.'
+        None, description="Returns the contract’s ticker symbol."
     )
     conidex: Optional[str] = Field(
-        None, description='Returns the contract ID of the contract.'
+        None, description="Returns the contract ID of the contract."
     )
     con_id: Optional[int] = Field(
-        None, description='Returns the contract ID of the contract.'
+        None, description="Returns the contract ID of the contract."
     )
     available_chart_periods: Optional[str] = Field(
-        None, description='Internal Use Only'
+        None, description="Internal Use Only"
     )
     company_name: Optional[str] = Field(
-        None, description='Returns the company long name.'
+        None, description="Returns the company long name."
     )
     contract_description_1: Optional[str] = Field(
         None,
-        description='For derivatives like Futures, the local symbol of the contract will be returned.',
+        description="For derivatives like Futures, the local symbol of the contract will be returned.",
     )
     listing_exchange: Optional[str] = Field(
-        None, description='Returns the primary listing exchange of the contract.'
+        None, description="Returns the primary listing exchange of the contract."
     )
     sec_type: Optional[str] = Field(
-        None, description='Returns the security type of the contract.'
+        None, description="Returns the security type of the contract."
     )
 
 
@@ -6319,13 +6319,13 @@ class IserverScannerRunResponse(BaseModel):
         populate_by_name=True,
     )
     contracts: Optional[List[Contract]] = Field(
-        None, description='Contains contracts related to the market scanner request.'
+        None, description="Contains contracts related to the market scanner request."
     )
-    scan_data_column_name: Optional[str] = Field(None, description='Internal Use Only')
+    scan_data_column_name: Optional[str] = Field(None, description="Internal Use Only")
 
 
 class Key(Enum):
-    ledger_list = 'LedgerList'
+    ledger_list = "LedgerList"
 
 
 class Ledger1(BaseModel):
@@ -6333,7 +6333,7 @@ class Ledger1(BaseModel):
         populate_by_name=True,
     )
     acctcode: Optional[str] = Field(
-        None, description='The Account ID of the requested account.'
+        None, description="The Account ID of the requested account."
     )
     cashbalance: Optional[float] = Field(
         None, description="The given account's cash balance in this currency."
@@ -6428,7 +6428,7 @@ class Ledger1(BaseModel):
         description="Market value of the given account's treasury bond positions in this currency.",
     )
     timestamp: Optional[int] = Field(
-        None, description='Timestamp of retrievable of this account ledger data.'
+        None, description="Timestamp of retrievable of this account ledger data."
     )
     unrealizedpnl: Optional[float] = Field(
         None,
@@ -6451,24 +6451,24 @@ class Ledger(RootModel[Optional[Dict[str, Ledger1]]]):
 
 
 class Status3(Enum):
-    inactive = 'Inactive'
-    pending_submit = 'PendingSubmit'
-    pre_submitted = 'PreSubmitted'
-    submitted = 'Submitted'
-    filled = 'Filled'
-    pending_cancel = 'PendingCancel'
-    cancelled = 'Cancelled'
-    warn_state = 'WarnState'
+    inactive = "Inactive"
+    pending_submit = "PendingSubmit"
+    pre_submitted = "PreSubmitted"
+    submitted = "Submitted"
+    filled = "Filled"
+    pending_cancel = "PendingCancel"
+    cancelled = "Cancelled"
+    warn_state = "WarnState"
 
 
 class SupportsTaxOpt(Enum):
-    field_0 = '0'
-    field_1 = '1'
+    field_0 = "0"
+    field_1 = "1"
 
 
 class IsEventTrading(Enum):
-    field_0 = '0'
-    field_1 = '1'
+    field_0 = "0"
+    field_1 = "1"
 
 
 class Order(BaseModel):
@@ -6476,128 +6476,128 @@ class Order(BaseModel):
         populate_by_name=True,
     )
     acct: Optional[str] = Field(
-        None, description='IB account ID to which the order was placed.'
+        None, description="IB account ID to which the order was placed."
     )
     exchange: Optional[str] = Field(
-        None, description='Routing destination of the order ticket.'
+        None, description="Routing destination of the order ticket."
     )
     conidex: Optional[str] = Field(
         None,
-        description='Contract ID and routing destination in format 123456@EXCHANGE.',
+        description="Contract ID and routing destination in format 123456@EXCHANGE.",
     )
     conid: Optional[str] = Field(
         None, description="Contract ID of the order's instrument."
     )
     account: Optional[str] = Field(
-        None, description='IB account ID to which the order was placed.'
+        None, description="IB account ID to which the order was placed."
     )
     order_id: Optional[int] = Field(
-        None, alias='orderId', description='IB-assigned order identifier.'
+        None, alias="orderId", description="IB-assigned order identifier."
     )
     cash_ccy: Optional[str] = Field(
         None,
-        alias='cashCcy',
+        alias="cashCcy",
         description="Currency of the order ticket's Cash Quantity, if applicable.",
     )
     size_and_fills: Optional[str] = Field(
         None,
-        alias='sizeAndFills',
-        description='Human-readable shorthand rendering of the filled and total quantities of the order.',
+        alias="sizeAndFills",
+        description="Human-readable shorthand rendering of the filled and total quantities of the order.",
     )
     order_desc: Optional[str] = Field(
         None,
-        alias='orderDesc',
-        description='Human-readable shorthand rendering of the order ticket.',
+        alias="orderDesc",
+        description="Human-readable shorthand rendering of the order ticket.",
     )
     description1: Optional[str] = Field(
         None,
-        description='Descriptive text, or additional details that specific the instrument.',
+        description="Descriptive text, or additional details that specific the instrument.",
     )
     ticker: Optional[str] = Field(
-        None, description='Symbol or base product code of the instrument.'
+        None, description="Symbol or base product code of the instrument."
     )
     sec_type: Optional[str] = Field(
-        None, alias='secType', description='Asset class of the instrument.'
+        None, alias="secType", description="Asset class of the instrument."
     )
     listing_exchange: Optional[str] = Field(
         None,
-        alias='listingExchange',
-        description='Exchange on which the instrument is listed.',
+        alias="listingExchange",
+        description="Exchange on which the instrument is listed.",
     )
     remaining_quantity: Optional[str] = Field(
         None,
-        alias='remainingQuantity',
-        description='Quantity remaining to be filled in units of the instrument.',
+        alias="remainingQuantity",
+        description="Quantity remaining to be filled in units of the instrument.",
     )
     filled_quantity: Optional[str] = Field(
         None,
-        alias='filledQuantity',
-        description='Quantity filled in units of the instrument.',
+        alias="filledQuantity",
+        description="Quantity filled in units of the instrument.",
     )
     total_size: Optional[str] = Field(
         None,
-        alias='totalSize',
+        alias="totalSize",
         description="Total size of an order in the instrument's units.",
     )
     total_cash_size: Optional[str] = Field(
-        None, alias='totalCashSize', description='Total size of a cash quantity order.'
+        None, alias="totalCashSize", description="Total size of a cash quantity order."
     )
     company_name: Optional[str] = Field(
         None,
-        alias='companyName',
-        description='Name of business associated with instrument, or otherwise description of instrument.',
+        alias="companyName",
+        description="Name of business associated with instrument, or otherwise description of instrument.",
     )
-    status: Optional[Status3] = Field(None, description='Status of the order ticket.')
+    status: Optional[Status3] = Field(None, description="Status of the order ticket.")
     order_ccp_status: Optional[str] = Field(
-        None, description='IB internal order status.'
+        None, description="IB internal order status."
     )
     orig_order_type: Optional[str] = Field(
-        None, alias='origOrderType', description='Order type of a filled order.'
+        None, alias="origOrderType", description="Order type of a filled order."
     )
     supports_tax_opt: Optional[SupportsTaxOpt] = Field(
         None,
-        alias='supportsTaxOpt',
+        alias="supportsTaxOpt",
         description="Indicates whether the order is supported by IB's Tax Optimization tool.",
     )
     last_execution_time: Optional[str] = Field(
         None,
-        alias='lastExecutionTime',
-        description='Time of last execution against the order in format YYMMDDhhmmss.',
+        alias="lastExecutionTime",
+        description="Time of last execution against the order in format YYMMDDhhmmss.",
     )
     order_type: Optional[str] = Field(
-        None, alias='orderType', description='Order type of a working order ticket.'
+        None, alias="orderType", description="Order type of a working order ticket."
     )
     bg_color: Optional[str] = Field(
         None,
-        alias='bgColor',
+        alias="bgColor",
         description="Internal use. IB's UI background color in hex.",
     )
     fg_color: Optional[str] = Field(
         None,
-        alias='fgColor',
+        alias="fgColor",
         description="Internal use. IB's UI foreground color in hex.",
     )
     is_event_trading: Optional[IsEventTrading] = Field(
         None,
-        alias='isEventTrading',
-        description='Indicates whether the order ticket is an Event Trading order.',
+        alias="isEventTrading",
+        description="Indicates whether the order ticket is an Event Trading order.",
     )
     price: Optional[str] = Field(
-        None, description='Price of the order, if applicable to the order type.'
+        None, description="Price of the order, if applicable to the order type."
     )
     time_in_force: Optional[str] = Field(
-        None, alias='timeInForce', description='Time of force of the order.'
+        None, alias="timeInForce", description="Time of force of the order."
     )
     last_execution_time_r: Optional[str] = Field(
         None,
-        alias='lastExecutionTime_r',
-        description='Unix timestamp of the last execution against the order.',
+        alias="lastExecutionTime_r",
+        description="Unix timestamp of the last execution against the order.",
     )
-    side: Optional[str] = Field(None, description='Side of the order.')
+    side: Optional[str] = Field(None, description="Side of the order.")
     avg_price: Optional[str] = Field(
         None,
-        alias='avgPrice',
-        description='Average price of fills against the order, if any.',
+        alias="avgPrice",
+        description="Average price of fills against the order, if any.",
     )
 
 
@@ -6607,131 +6607,131 @@ class LiveOrdersResponse(BaseModel):
     )
     orders: Optional[List[Order]] = Field(
         None,
-        description='Array of orders that are currently working, or were filled/cancelled in the current brokerage session.',
+        description="Array of orders that are currently working, or were filled/cancelled in the current brokerage session.",
     )
     snapshot: Optional[bool] = Field(
-        None, description='Whether the response is a snapshot.'
+        None, description="Whether the response is a snapshot."
     )
 
 
 class MdFields(Enum):
-    field_31 = '31'
-    field_55 = '55'
-    field_58 = '58'
-    field_70 = '70'
-    field_71 = '71'
-    field_73 = '73'
-    field_74 = '74'
-    field_75 = '75'
-    field_76 = '76'
-    field_77 = '77'
-    field_78 = '78'
-    field_79 = '79'
-    field_80 = '80'
-    field_82 = '82'
-    field_83 = '83'
-    field_84 = '84'
-    field_85 = '85'
-    field_86 = '86'
-    field_87 = '87'
-    field_88 = '88'
-    field_6004 = '6004'
-    field_6008 = '6008'
-    field_6070 = '6070'
-    field_6072 = '6072'
-    field_6073 = '6073'
-    field_6119 = '6119'
-    field_6457 = '6457'
-    field_6508 = '6508'
-    field_6509 = '6509'
-    field_7051 = '7051'
-    field_7057 = '7057'
-    field_7058 = '7058'
-    field_7059 = '7059'
-    field_7068 = '7068'
-    field_7084 = '7084'
-    field_7085 = '7085'
-    field_7086 = '7086'
-    field_7087 = '7087'
-    field_7088 = '7088'
-    field_7089 = '7089'
-    field_7094 = '7094'
-    field_7184 = '7184'
-    field_7219 = '7219'
-    field_7220 = '7220'
-    field_7221 = '7221'
-    field_7280 = '7280'
-    field_7281 = '7281'
-    field_7282 = '7282'
-    field_7283 = '7283'
-    field_7284 = '7284'
-    field_7285 = '7285'
-    field_7286 = '7286'
-    field_7287 = '7287'
-    field_7288 = '7288'
-    field_7289 = '7289'
-    field_7290 = '7290'
-    field_7291 = '7291'
-    field_7292 = '7292'
-    field_7293 = '7293'
-    field_7294 = '7294'
-    field_7295 = '7295'
-    field_7296 = '7296'
-    field_7308 = '7308'
-    field_7309 = '7309'
-    field_7310 = '7310'
-    field_7311 = '7311'
-    field_7607 = '7607'
-    field_7633 = '7633'
-    field_7635 = '7635'
-    field_7636 = '7636'
-    field_7637 = '7637'
-    field_7638 = '7638'
-    field_7639 = '7639'
-    field_7644 = '7644'
-    field_7655 = '7655'
-    field_7671 = '7671'
-    field_7672 = '7672'
-    field_7674 = '7674'
-    field_7675 = '7675'
-    field_7676 = '7676'
-    field_7677 = '7677'
-    field_7678 = '7678'
-    field_7679 = '7679'
-    field_7724 = '7724'
-    field_7681 = '7681'
-    field_7682 = '7682'
-    field_7683 = '7683'
-    field_7684 = '7684'
-    field_7685 = '7685'
-    field_7686 = '7686'
-    field_7687 = '7687'
-    field_7688 = '7688'
-    field_7689 = '7689'
-    field_7690 = '7690'
-    field_7694 = '7694'
-    field_7695 = '7695'
-    field_7696 = '7696'
-    field_7697 = '7697'
-    field_7698 = '7698'
-    field_7699 = '7699'
-    field_7700 = '7700'
-    field_7702 = '7702'
-    field_7703 = '7703'
-    field_7704 = '7704'
-    field_7705 = '7705'
-    field_7706 = '7706'
-    field_7707 = '7707'
-    field_7708 = '7708'
-    field_7714 = '7714'
-    field_7715 = '7715'
-    field_7718 = '7718'
-    field_7720 = '7720'
-    field_7741 = '7741'
-    field_7762 = '7762'
-    field_7768 = '7768'
-    field_7920 = '7920'
-    field_7921 = '7921'
+    field_31 = "31"
+    field_55 = "55"
+    field_58 = "58"
+    field_70 = "70"
+    field_71 = "71"
+    field_73 = "73"
+    field_74 = "74"
+    field_75 = "75"
+    field_76 = "76"
+    field_77 = "77"
+    field_78 = "78"
+    field_79 = "79"
+    field_80 = "80"
+    field_82 = "82"
+    field_83 = "83"
+    field_84 = "84"
+    field_85 = "85"
+    field_86 = "86"
+    field_87 = "87"
+    field_88 = "88"
+    field_6004 = "6004"
+    field_6008 = "6008"
+    field_6070 = "6070"
+    field_6072 = "6072"
+    field_6073 = "6073"
+    field_6119 = "6119"
+    field_6457 = "6457"
+    field_6508 = "6508"
+    field_6509 = "6509"
+    field_7051 = "7051"
+    field_7057 = "7057"
+    field_7058 = "7058"
+    field_7059 = "7059"
+    field_7068 = "7068"
+    field_7084 = "7084"
+    field_7085 = "7085"
+    field_7086 = "7086"
+    field_7087 = "7087"
+    field_7088 = "7088"
+    field_7089 = "7089"
+    field_7094 = "7094"
+    field_7184 = "7184"
+    field_7219 = "7219"
+    field_7220 = "7220"
+    field_7221 = "7221"
+    field_7280 = "7280"
+    field_7281 = "7281"
+    field_7282 = "7282"
+    field_7283 = "7283"
+    field_7284 = "7284"
+    field_7285 = "7285"
+    field_7286 = "7286"
+    field_7287 = "7287"
+    field_7288 = "7288"
+    field_7289 = "7289"
+    field_7290 = "7290"
+    field_7291 = "7291"
+    field_7292 = "7292"
+    field_7293 = "7293"
+    field_7294 = "7294"
+    field_7295 = "7295"
+    field_7296 = "7296"
+    field_7308 = "7308"
+    field_7309 = "7309"
+    field_7310 = "7310"
+    field_7311 = "7311"
+    field_7607 = "7607"
+    field_7633 = "7633"
+    field_7635 = "7635"
+    field_7636 = "7636"
+    field_7637 = "7637"
+    field_7638 = "7638"
+    field_7639 = "7639"
+    field_7644 = "7644"
+    field_7655 = "7655"
+    field_7671 = "7671"
+    field_7672 = "7672"
+    field_7674 = "7674"
+    field_7675 = "7675"
+    field_7676 = "7676"
+    field_7677 = "7677"
+    field_7678 = "7678"
+    field_7679 = "7679"
+    field_7724 = "7724"
+    field_7681 = "7681"
+    field_7682 = "7682"
+    field_7683 = "7683"
+    field_7684 = "7684"
+    field_7685 = "7685"
+    field_7686 = "7686"
+    field_7687 = "7687"
+    field_7688 = "7688"
+    field_7689 = "7689"
+    field_7690 = "7690"
+    field_7694 = "7694"
+    field_7695 = "7695"
+    field_7696 = "7696"
+    field_7697 = "7697"
+    field_7698 = "7698"
+    field_7699 = "7699"
+    field_7700 = "7700"
+    field_7702 = "7702"
+    field_7703 = "7703"
+    field_7704 = "7704"
+    field_7705 = "7705"
+    field_7706 = "7706"
+    field_7707 = "7707"
+    field_7708 = "7708"
+    field_7714 = "7714"
+    field_7715 = "7715"
+    field_7718 = "7718"
+    field_7720 = "7720"
+    field_7741 = "7741"
+    field_7762 = "7762"
+    field_7768 = "7768"
+    field_7920 = "7920"
+    field_7921 = "7921"
 
 
 class P(BaseModel):
@@ -6740,11 +6740,11 @@ class P(BaseModel):
     )
     r: Optional[int] = Field(
         None,
-        alias='R',
-        description='Returns if the message was read (1) or unread (0).',
+        alias="R",
+        description="Returns if the message was read (1) or unread (0).",
     )
     id: Optional[str] = Field(
-        None, alias='ID', description='Returns the ID for the notification.'
+        None, alias="ID", description="Returns the ID for the notification."
     )
 
 
@@ -6753,15 +6753,15 @@ class NotificationReadAcknowledge(BaseModel):
         populate_by_name=True,
     )
     v: Optional[int] = Field(
-        None, alias='V', description='Returns 1 to state message was acknowledged.'
+        None, alias="V", description="Returns 1 to state message was acknowledged."
     )
     t: Optional[int] = Field(
-        None, alias='T', description='Returns the time in ms to complete the edit.'
+        None, alias="T", description="Returns the time in ms to complete the edit."
     )
     p: Optional[P] = Field(
         None,
-        alias='P',
-        description='Returns details about the notification read status.',
+        alias="P",
+        description="Returns details about the notification read status.",
     )
 
 
@@ -6770,22 +6770,22 @@ class Notification(BaseModel):
         populate_by_name=True,
     )
     d: Optional[str] = Field(
-        None, alias='D', description='Notification date as an epoch string.'
+        None, alias="D", description="Notification date as an epoch string."
     )
     id: Optional[str] = Field(
-        None, alias='ID', description='Unique way to reference the notification.'
+        None, alias="ID", description="Unique way to reference the notification."
     )
     fc: Optional[str] = Field(
         None,
-        alias='FC',
-        description='FYI code, we can use it to find whether the disclaimer is accepted or not in settings',
+        alias="FC",
+        description="FYI code, we can use it to find whether the disclaimer is accepted or not in settings",
     )
-    md: Optional[str] = Field(None, alias='MD', description='Content of notification.')
-    ms: Optional[str] = Field(None, alias='MS', description='Title of notification.')
+    md: Optional[str] = Field(None, alias="MD", description="Content of notification.")
+    ms: Optional[str] = Field(None, alias="MS", description="Title of notification.")
     r: Optional[str] = Field(
         None,
-        alias='R',
-        description='Return if the notification was read or not. Value Format: 0: Disabled; 1: Enabled.\n',
+        alias="R",
+        description="Return if the notification was read or not. Value Format: 0: Disabled; 1: Enabled.\n",
     )
 
 
@@ -6797,7 +6797,7 @@ class Notifications(RootModel[List[Notification]]):
 
 
 class Msg(Enum):
-    request_was_submitted = 'Request was submitted'
+    request_was_submitted = "Request was submitted"
 
 
 class OrderCancelSuccess(BaseModel):
@@ -6808,13 +6808,13 @@ class OrderCancelSuccess(BaseModel):
         None, description="Indicates success with value 'Request was submitted'"
     )
     order_id: Optional[str] = Field(
-        None, description='IB order ID of the order ticket requested for cancellation.'
+        None, description="IB order ID of the order ticket requested for cancellation."
     )
     conid: Optional[str] = Field(
         None, description="IB contract ID of the order ticket's instrument."
     )
     account: Optional[str] = Field(
-        None, description='IB account to which the order was originally set to clear.'
+        None, description="IB account to which the order was originally set to clear."
     )
 
 
@@ -6824,13 +6824,13 @@ class Amount(BaseModel):
     )
     amount: Optional[str] = Field(
         None,
-        description='Projected cost of the order, current reference price times total quantity.',
+        description="Projected cost of the order, current reference price times total quantity.",
     )
     commission: Optional[str] = Field(
-        None, description='Projected commissions and fees associated with the order.'
+        None, description="Projected commissions and fees associated with the order."
     )
     total: Optional[str] = Field(
-        None, description='Sum of projected cost and commission values for the order.'
+        None, description="Sum of projected cost and commission values for the order."
     )
 
 
@@ -6838,12 +6838,12 @@ class Equity(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    current: Optional[str] = Field(None, description='Current equity.')
+    current: Optional[str] = Field(None, description="Current equity.")
     change: Optional[str] = Field(
-        None, description='Difference between current and projected equity values.'
+        None, description="Difference between current and projected equity values."
     )
     after: Optional[str] = Field(
-        None, description='Projected equity after execution of the order.'
+        None, description="Projected equity after execution of the order."
     )
 
 
@@ -6851,13 +6851,13 @@ class Initial(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    current: Optional[str] = Field(None, description='Current initial margin.')
+    current: Optional[str] = Field(None, description="Current initial margin.")
     change: Optional[str] = Field(
         None,
-        description='Difference between current and projected initial margin values.',
+        description="Difference between current and projected initial margin values.",
     )
     after: Optional[str] = Field(
-        None, description='Projected initial margin after execution of the order.'
+        None, description="Projected initial margin after execution of the order."
     )
 
 
@@ -6865,13 +6865,13 @@ class Maintenance(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    current: Optional[str] = Field(None, description='Current maintenance margin.')
+    current: Optional[str] = Field(None, description="Current maintenance margin.")
     change: Optional[str] = Field(
         None,
-        description='Difference between current and projected maintenance margin values.',
+        description="Difference between current and projected maintenance margin values.",
     )
     after: Optional[str] = Field(
-        None, description='Projected maintenance margin after execution of the order.'
+        None, description="Projected maintenance margin after execution of the order."
     )
 
 
@@ -6880,13 +6880,13 @@ class Position3(BaseModel):
         populate_by_name=True,
     )
     current: Optional[str] = Field(
-        None, description='Current position in the instrument.'
+        None, description="Current position in the instrument."
     )
     change: Optional[str] = Field(
-        None, description='Difference between current and projected position sizes.'
+        None, description="Difference between current and projected position sizes."
     )
     after: Optional[str] = Field(
-        None, description='Projected position size after execution of the order.'
+        None, description="Projected position size after execution of the order."
     )
 
 
@@ -6896,16 +6896,16 @@ class OrderPreview(BaseModel):
     )
     amount: Optional[Amount] = Field(
         None,
-        description='Describes the projected costs associated with the order ticket.',
+        description="Describes the projected costs associated with the order ticket.",
     )
     equity: Optional[Equity] = Field(
         None, description="Describes the projected change to the account's equity."
     )
     initial: Optional[Initial] = Field(
-        None, description='Describes the projected change to initial margin.'
+        None, description="Describes the projected change to initial margin."
     )
     maintenance: Optional[Maintenance] = Field(
-        None, description='Describes the projected change to maintenance margin.'
+        None, description="Describes the projected change to maintenance margin."
     )
     position: Optional[Position3] = Field(
         None,
@@ -6913,11 +6913,11 @@ class OrderPreview(BaseModel):
     )
     warn: Optional[str] = Field(
         None,
-        description='Human-readable text of warning message, if applicable. Otherwise null.',
+        description="Human-readable text of warning message, if applicable. Otherwise null.",
     )
     error: Optional[str] = Field(
         None,
-        description='Human-readable text of an error message, if applicable. Otherwise null.',
+        description="Human-readable text of an error message, if applicable. Otherwise null.",
     )
 
 
@@ -6931,16 +6931,16 @@ class OrderReplyMessageItem(BaseModel):
     )
     is_suppressed: Optional[bool] = Field(
         None,
-        alias='isSuppressed',
+        alias="isSuppressed",
         description="Internal use. Always delivers value 'false'.",
     )
     message: Optional[List[str]] = Field(
         None,
-        description='An array containing the human-readable text of all order reply messages emitted for the order ticket.',
+        description="An array containing the human-readable text of all order reply messages emitted for the order ticket.",
     )
     message_ids: Optional[List[str]] = Field(
         None,
-        alias='messageIds',
+        alias="messageIds",
         description="An array containing identifiers that categorize the types of order reply messages that have been emitted. Elements of this array are ordered so that indicies match the corresponding human-readable text strings in the 'message' array.",
     )
 
@@ -6956,67 +6956,67 @@ class OrderReplyMessage(RootModel[List[OrderReplyMessageItem]]):
 
 
 class Side(Enum):
-    buy = 'BUY'
-    sell = 'SELL'
+    buy = "BUY"
+    sell = "SELL"
 
 
 class OrderStatus2(Enum):
-    inactive = 'Inactive'
-    pending_submit = 'PendingSubmit'
-    pre_submitted = 'PreSubmitted'
-    submitted = 'Submitted'
-    filled = 'Filled'
-    pending_cancel = 'PendingCancel'
-    cancelled = 'Cancelled'
-    warn_state = 'WarnState'
+    inactive = "Inactive"
+    pending_submit = "PendingSubmit"
+    pre_submitted = "PreSubmitted"
+    submitted = "Submitted"
+    filled = "Filled"
+    pending_cancel = "PendingCancel"
+    cancelled = "Cancelled"
+    warn_state = "WarnState"
 
 
 class Tif1(Enum):
-    day = 'DAY'
-    ioc = 'IOC'
-    gtc = 'GTC'
-    opg = 'OPG'
-    pax = 'PAX'
+    day = "DAY"
+    ioc = "IOC"
+    gtc = "GTC"
+    opg = "OPG"
+    pax = "PAX"
 
 
 class SecType(Enum):
-    stk = 'STK'
-    opt = 'OPT'
-    fut = 'FUT'
-    fop = 'FOP'
-    cash = 'CASH'
-    crypto = 'CRYPTO'
-    bond = 'BOND'
-    war = 'WAR'
-    fund = 'FUND'
+    stk = "STK"
+    opt = "OPT"
+    fut = "FUT"
+    fop = "FOP"
+    cash = "CASH"
+    crypto = "CRYPTO"
+    bond = "BOND"
+    war = "WAR"
+    fund = "FUND"
 
 
 class ChildOrderType(Enum):
-    field_0 = '0'
-    a = 'A'
-    b = 'B'
+    field_0 = "0"
+    a = "A"
+    b = "B"
 
 
 class OrderStatus1(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    sub_type: Optional[str] = Field(None, description='Internal use only.')
+    sub_type: Optional[str] = Field(None, description="Internal use only.")
     request_id: Optional[str] = Field(
         None,
-        description='Internal use only. IB-assigned identifier for the status request.',
+        description="Internal use only. IB-assigned identifier for the status request.",
     )
     server_id: Optional[str] = Field(
         None,
-        description='IB-assigned meta-identifier used to associate rejected and resubmitted orders following Server Prompts.',
+        description="IB-assigned meta-identifier used to associate rejected and resubmitted orders following Server Prompts.",
     )
     order_id: Optional[int] = Field(
         None,
-        description='The IB-assigned order identifier of the order, as provided in the request path.',
+        description="The IB-assigned order identifier of the order, as provided in the request path.",
     )
     conidex: Optional[str] = Field(
         None,
-        description='Contract ID and routing destination in format 123456@EXCHANGE.',
+        description="Contract ID and routing destination in format 123456@EXCHANGE.",
     )
     conid: Optional[str] = Field(
         None, description="Contract ID of the order's instrument."
@@ -7024,115 +7024,115 @@ class OrderStatus1(BaseModel):
     symbol: Optional[str] = Field(
         None, description="Symbol of the order ticket's instrument."
     )
-    side: Optional[Side] = Field(None, description='Side of the order ticket.')
+    side: Optional[Side] = Field(None, description="Side of the order ticket.")
     contract_description_1: Optional[str] = Field(
         None, description="Human-readable description of the order's instrument."
     )
     listing_exchange: Optional[str] = Field(
         None, description="Primary listing exchange of the order ticket's instrument."
     )
-    option_acct: Optional[str] = Field(None, description='Internal use only.')
+    option_acct: Optional[str] = Field(None, description="Internal use only.")
     company_name: Optional[str] = Field(
-        None, description='Name of the company or asset associated with the instrument.'
+        None, description="Name of the company or asset associated with the instrument."
     )
     size: Optional[str] = Field(
         None,
-        description='Remaining unfilled size of the order ticket. Will reflect 0.0 if order is filled in full, cancelled, or otherwise resolved and no longer working.',
+        description="Remaining unfilled size of the order ticket. Will reflect 0.0 if order is filled in full, cancelled, or otherwise resolved and no longer working.",
     )
     total_size: Optional[str] = Field(
-        None, description='The total size of the order ticket.'
+        None, description="The total size of the order ticket."
     )
     currency: Optional[str] = Field(
         None,
-        description='The currency in which the instrument trades and executions are conducted.',
+        description="The currency in which the instrument trades and executions are conducted.",
     )
     account: Optional[str] = Field(
-        None, description='The account receiving executions against this order ticket.'
+        None, description="The account receiving executions against this order ticket."
     )
     order_type: Optional[str] = Field(None, description="The order's  IB order type.")
     cum_fill: Optional[str] = Field(
         None,
-        description='Cumulative filled quantity of the instrument against the order ticket.',
+        description="Cumulative filled quantity of the instrument against the order ticket.",
     )
     order_status: Optional[OrderStatus2] = Field(
-        None, description='Status of the order ticket.'
+        None, description="Status of the order ticket."
     )
     order_ccp_status: Optional[str] = Field(
-        None, description='IB internal order status.'
+        None, description="IB internal order status."
     )
     order_status_description: Optional[str] = Field(
         None,
         description="Human-readable rendering of the order's status meant for presentation in UI.",
     )
-    tif: Optional[Tif1] = Field(None, description='Time in force of the order ticket.')
+    tif: Optional[Tif1] = Field(None, description="Time in force of the order ticket.")
     fg_color: Optional[str] = Field(
         None,
-        alias='fgColor',
+        alias="fgColor",
         description="Internal use. IB's UI foreground color in hex.",
     )
     bg_color: Optional[str] = Field(
         None,
-        alias='bgColor',
+        alias="bgColor",
         description="Internal use. IB's UI background color in hex.",
     )
     order_not_editable: Optional[bool] = Field(
-        None, description='Indicates whether the order ticket can be modified.'
+        None, description="Indicates whether the order ticket can be modified."
     )
     editable_fields: Optional[str] = Field(
         None,
-        description='Indicates which fields of the order ticket can be modified currently.',
+        description="Indicates which fields of the order ticket can be modified currently.",
     )
     cannot_cancel_order: Optional[bool] = Field(
-        None, description='Indicates whether the order ticket can be cancelled.'
+        None, description="Indicates whether the order ticket can be cancelled."
     )
     deactivate_order: Optional[bool] = Field(
-        None, description='Indicates whether the order ticket can be deactivated.'
+        None, description="Indicates whether the order ticket can be deactivated."
     )
-    sec_type: Optional[SecType] = Field(None, description='IB asset class identifier.')
+    sec_type: Optional[SecType] = Field(None, description="IB asset class identifier.")
     available_chart_periods: Optional[str] = Field(
         None,
-        description='Internal use. Indicates chart periods available for the instrument.',
+        description="Internal use. Indicates chart periods available for the instrument.",
     )
     order_description: Optional[str] = Field(
         None,
-        description='Human-readable description of the status or current result of the order ticket, meant for UI presentation.',
+        description="Human-readable description of the status or current result of the order ticket, meant for UI presentation.",
     )
     order_description_with_contract: Optional[str] = Field(
         None,
-        description='Human-readable description of the status or current result of the order ticket, meant for UI presentation. Includes instrument name.',
+        description="Human-readable description of the status or current result of the order ticket, meant for UI presentation. Includes instrument name.",
     )
     alert_active: Optional[int] = Field(
-        None, description='Indicates that an alert is active for the order ticket.'
+        None, description="Indicates that an alert is active for the order ticket."
     )
     child_order_type: Optional[ChildOrderType] = Field(
         None,
-        description='Indicates if the order ticket is hedged, and if so, in what way. 0 = No hedge, A = Attached child hedge order, B = Beta/portfolio hedge',
+        description="Indicates if the order ticket is hedged, and if so, in what way. 0 = No hedge, A = Attached child hedge order, B = Beta/portfolio hedge",
     )
     order_clearing_account: Optional[str] = Field(
-        None, description='The IB account to which the order ticket clears.'
+        None, description="The IB account to which the order ticket clears."
     )
     size_and_fills: Optional[str] = Field(
         None,
-        description='A string reflecting the cumulative fills and total size of the order.',
+        description="A string reflecting the cumulative fills and total size of the order.",
     )
     exit_strategy_display_price: Optional[str] = Field(
         None,
-        description='Internal use. The UI-displayed price associated with a Client Portal exist strategy.',
+        description="Internal use. The UI-displayed price associated with a Client Portal exist strategy.",
     )
     exit_strategy_chart_description: Optional[str] = Field(
         None,
-        description='Internal use. A string describing an active Client Portal exit strategy, or the result of its execution.',
+        description="Internal use. A string describing an active Client Portal exit strategy, or the result of its execution.",
     )
     average_price: Optional[str] = Field(
-        None, description='Average price of fills against the order, if any.'
+        None, description="Average price of fills against the order, if any."
     )
     exit_strategy_tool_availability: Optional[str] = Field(
         None,
-        description='Internal use. Indicates the availability of Client Portal exit strategy tool for the order.',
+        description="Internal use. Indicates the availability of Client Portal exit strategy tool for the order.",
     )
     allowed_duplicate_opposite: Optional[bool] = Field(
         None,
-        description='Indicates whether an identical order on the opposite side can be placed.',
+        description="Indicates whether an identical order on the opposite side can be placed.",
     )
     order_time: Optional[str] = Field(
         None, description="Time of the order's submission in format YYMMDDhhmmss."
@@ -7144,7 +7144,7 @@ class OrderSubmitError(BaseModel):
         populate_by_name=True,
     )
     error: Optional[str] = Field(
-        None, description='Message indicating that order submission was not successful.'
+        None, description="Message indicating that order submission was not successful."
     )
 
 
@@ -7154,12 +7154,12 @@ class OrderSubmitSucces(BaseModel):
     )
     order_id: Optional[str] = Field(
         None,
-        description='The order ID assigned to your order ticket by IB. Contains only numerals.',
+        description="The order ID assigned to your order ticket by IB. Contains only numerals.",
     )
     order_status: Optional[str] = Field(
-        None, description='Status describing where the order stands in its lifecycle.'
+        None, description="Status describing where the order stands in its lifecycle."
     )
-    encrypt_message: Optional[str] = Field(None, description='Internal use only.')
+    encrypt_message: Optional[str] = Field(None, description="Internal use only.")
 
 
 class OrderSubmitSuccess(RootModel[List[OrderSubmitSucces]]):
@@ -7167,7 +7167,7 @@ class OrderSubmitSuccess(RootModel[List[OrderSubmitSucces]]):
         populate_by_name=True,
     )
     root: List[OrderSubmitSucces] = Field(
-        ..., description='A successful submission of one or more order tickets.'
+        ..., description="A successful submission of one or more order tickets."
     )
 
 
@@ -7176,10 +7176,10 @@ class StartNav(BaseModel):
         populate_by_name=True,
     )
     date: Optional[str] = Field(
-        None, description='Returns the starting date for the request.'
+        None, description="Returns the starting date for the request."
     )
     val: Optional[int] = Field(
-        None, description='Returns the Net Asset Value of the account.'
+        None, description="Returns the Net Asset Value of the account."
     )
 
 
@@ -7188,26 +7188,26 @@ class Datum(BaseModel):
         populate_by_name=True,
     )
     id_type: Optional[str] = Field(
-        None, alias='idType', description='Returns how identifiers are determined.'
+        None, alias="idType", description="Returns how identifiers are determined."
     )
     navs: Optional[List] = Field(
         None,
         description='Returns sequential data points corresponding to the net asset value between the "start" and "end" days.',
     )
     start: Optional[str] = Field(
-        None, description='Returns the first available date for data.'
+        None, description="Returns the first available date for data."
     )
     end: Optional[str] = Field(
-        None, description='Returns the end of the available frequency.'
+        None, description="Returns the end of the available frequency."
     )
-    id: Optional[str] = Field(None, description='Returns the account identifier.')
+    id: Optional[str] = Field(None, description="Returns the account identifier.")
     start_nav: Optional[StartNav] = Field(
-        None, alias='startNAV', description='Returns the intiial NAV available.'
+        None, alias="startNAV", description="Returns the intiial NAV available."
     )
     base_currency: Optional[str] = Field(
         None,
-        alias='baseCurrency',
-        description='Returns the base currency used in the account.',
+        alias="baseCurrency",
+        description="Returns the base currency used in the account.",
     )
 
 
@@ -7216,14 +7216,14 @@ class Nav(BaseModel):
         populate_by_name=True,
     )
     data: Optional[List[Datum]] = Field(
-        None, description='Contains the affiliated ‘nav’ data.'
+        None, description="Contains the affiliated ‘nav’ data."
     )
     freq: Optional[str] = Field(
-        None, description='Displays the values corresponding to a given frequency.'
+        None, description="Displays the values corresponding to a given frequency."
     )
     dates: Optional[List] = Field(
         None,
-        description='Returns the array of dates formatted as strings corresponding to your frequency, the length should be same as the length of returns inside data.',
+        description="Returns the array of dates formatted as strings corresponding to your frequency, the length should be same as the length of returns inside data.",
     )
 
 
@@ -7232,23 +7232,23 @@ class Datum1(BaseModel):
         populate_by_name=True,
     )
     id_type: Optional[str] = Field(
-        None, alias='idType', description='Returns the key value of the request.'
+        None, alias="idType", description="Returns the key value of the request."
     )
     start: Optional[str] = Field(
-        None, description='Returns the starting value of the value range.'
+        None, description="Returns the starting value of the value range."
     )
     end: Optional[str] = Field(
-        None, description='Returns the ending value of the value range.'
+        None, description="Returns the ending value of the value range."
     )
     returns: Optional[List] = Field(
         None,
-        description='Returns all cps values in order between the start and end times.',
+        description="Returns all cps values in order between the start and end times.",
     )
-    id: Optional[str] = Field(None, description='Returns the account identifier.')
+    id: Optional[str] = Field(None, description="Returns the account identifier.")
     base_currency: Optional[str] = Field(
         None,
-        alias='baseCurrency',
-        description='Returns the base curency for the account.',
+        alias="baseCurrency",
+        description="Returns the base curency for the account.",
     )
 
 
@@ -7257,13 +7257,13 @@ class Cps(BaseModel):
         populate_by_name=True,
     )
     data: Optional[List[Datum1]] = Field(
-        None, description='Returns the array of cps data available.'
+        None, description="Returns the array of cps data available."
     )
     freq: Optional[str] = Field(
-        None, description='Returns the determining frequency of the data range.'
+        None, description="Returns the determining frequency of the data range."
     )
     dates: Optional[List] = Field(
-        None, description='Returns the dates corresponding to the frequency of data.'
+        None, description="Returns the dates corresponding to the frequency of data."
     )
 
 
@@ -7272,13 +7272,13 @@ class Tpps(BaseModel):
         populate_by_name=True,
     )
     data: Optional[List[Datum1]] = Field(
-        None, description='Object containing all data about tpps.'
+        None, description="Object containing all data about tpps."
     )
     freq: Optional[str] = Field(
-        None, description='Returns the determining frequency of the data range.'
+        None, description="Returns the determining frequency of the data range."
     )
     dates: Optional[List] = Field(
-        None, description='Returns the dates corresponding to the frequency of data.'
+        None, description="Returns the dates corresponding to the frequency of data."
     )
 
 
@@ -7288,33 +7288,33 @@ class PerformanceResponse(BaseModel):
     )
     currency_type: Optional[str] = Field(
         None,
-        alias='currencyType',
-        description='Confirms if the currency type. If trading exclusively in your base currency, “base” will be returned.',
+        alias="currencyType",
+        description="Confirms if the currency type. If trading exclusively in your base currency, “base” will be returned.",
     )
     rc: Optional[int] = Field(
-        None, description='Returns the data identifier (Internal Use Only).'
+        None, description="Returns the data identifier (Internal Use Only)."
     )
     nav: Optional[Nav] = Field(
         None,
-        description='Net asset value data for the account or consolidated accounts. NAV data is not applicable to benchmarks.',
+        description="Net asset value data for the account or consolidated accounts. NAV data is not applicable to benchmarks.",
     )
-    nd: Optional[int] = Field(None, description='Returns the total data points.')
+    nd: Optional[int] = Field(None, description="Returns the total data points.")
     cps: Optional[Cps] = Field(
         None,
-        description='Returns the object containing the Cumulative performance data.',
+        description="Returns the object containing the Cumulative performance data.",
     )
     tpps: Optional[Tpps] = Field(
-        None, description='Returns the time period performance data.'
+        None, description="Returns the time period performance data."
     )
     id: Optional[str] = Field(
-        None, description='Returns the request identifier, getPerformanceData.'
+        None, description="Returns the request identifier, getPerformanceData."
     )
     included: Optional[List] = Field(
-        None, description='Returns an array containing accounts reviewed.'
+        None, description="Returns an array containing accounts reviewed."
     )
     pm: Optional[str] = Field(
         None,
-        description='Portfolio Measure. Used to indicate TWR or MWR values returned.',
+        description="Portfolio Measure. Used to indicate TWR or MWR values returned.",
     )
 
 
@@ -7324,23 +7324,23 @@ class U1234567Core(BaseModel):
     )
     row_type: Optional[int] = Field(
         None,
-        alias='rowType',
-        description='Returns the positional value of the returned account. Always returns 1 for individual accounts.',
+        alias="rowType",
+        description="Returns the positional value of the returned account. Always returns 1 for individual accounts.",
     )
     dpl: Optional[int] = Field(
-        None, description='Daily PnL for the specified account profile.'
+        None, description="Daily PnL for the specified account profile."
     )
     nl: Optional[int] = Field(
-        None, description='Net Liquidity for the specified account profile.'
+        None, description="Net Liquidity for the specified account profile."
     )
     upl: Optional[int] = Field(
-        None, description='Unrealized PnL for the specified account profile.'
+        None, description="Unrealized PnL for the specified account profile."
     )
     el: Optional[int] = Field(
-        None, description='Excess Liquidity for the specified account profile.'
+        None, description="Excess Liquidity for the specified account profile."
     )
     mv: Optional[int] = Field(
-        None, description='Margin value for the specified account profile.'
+        None, description="Margin value for the specified account profile."
     )
 
 
@@ -7350,7 +7350,7 @@ class Upnl(BaseModel):
     )
     u1234567_core: Optional[U1234567Core] = Field(
         None,
-        alias='U1234567.Core',
+        alias="U1234567.Core",
         description="The account or model's Profit and Loss.",
     )
 
@@ -7361,7 +7361,7 @@ class PnlPartitionedResponse(BaseModel):
     )
     upnl: Optional[Upnl] = Field(
         None,
-        description='Refers to the U accounts PnL. This does reference Realized Profit and Loss.',
+        description="Refers to the U accounts PnL. This does reference Realized Profit and Loss.",
     )
 
 
@@ -7371,11 +7371,11 @@ class AssetClass4(BaseModel):
     )
     long: Optional[Dict[str, float]] = Field(
         None,
-        description='Object containing value of long positions in the account aggregated by asset class.',
+        description="Object containing value of long positions in the account aggregated by asset class.",
     )
     short: Optional[Dict[str, float]] = Field(
         None,
-        description='Object containing value of short positions in the account aggregated by asset class.',
+        description="Object containing value of short positions in the account aggregated by asset class.",
     )
 
 
@@ -7385,11 +7385,11 @@ class Group(BaseModel):
     )
     long: Optional[Dict[str, float]] = Field(
         None,
-        description='Object containing value of long positions in the account aggregated by Sector Group.',
+        description="Object containing value of long positions in the account aggregated by Sector Group.",
     )
     short: Optional[Dict[str, float]] = Field(
         None,
-        description='Object containing value of short positions in the account aggregated by Sector Group.',
+        description="Object containing value of short positions in the account aggregated by Sector Group.",
     )
 
 
@@ -7399,11 +7399,11 @@ class Sector(BaseModel):
     )
     long: Optional[Dict[str, float]] = Field(
         None,
-        description='Object containing value of long positions in the account aggregated by Sector.',
+        description="Object containing value of long positions in the account aggregated by Sector.",
     )
     short: Optional[Dict[str, float]] = Field(
         None,
-        description='Object containing value of short positions in the account aggregated by Sector.',
+        description="Object containing value of short positions in the account aggregated by Sector.",
     )
 
 
@@ -7413,16 +7413,16 @@ class PortfolioAllocations(BaseModel):
     )
     asset_class: Optional[AssetClass4] = Field(
         None,
-        alias='assetClass',
-        description='Object containing values of positions sorted by long/short and asset class.',
+        alias="assetClass",
+        description="Object containing values of positions sorted by long/short and asset class.",
     )
     group: Optional[Group] = Field(
         None,
-        description='Object containing values of positions sorted by long/short and Sector Group.',
+        description="Object containing values of positions sorted by long/short and Sector Group.",
     )
     sector: Optional[Sector] = Field(
         None,
-        description='Object containing values of positions sorted by long/short and Sector.',
+        description="Object containing values of positions sorted by long/short and Sector.",
     )
 
 
@@ -7431,7 +7431,7 @@ class PortfolioSummaryValue(BaseModel):
         populate_by_name=True,
     )
     amount: Optional[float] = Field(
-        None, description='Numerical data for the associated key.'
+        None, description="Numerical data for the associated key."
     )
     currency: Optional[float] = Field(
         None,
@@ -7439,27 +7439,27 @@ class PortfolioSummaryValue(BaseModel):
     )
     is_null: Optional[bool] = Field(
         None,
-        alias='isNull',
+        alias="isNull",
         description="Indicates whether the associated key's value does not exist, as opposed to a value of zero.",
     )
-    severity: Optional[int] = Field(None, description='severity')
+    severity: Optional[int] = Field(None, description="severity")
     timestamp: Optional[int] = Field(
-        None, description='Unix epoch timestamp of returned data in milliseconds.'
+        None, description="Unix epoch timestamp of returned data in milliseconds."
     )
     value: Optional[str] = Field(
         None,
-        description='String and boolean (non-numerical) data for the associated key.',
+        description="String and boolean (non-numerical) data for the associated key.",
     )
 
 
 class DefaultMethodForAll(Enum):
-    available_equity = 'AvailableEquity'
-    e = 'E'
-    n = 'N'
-    c = 'C'
-    p = 'P'
-    r = 'R'
-    s = 'S'
+    available_equity = "AvailableEquity"
+    e = "E"
+    n = "N"
+    c = "C"
+    p = "P"
+    r = "R"
+    s = "S"
 
 
 class Presets(BaseModel):
@@ -7468,23 +7468,23 @@ class Presets(BaseModel):
     )
     group_auto_close_positions: Optional[bool] = Field(
         None,
-        description='Determines if allocation groups should prioritize closing positions over equal distribution.',
+        description="Determines if allocation groups should prioritize closing positions over equal distribution.",
     )
     default_method_for_all: Optional[DefaultMethodForAll] = Field(
         None,
-        description='Interactive Brokers supports two forms of allocation methods. Allocation methods that have calculations completed by Interactive Brokers, and a set of allocation methods calculated by the user and then specified. IB-computed allocation methods:\n  * `A` - Available Equity\n  * `E` - Equal\n  * `N` - Net Liquidation Value\n\nUser-specified allocation methods:\n  * `C` - Cash Quantity\n  * `P` - Percentage\n  * `R` - Ratios\n  * `S` - Shares\n',
+        description="Interactive Brokers supports two forms of allocation methods. Allocation methods that have calculations completed by Interactive Brokers, and a set of allocation methods calculated by the user and then specified. IB-computed allocation methods:\n  * `A` - Available Equity\n  * `E` - Equal\n  * `N` - Net Liquidation Value\n\nUser-specified allocation methods:\n  * `C` - Cash Quantity\n  * `P` - Percentage\n  * `R` - Ratios\n  * `S` - Shares\n",
     )
     profiles_auto_close_positions: Optional[bool] = Field(
         None,
-        description='Determines if allocation profiles should prioritize closing positions over equal distribution.',
+        description="Determines if allocation profiles should prioritize closing positions over equal distribution.",
     )
     strict_credit_check: Optional[bool] = Field(
         None,
-        description='Determines if the system should always check user credit before beginning the order process every time, or only at the time of order placement and execution.',
+        description="Determines if the system should always check user credit before beginning the order process every time, or only at the time of order placement and execution.",
     )
     group_proportional_allocation: Optional[bool] = Field(
         None,
-        description='Determines if the system should keep allocation groups proportional for scaling.',
+        description="Determines if the system should keep allocation groups proportional for scaling.",
     )
 
 
@@ -7492,72 +7492,72 @@ class RegsnapshotData(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    conid: Optional[int] = Field(None, description='IB contract ID.')
+    conid: Optional[int] = Field(None, description="IB contract ID.")
     conid_ex: Optional[str] = Field(
         None,
-        alias='conidEx',
-        description='Contract ID and routing destination in format 123456@EXCHANGE.',
+        alias="conidEx",
+        description="Contract ID and routing destination in format 123456@EXCHANGE.",
     )
     size_min_tick: Optional[float] = Field(
         None,
-        alias='sizeMinTick',
-        description='Internal use. Minimum size display increment.',
+        alias="sizeMinTick",
+        description="Internal use. Minimum size display increment.",
     )
     bbo_exchange: Optional[str] = Field(
-        None, alias='BboExchange', description='Internal use. Exchange map code.'
+        None, alias="BboExchange", description="Internal use. Exchange map code."
     )
     has_delayed: Optional[bool] = Field(
         None,
-        alias='HasDelayed',
-        description='Indicates whether delayed data is available.',
+        alias="HasDelayed",
+        description="Indicates whether delayed data is available.",
     )
-    field_84: Optional[str] = Field(None, alias='84', description='Bid price.')
-    field_86: Optional[str] = Field(None, alias='86', description='Ask price.')
+    field_84: Optional[str] = Field(None, alias="84", description="Bid price.")
+    field_86: Optional[str] = Field(None, alias="86", description="Ask price.")
     field_88: Optional[int] = Field(
-        None, alias='88', description='Bid size in round lots (100 shares).'
+        None, alias="88", description="Bid size in round lots (100 shares)."
     )
     field_85: Optional[int] = Field(
-        None, alias='85', description='Ask size in round lots (100 shares).'
+        None, alias="85", description="Ask size in round lots (100 shares)."
     )
     best_bid_exch: Optional[int] = Field(
         None,
-        alias='BestBidExch',
-        description='Internal use. Equivalent binary encoding of field 7068.',
+        alias="BestBidExch",
+        description="Internal use. Equivalent binary encoding of field 7068.",
     )
     best_ask_exch: Optional[int] = Field(
         None,
-        alias='BestAskExch',
-        description='Internal use. Equivalent binary encoding of field 7057.',
+        alias="BestAskExch",
+        description="Internal use. Equivalent binary encoding of field 7057.",
     )
-    field_31: Optional[str] = Field(None, alias='31', description='Last traded price.')
+    field_31: Optional[str] = Field(None, alias="31", description="Last traded price.")
     field_7059: Optional[str] = Field(
-        None, alias='7059', description='Last traded size in round lots (100 shares).'
+        None, alias="7059", description="Last traded size in round lots (100 shares)."
     )
     last_exch: Optional[int] = Field(
         None,
-        alias='LastExch',
-        description='Internal use. Equivalent binary encoding of field 7058.',
+        alias="LastExch",
+        description="Internal use. Equivalent binary encoding of field 7058.",
     )
     field_7057: Optional[str] = Field(
         None,
-        alias='7057',
-        description='Best ask exchanges(s). String of single, capital-letter MCOIDs.',
+        alias="7057",
+        description="Best ask exchanges(s). String of single, capital-letter MCOIDs.",
     )
     field_7068: Optional[str] = Field(
         None,
-        alias='7068',
-        description='Best bid exchange(s). String of single, capital-letter MCOIDs.',
+        alias="7068",
+        description="Best bid exchange(s). String of single, capital-letter MCOIDs.",
     )
     field_7058: Optional[str] = Field(
         None,
-        alias='7058',
-        description='Exchange of last trade. A single, capital-letter MCOID.',
+        alias="7058",
+        description="Exchange of last trade. A single, capital-letter MCOID.",
     )
 
 
 class Right(Enum):
-    p = 'P'
-    c = 'C'
+    p = "P"
+    c = "C"
 
 
 class SecDefInfoResponse(BaseModel):
@@ -7565,45 +7565,45 @@ class SecDefInfoResponse(BaseModel):
         populate_by_name=True,
     )
     conid: Optional[int] = Field(
-        None, description='Contract Identifier of the given contract.'
+        None, description="Contract Identifier of the given contract."
     )
     ticker: Optional[str] = Field(
-        None, description='Ticker symbol for the given contract'
+        None, description="Ticker symbol for the given contract"
     )
     sec_type: Optional[str] = Field(
-        None, alias='secType', description='Security type for the given contract.'
+        None, alias="secType", description="Security type for the given contract."
     )
     listing_exchange: Optional[str] = Field(
         None,
-        alias='listingExchange',
-        description='Primary listing exchange for the given contract.',
+        alias="listingExchange",
+        description="Primary listing exchange for the given contract.",
     )
-    exchange: Optional[str] = Field(None, description='Exchange requesting data for.')
+    exchange: Optional[str] = Field(None, description="Exchange requesting data for.")
     company_name: Optional[str] = Field(
         None,
-        alias='companyName',
-        description='Name of the company for the given contract.',
+        alias="companyName",
+        description="Name of the company for the given contract.",
     )
     currency: Optional[str] = Field(
-        None, description='Traded currency allowed for the given contract.'
+        None, description="Traded currency allowed for the given contract."
     )
     valid_exchanges: Optional[str] = Field(
         None,
-        alias='validExchanges',
-        description='Series of all valid exchanges the contract can be traded on in a single comma-separated string.',
+        alias="validExchanges",
+        description="Series of all valid exchanges the contract can be traded on in a single comma-separated string.",
     )
-    price_rendering: Optional[Any] = Field(None, alias='priceRendering')
+    price_rendering: Optional[Any] = Field(None, alias="priceRendering")
     maturity_date: Optional[str] = Field(
         None,
-        alias='maturityDate',
-        description='Date of expiration for the given contract.',
+        alias="maturityDate",
+        description="Date of expiration for the given contract.",
     )
     right: Optional[Right] = Field(
         None,
-        description='Set the right for the given contract. * `C` - for Call options. * `P` - for Put options.\n',
+        description="Set the right for the given contract. * `C` - for Call options. * `P` - for Put options.\n",
     )
     strike: Optional[float] = Field(
-        None, description='Returns the given strike value for the given contract.'
+        None, description="Returns the given strike value for the given contract."
     )
 
 
@@ -7611,12 +7611,12 @@ class Section(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    sec_type: Optional[str] = Field(None, alias='secType')
+    sec_type: Optional[str] = Field(None, alias="secType")
     months: Optional[str] = Field(
-        None, description='semicolon separated list of months'
+        None, description="semicolon separated list of months"
     )
     exchange: Optional[str] = Field(
-        None, description='semicolon separated list of exchanges'
+        None, description="semicolon separated list of exchanges"
     )
 
 
@@ -7632,31 +7632,31 @@ class SecdefSearchResponseItem(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    bondid: Optional[int] = Field(None, description='applicable for bonds')
+    bondid: Optional[int] = Field(None, description="applicable for bonds")
     conid: Optional[str] = Field(
-        None, description='Contract identifier for the unique contract.'
+        None, description="Contract identifier for the unique contract."
     )
     company_header: Optional[str] = Field(
-        None, alias='companyHeader', description='Company Name - Exchange'
+        None, alias="companyHeader", description="Company Name - Exchange"
     )
     company_name: Optional[str] = Field(
-        None, alias='companyName', description='Formal name of the company.'
+        None, alias="companyName", description="Formal name of the company."
     )
-    symbol: Optional[str] = Field(None, description='Underlying ticker symbol.')
+    symbol: Optional[str] = Field(None, description="Underlying ticker symbol.")
     description: Optional[str] = Field(
-        None, description='Primary exchange of the contract'
+        None, description="Primary exchange of the contract"
     )
     restricted: Optional[bool] = Field(
-        None, description='Returns if the contract is available for trading.'
+        None, description="Returns if the contract is available for trading."
     )
     fop: Optional[str] = Field(
-        None, description='Returns a string of dates, separated by semicolons.'
+        None, description="Returns a string of dates, separated by semicolons."
     )
     opt: Optional[str] = Field(
-        None, description='Returns a string of dates, separated by semicolons.'
+        None, description="Returns a string of dates, separated by semicolons."
     )
     war: Optional[str] = Field(
-        None, description='Returns a string of dates, separated by semicolons.'
+        None, description="Returns a string of dates, separated by semicolons."
     )
     sections: Optional[List[Section]] = None
     issuers: Optional[List[Issuer]] = None
@@ -7674,10 +7674,10 @@ class SetAccountResponse(BaseModel):
         populate_by_name=True,
     )
     set: Optional[bool] = Field(
-        None, description='Confirms that the account change was set'
+        None, description="Confirms that the account change was set"
     )
     acct_id: Optional[str] = Field(
-        None, alias='acctId', description='Confirms the account switched to.'
+        None, alias="acctId", description="Confirms the account switched to."
     )
 
 
@@ -7686,7 +7686,7 @@ class Applicant(BaseModel):
         populate_by_name=True,
     )
     signatures: Optional[List[str]] = Field(
-        None, description='All names attached to the account'
+        None, description="All names attached to the account"
     )
 
 
@@ -7696,20 +7696,20 @@ class SingleHistoricalBar(BaseModel):
     )
     t: Optional[int] = Field(
         None,
-        description='Unix timestamp of the start (chronologically earlier) of the bar.',
+        description="Unix timestamp of the start (chronologically earlier) of the bar.",
     )
-    o: Optional[float] = Field(None, description='Opening value of the bar.')
-    c: Optional[float] = Field(None, description='Closing value of the bar.')
-    h: Optional[float] = Field(None, description='High value of the bar.')
-    l: Optional[float] = Field(None, description='Low value of the bar.')
+    o: Optional[float] = Field(None, description="Opening value of the bar.")
+    c: Optional[float] = Field(None, description="Closing value of the bar.")
+    h: Optional[float] = Field(None, description="High value of the bar.")
+    l: Optional[float] = Field(None, description="Low value of the bar.")
     v: Optional[float] = Field(
         None, description='Volume value of the bar, returned only for "Last" barType.'
     )
 
 
 class TrailingType(Enum):
-    amt = 'amt'
-    field_ = '%'
+    amt = "amt"
+    field_ = "%"
 
 
 class StrategyParameters(BaseModel):
@@ -7718,8 +7718,8 @@ class StrategyParameters(BaseModel):
     )
     placeholder: Optional[str] = Field(
         None,
-        alias='PLACEHOLDER',
-        description='Placeholder -- these vary by algo (and not always type string, sometimes bool)',
+        alias="PLACEHOLDER",
+        description="Placeholder -- these vary by algo (and not always type string, sometimes bool)",
     )
 
 
@@ -7728,112 +7728,112 @@ class SingleOrderSubmissionRequest(BaseModel):
         populate_by_name=True,
     )
     acct_id: Optional[str] = Field(
-        None, alias='acctId', description='Receiving account of the order ticket.'
+        None, alias="acctId", description="Receiving account of the order ticket."
     )
-    conid: int = Field(..., description='IB contract ID of the instrument.')
+    conid: int = Field(..., description="IB contract ID of the instrument.")
     conidex: Optional[str] = Field(
         None,
-        description='Contract ID and routing destination together in format 123456@EXCHANGE.',
+        description="Contract ID and routing destination together in format 123456@EXCHANGE.",
     )
     sec_type: Optional[str] = Field(
-        None, alias='secType', description='IB asset class identifier.'
+        None, alias="secType", description="IB asset class identifier."
     )
     c_oid: Optional[str] = Field(
-        None, alias='cOID', description='Client-configurable order identifier.'
+        None, alias="cOID", description="Client-configurable order identifier."
     )
     parent_id: Optional[str] = Field(
         None,
-        alias='parentId',
-        description='If the order ticket is a child order in a bracket, the parentId field must be set equal to the cOID provided for the parent order.',
+        alias="parentId",
+        description="If the order ticket is a child order in a bracket, the parentId field must be set equal to the cOID provided for the parent order.",
     )
     listing_exchange: Optional[str] = Field(
         None,
-        alias='listingExchange',
-        description='The listing exchange of the instrument.',
+        alias="listingExchange",
+        description="The listing exchange of the instrument.",
     )
     is_single_group: Optional[bool] = Field(
         None,
-        alias='isSingleGroup',
-        description='Indicates that all orders in the containing array are to be treated as an OCA group.',
+        alias="isSingleGroup",
+        description="Indicates that all orders in the containing array are to be treated as an OCA group.",
     )
     outside_rth: Optional[bool] = Field(
         None,
-        alias='outsideRTH',
-        description='Instructs IB to permit the order to execute outside of regular trading hours.',
+        alias="outsideRTH",
+        description="Instructs IB to permit the order to execute outside of regular trading hours.",
     )
     aux_price: Optional[float] = Field(
         None,
-        alias='auxPrice',
-        description='Additional price value used in certain order types, such as stop orders.',
+        alias="auxPrice",
+        description="Additional price value used in certain order types, such as stop orders.",
     )
-    ticker: Optional[str] = Field(None, description='Ticker symbol of the instrument.')
+    ticker: Optional[str] = Field(None, description="Ticker symbol of the instrument.")
     trailing_amt: Optional[float] = Field(
-        None, alias='trailingAmt', description='Offset used with Trailing orders.'
+        None, alias="trailingAmt", description="Offset used with Trailing orders."
     )
     trailing_type: Optional[TrailingType] = Field(
         None,
-        alias='trailingType',
-        description='Specifies the type of trailing used with a Trailing order.',
+        alias="trailingType",
+        description="Specifies the type of trailing used with a Trailing order.",
     )
     referrer: Optional[str] = Field(
-        None, description='IB internal identifier for order entry UI element.'
+        None, description="IB internal identifier for order entry UI element."
     )
     cash_qty: Optional[float] = Field(
         None,
-        alias='cashQty',
-        description='Quantity of currency used with cash quantity orders.',
+        alias="cashQty",
+        description="Quantity of currency used with cash quantity orders.",
     )
     use_adaptive: Optional[bool] = Field(
         None,
-        alias='useAdaptive',
-        description='Instructs IB to apply the Price Management Algo.',
+        alias="useAdaptive",
+        description="Instructs IB to apply the Price Management Algo.",
     )
     is_ccy_conv: Optional[bool] = Field(
         None,
-        alias='isCcyConv',
-        description='Indicates that a forex order is for currency conversion and should not entail a virtual forex position in the account, where applicable.',
+        alias="isCcyConv",
+        description="Indicates that a forex order is for currency conversion and should not entail a virtual forex position in the account, where applicable.",
     )
     order_type: str = Field(
-        ..., alias='orderType', description='IB order type identifier.'
+        ..., alias="orderType", description="IB order type identifier."
     )
     price: Optional[float] = Field(
-        None, description='Price of the order ticket, where applicable.'
+        None, description="Price of the order ticket, where applicable."
     )
-    side: Side = Field(..., description='Side of the order ticket.')
-    tif: Tif1 = Field(..., description='Time in force of the order ticket.')
+    side: Side = Field(..., description="Side of the order ticket.")
+    tif: Tif1 = Field(..., description="Time in force of the order ticket.")
     quantity: float = Field(
-        ..., description='Quantity of the order ticket in units of the instrument.'
+        ..., description="Quantity of the order ticket in units of the instrument."
     )
     strategy: Optional[str] = Field(
-        None, description='The name of an execution algorithm.'
+        None, description="The name of an execution algorithm."
     )
     strategy_parameters: Optional[StrategyParameters] = Field(
         None,
-        alias='strategyParameters',
-        description='Parameters governing the selected algorithm, if applicable.',
+        alias="strategyParameters",
+        description="Parameters governing the selected algorithm, if applicable.",
     )
 
 
 class St(Enum):
-    stk = 'STK'
-    opt = 'OPT'
-    fut = 'FUT'
-    bond = 'BOND'
-    fund = 'FUND'
-    war = 'WAR'
-    cash = 'CASH'
-    crypto = 'CRYPTO'
+    stk = "STK"
+    opt = "OPT"
+    fut = "FUT"
+    bond = "BOND"
+    fund = "FUND"
+    war = "WAR"
+    cash = "CASH"
+    crypto = "CRYPTO"
 
 
 class AssetClass5(Enum):
-    stk = 'STK'
-    opt = 'OPT'
-    fut = 'FUT'
-    bond = 'BOND'
-    fund = 'FUND'
-    war = 'WAR'
-    cash = 'CASH'
-    crypto = 'CRYPTO'
+    stk = "STK"
+    opt = "OPT"
+    fut = "FUT"
+    bond = "BOND"
+    fund = "FUND"
+    war = "WAR"
+    cash = "CASH"
+    crypto = "CRYPTO"
 
 
 class SingleWatchlistEntry(BaseModel):
@@ -7842,31 +7842,31 @@ class SingleWatchlistEntry(BaseModel):
     )
     st: Optional[St] = Field(
         None,
-        alias='ST',
-        description='All-capital, shorthand security type identifier of the instrument.',
+        alias="ST",
+        description="All-capital, shorthand security type identifier of the instrument.",
     )
     c: Optional[str] = Field(
-        None, alias='C', description='Instrument conid as a string.'
+        None, alias="C", description="Instrument conid as a string."
     )
-    conid: Optional[int] = Field(None, description='IB contract ID of the instrument.')
+    conid: Optional[int] = Field(None, description="IB contract ID of the instrument.")
     name: Optional[str] = Field(
-        None, description='Complete display name of the instrument.'
+        None, description="Complete display name of the instrument."
     )
     full_name: Optional[str] = Field(
         None,
-        alias='fullName',
-        description='Full display presentation of the instrument symbol.',
+        alias="fullName",
+        description="Full display presentation of the instrument symbol.",
     )
     asset_class: Optional[AssetClass5] = Field(
         None,
-        alias='assetClass',
-        description='All-capital, shorthand security type identifier of the instrument.',
+        alias="assetClass",
+        description="All-capital, shorthand security type identifier of the instrument.",
     )
-    ticker: Optional[str] = Field(None, description='Symbol of the instrument.')
+    ticker: Optional[str] = Field(None, description="Symbol of the instrument.")
     chinese_name: Optional[str] = Field(
         None,
-        alias='chineseName',
-        description='Rendering of the instrument name in Chinese.',
+        alias="chineseName",
+        description="Rendering of the instrument name in Chinese.",
     )
 
 
@@ -7876,22 +7876,22 @@ class Features1(BaseModel):
     )
     envs: Optional[str] = Field(
         None,
-        description='Returns the connecting environment to distinguish production or paper.',
+        description="Returns the connecting environment to distinguish production or paper.",
     )
-    wlms: Optional[bool] = Field(None, description='Internal Use Only')
+    wlms: Optional[bool] = Field(None, description="Internal Use Only")
     realtime: Optional[bool] = Field(
-        None, description='Returns if realtime market data is available'
+        None, description="Returns if realtime market data is available"
     )
-    bond: Optional[bool] = Field(None, description='Returns if bonds can be traded.')
+    bond: Optional[bool] = Field(None, description="Returns if bonds can be traded.")
     option_chains: Optional[bool] = Field(
         None,
-        alias='optionChains',
-        description='Returns if option chains can be retrieved in the account.',
+        alias="optionChains",
+        description="Returns if option chains can be retrieved in the account.",
     )
     calendar: Optional[bool] = Field(
-        None, description='Returns if trading calendars are enabled'
+        None, description="Returns if trading calendars are enabled"
     )
-    new_mf: Optional[bool] = Field(None, alias='newMf', description='Internal Use Only')
+    new_mf: Optional[bool] = Field(None, alias="newMf", description="Internal Use Only")
 
 
 class SsoValidateResponse(BaseModel):
@@ -7899,81 +7899,81 @@ class SsoValidateResponse(BaseModel):
         populate_by_name=True,
     )
     user_id: Optional[int] = Field(
-        None, alias='USER_ID', description='Internal user identifier.'
+        None, alias="USER_ID", description="Internal user identifier."
     )
     user_name: Optional[str] = Field(
         None,
-        alias='USER_NAME',
-        description='current username logged in for the session.',
+        alias="USER_NAME",
+        description="current username logged in for the session.",
     )
     result: Optional[bool] = Field(
         None,
-        alias='RESULT',
-        description='Confirms if validation was successful. True if session was validated; false if not.',
+        alias="RESULT",
+        description="Confirms if validation was successful. True if session was validated; false if not.",
     )
     auth_time: Optional[int] = Field(
         None,
-        alias='AUTH_TIME',
-        description='Returns the time of authentication in epoch time.',
+        alias="AUTH_TIME",
+        description="Returns the time of authentication in epoch time.",
     )
     sf_enabled: Optional[bool] = Field(
-        None, alias='SF_ENABLED', description='(Internal use only)'
+        None, alias="SF_ENABLED", description="(Internal use only)"
     )
     is_free_trial: Optional[bool] = Field(
         None,
-        alias='IS_FREE_TRIAL',
-        description='Returns if the account is a trial account or a funded account.',
+        alias="IS_FREE_TRIAL",
+        description="Returns if the account is a trial account or a funded account.",
     )
     credential: Optional[str] = Field(
         None,
-        alias='CREDENTIAL',
-        description='Returns the underlying username of the account.',
+        alias="CREDENTIAL",
+        description="Returns the underlying username of the account.",
     )
     ip: Optional[str] = Field(
         None,
-        alias='IP',
-        description='Internal use only. Does not reflect the IP address of the user.',
+        alias="IP",
+        description="Internal use only. Does not reflect the IP address of the user.",
     )
     expires: Optional[int] = Field(
         None,
-        alias='EXPIRES',
-        description='Returns the time until SSO session expiration in milliseconds.',
+        alias="EXPIRES",
+        description="Returns the time until SSO session expiration in milliseconds.",
     )
     qualified_for_mobile_auth: Optional[bool] = Field(
         None,
-        alias='QUALIFIED_FOR_MOBILE_AUTH',
-        description='Returns if the customer requires two factor authentication.',
+        alias="QUALIFIED_FOR_MOBILE_AUTH",
+        description="Returns if the customer requires two factor authentication.",
     )
     landing_app: Optional[str] = Field(
         None,
-        alias='LANDING_APP',
-        description='Used for Client Portal (Internal use only)',
+        alias="LANDING_APP",
+        description="Used for Client Portal (Internal use only)",
     )
     is_master: Optional[bool] = Field(
         None,
-        alias='IS_MASTER',
-        description='Returns whether the account is a master account (true) or subaccount (false).',
+        alias="IS_MASTER",
+        description="Returns whether the account is a master account (true) or subaccount (false).",
     )
     last_accessed: Optional[int] = Field(
         None,
-        alias='lastAccessed',
-        description='Returns the last time the user was accessed in epoch time.',
+        alias="lastAccessed",
+        description="Returns the last time the user was accessed in epoch time.",
     )
     login_type: Optional[int] = Field(
         None,
-        alias='loginType',
-        description='Returns the login type. 1 for Live, 2 for Paper',
+        alias="loginType",
+        description="Returns the login type. 1 for Live, 2 for Paper",
     )
     paper_user_name: Optional[str] = Field(
         None,
-        alias='PAPER_USER_NAME',
-        description='Returns the paper username for the account.',
+        alias="PAPER_USER_NAME",
+        description="Returns the paper username for the account.",
     )
     features: Optional[Features1] = Field(
-        None, description='Returns supported features such as bonds and option trading.'
+        None, description="Returns supported features such as bonds and option trading."
     )
     region: Optional[str] = Field(
-        None, description='Returns the region connected to internally.'
+        None, description="Returns the region connected to internally."
     )
 
 
@@ -7982,15 +7982,15 @@ class Contract1(BaseModel):
         populate_by_name=True,
     )
     conid: Optional[int] = Field(
-        None, description='Contract ID for the specific contract.'
+        None, description="Contract ID for the specific contract."
     )
     exchange: Optional[str] = Field(
-        None, description='Primary exchange for the given contract.'
+        None, description="Primary exchange for the given contract."
     )
     is_us: Optional[bool] = Field(
         None,
-        alias='isUS',
-        description='States whether the contract is hosted in the United States or not.',
+        alias="isUS",
+        description="States whether the contract is hosted in the United States or not.",
     )
 
 
@@ -7999,19 +7999,19 @@ class Stock(BaseModel):
         populate_by_name=True,
     )
     name: Optional[str] = Field(
-        None, description='Full company name for the given contract.'
+        None, description="Full company name for the given contract."
     )
     chinese_name: Optional[str] = Field(
         None,
-        alias='chineseName',
-        description='Chinese name for the given company as unicode.',
+        alias="chineseName",
+        description="Chinese name for the given company as unicode.",
     )
     asset_class: Optional[str] = Field(
-        None, alias='assetClass', description='Asset class for the given company.'
+        None, alias="assetClass", description="Asset class for the given company."
     )
     contracts: Optional[List[Contract1]] = Field(
         None,
-        description='A series of arrays pertaining to the same company listed by “name”. Typically differentiated based on currency of the primary exchange.\n',
+        description="A series of arrays pertaining to the same company listed by “name”. Typically differentiated based on currency of the primary exchange.\n",
     )
 
 
@@ -8028,10 +8028,10 @@ class Account1(BaseModel):
     )
     data: Optional[List] = Field(
         None,
-        description='Contains Net liquidation and available equity of the given account Id.',
+        description="Contains Net liquidation and available equity of the given account Id.",
     )
     name: Optional[str] = Field(
-        None, description='Returns the account ID affiliated with the balance data.'
+        None, description="Returns the account ID affiliated with the balance data."
     )
 
 
@@ -8040,7 +8040,7 @@ class SubAccounts(BaseModel):
         populate_by_name=True,
     )
     accounts: Optional[List[Account1]] = Field(
-        None, description='An array containing all sub-accounts held by the advisor.'
+        None, description="An array containing all sub-accounts held by the advisor."
     )
 
 
@@ -8049,10 +8049,10 @@ class AuthStatus(BaseModel):
         populate_by_name=True,
     )
     authenticated: Optional[bool] = Field(
-        None, description='Returns if the brokerage session is authenticated.'
+        None, description="Returns if the brokerage session is authenticated."
     )
     connected: Optional[bool] = Field(
-        None, description='Returns if the system is connected with HMDS'
+        None, description="Returns if the system is connected with HMDS"
     )
 
 
@@ -8061,10 +8061,10 @@ class Hmds(BaseModel):
         populate_by_name=True,
     )
     error: Optional[str] = Field(
-        None, description='Relays any internal connection errors.'
+        None, description="Relays any internal connection errors."
     )
     auth_status: Optional[Union[List, AuthStatus]] = Field(
-        None, alias='authStatus', description='Returns authentication details.'
+        None, alias="authStatus", description="Returns authentication details."
     )
 
 
@@ -8072,7 +8072,7 @@ class Iserver(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    auth_status: Optional[BrokerageSessionStatus] = Field(None, alias='authStatus')
+    auth_status: Optional[BrokerageSessionStatus] = Field(None, alias="authStatus")
 
 
 class SuccessfulTickleResponse(BaseModel):
@@ -8080,20 +8080,20 @@ class SuccessfulTickleResponse(BaseModel):
         populate_by_name=True,
     )
     session: Optional[str] = Field(
-        None, description='Returns the session token of the contract.'
+        None, description="Returns the session token of the contract."
     )
     sso_expires: Optional[int] = Field(
         None,
-        alias='ssoExpires',
-        description='Returns the number of milliseconds until the current sso session expires.',
+        alias="ssoExpires",
+        description="Returns the number of milliseconds until the current sso session expires.",
     )
-    collission: Optional[bool] = Field(None, description='(Internal Use Only)')
+    collission: Optional[bool] = Field(None, description="(Internal Use Only)")
     user_id: Optional[int] = Field(
-        None, alias='userId', description='(Internal Use Only)'
+        None, alias="userId", description="(Internal Use Only)"
     )
     hmds: Optional[Hmds] = Field(
         None,
-        description='Returns connection details for the historical market data server.',
+        description="Returns connection details for the historical market data server.",
     )
     iserver: Optional[Iserver] = None
 
@@ -8103,72 +8103,72 @@ class Currency6(BaseModel):
         populate_by_name=True,
     )
     total_cash: Optional[str] = Field(
-        None, description='Lists the total cash held for the given currency.'
+        None, description="Lists the total cash held for the given currency."
     )
     settled_cash: Optional[str] = Field(
         None,
-        description='Cash recognized at the time of settlement minus the purchases at time of trade, commissions, taxes, and fees.',
+        description="Cash recognized at the time of settlement minus the purchases at time of trade, commissions, taxes, and fees.",
     )
     mtd_interest: Optional[str] = Field(
-        None, alias='MTD Interest', description='Total Month-to-date interest.'
+        None, alias="MTD Interest", description="Total Month-to-date interest."
     )
-    stock: Optional[str] = Field(None, description='Total cash value of stocks held.')
+    stock: Optional[str] = Field(None, description="Total cash value of stocks held.")
     options: Optional[str] = Field(
-        None, description='Total cash value of options held.'
+        None, description="Total cash value of options held."
     )
     futures: Optional[str] = Field(
-        None, description='Total cash value of futures held.'
+        None, description="Total cash value of futures held."
     )
     future_options: Optional[str] = Field(
-        None, description='Total cash value of future options held.'
+        None, description="Total cash value of future options held."
     )
-    funds: Optional[str] = Field(None, description='Total cash value of funds held.')
+    funds: Optional[str] = Field(None, description="Total cash value of funds held.")
     dividends_receivable: Optional[str] = Field(
-        None, description='Total cash value of receivable dividends.'
+        None, description="Total cash value of receivable dividends."
     )
     mutual_funds: Optional[str] = Field(
-        None, description='Total cash value of mutual funds held.'
+        None, description="Total cash value of mutual funds held."
     )
     money_market: Optional[str] = Field(
-        None, description='Total cash value of money market securities held.'
+        None, description="Total cash value of money market securities held."
     )
-    bonds: Optional[str] = Field(None, description='Total cash value of bonds held.')
+    bonds: Optional[str] = Field(None, description="Total cash value of bonds held.")
     govt_bonds: Optional[str] = Field(
         None,
-        alias='Govt Bonds',
-        description='Total cash value of goverment bonds held.',
+        alias="Govt Bonds",
+        description="Total cash value of goverment bonds held.",
     )
     t_bills: Optional[str] = Field(
-        None, description='Total cash value of t-bill bonds held.'
+        None, description="Total cash value of t-bill bonds held."
     )
     warrants: Optional[str] = Field(
-        None, description='Total cash value of warrants held.'
+        None, description="Total cash value of warrants held."
     )
     issuer_option: Optional[str] = Field(
-        None, description='Total cash value of issuer options held.'
+        None, description="Total cash value of issuer options held."
     )
     commodity: Optional[str] = Field(
-        None, description='Total cash value of commodities held.'
+        None, description="Total cash value of commodities held."
     )
     notional_cfd: Optional[str] = Field(
         None,
-        alias='Notional CFD',
-        description='Total cash value of notional CFDs held.',
+        alias="Notional CFD",
+        description="Total cash value of notional CFDs held.",
     )
-    cfd: Optional[str] = Field(None, description='Total cash value of CFDs held.')
+    cfd: Optional[str] = Field(None, description="Total cash value of CFDs held.")
     net_liquidation: Optional[str] = Field(
-        None, description='Total cash value of your net liquidty.'
+        None, description="Total cash value of your net liquidty."
     )
     unrealized_pnl: Optional[str] = Field(
-        None, description='Total daily unrealized profit and loss.'
+        None, description="Total daily unrealized profit and loss."
     )
     realized_pnl: Optional[str] = Field(
-        None, description='Total daily realized profit and loss.'
+        None, description="Total daily realized profit and loss."
     )
     exchange_rate: Optional[str] = Field(
         None,
-        alias='Exchange Rate',
-        description='Exchange rate of the labeled currency to the base currency.',
+        alias="Exchange Rate",
+        description="Exchange rate of the labeled currency to the base currency.",
     )
 
 
@@ -8178,7 +8178,7 @@ class SummaryMarketValueResponse(BaseModel):
     )
     currency: Optional[Currency6] = Field(
         None,
-        description='Returns an object containing market value details of the currency and positions held using that currency.',
+        description="Returns an object containing market value details of the currency and positions held using that currency.",
     )
 
 
@@ -8188,34 +8188,34 @@ class Total1(BaseModel):
     )
     net_liquidation: Optional[str] = Field(
         None,
-        description='The basis for determining the price of the assets in your account.',
+        description="The basis for determining the price of the assets in your account.",
     )
     nt_lqdtn_uncrtnty: Optional[str] = Field(
         None,
-        alias='Nt Lqdtn Uncrtnty',
-        description='Displays the uncertainty of the Net Liquidating Value associated with after-hours price changes.',
+        alias="Nt Lqdtn Uncrtnty",
+        description="Displays the uncertainty of the Net Liquidating Value associated with after-hours price changes.",
     )
     equity_with_loan: Optional[str] = Field(
         None,
-        description='* `Cash Accounts` Settled cash\n * `Margin Accounts` Total cash value + stock value + bond value + fund value + European & Asian options value.\n',
+        description="* `Cash Accounts` Settled cash\n * `Margin Accounts` Total cash value + stock value + bond value + fund value + European & Asian options value.\n",
     )
     prvs_dy_eqty_wth_ln_vl: Optional[str] = Field(
         None,
-        alias='Prvs Dy Eqty Wth Ln Vl',
-        description='The accounts equity balance including loan value.',
+        alias="Prvs Dy Eqty Wth Ln Vl",
+        description="The accounts equity balance including loan value.",
     )
     sec_gross_pos_val: Optional[str] = Field(
         None,
-        description='Equals the sum of the absolute value of all positions except cash, index futures and US treasuries.',
+        description="Equals the sum of the absolute value of all positions except cash, index futures and US treasuries.",
     )
-    cash: Optional[str] = Field(None, description='Total cash balance in the account')
+    cash: Optional[str] = Field(None, description="Total cash balance in the account")
     mtd_interest: Optional[str] = Field(
-        None, alias='MTD Interest', description='Total Month-to-date interest.'
+        None, alias="MTD Interest", description="Total Month-to-date interest."
     )
     pndng_dbt_crd_chrgs: Optional[str] = Field(
         None,
-        alias='Pndng Dbt Crd Chrgs',
-        description='Any pending charges for the IBKR debit account.',
+        alias="Pndng Dbt Crd Chrgs",
+        description="Any pending charges for the IBKR debit account.",
     )
 
 
@@ -8225,20 +8225,20 @@ class Commodities(BaseModel):
     )
     net_liquidation: Optional[str] = Field(
         None,
-        description='The basis for determining the price of the assets in your account.',
+        description="The basis for determining the price of the assets in your account.",
     )
     equity_with_loan: Optional[str] = Field(
         None,
-        description='* `Cash Accounts` Settled cash\n * `Margin Accounts` Total cash value + stock value + bond value + fund value + European & Asian options value.\n',
+        description="* `Cash Accounts` Settled cash\n * `Margin Accounts` Total cash value + stock value + bond value + fund value + European & Asian options value.\n",
     )
-    cash: Optional[str] = Field(None, description='Total cash balance in the account')
+    cash: Optional[str] = Field(None, description="Total cash balance in the account")
     mtd_interest: Optional[str] = Field(
-        None, alias='MTD Interest', description='Total Month-to-date interest.'
+        None, alias="MTD Interest", description="Total Month-to-date interest."
     )
     pndng_dbt_crd_chrgs: Optional[str] = Field(
         None,
-        alias='Pndng Dbt Crd Chrgs',
-        description='Any pending charges for the IBKR debit account.',
+        alias="Pndng Dbt Crd Chrgs",
+        description="Any pending charges for the IBKR debit account.",
     )
 
 
@@ -8248,29 +8248,29 @@ class Securities1(BaseModel):
     )
     net_liquidation: Optional[str] = Field(
         None,
-        description='The basis for determining the price of the assets in your account.',
+        description="The basis for determining the price of the assets in your account.",
     )
     equity_with_loan: Optional[str] = Field(
         None,
-        description='* `Cash Accounts` Settled cash\n * `Margin Accounts` Total cash value + stock value + bond value + fund value + European & Asian options value.\n',
+        description="* `Cash Accounts` Settled cash\n * `Margin Accounts` Total cash value + stock value + bond value + fund value + European & Asian options value.\n",
     )
     prvs_dy_eqty_wth_ln_vl: Optional[str] = Field(
         None,
-        alias='Prvs Dy Eqty Wth Ln Vl',
-        description='The accounts equity balance including loan value.',
+        alias="Prvs Dy Eqty Wth Ln Vl",
+        description="The accounts equity balance including loan value.",
     )
     sec_gross_pos_val: Optional[str] = Field(
         None,
-        description='Equals the sum of the absolute value of all positions except cash, index futures and US treasuries.',
+        description="Equals the sum of the absolute value of all positions except cash, index futures and US treasuries.",
     )
-    cash: Optional[str] = Field(None, description='Total cash balance in the account')
+    cash: Optional[str] = Field(None, description="Total cash balance in the account")
     mtd_interest: Optional[str] = Field(
-        None, alias='MTD Interest', description='Total Month-to-date interest.'
+        None, alias="MTD Interest", description="Total Month-to-date interest."
     )
     pndng_dbt_crd_chrgs: Optional[str] = Field(
         None,
-        alias='Pndng Dbt Crd Chrgs',
-        description='Any pending charges for the IBKR debit account.',
+        alias="Pndng Dbt Crd Chrgs",
+        description="Any pending charges for the IBKR debit account.",
     )
 
 
@@ -8279,13 +8279,13 @@ class SummaryOfAccountBalancesResponse(BaseModel):
         populate_by_name=True,
     )
     total: Optional[Total1] = Field(
-        None, description='Contains total balance details for the account.'
+        None, description="Contains total balance details for the account."
     )
     commodities: Optional[Commodities] = Field(
-        None, description='Contains Commodity-specific balance details.'
+        None, description="Contains Commodity-specific balance details."
     )
     securities: Optional[Securities1] = Field(
-        None, description='Contains Security-specific balance details.'
+        None, description="Contains Security-specific balance details."
     )
 
 
@@ -8294,15 +8294,15 @@ class Total2(BaseModel):
         populate_by_name=True,
     )
     current_initial: Optional[str] = Field(
-        None, description='The minimum amount required to open a new position.'
+        None, description="The minimum amount required to open a new position."
     )
     prdctd_pst_xpry_mrgn___opn: Optional[str] = Field(
         None,
-        alias='Prdctd Pst-xpry Mrgn @ Opn',
-        description='Provides a projected “at expiration” margin value based on the soon-to-expire contracts in your portfolio.',
+        alias="Prdctd Pst-xpry Mrgn @ Opn",
+        description="Provides a projected “at expiration” margin value based on the soon-to-expire contracts in your portfolio.",
     )
     current_maint: Optional[str] = Field(
-        None, description='The amount of equity required to maintain your positions.'
+        None, description="The amount of equity required to maintain your positions."
     )
     projected_liquidity_inital_margin: Optional[str] = Field(
         None,
@@ -8310,17 +8310,17 @@ class Total2(BaseModel):
     )
     prjctd_lk_ahd_mntnnc_mrgn: Optional[str] = Field(
         None,
-        alias='Prjctd Lk Ahd Mntnnc Mrgn',
-        description='If it is 3:00 pm ET, the next calculation you’re looking ahead to is after the close, or the Overnight Initial Margin. If it’s 3:00 am ET, the next calculation will be at the market’s open.\n * `Securities` – Projected maintenance margin requirement as of next period’s margin change, in the base currency of the account. \n * `Commodities` – Maintenance margin requirement as of next period’s margin change in the base currency of the account based on current margin requirements, which are subject to change. This value depends on when you are viewing your margin requirements.\n',
+        alias="Prjctd Lk Ahd Mntnnc Mrgn",
+        description="If it is 3:00 pm ET, the next calculation you’re looking ahead to is after the close, or the Overnight Initial Margin. If it’s 3:00 am ET, the next calculation will be at the market’s open.\n * `Securities` – Projected maintenance margin requirement as of next period’s margin change, in the base currency of the account. \n * `Commodities` – Maintenance margin requirement as of next period’s margin change in the base currency of the account based on current margin requirements, which are subject to change. This value depends on when you are viewing your margin requirements.\n",
     )
     projected_overnight_initial_margin: Optional[str] = Field(
         None,
-        description='Overnight refers to the window of time after the local market trading day is closed. \n  * Securities – Projected overnight initial margin requirement in the base currency of the account. \n  * Commodities – Overnight initial margin requirement in the base currency of the account based on current margin requirements, which are subject to change.\n',
+        description="Overnight refers to the window of time after the local market trading day is closed. \n  * Securities – Projected overnight initial margin requirement in the base currency of the account. \n  * Commodities – Overnight initial margin requirement in the base currency of the account based on current margin requirements, which are subject to change.\n",
     )
     prjctd_ovrnght_mntnnc_mrgn: Optional[str] = Field(
         None,
-        alias='Prjctd Ovrnght Mntnnc Mrgn',
-        description='Overnight refers to the window of time after the local market trading day is closed. \n  * `Securities` – Projected overnight maintenance margin requirement in the base currency of the account. \n  * `Commodities` – Overnight maintenance margin requirement in the base currency of the account based on current margin requirements, which are subject to change.\n',
+        alias="Prjctd Ovrnght Mntnnc Mrgn",
+        description="Overnight refers to the window of time after the local market trading day is closed. \n  * `Securities` – Projected overnight maintenance margin requirement in the base currency of the account. \n  * `Commodities` – Overnight maintenance margin requirement in the base currency of the account based on current margin requirements, which are subject to change.\n",
     )
 
 
@@ -8329,15 +8329,15 @@ class Commodities1(BaseModel):
         populate_by_name=True,
     )
     current_initial: Optional[str] = Field(
-        None, description='The minimum amount required to open a new position.'
+        None, description="The minimum amount required to open a new position."
     )
     prdctd_pst_xpry_mrgn___opn: Optional[str] = Field(
         None,
-        alias='Prdctd Pst-xpry Mrgn @ Opn',
-        description='Provides a projected “at expiration” margin value based on the soon-to-expire contracts in your portfolio.',
+        alias="Prdctd Pst-xpry Mrgn @ Opn",
+        description="Provides a projected “at expiration” margin value based on the soon-to-expire contracts in your portfolio.",
     )
     current_maint: Optional[str] = Field(
-        None, description='The amount of equity required to maintain your positions.'
+        None, description="The amount of equity required to maintain your positions."
     )
     projected_liquidity_inital_margin: Optional[str] = Field(
         None,
@@ -8345,17 +8345,17 @@ class Commodities1(BaseModel):
     )
     prjctd_lk_ahd_mntnnc_mrgn: Optional[str] = Field(
         None,
-        alias='Prjctd Lk Ahd Mntnnc Mrgn',
-        description='If it is 3:00 pm ET, the next calculation you’re looking ahead to is after the close, or the Overnight Initial Margin. If it’s 3:00 am ET, the next calculation will be at the market’s open.\n * `Securities` – Projected maintenance margin requirement as of next period’s margin change, in the base currency of the account. \n * `Commodities` – Maintenance margin requirement as of next period’s margin change in the base currency of the account based on current margin requirements, which are subject to change. This value depends on when you are viewing your margin requirements.\n',
+        alias="Prjctd Lk Ahd Mntnnc Mrgn",
+        description="If it is 3:00 pm ET, the next calculation you’re looking ahead to is after the close, or the Overnight Initial Margin. If it’s 3:00 am ET, the next calculation will be at the market’s open.\n * `Securities` – Projected maintenance margin requirement as of next period’s margin change, in the base currency of the account. \n * `Commodities` – Maintenance margin requirement as of next period’s margin change in the base currency of the account based on current margin requirements, which are subject to change. This value depends on when you are viewing your margin requirements.\n",
     )
     projected_overnight_initial_margin: Optional[str] = Field(
         None,
-        description='Overnight refers to the window of time after the local market trading day is closed. \n  * Securities – Projected overnight initial margin requirement in the base currency of the account. \n  * Commodities – Overnight initial margin requirement in the base currency of the account based on current margin requirements, which are subject to change.\n',
+        description="Overnight refers to the window of time after the local market trading day is closed. \n  * Securities – Projected overnight initial margin requirement in the base currency of the account. \n  * Commodities – Overnight initial margin requirement in the base currency of the account based on current margin requirements, which are subject to change.\n",
     )
     prjctd_ovrnght_mntnnc_mrgn: Optional[str] = Field(
         None,
-        alias='Prjctd Ovrnght Mntnnc Mrgn',
-        description='Overnight refers to the window of time after the local market trading day is closed. \n  * `Securities` – Projected overnight maintenance margin requirement in the base currency of the account. \n  * `Commodities` – Overnight maintenance margin requirement in the base currency of the account based on current margin requirements, which are subject to change.\n',
+        alias="Prjctd Ovrnght Mntnnc Mrgn",
+        description="Overnight refers to the window of time after the local market trading day is closed. \n  * `Securities` – Projected overnight maintenance margin requirement in the base currency of the account. \n  * `Commodities` – Overnight maintenance margin requirement in the base currency of the account based on current margin requirements, which are subject to change.\n",
     )
 
 
@@ -8364,15 +8364,15 @@ class Securities2(BaseModel):
         populate_by_name=True,
     )
     current_initial: Optional[str] = Field(
-        None, description='The minimum amount required to open a new position.'
+        None, description="The minimum amount required to open a new position."
     )
     prdctd_pst_xpry_mrgn___opn: Optional[str] = Field(
         None,
-        alias='Prdctd Pst-xpry Mrgn @ Opn',
-        description='Provides a projected “at expiration” margin value based on the soon-to-expire contracts in your portfolio.',
+        alias="Prdctd Pst-xpry Mrgn @ Opn",
+        description="Provides a projected “at expiration” margin value based on the soon-to-expire contracts in your portfolio.",
     )
     current_maint: Optional[str] = Field(
-        None, description='The amount of equity required to maintain your positions.'
+        None, description="The amount of equity required to maintain your positions."
     )
     projected_liquidity_inital_margin: Optional[str] = Field(
         None,
@@ -8380,17 +8380,17 @@ class Securities2(BaseModel):
     )
     prjctd_lk_ahd_mntnnc_mrgn: Optional[str] = Field(
         None,
-        alias='Prjctd Lk Ahd Mntnnc Mrgn',
-        description='If it is 3:00 pm ET, the next calculation you’re looking ahead to is after the close, or the Overnight Initial Margin. If it’s 3:00 am ET, the next calculation will be at the market’s open.\n * `Securities` – Projected maintenance margin requirement as of next period’s margin change, in the base currency of the account. \n * `Commodities` – Maintenance margin requirement as of next period’s margin change in the base currency of the account based on current margin requirements, which are subject to change. This value depends on when you are viewing your margin requirements.\n',
+        alias="Prjctd Lk Ahd Mntnnc Mrgn",
+        description="If it is 3:00 pm ET, the next calculation you’re looking ahead to is after the close, or the Overnight Initial Margin. If it’s 3:00 am ET, the next calculation will be at the market’s open.\n * `Securities` – Projected maintenance margin requirement as of next period’s margin change, in the base currency of the account. \n * `Commodities` – Maintenance margin requirement as of next period’s margin change in the base currency of the account based on current margin requirements, which are subject to change. This value depends on when you are viewing your margin requirements.\n",
     )
     projected_overnight_initial_margin: Optional[str] = Field(
         None,
-        description='Overnight refers to the window of time after the local market trading day is closed. \n  * Securities – Projected overnight initial margin requirement in the base currency of the account. \n  * Commodities – Overnight initial margin requirement in the base currency of the account based on current margin requirements, which are subject to change.\n',
+        description="Overnight refers to the window of time after the local market trading day is closed. \n  * Securities – Projected overnight initial margin requirement in the base currency of the account. \n  * Commodities – Overnight initial margin requirement in the base currency of the account based on current margin requirements, which are subject to change.\n",
     )
     prjctd_ovrnght_mntnnc_mrgn: Optional[str] = Field(
         None,
-        alias='Prjctd Ovrnght Mntnnc Mrgn',
-        description='Overnight refers to the window of time after the local market trading day is closed. \n  * `Securities` – Projected overnight maintenance margin requirement in the base currency of the account. \n  * `Commodities` – Overnight maintenance margin requirement in the base currency of the account based on current margin requirements, which are subject to change.  \n',
+        alias="Prjctd Ovrnght Mntnnc Mrgn",
+        description="Overnight refers to the window of time after the local market trading day is closed. \n  * `Securities` – Projected overnight maintenance margin requirement in the base currency of the account. \n  * `Commodities` – Overnight maintenance margin requirement in the base currency of the account based on current margin requirements, which are subject to change.  \n",
     )
 
 
@@ -8411,13 +8411,13 @@ class TickleResponse(RootModel[Union[SuccessfulTickleResponse, FailedTickleRespo
 
 
 class Side2(Enum):
-    b = 'B'
-    s = 'S'
+    b = "B"
+    s = "S"
 
 
 class LiquidationTrade(Enum):
-    field_0 = '0'
-    field_1 = '1'
+    field_0 = "0"
+    field_1 = "1"
 
 
 class TradesResponseItem(BaseModel):
@@ -8425,78 +8425,78 @@ class TradesResponseItem(BaseModel):
         populate_by_name=True,
     )
     execution_id: Optional[str] = Field(
-        None, description='IB-assigned execution identifier.'
+        None, description="IB-assigned execution identifier."
     )
     symbol: Optional[str] = Field(
-        None, description='Symbol of the instrument involved in the execution.'
+        None, description="Symbol of the instrument involved in the execution."
     )
     supports_tax_opt: Optional[SupportsTaxOpt] = Field(
         None,
         description="Indicates whether the order is supported by IB's Tax Optimization tool.",
     )
-    side: Optional[Side2] = Field(None, description='Side of the execution.')
+    side: Optional[Side2] = Field(None, description="Side of the execution.")
     order_description: Optional[str] = Field(
-        None, description='Human-readable description of the outcome of the execution.'
+        None, description="Human-readable description of the outcome of the execution."
     )
     trade_time: Optional[str] = Field(
         None,
-        description='UTC date and time of the execution in format YYYYMMDD-hh:mm:ss.',
+        description="UTC date and time of the execution in format YYYYMMDD-hh:mm:ss.",
     )
     trade_time_r: Optional[int] = Field(
-        None, description='Unix timestamp of the execution time in milliseconds.'
+        None, description="Unix timestamp of the execution time in milliseconds."
     )
     size: Optional[float] = Field(
-        None, description='The size of the execution in units of the instrument.'
+        None, description="The size of the execution in units of the instrument."
     )
     price: Optional[str] = Field(
-        None, description='The price at which the execution occurred.'
+        None, description="The price at which the execution occurred."
     )
     order_ref: Optional[str] = Field(
         None,
-        description='The client-provided customer order identifier. Specified via cOID during order submission in the Web API.',
+        description="The client-provided customer order identifier. Specified via cOID during order submission in the Web API.",
     )
     submitter: Optional[str] = Field(
         None,
-        description='The IB username that originated the order ticket against which the execution occurred.',
+        description="The IB username that originated the order ticket against which the execution occurred.",
     )
     exchange: Optional[str] = Field(
-        None, description='The exchange or other venue on which the execution occurred.'
+        None, description="The exchange or other venue on which the execution occurred."
     )
     commission: Optional[str] = Field(
-        None, description='Commissions incurred by the execution. May also include'
+        None, description="Commissions incurred by the execution. May also include"
     )
-    net_amount: Optional[float] = Field(None, description='net_amount')
+    net_amount: Optional[float] = Field(None, description="net_amount")
     account: Optional[str] = Field(
         None,
-        description='The IB account ID of the account that received the execution.',
+        description="The IB account ID of the account that received the execution.",
     )
     account_code: Optional[str] = Field(
         None,
-        alias='accountCode',
-        description='The IB account ID of the account that received the execution.',
+        alias="accountCode",
+        description="The IB account ID of the account that received the execution.",
     )
     account_allocation_name: Optional[str] = Field(
         None,
-        description='The IB account ID of the account that received the execution.',
+        description="The IB account ID of the account that received the execution.",
     )
     company_name: Optional[str] = Field(
         None,
-        description='Name of business associated with instrument, or otherwise description of instrument.',
+        description="Name of business associated with instrument, or otherwise description of instrument.",
     )
     contract_description_1: Optional[str] = Field(
         None, description="Human-readable description of the order's instrument."
     )
-    sec_type: Optional[SecType] = Field(None, description='IB asset class identifier.')
+    sec_type: Optional[SecType] = Field(None, description="IB asset class identifier.")
     listing_exchange: Optional[str] = Field(
-        None, description='The primary exchange on which the instrument is listed.'
+        None, description="The primary exchange on which the instrument is listed."
     )
     conid: Optional[str] = Field(
         None, description="Contract ID of the order's instrument."
     )
     conid_ex: Optional[str] = Field(
         None,
-        alias='conidEx',
-        description='Contract ID and routing destination in format 123456@EXCHANGE.',
+        alias="conidEx",
+        description="Contract ID and routing destination in format 123456@EXCHANGE.",
     )
     clearing_id: Optional[str] = Field(
         None,
@@ -8508,11 +8508,11 @@ class TradesResponseItem(BaseModel):
     )
     liquidation_trade: Optional[LiquidationTrade] = Field(
         None,
-        description='Indicates whether the trade is the result of a liquidiation by IB.',
+        description="Indicates whether the trade is the result of a liquidiation by IB.",
     )
     is_event_trading: Optional[IsEventTrading] = Field(
         None,
-        description='Indicates whether the order ticket is an Event Trading order.',
+        description="Indicates whether the order ticket is an Event Trading order.",
     )
 
 
@@ -8521,7 +8521,7 @@ class TradesResponse(RootModel[List[TradesResponseItem]]):
         populate_by_name=True,
     )
     root: List[TradesResponseItem] = Field(
-        ..., description='Array of objects representing executions.'
+        ..., description="Array of objects representing executions."
     )
 
 
@@ -8529,21 +8529,21 @@ class TradingScheduleItem(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    id: Optional[str] = Field(None, description='Exchange parameter id')
+    id: Optional[str] = Field(None, description="Exchange parameter id")
     trade_venue_id: Optional[str] = Field(
         None,
-        alias='tradeVenueId',
-        description='Reference on a trade venue of given exchange parameter',
+        alias="tradeVenueId",
+        description="Reference on a trade venue of given exchange parameter",
     )
-    exchange: Optional[str] = Field(None, description='short exchange name')
-    description: Optional[str] = Field(None, description='exchange description')
+    exchange: Optional[str] = Field(None, description="short exchange name")
+    description: Optional[str] = Field(None, description="exchange description")
     timezone: Optional[str] = Field(
         None,
-        description='References the time zone corresponding to the listed dates and times.',
+        description="References the time zone corresponding to the listed dates and times.",
     )
     schedules: Optional[List] = Field(
         None,
-        description='Always contains at least one ‘tradingTime’ and zero or more ‘sessionTime’ tags',
+        description="Always contains at least one ‘tradingTime’ and zero or more ‘sessionTime’ tags",
     )
 
 
@@ -8555,8 +8555,8 @@ class TradingSchedule(RootModel[List[TradingScheduleItem]]):
 
 
 class Side3(Enum):
-    l = 'L'
-    g = 'G'
+    l = "L"
+    g = "G"
 
 
 class Items(BaseModel):
@@ -8564,26 +8564,26 @@ class Items(BaseModel):
         populate_by_name=True,
     )
     date: Optional[str] = Field(
-        None, description='Specifies the date for the transaction.'
+        None, description="Specifies the date for the transaction."
     )
     cur: Optional[str] = Field(
-        None, description='Specifies the currency of the realized value.'
+        None, description="Specifies the currency of the realized value."
     )
     fx_rate: Optional[int] = Field(
-        None, alias='fxRate', description='Returns the foreign exchnage rate.'
+        None, alias="fxRate", description="Returns the foreign exchnage rate."
     )
     side: Optional[Side3] = Field(
         None,
-        description='Determines if the day was a loss or gain * `L` - LOSS * `G` - GAIN\n',
+        description="Determines if the day was a loss or gain * `L` - LOSS * `G` - GAIN\n",
     )
     acctid: Optional[str] = Field(
-        None, description='Returns the account ID the trade transacted on.'
+        None, description="Returns the account ID the trade transacted on."
     )
     amt: Optional[str] = Field(
-        None, description='Returns the amount gained or lost on the day.'
+        None, description="Returns the amount gained or lost on the day."
     )
     conid: Optional[str] = Field(
-        None, description='Returns the contract ID of the transaction.'
+        None, description="Returns the contract ID of the transaction."
     )
 
 
@@ -8592,12 +8592,12 @@ class Rpnl(BaseModel):
         populate_by_name=True,
     )
     data: Optional[List] = Field(
-        None, description='Returns an array of realized pnl objects.'
+        None, description="Returns an array of realized pnl objects."
     )
     items: Optional[Items] = None
     amt: Optional[str] = Field(
         None,
-        description='Provides the total amount gained or lost from all days returned',
+        description="Provides the total amount gained or lost from all days returned",
     )
 
 
@@ -8606,31 +8606,31 @@ class Transaction(BaseModel):
         populate_by_name=True,
     )
     date: Optional[str] = Field(
-        None, description='Reutrns the human-readable datetime of the transaction.'
+        None, description="Reutrns the human-readable datetime of the transaction."
     )
     cur: Optional[str] = Field(
-        None, description='Returns the currency of the traded insturment.'
+        None, description="Returns the currency of the traded insturment."
     )
     fx_rate: Optional[int] = Field(
-        None, alias='fxRate', description='Returns the forex conversion rate.'
+        None, alias="fxRate", description="Returns the forex conversion rate."
     )
     pr: Optional[int] = Field(
-        None, description='Returns the price per share of the transaction.'
+        None, description="Returns the price per share of the transaction."
     )
     qty: Optional[int] = Field(
         None,
-        description='Returns the total quantity traded. Will display a negative value for sell orders, and a positive value for buy orders.\n',
+        description="Returns the total quantity traded. Will display a negative value for sell orders, and a positive value for buy orders.\n",
     )
     acctid: Optional[str] = Field(
-        None, description='Returns the account which made the transaction.'
+        None, description="Returns the account which made the transaction."
     )
     amt: Optional[int] = Field(
-        None, description='Returns the total value of the trade.'
+        None, description="Returns the total value of the trade."
     )
-    conid: Optional[int] = Field(None, description='Returns the contract identifier.')
-    type: Optional[str] = Field(None, description='Returns the order side.')
+    conid: Optional[int] = Field(None, description="Returns the contract identifier.")
+    type: Optional[str] = Field(None, description="Returns the order side.")
     desc: Optional[str] = Field(
-        None, description='Returns the long name for the company.'
+        None, description="Returns the long name for the company."
     )
 
 
@@ -8638,33 +8638,33 @@ class TransactionsResponse(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    rc: Optional[int] = Field(None, description='Client portal use only')
-    nd: Optional[int] = Field(None, description='Client portal use only')
+    rc: Optional[int] = Field(None, description="Client portal use only")
+    nd: Optional[int] = Field(None, description="Client portal use only")
     rpnl: Optional[Rpnl] = Field(
         None,
-        description='Returns the object containing the realized pnl for the contract on the date.',
+        description="Returns the object containing the realized pnl for the contract on the date.",
     )
     currency: Optional[str] = Field(
-        None, description='Returns the currency the account is traded in.'
+        None, description="Returns the currency the account is traded in."
     )
     from_: Optional[int] = Field(
         None,
-        alias='from',
-        description='Returns the epoch time for the start of requests.',
+        alias="from",
+        description="Returns the epoch time for the start of requests.",
     )
     id: Optional[str] = Field(
-        None, description='Returns the request identifier, getTransactions.'
+        None, description="Returns the request identifier, getTransactions."
     )
     to: Optional[int] = Field(
-        None, description='Returns the epoch time for the end of requests.'
+        None, description="Returns the epoch time for the end of requests."
     )
     includes_real_time: Optional[bool] = Field(
         None,
-        alias='includesRealTime',
-        description='Returns if the trades are up to date or not.',
+        alias="includesRealTime",
+        description="Returns if the trades are up to date or not.",
     )
     transactions: Optional[List[Transaction]] = Field(
-        None, description='Lists all supported transaction values.'
+        None, description="Lists all supported transaction values."
     )
 
 
@@ -8676,35 +8676,35 @@ class TrsrvSecDefResponse(BaseModel):
 
 
 class Typecodes(Enum):
-    ba = 'BA'
-    ca = 'CA'
-    da = 'DA'
-    ea = 'EA'
-    mf = 'MF'
-    oe = 'OE'
-    pr = 'PR'
-    se = 'SE'
-    sg = 'SG'
-    sm = 'SM'
-    t2 = 'T2'
-    to = 'TO'
-    ua = 'UA'
-    m8 = 'M8'
-    ps = 'PS'
-    dl = 'DL'
-    pt = 'PT'
-    cb = 'CB'
-    ms = 'MS'
-    td = 'TD'
-    st = 'ST'
-    ti = 'TI'
-    ct = 'CT'
+    ba = "BA"
+    ca = "CA"
+    da = "DA"
+    ea = "EA"
+    mf = "MF"
+    oe = "OE"
+    pr = "PR"
+    se = "SE"
+    sg = "SG"
+    sm = "SM"
+    t2 = "T2"
+    to = "TO"
+    ua = "UA"
+    m8 = "M8"
+    ps = "PS"
+    dl = "DL"
+    pt = "PT"
+    cb = "CB"
+    ms = "MS"
+    td = "TD"
+    st = "ST"
+    ti = "TI"
+    ct = "CT"
 
 
 class EntityType4(Enum):
-    individual = 'INDIVIDUAL'
-    joint = 'Joint'
-    org = 'ORG'
+    individual = "INDIVIDUAL"
+    joint = "Joint"
+    org = "ORG"
 
 
 class Entity(BaseModel):
@@ -8713,17 +8713,17 @@ class Entity(BaseModel):
     )
     entity_name: Optional[str] = Field(
         None,
-        alias='entityName',
+        alias="entityName",
         description="The full entity's name, concatenating the first and last name fields",
     )
     entity_type: Optional[EntityType4] = Field(
-        None, alias='entityType', description='The type of entity assigned to the user'
+        None, alias="entityType", description="The type of entity assigned to the user"
     )
     first_name: Optional[str] = Field(
-        None, alias='firstName', description='The first name of the user'
+        None, alias="firstName", description="The first name of the user"
     )
     last_name: Optional[str] = Field(
-        None, alias='lastName', description='The last name of the user'
+        None, alias="lastName", description="The last name of the user"
     )
 
 
@@ -8733,14 +8733,14 @@ class User(BaseModel):
     )
     role_id: Optional[str] = Field(
         None,
-        alias='roleId',
-        description='The role of the username as it relates to the account',
+        alias="roleId",
+        description="The role of the username as it relates to the account",
     )
     has_right_code_ind: Optional[bool] = Field(
-        None, alias='hasRightCodeInd', description='Internally used'
+        None, alias="hasRightCodeInd", description="Internally used"
     )
     entity: Optional[Entity] = Field(
-        None, description='Provide information about the particular entity'
+        None, description="Provide information about the particular entity"
     )
 
 
@@ -8748,80 +8748,80 @@ class U1234567(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    has_child_accounts: Optional[bool] = Field(None, alias='hasChildAccounts')
-    supports_cash_qty: Optional[bool] = Field(None, alias='supportsCashQty')
-    no_fx_conv: Optional[bool] = Field(None, alias='noFXConv')
-    is_prop: Optional[bool] = Field(None, alias='isProp')
-    supports_fractions: Optional[bool] = Field(None, alias='supportsFractions')
-    allow_customer_time: Optional[bool] = Field(None, alias='allowCustomerTime')
+    has_child_accounts: Optional[bool] = Field(None, alias="hasChildAccounts")
+    supports_cash_qty: Optional[bool] = Field(None, alias="supportsCashQty")
+    no_fx_conv: Optional[bool] = Field(None, alias="noFXConv")
+    is_prop: Optional[bool] = Field(None, alias="isProp")
+    supports_fractions: Optional[bool] = Field(None, alias="supportsFractions")
+    allow_customer_time: Optional[bool] = Field(None, alias="allowCustomerTime")
 
 
 class AcctProps(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    u1234567: Optional[U1234567] = Field(None, alias='U1234567')
+    u1234567: Optional[U1234567] = Field(None, alias="U1234567")
 
 
 class Aliases(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    u1234567: Optional[str] = Field(None, alias='U1234567')
+    u1234567: Optional[str] = Field(None, alias="U1234567")
 
 
 class AllowFeatures(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    show_gfis: Optional[bool] = Field(None, alias='showGFIS')
-    show_eu_cost_report: Optional[bool] = Field(None, alias='showEUCostReport')
-    allow_event_contract: Optional[bool] = Field(None, alias='allowEventContract')
-    allow_fx_conv: Optional[bool] = Field(None, alias='allowFXConv')
-    allow_financial_lens: Optional[bool] = Field(None, alias='allowFinancialLens')
-    allow_mta: Optional[bool] = Field(None, alias='allowMTA')
-    allow_type_ahead: Optional[bool] = Field(None, alias='allowTypeAhead')
-    allow_event_trading: Optional[bool] = Field(None, alias='allowEventTrading')
+    show_gfis: Optional[bool] = Field(None, alias="showGFIS")
+    show_eu_cost_report: Optional[bool] = Field(None, alias="showEUCostReport")
+    allow_event_contract: Optional[bool] = Field(None, alias="allowEventContract")
+    allow_fx_conv: Optional[bool] = Field(None, alias="allowFXConv")
+    allow_financial_lens: Optional[bool] = Field(None, alias="allowFinancialLens")
+    allow_mta: Optional[bool] = Field(None, alias="allowMTA")
+    allow_type_ahead: Optional[bool] = Field(None, alias="allowTypeAhead")
+    allow_event_trading: Optional[bool] = Field(None, alias="allowEventTrading")
     snapshot_refresh_timeout: Optional[int] = Field(
-        None, alias='snapshotRefreshTimeout', examples=[30]
+        None, alias="snapshotRefreshTimeout", examples=[30]
     )
-    lite_user: Optional[bool] = Field(None, alias='liteUser')
-    show_web_news: Optional[bool] = Field(None, alias='showWebNews')
+    lite_user: Optional[bool] = Field(None, alias="liteUser")
+    show_web_news: Optional[bool] = Field(None, alias="showWebNews")
     research: Optional[bool] = None
-    debug_pnl: Optional[bool] = Field(None, alias='debugPnl')
-    show_tax_opt: Optional[bool] = Field(None, alias='showTaxOpt')
-    show_impact_dashboard: Optional[bool] = Field(None, alias='showImpactDashboard')
-    allow_dyn_account: Optional[bool] = Field(None, alias='allowDynAccount')
-    allow_crypto: Optional[bool] = Field(None, alias='allowCrypto')
-    allowed_asset_types: Optional[str] = Field(None, alias='allowedAssetTypes')
+    debug_pnl: Optional[bool] = Field(None, alias="debugPnl")
+    show_tax_opt: Optional[bool] = Field(None, alias="showTaxOpt")
+    show_impact_dashboard: Optional[bool] = Field(None, alias="showImpactDashboard")
+    allow_dyn_account: Optional[bool] = Field(None, alias="allowDynAccount")
+    allow_crypto: Optional[bool] = Field(None, alias="allowCrypto")
+    allowed_asset_types: Optional[str] = Field(None, alias="allowedAssetTypes")
 
 
 class ChartPeriods(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    stk: Optional[List[str]] = Field(None, alias='STK')
-    cfd: Optional[List[str]] = Field(None, alias='CFD')
-    opt: Optional[List[str]] = Field(None, alias='OPT')
-    fop: Optional[List[str]] = Field(None, alias='FOP')
-    war: Optional[List[str]] = Field(None, alias='WAR')
-    iopt: Optional[List[str]] = Field(None, alias='IOPT')
-    fut: Optional[List[str]] = Field(None, alias='FUT')
-    cash: Optional[List[str]] = Field(None, alias='CASH')
-    ind: Optional[List[str]] = Field(None, alias='IND')
-    bond: Optional[List[str]] = Field(None, alias='BOND')
-    fund: Optional[List[str]] = Field(None, alias='FUND')
-    cmdty: Optional[List[str]] = Field(None, alias='CMDTY')
-    physs: Optional[List[str]] = Field(None, alias='PHYSS')
-    crypto: Optional[List[str]] = Field(None, alias='CRYPTO')
+    stk: Optional[List[str]] = Field(None, alias="STK")
+    cfd: Optional[List[str]] = Field(None, alias="CFD")
+    opt: Optional[List[str]] = Field(None, alias="OPT")
+    fop: Optional[List[str]] = Field(None, alias="FOP")
+    war: Optional[List[str]] = Field(None, alias="WAR")
+    iopt: Optional[List[str]] = Field(None, alias="IOPT")
+    fut: Optional[List[str]] = Field(None, alias="FUT")
+    cash: Optional[List[str]] = Field(None, alias="CASH")
+    ind: Optional[List[str]] = Field(None, alias="IND")
+    bond: Optional[List[str]] = Field(None, alias="BOND")
+    fund: Optional[List[str]] = Field(None, alias="FUND")
+    cmdty: Optional[List[str]] = Field(None, alias="CMDTY")
+    physs: Optional[List[str]] = Field(None, alias="PHYSS")
+    crypto: Optional[List[str]] = Field(None, alias="CRYPTO")
 
 
 class ServerInfo1(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    server_name: Optional[str] = Field(None, alias='serverName')
-    server_version: Optional[str] = Field(None, alias='serverVersion')
+    server_name: Optional[str] = Field(None, alias="serverName")
+    server_version: Optional[str] = Field(None, alias="serverVersion")
 
 
 class UserAccountsResponse(BaseModel):
@@ -8829,23 +8829,23 @@ class UserAccountsResponse(BaseModel):
         populate_by_name=True,
     )
     accounts: Optional[List[str]] = Field(
-        None, description='Returns an array of all accessible accountIds.'
+        None, description="Returns an array of all accessible accountIds."
     )
     acct_props: Optional[AcctProps] = Field(
         None,
-        alias='acctProps',
-        description='Returns an json object for each accessible account’s properties.',
+        alias="acctProps",
+        description="Returns an json object for each accessible account’s properties.",
     )
     aliases: Optional[Aliases] = None
-    allow_features: Optional[AllowFeatures] = Field(None, alias='allowFeatures')
-    chart_periods: Optional[ChartPeriods] = Field(None, alias='chartPeriods')
+    allow_features: Optional[AllowFeatures] = Field(None, alias="allowFeatures")
+    chart_periods: Optional[ChartPeriods] = Field(None, alias="chartPeriods")
     groups: Optional[List[str]] = None
     profiles: Optional[List[str]] = None
-    selected_account: Optional[str] = Field(None, alias='selectedAccount')
-    server_info: Optional[ServerInfo1] = Field(None, alias='serverInfo')
-    session_id: Optional[str] = Field(None, alias='sessionId')
-    is_ft: Optional[bool] = Field(None, alias='isFt')
-    is_paper: Optional[bool] = Field(None, alias='isPaper')
+    selected_account: Optional[str] = Field(None, alias="selectedAccount")
+    server_info: Optional[ServerInfo1] = Field(None, alias="serverInfo")
+    session_id: Optional[str] = Field(None, alias="sessionId")
+    is_ft: Optional[bool] = Field(None, alias="isFt")
+    is_paper: Optional[bool] = Field(None, alias="isPaper")
 
 
 class UtcDateTime(RootModel[str]):
@@ -8854,8 +8854,8 @@ class UtcDateTime(RootModel[str]):
     )
     root: str = Field(
         ...,
-        description='UTC datetime string in format YYYYMMDD-hh:mm:ss.',
-        examples=['20231018-16:00:00'],
+        description="UTC datetime string in format YYYYMMDD-hh:mm:ss.",
+        examples=["20231018-16:00:00"],
     )
 
 
@@ -8864,12 +8864,12 @@ class Data1(BaseModel):
         populate_by_name=True,
     )
     deleted: Optional[str] = Field(
-        None, description='Watchlist ID of the deleted watchlist.'
+        None, description="Watchlist ID of the deleted watchlist."
     )
 
 
 class Action(Enum):
-    context = 'context'
+    context = "context"
 
 
 class WatchlistDeleteSuccess(BaseModel):
@@ -8882,13 +8882,13 @@ class WatchlistDeleteSuccess(BaseModel):
     )
     mid: Optional[str] = Field(
         None,
-        alias='MID',
-        description='Internal use. Number of times endpoint has been visited during session.',
+        alias="MID",
+        description="Internal use. Number of times endpoint has been visited during session.",
     )
 
 
 class Type16(Enum):
-    watchlist = 'watchlist'
+    watchlist = "watchlist"
 
 
 class UserList(BaseModel):
@@ -8897,17 +8897,17 @@ class UserList(BaseModel):
     )
     is_open: Optional[bool] = Field(
         None,
-        description='Internal use. Indicates if the watchlist is currently in use.',
+        description="Internal use. Indicates if the watchlist is currently in use.",
     )
     read_only: Optional[bool] = Field(
-        None, description='Indicates if the watchlist can be edited.'
+        None, description="Indicates if the watchlist can be edited."
     )
-    name: Optional[str] = Field(None, description='Display name of the watchlist.')
+    name: Optional[str] = Field(None, description="Display name of the watchlist.")
     modified: Optional[int] = Field(
         None,
-        description='Unix timestamp in milliseconds of the last modification of the watchlist.',
+        description="Unix timestamp in milliseconds of the last modification of the watchlist.",
     )
-    id: Optional[str] = Field(None, description='Watchlist ID of the watchlist.')
+    id: Optional[str] = Field(None, description="Watchlist ID of the watchlist.")
     type: Optional[Type16] = Field(None, description="Always has value 'watchlist'.")
 
 
@@ -8916,22 +8916,22 @@ class Data2(BaseModel):
         populate_by_name=True,
     )
     scanners_only: Optional[bool] = Field(
-        None, description='Indicates if query results contain only market scanners.'
+        None, description="Indicates if query results contain only market scanners."
     )
     show_scanners: Optional[bool] = Field(
-        None, description='Indicates if market scanners are included in query results.'
+        None, description="Indicates if market scanners are included in query results."
     )
     bulk_delete: Optional[bool] = Field(
         None, description="Indicates if username's watchlists can be bulk-deleted."
     )
     user_lists: Optional[List[UserList]] = Field(
         None,
-        description='Array of objects detailing the watchlists saved for the username in use in the current Web API session.',
+        description="Array of objects detailing the watchlists saved for the username in use in the current Web API session.",
     )
 
 
 class Action1(Enum):
-    content = 'content'
+    content = "content"
 
 
 class WatchlistsResponse(BaseModel):
@@ -8939,36 +8939,36 @@ class WatchlistsResponse(BaseModel):
         populate_by_name=True,
     )
     data: Optional[Data2] = Field(
-        None, description='Contains the watchlist query results.'
+        None, description="Contains the watchlist query results."
     )
     action: Optional[Action1] = Field(
         None, description="Internal use. Always has value 'content'."
     )
     mid: Optional[str] = Field(
         None,
-        alias='MID',
-        description='Internal use. Number of times endpoint has been visited during session.',
+        alias="MID",
+        description="Internal use. Number of times endpoint has been visited during session.",
     )
 
 
 class FyiDeliveryoptionsEmailPutParametersQuery(BaseModel):
     enabled: Any = Field(
         ...,
-        description='Enable or disable your email. Value format: true: Enable; false: Disable\n',
+        description="Enable or disable your email. Value format: true: Enable; false: Disable\n",
     )
 
 
 class FyiNotificationsGetParametersQuery(BaseModel):
     max: str = Field(
         ...,
-        description='Specify the maximum number of notifications to receive. Can request a maximum of 10 notifications.\n',
-        examples=['10'],
+        description="Specify the maximum number of notifications to receive. Can request a maximum of 10 notifications.\n",
+        examples=["10"],
     )
-    include: Optional[Any] = Field(None, description='include')
-    exclude: Optional[Any] = Field(None, description='exclude')
+    include: Optional[Any] = Field(None, description="include")
+    exclude: Optional[Any] = Field(None, description="exclude")
     id: Optional[Any] = Field(
         None,
-        description='if more required, notifcationId of last notification should be used to define next batch border',
+        description="if more required, notifcationId of last notification should be used to define next batch border",
     )
 
 
@@ -8977,7 +8977,7 @@ class FyiSettingsTypecodePostRequest(BaseModel):
         populate_by_name=True,
     )
     enabled: Optional[bool] = Field(
-        None, description='the notification should be enabled or disabled.'
+        None, description="the notification should be enabled or disabled."
     )
 
 
@@ -8986,7 +8986,7 @@ class FyiUnreadnumberGetResponse(BaseModel):
         populate_by_name=True,
     )
     bn: Optional[int] = Field(
-        None, alias='BN', description='Returns the number of unread bulletins.'
+        None, alias="BN", description="Returns the number of unread bulletins."
     )
 
 
@@ -9012,24 +9012,24 @@ class GwApiV1AccountsGetResponse(
 
 
 class InstructionType2(Enum):
-    account_close = 'ACCOUNT_CLOSE'
+    account_close = "ACCOUNT_CLOSE"
 
 
 class GwApiV1AccountsClosePostRequest(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    instruction_type: InstructionType2 = Field(..., alias='instructionType')
+    instruction_type: InstructionType2 = Field(..., alias="instructionType")
     instruction: AccountCloseInstruction
 
 
 class GwApiV1AccountsLoginMessagesGetParametersQuery(BaseModel):
-    login_message_request: LoginMessageRequest = Field(..., alias='loginMessageRequest')
+    login_message_request: LoginMessageRequest = Field(..., alias="loginMessageRequest")
 
 
 class GwApiV1AccountsStatusGetParametersQuery(BaseModel):
     account_status_request: AccountStatusRequest = Field(
-        ..., alias='accountStatusRequest'
+        ..., alias="accountStatusRequest"
     )
 
 
@@ -9038,12 +9038,12 @@ class GwApiV1AccountsAccountIdLoginMessagesGetParametersQuery(BaseModel):
 
 
 class Type17(Enum):
-    pending = 'pending'
-    registration = 'registration'
+    pending = "pending"
+    registration = "registration"
 
 
 class GwApiV1AccountsAccountIdTasksGetParametersQuery(BaseModel):
-    type: Optional[Type17] = 'registration'
+    type: Optional[Type17] = "registration"
 
 
 class GwApiV1AccountsAccountIdTasksGetResponse(
@@ -9056,20 +9056,20 @@ class GwApiV1AccountsAccountIdTasksGetResponse(
 
 
 class InstructionType3(Enum):
-    ach_instruction = 'ACH_INSTRUCTION'
+    ach_instruction = "ACH_INSTRUCTION"
     traditional_bank_instruction_verification = (
-        'TRADITIONAL_BANK_INSTRUCTION_VERIFICATION'
+        "TRADITIONAL_BANK_INSTRUCTION_VERIFICATION"
     )
-    delete_bank_instruction = 'DELETE_BANK_INSTRUCTION'
-    predefined_destination_instruction = 'PREDEFINED_DESTINATION_INSTRUCTION'
-    edda_instruction = 'EDDA_INSTRUCTION'
+    delete_bank_instruction = "DELETE_BANK_INSTRUCTION"
+    predefined_destination_instruction = "PREDEFINED_DESTINATION_INSTRUCTION"
+    edda_instruction = "EDDA_INSTRUCTION"
 
 
 class GwApiV1BankInstructionsPostRequest(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    instruction_type: InstructionType3 = Field(..., alias='instructionType')
+    instruction_type: InstructionType3 = Field(..., alias="instructionType")
     instruction: Union[
         TraditionalBankInstructionVerification,
         AchInstruction,
@@ -9080,16 +9080,16 @@ class GwApiV1BankInstructionsPostRequest(BaseModel):
 
 
 class InstructionType4(Enum):
-    query_bank_instruction = 'QUERY_BANK_INSTRUCTION'
-    query_recent_recurring_events = 'QUERY_RECENT_RECURRING_EVENTS'
-    query_recurring_instructions = 'QUERY_RECURRING_INSTRUCTIONS'
+    query_bank_instruction = "QUERY_BANK_INSTRUCTION"
+    query_recent_recurring_events = "QUERY_RECENT_RECURRING_EVENTS"
+    query_recurring_instructions = "QUERY_RECURRING_INSTRUCTIONS"
 
 
 class GwApiV1BankInstructionsQueryPostRequest(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    instruction_type: InstructionType4 = Field(..., alias='instructionType')
+    instruction_type: InstructionType4 = Field(..., alias="instructionType")
     instruction: Union[
         QueryBankInstruction, QueryRecentRecurringEvents, QueryRecurringInstructions
     ]
@@ -9115,52 +9115,52 @@ class GwApiV1BankInstructionsQueryPostResponse(
 
 
 class Language(Enum):
-    en = 'en'
-    ar = 'ar'
-    de = 'de'
-    es = 'es'
-    fr = 'fr'
-    he = 'he'
-    hu = 'hu'
-    it = 'it'
-    ja = 'ja'
-    nl = 'nl'
-    pt = 'pt'
-    ru = 'ru'
-    zh_cn = 'zh_CN'
-    zh_tw = 'zh_TW'
+    en = "en"
+    ar = "ar"
+    de = "de"
+    es = "es"
+    fr = "fr"
+    he = "he"
+    hu = "hu"
+    it = "it"
+    ja = "ja"
+    nl = "nl"
+    pt = "pt"
+    ru = "ru"
+    zh_cn = "zh_CN"
+    zh_tw = "zh_TW"
 
 
 class GwApiV1EnumerationsEnumerationTypeGetParametersQuery(BaseModel):
     currency: Optional[str] = None
-    ib_entity: Optional[str] = Field(None, alias='ibEntity')
-    md_status_non_pro: Optional[str] = Field(None, alias='mdStatusNonPro')
-    form_number: Optional[str] = Field(None, alias='form-number')
+    ib_entity: Optional[str] = Field(None, alias="ibEntity")
+    md_status_non_pro: Optional[str] = Field(None, alias="mdStatusNonPro")
+    form_number: Optional[str] = Field(None, alias="form-number")
     language: Optional[Language] = None
 
 
 class InstructionType5(Enum):
-    dwac = 'DWAC'
-    fop = 'FOP'
-    complex_asset_transfer = 'COMPLEX_ASSET_TRANSFER'
-    external_position_transfer = 'EXTERNAL_POSITION_TRANSFER'
+    dwac = "DWAC"
+    fop = "FOP"
+    complex_asset_transfer = "COMPLEX_ASSET_TRANSFER"
+    external_position_transfer = "EXTERNAL_POSITION_TRANSFER"
 
 
 class InstructionType6(Enum):
-    deposit = 'DEPOSIT'
-    withdrawal = 'WITHDRAWAL'
+    deposit = "DEPOSIT"
+    withdrawal = "WITHDRAWAL"
 
 
 class InstructionType7(Enum):
-    query_withdawable_funds = 'QUERY_WITHDAWABLE_FUNDS'
-    query_ira_contributions = 'QUERY_IRA_CONTRIBUTIONS'
+    query_withdawable_funds = "QUERY_WITHDAWABLE_FUNDS"
+    query_ira_contributions = "QUERY_IRA_CONTRIBUTIONS"
 
 
 class GwApiV1ExternalCashTransfersQueryPostRequest(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    instruction_type: InstructionType7 = Field(..., alias='instructionType')
+    instruction_type: InstructionType7 = Field(..., alias="instructionType")
     instruction: Union[
         QueryWithdrawableFunds,
         QueryWithdrawableWithoutOriginHoldFunds,
@@ -9169,80 +9169,80 @@ class GwApiV1ExternalCashTransfersQueryPostRequest(BaseModel):
 
 
 class InstructionType8(Enum):
-    apply_fee_template = 'APPLY_FEE_TEMPLATE'
+    apply_fee_template = "APPLY_FEE_TEMPLATE"
 
 
 class GwApiV1FeeTemplatesPostRequest(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    instruction_type: InstructionType8 = Field(..., alias='instructionType')
+    instruction_type: InstructionType8 = Field(..., alias="instructionType")
     instruction: ApplyFeeTemplateInstruction
 
 
 class InstructionType9(Enum):
-    query_fee_template = 'QUERY_FEE_TEMPLATE'
+    query_fee_template = "QUERY_FEE_TEMPLATE"
 
 
 class GwApiV1FeeTemplatesQueryPostRequest(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    instruction_type: InstructionType9 = Field(..., alias='instructionType')
+    instruction_type: InstructionType9 = Field(..., alias="instructionType")
     instruction: QueryFeeTemplate
 
 
 class Projection(Enum):
-    payload = 'PAYLOAD'
-    docs = 'DOCS'
+    payload = "PAYLOAD"
+    docs = "DOCS"
 
 
 class GwApiV1FormsGetParametersQuery(BaseModel):
-    form_no: Optional[List[int]] = Field(None, alias='formNo')
-    get_docs: Optional[str] = Field(None, alias='getDocs')
-    from_date: Optional[str] = Field(None, alias='fromDate')
-    to_date: Optional[str] = Field(None, alias='toDate')
+    form_no: Optional[List[int]] = Field(None, alias="formNo")
+    get_docs: Optional[str] = Field(None, alias="getDocs")
+    from_date: Optional[str] = Field(None, alias="fromDate")
+    to_date: Optional[str] = Field(None, alias="toDate")
     language: Optional[str] = None
     projection: Optional[Projection] = None
 
 
 class InstructionType10(Enum):
-    cancel_instruction = 'CANCEL_INSTRUCTION'
+    cancel_instruction = "CANCEL_INSTRUCTION"
 
 
 class GwApiV1InstructionsCancelPostRequest(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    instruction_type: InstructionType10 = Field(..., alias='instructionType')
+    instruction_type: InstructionType10 = Field(..., alias="instructionType")
     instruction: CancelInstruction
 
 
 class InstructionType11(Enum):
-    query_recent_instructions = 'QUERY_RECENT_INSTRUCTIONS'
+    query_recent_instructions = "QUERY_RECENT_INSTRUCTIONS"
 
 
 class GwApiV1InstructionsQueryPostRequest(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    instruction_type: InstructionType11 = Field(..., alias='instructionType')
+    instruction_type: InstructionType11 = Field(..., alias="instructionType")
     instruction: QueryRecentInstructions
 
 
 class InstructionType12(Enum):
-    internal_position_transfer = 'INTERNAL_POSITION_TRANSFER'
+    internal_position_transfer = "INTERNAL_POSITION_TRANSFER"
 
 
 class InstructionType13(Enum):
-    internal_cash_transfer = 'INTERNAL_CASH_TRANSFER'
+    internal_cash_transfer = "INTERNAL_CASH_TRANSFER"
 
 
 class GwApiV1InternalCashTransfersPostRequest(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    instruction_type: InstructionType13 = Field(..., alias='instructionType')
+    instruction_type: InstructionType13 = Field(..., alias="instructionType")
     instruction: InternalCashTransferInstruction
 
 
@@ -9251,12 +9251,12 @@ class GwApiV1ParticipatingBanksGetParametersQuery(BaseModel):
 
 
 class GwApiV1RequestsGetParametersQuery(BaseModel):
-    request_details: RequestDetailsRequest = Field(..., alias='requestDetails')
+    request_details: RequestDetailsRequest = Field(..., alias="requestDetails")
 
 
 class Type18(Enum):
-    response = 'response'
-    update = 'update'
+    response = "response"
+    update = "update"
 
 
 class GwApiV1RequestsRequestIdStatusGetParametersQuery(BaseModel):
@@ -9273,26 +9273,26 @@ class GwApiV1RequestsRequestIdStatusGetResponse(
 
 
 class GwApiV1StatementsAvailableGetParametersQuery(BaseModel):
-    account_id: str = Field(..., alias='accountId', examples=['UXXXX'])
+    account_id: str = Field(..., alias="accountId", examples=["UXXXX"])
 
 
 class BarType(Enum):
-    last = 'Last'
-    bid = 'Bid'
-    ask = 'Ask'
-    midpoint = 'Midpoint'
-    fee_rate = 'FeeRate'
-    inventory = 'Inventory'
+    last = "Last"
+    bid = "Bid"
+    ask = "Ask"
+    midpoint = "Midpoint"
+    fee_rate = "FeeRate"
+    inventory = "Inventory"
 
 
 class HmdsHistoryGetParametersQuery(BaseModel):
-    conid: str = Field(..., examples=['265598'])
-    bar_type: Optional[BarType] = Field(None, alias='barType', examples=['Bid'])
-    start_time: Optional[UtcDateTime] = Field(None, alias='startTime')
-    period: str = Field(..., examples=['6d'])
-    direction: Optional[str] = Field(None, examples=['-1'])
-    bar: str = Field(..., examples=['5mins'])
-    outside_rth: Optional[bool] = Field(None, alias='outsideRth')
+    conid: str = Field(..., examples=["265598"])
+    bar_type: Optional[BarType] = Field(None, alias="barType", examples=["Bid"])
+    start_time: Optional[UtcDateTime] = Field(None, alias="startTime")
+    period: str = Field(..., examples=["6d"])
+    direction: Optional[str] = Field(None, examples=["-1"])
+    bar: str = Field(..., examples=["5mins"])
+    outside_rth: Optional[bool] = Field(None, alias="outsideRth")
 
 
 class Contract2(BaseModel):
@@ -9301,13 +9301,13 @@ class Contract2(BaseModel):
     )
     in_scan_time: Optional[str] = Field(
         None,
-        alias='inScanTime',
-        description='Returns the UTC datetime when the contract was retrieved.',
+        alias="inScanTime",
+        description="Returns the UTC datetime when the contract was retrieved.",
     )
     contract_id: Optional[int] = Field(
         None,
-        alias='contractID',
-        description='Returns a contract identifier that matches the market scanner parameters.',
+        alias="contractID",
+        description="Returns a contract identifier that matches the market scanner parameters.",
     )
 
 
@@ -9317,8 +9317,8 @@ class Contracts(BaseModel):
     )
     contract: Optional[Union[List, Contract2]] = Field(
         None,
-        alias='Contract',
-        description='Contains all contracts matching the market scanner.',
+        alias="Contract",
+        description="Contains all contracts matching the market scanner.",
     )
 
 
@@ -9328,33 +9328,33 @@ class HmdsScannerRunPostResponse(BaseModel):
     )
     total: Optional[int] = Field(
         None,
-        description='Returns the total number of bonds that match the indicated search.',
+        description="Returns the total number of bonds that match the indicated search.",
     )
     size: Optional[int] = Field(
-        None, description='Returns the total size of the return.'
+        None, description="Returns the total size of the return."
     )
     offset: Optional[int] = Field(
-        None, description='Returns the distance displaced from the starting 0 value.'
+        None, description="Returns the distance displaced from the starting 0 value."
     )
     scan_time: Optional[str] = Field(
         None,
-        alias='scanTime',
-        description='Returns the UTC datetime value of when the request took place.',
+        alias="scanTime",
+        description="Returns the UTC datetime value of when the request took place.",
     )
     id: Optional[str] = Field(
         None,
         description='Returns the market scanner name. Automatically generates an incremental scanner name for each request formatted as "scanner{ N }"',
     )
-    position: Optional[str] = Field(None, description='(Internal use only)')
+    position: Optional[str] = Field(None, description="(Internal use only)")
     warning_text: Optional[str] = Field(
         None,
-        alias='warningText',
-        description='Returns the number of contracts returned out of total contracts that match.',
+        alias="warningText",
+        description="Returns the number of contracts returned out of total contracts that match.",
     )
     contracts: Optional[Contracts] = Field(
         None,
-        alias='Contracts',
-        description='Contains a Contract array which appears to hold all contracts.',
+        alias="Contracts",
+        description="Contains a Contract array which appears to hold all contracts.",
     )
 
 
@@ -9364,18 +9364,18 @@ class IserverAccountPostRequest(BaseModel):
     )
     acct_id: Optional[str] = Field(
         None,
-        alias='acctId',
-        description='Identifier for the unique account to retrieve information from.',
-        examples=['U1234567'],
+        alias="acctId",
+        description="Identifier for the unique account to retrieve information from.",
+        examples=["U1234567"],
     )
 
 
 class Type19(Enum):
-    q = 'Q'
+    q = "Q"
 
 
 class IserverAccountAlertAlertIdGetParametersQuery(BaseModel):
-    type: Type19 = Field(..., description='queryType')
+    type: Type19 = Field(..., description="queryType")
 
 
 class IserverAccountAllocationGroupPutRequest(BaseModel):
@@ -9384,17 +9384,17 @@ class IserverAccountAllocationGroupPutRequest(BaseModel):
     )
     name: str = Field(
         ...,
-        description='Name used to refer to your allocation group. If prev_name is specified, this will become the new name of the group.',
-        examples=['Group_1_NetLiq'],
+        description="Name used to refer to your allocation group. If prev_name is specified, this will become the new name of the group.",
+        examples=["Group_1_NetLiq"],
     )
     prev_name: Optional[str] = Field(
         None,
         description='Can be used to rename a group. Using this field will recognize the previous name, while the "name" filed will mark the updated name.',
-        examples=['Group_0_NetLiq'],
+        examples=["Group_0_NetLiq"],
     )
     accounts: List = Field(
         ...,
-        description='An array of accounts that should be held in the allocation group and, if using a User-specified allocaiton method, the value correlated to the allocation.',
+        description="An array of accounts that should be held in the allocation group and, if using a User-specified allocaiton method, the value correlated to the allocation.",
     )
     default_method: AllocationMethod
 
@@ -9412,12 +9412,12 @@ class IserverAccountAllocationGroupPostRequest(BaseModel):
     )
     name: str = Field(
         ...,
-        description='Name used to refer to your allocation group. If prev_name is specified, this will become the new name of the group.',
-        examples=['Group_1_NetLiq'],
+        description="Name used to refer to your allocation group. If prev_name is specified, this will become the new name of the group.",
+        examples=["Group_1_NetLiq"],
     )
     accounts: List = Field(
         ...,
-        description='An array of accounts that should be held in the allocation group and, if using a User-specified allocaiton method, the value correlated to the allocation.',
+        description="An array of accounts that should be held in the allocation group and, if using a User-specified allocaiton method, the value correlated to the allocation.",
     )
     default_method: AllocationMethod
 
@@ -9435,8 +9435,8 @@ class IserverAccountAllocationGroupDeletePostRequest(BaseModel):
     )
     name: str = Field(
         ...,
-        description='Name of an existing allocation group.',
-        examples=['Group_1_NetLiq'],
+        description="Name of an existing allocation group.",
+        examples=["Group_1_NetLiq"],
     )
 
 
@@ -9453,8 +9453,8 @@ class IserverAccountAllocationGroupSinglePostRequest(BaseModel):
     )
     name: str = Field(
         ...,
-        description='Name of an existing allocation group.',
-        examples=['Group_1_NetLiq'],
+        description="Name of an existing allocation group.",
+        examples=["Group_1_NetLiq"],
     )
 
 
@@ -9463,7 +9463,7 @@ class IserverAccountAllocationPresetsPostResponse(BaseModel):
         populate_by_name=True,
     )
     success: Optional[bool] = Field(
-        None, description='Signifies that the request was successfully submitted.'
+        None, description="Signifies that the request was successfully submitted."
     )
 
 
@@ -9475,26 +9475,26 @@ class IserverAccountOrderStatusOrderIdGetResponse(RootModel[OrderStatus1]):
 
 
 class Filters1(Enum):
-    inactive = 'Inactive'
-    pending_submit = 'PendingSubmit'
-    pre_submitted = 'PreSubmitted'
-    submitted = 'Submitted'
-    filled = 'Filled'
-    pending_cancel = 'PendingCancel'
-    cancelled = 'Cancelled'
-    warn_state = 'WarnState'
-    sort_by_time = 'SortByTime'
+    inactive = "Inactive"
+    pending_submit = "PendingSubmit"
+    pre_submitted = "PreSubmitted"
+    submitted = "Submitted"
+    filled = "Filled"
+    pending_cancel = "PendingCancel"
+    cancelled = "Cancelled"
+    warn_state = "WarnState"
+    sort_by_time = "SortByTime"
 
 
 class IserverAccountOrdersGetParametersQuery(BaseModel):
-    filters: Optional[Filters1] = Field(None, examples=['Filled,SortByTime'])
+    filters: Optional[Filters1] = Field(None, examples=["Filled,SortByTime"])
     force: Optional[bool] = None
-    account_id: Optional[str] = Field(None, alias='accountId', examples=['DU123456'])
+    account_id: Optional[str] = Field(None, alias="accountId", examples=["DU123456"])
 
 
 class IserverAccountTradesGetParametersQuery(BaseModel):
-    days: Optional[str] = Field(None, examples=['3'])
-    account_id: Optional[str] = Field(None, alias='accountId', examples=['DU123456'])
+    days: Optional[str] = Field(None, examples=["3"])
+    account_id: Optional[str] = Field(None, alias="accountId", examples=["DU123456"])
 
 
 class IserverAccountAccountIdAlertAlertIdDeleteRequest(BaseModel):
@@ -9548,44 +9548,44 @@ class IserverContractRulesPostRequest(BaseModel):
         populate_by_name=True,
     )
     conid: Optional[int] = Field(
-        None, description='Contract identifier for the interested contract.'
+        None, description="Contract identifier for the interested contract."
     )
     is_buy: Optional[bool] = Field(
         True,
-        alias='isBuy',
-        description='Side of the market rules apply too. Set to true for Buy Orders, set to false for Sell orders.',
+        alias="isBuy",
+        description="Side of the market rules apply too. Set to true for Buy Orders, set to false for Sell orders.",
     )
     modify_order: Optional[bool] = Field(
         False,
-        alias='modifyOrder',
-        description='Used to find trading rules related to an existing order.',
+        alias="modifyOrder",
+        description="Used to find trading rules related to an existing order.",
     )
     order_id: Optional[int] = Field(
         None,
-        alias='orderId',
-        description='Specify the order identifier used for tracking a given order.',
+        alias="orderId",
+        description="Specify the order identifier used for tracking a given order.",
     )
 
 
 class Algos(Enum):
-    adaptive = 'Adaptive'
-    vwap = 'Vwap'
+    adaptive = "Adaptive"
+    vwap = "Vwap"
 
 
 class IserverContractConidAlgosGetParametersQuery(BaseModel):
     algos: Optional[Algos] = Field(
         None,
-        description='List of algo ids delimited by “;” to filter by. Max of 8 algos ids can be specified. Case sensitive to algo id.\n',
+        description="List of algo ids delimited by “;” to filter by. Max of 8 algos ids can be specified. Case sensitive to algo id.\n",
     )
     add_description: Optional[str] = Field(
-        '0',
-        alias='addDescription',
-        description='Whether or not to add algo descriptions to response. Set to 1 for yes, 0 for no.',
+        "0",
+        alias="addDescription",
+        description="Whether or not to add algo descriptions to response. Set to 1 for yes, 0 for no.",
     )
     add_params: Optional[str] = Field(
-        '0',
-        alias='addParams',
-        description='Whether or not to show algo parameters. Set to 1 for yes, 0 for no.',
+        "0",
+        alias="addParams",
+        description="Whether or not to show algo parameters. Set to 1 for yes, 0 for no.",
     )
 
 
@@ -9599,8 +9599,8 @@ class IserverContractConidInfoAndRulesGetResponse(ContractInfo):
 class IserverCurrencyPairsGetParametersQuery(BaseModel):
     currency: str = Field(
         ...,
-        description='Specify the target currency you would like to receive official pairs of.',
-        examples=['USD'],
+        description="Specify the target currency you would like to receive official pairs of.",
+        examples=["USD"],
     )
 
 
@@ -9610,22 +9610,22 @@ class IserverDynaccountPostRequest(BaseModel):
     )
     acct_id: str = Field(
         ...,
-        alias='acctId',
-        description='The account ID that should be set for future requests.',
-        examples=['U1234567'],
+        alias="acctId",
+        description="The account ID that should be set for future requests.",
+        examples=["U1234567"],
     )
 
 
 class IserverExchangerateGetParametersQuery(BaseModel):
     target: str = Field(
         ...,
-        description='Specify the quote currency to request data for.',
-        examples=['EUR'],
+        description="Specify the quote currency to request data for.",
+        examples=["EUR"],
     )
     source: str = Field(
         ...,
-        description='Specify the base currency to request data for.',
-        examples=['USD'],
+        description="Specify the base currency to request data for.",
+        examples=["USD"],
     )
 
 
@@ -9634,24 +9634,24 @@ class IserverExchangerateGetResponse(BaseModel):
         populate_by_name=True,
     )
     rate: Optional[float] = Field(
-        None, description='Returns the exchange rate for the currency pair.'
+        None, description="Returns the exchange rate for the currency pair."
     )
 
 
 class IserverMarketdataHistoryGetParametersQuery(BaseModel):
-    conid: str = Field(..., examples=['265598'])
-    exchange: Optional[str] = Field(None, examples=['NYSE'])
-    period: str = Field(..., examples=['6d'])
-    bar: str = Field(..., examples=['5mins'])
-    start_time: Optional[UtcDateTime] = Field(None, alias='startTime')
-    outside_rth: Optional[bool] = Field(None, alias='outsideRth')
+    conid: str = Field(..., examples=["265598"])
+    exchange: Optional[str] = Field(None, examples=["NYSE"])
+    period: str = Field(..., examples=["6d"])
+    bar: str = Field(..., examples=["5mins"])
+    start_time: Optional[UtcDateTime] = Field(None, alias="startTime")
+    outside_rth: Optional[bool] = Field(None, alias="outsideRth")
 
 
 class IserverMarketdataSnapshotGetParametersQuery(BaseModel):
     conids: str = Field(
         ...,
-        description='Contract identifier for the contract of interest. May provide a comma-separated series of contract identifiers.\n',
-        examples=['265598'],
+        description="Contract identifier for the contract of interest. May provide a comma-separated series of contract identifiers.\n",
+        examples=["265598"],
     )
     fields: Optional[MdFields] = None
 
@@ -9662,13 +9662,13 @@ class IserverMarketdataUnsubscribePostRequest(BaseModel):
     )
     conid: Optional[int] = Field(
         None,
-        description='The IB contract ID of the instrument whose market data feed is to be unsubscribed.',
+        description="The IB contract ID of the instrument whose market data feed is to be unsubscribed.",
         examples=[265598],
     )
 
 
 class Success(Enum):
-    true = 'true'
+    true = "true"
 
 
 class IserverMarketdataUnsubscribePostResponse(BaseModel):
@@ -9681,7 +9681,7 @@ class IserverMarketdataUnsubscribePostResponse(BaseModel):
 
 
 class Unsubscribed(Enum):
-    true = 'true'
+    true = "true"
 
 
 class IserverMarketdataUnsubscribeallGetResponse(BaseModel):
@@ -9699,20 +9699,20 @@ class IserverNotificationPostRequest(BaseModel):
     )
     order_id: Optional[int] = Field(
         None,
-        alias='orderId',
-        description='IB-assigned order identifier obtained from the ntf websocket message that delivered the server prompt.',
+        alias="orderId",
+        description="IB-assigned order identifier obtained from the ntf websocket message that delivered the server prompt.",
         examples=[987654321],
     )
     req_id: Optional[str] = Field(
         None,
-        alias='reqId',
-        description='IB-assigned request identifier obtained from the ntf websocket message that delivered the server prompt.',
-        examples=['12345'],
+        alias="reqId",
+        description="IB-assigned request identifier obtained from the ntf websocket message that delivered the server prompt.",
+        examples=["12345"],
     )
     text: Optional[str] = Field(
         None,
         description='The selected value from the "options" array delivered in the server prompt ntf websocket message.',
-        examples=['Yes'],
+        examples=["Yes"],
     )
 
 
@@ -9722,8 +9722,8 @@ class IserverQuestionsSuppressPostRequest(BaseModel):
     )
     message_ids: Optional[List[str]] = Field(
         None,
-        alias='messageIds',
-        description='Array of order reply messageId identifier strings to be suppressed.',
+        alias="messageIds",
+        description="Array of order reply messageId identifier strings to be suppressed.",
     )
 
 
@@ -9753,7 +9753,7 @@ class IserverReauthenticateGetResponse(BaseModel):
     )
     message: Optional[str] = Field(
         None,
-        description='Indicates that the reauthenticate action was performed successfully.',
+        description="Indicates that the reauthenticate action was performed successfully.",
     )
 
 
@@ -9763,7 +9763,7 @@ class IserverReplyReplyIdPostRequest(BaseModel):
     )
     confirmed: Optional[bool] = Field(
         None,
-        description='Value of true answers the question in the affirmative and proceeds with order submission.',
+        description="Value of true answers the question in the affirmative and proceeds with order submission.",
     )
 
 
@@ -9784,77 +9784,77 @@ class IserverReplyReplyIdPostResponse(
 
 class IserverSecdefBondFiltersGetParametersQuery(BaseModel):
     symbol: str = Field(
-        ..., description='This should always be set to “BOND”', examples=['BOND']
+        ..., description="This should always be set to “BOND”", examples=["BOND"]
     )
     issue_id: str = Field(
         ...,
-        alias='issueId',
-        description='Specifies the issuerId value used to designate the bond issuer type.',
-        examples=['e1400715'],
+        alias="issueId",
+        description="Specifies the issuerId value used to designate the bond issuer type.",
+        examples=["e1400715"],
     )
 
 
 class Right1(Enum):
-    c = 'C'
-    p = 'P'
+    c = "C"
+    p = "P"
 
 
 class IserverSecdefInfoGetParametersQuery(BaseModel):
     conid: Optional[str] = Field(
         None,
-        description='Contract identifier of the underlying. May also pass the final derivative conid directly.',
-        examples=['265598'],
+        description="Contract identifier of the underlying. May also pass the final derivative conid directly.",
+        examples=["265598"],
     )
     sectype: Optional[Any] = Field(
-        None, description='Security type of the requested contract of interest.'
+        None, description="Security type of the requested contract of interest."
     )
     month: Optional[Any] = Field(
-        None, description='Expiration month for the given derivative.'
+        None, description="Expiration month for the given derivative."
     )
     exchange: Optional[Any] = Field(
         None,
-        description='Designate the exchange you wish to receive information for in relation to the contract.',
+        description="Designate the exchange you wish to receive information for in relation to the contract.",
     )
     strike: Optional[Any] = Field(
-        None, description='Set the strike price for the requested contract details'
+        None, description="Set the strike price for the requested contract details"
     )
     right: Optional[Right1] = Field(
         None,
-        description='Set the right for the given contract. * `C` - for Call options. * `P` - for Put options.\n',
+        description="Set the right for the given contract. * `C` - for Call options. * `P` - for Put options.\n",
     )
     issuer_id: Optional[str] = Field(
         None,
-        alias='issuerId',
-        description='Set the issuerId for the given bond issuer type.',
-        examples=['“e1234567”'],
+        alias="issuerId",
+        description="Set the issuerId for the given bond issuer type.",
+        examples=["“e1234567”"],
     )
     filters: Optional[Any] = Field(
         None,
-        description='comma separted list of additional filters. Applicable when SecTyp is BOND',
+        description="comma separted list of additional filters. Applicable when SecTyp is BOND",
     )
 
 
 class SecType2(Enum):
-    stk = 'STK'
-    ind = 'IND'
-    bond = 'BOND'
+    stk = "STK"
+    ind = "IND"
+    bond = "BOND"
 
 
 class IserverSecdefSearchGetParametersQuery(BaseModel):
     symbol: Optional[str] = Field(
         None,
-        description='The ticker symbol, bond issuer type, or company name of the equity you are looking to trade.',
-        examples=['AAPL'],
+        description="The ticker symbol, bond issuer type, or company name of the equity you are looking to trade.",
+        examples=["AAPL"],
     )
-    sec_type: Optional[SecType2] = Field('STK', alias='secType')
+    sec_type: Optional[SecType2] = Field("STK", alias="secType")
     name: Optional[bool] = Field(
         None,
         description="Denotes if the symbol value is the ticker symbol or part of the company's name.",
     )
     more: Optional[bool] = None
-    fund: Optional[bool] = Field(None, description='fund search')
-    fund_family_conid_ex: Optional[str] = Field(None, alias='fundFamilyConidEx')
-    pattern: Optional[bool] = Field(None, description='pattern search')
+    fund: Optional[bool] = Field(None, description="fund search")
+    fund_family_conid_ex: Optional[str] = Field(None, alias="fundFamilyConidEx")
+    pattern: Optional[bool] = Field(None, description="pattern search")
     referrer: Optional[str] = None
 
 
@@ -9864,45 +9864,45 @@ class IserverSecdefSearchPostRequest(BaseModel):
     )
     symbol: str = Field(
         ...,
-        description='The ticker symbol, bond issuer type, or company name of the equity you are looking to trade.',
-        examples=['AAPL'],
+        description="The ticker symbol, bond issuer type, or company name of the equity you are looking to trade.",
+        examples=["AAPL"],
     )
     sec_type: Optional[SecType2] = Field(
-        'STK',
-        alias='secType',
-        description='Available underlying security types:\n  * `STK` - Represents an underlying as a Stock security type.\n  * `IND` - Represents an underlying as an Index security type.\n  * `BOND` - Represents an underlying as a Bond security type.\n',
+        "STK",
+        alias="secType",
+        description="Available underlying security types:\n  * `STK` - Represents an underlying as a Stock security type.\n  * `IND` - Represents an underlying as an Index security type.\n  * `BOND` - Represents an underlying as a Bond security type.\n",
     )
     name: Optional[bool] = Field(
         None,
         description="Denotes if the symbol value is the ticker symbol or part of the company's name.",
     )
     more: Optional[bool] = None
-    fund: Optional[bool] = Field(None, description='fund search')
-    fund_family_conid_ex: Optional[str] = Field(None, alias='fundFamilyConidEx')
-    pattern: Optional[bool] = Field(None, description='pattern search')
+    fund: Optional[bool] = Field(None, description="fund search")
+    fund_family_conid_ex: Optional[str] = Field(None, alias="fundFamilyConidEx")
+    pattern: Optional[bool] = Field(None, description="pattern search")
     referrer: Optional[str] = None
 
 
 class IserverSecdefStrikesGetParametersQuery(BaseModel):
     conid: str = Field(
         ...,
-        description='Contract identifier of the underlying. May also pass the final derivative conid directly.',
-        examples=['265598'],
+        description="Contract identifier of the underlying. May also pass the final derivative conid directly.",
+        examples=["265598"],
     )
     sectype: str = Field(
         ...,
-        description='Security type of the requested contract of interest.',
-        examples=['OPT'],
+        description="Security type of the requested contract of interest.",
+        examples=["OPT"],
     )
     month: str = Field(
         ...,
-        description='Expiration month for the given derivative.',
-        examples=['JAN24'],
+        description="Expiration month for the given derivative.",
+        examples=["JAN24"],
     )
     exchange: Optional[str] = Field(
-        'SMART',
-        description='Exchange from which derivatives should be retrieved from.',
-        examples=['NASDAQ'],
+        "SMART",
+        description="Exchange from which derivatives should be retrieved from.",
+        examples=["NASDAQ"],
     )
 
 
@@ -9912,16 +9912,16 @@ class IserverSecdefStrikesGetResponse(BaseModel):
     )
     call: Optional[List[float]] = Field(
         None,
-        description='Array containing a series of comma separated values representing potential call strikes for the instrument.',
+        description="Array containing a series of comma separated values representing potential call strikes for the instrument.",
     )
     put: Optional[List[float]] = Field(
         None,
-        description='Array containing a series of comma separated values representing potential put strikes for the instrument.',
+        description="Array containing a series of comma separated values representing potential put strikes for the instrument.",
     )
 
 
 class IserverWatchlistGetParametersQuery(BaseModel):
-    id: str = Field(..., examples=['1234'])
+    id: str = Field(..., examples=["1234"])
 
 
 class IserverWatchlistPostRequest(BaseModel):
@@ -9930,15 +9930,15 @@ class IserverWatchlistPostRequest(BaseModel):
     )
     id: str = Field(
         ...,
-        description='Must be a number, digits 0-9 only. Must be unique relative to other watchlist IDs.',
+        description="Must be a number, digits 0-9 only. Must be unique relative to other watchlist IDs.",
     )
     name: str = Field(
         ...,
-        description='Arbitrary human-readable name to be displayed in TWS and Client Portal.',
+        description="Arbitrary human-readable name to be displayed in TWS and Client Portal.",
     )
     rows: List = Field(
         ...,
-        description='Array of JSON objects corresponding to watchlist rows, one per instruments.',
+        description="Array of JSON objects corresponding to watchlist rows, one per instruments.",
     )
 
 
@@ -9946,35 +9946,35 @@ class IserverWatchlistPostResponse(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    id: Optional[str] = Field(None, description='The submitted watchlist ID.')
+    id: Optional[str] = Field(None, description="The submitted watchlist ID.")
     hash: Optional[str] = Field(
         None, description="IB's internal hash of the submitted watchlist."
     )
     name: Optional[str] = Field(
-        None, description='The submitted human-readable watchlist name.'
+        None, description="The submitted human-readable watchlist name."
     )
     read_only: Optional[bool] = Field(
         None,
-        alias='readOnly',
-        description='Indicates whether watchlist is write-restricted. User-created watchlists will always show false.',
+        alias="readOnly",
+        description="Indicates whether watchlist is write-restricted. User-created watchlists will always show false.",
     )
     instruments: Optional[List[str]] = Field(
         None,
-        description='Array will always be empty. Contents can be queried via GET /iserver/watchlist?id=',
+        description="Array will always be empty. Contents can be queried via GET /iserver/watchlist?id=",
         max_length=0,
     )
 
 
 class IserverWatchlistDeleteParametersQuery(BaseModel):
-    id: str = Field(..., examples=['1234'])
+    id: str = Field(..., examples=["1234"])
 
 
 class Sc(Enum):
-    user_watchlist = 'USER_WATCHLIST'
+    user_watchlist = "USER_WATCHLIST"
 
 
 class IserverWatchlistsGetParametersQuery(BaseModel):
-    sc: Optional[Sc] = Field(None, alias='SC', examples=['USER_WATCHLIST'])
+    sc: Optional[Sc] = Field(None, alias="SC", examples=["USER_WATCHLIST"])
 
 
 class LogoutPostResponse(BaseModel):
@@ -9982,12 +9982,12 @@ class LogoutPostResponse(BaseModel):
         populate_by_name=True,
     )
     status: Optional[bool] = Field(
-        None, description='Confirms that the logout action was performed successfully.'
+        None, description="Confirms that the logout action was performed successfully."
     )
 
 
 class MdRegsnapshotGetParametersQuery(BaseModel):
-    conid: str = Field(..., examples=['265598'])
+    conid: str = Field(..., examples=["265598"])
 
 
 class OauthAccessTokenPostResponse(BaseModel):
@@ -9995,14 +9995,14 @@ class OauthAccessTokenPostResponse(BaseModel):
         populate_by_name=True,
     )
     is_true: Optional[bool] = Field(
-        None, description='Indicates whether the authorizing username is paper or not.'
+        None, description="Indicates whether the authorizing username is paper or not."
     )
     oauth_token: Optional[str] = Field(
         None,
-        description='Permanent OAuth access token for the consumer with respect to the authorizing username. 20 character hex value.',
+        description="Permanent OAuth access token for the consumer with respect to the authorizing username. 20 character hex value.",
     )
     oauth_token_secret: Optional[str] = Field(
-        None, description='OAuth token secret value. Base64-encoded string.'
+        None, description="OAuth token secret value. Base64-encoded string."
     )
 
 
@@ -10012,15 +10012,15 @@ class OauthLiveSessionTokenPostResponse(BaseModel):
     )
     diffie_hellman_challenge: Optional[str] = Field(
         None,
-        description='Diffie-Hellman challenge value used to compute live session token locally by client.',
+        description="Diffie-Hellman challenge value used to compute live session token locally by client.",
     )
     live_session_token_signature: Optional[str] = Field(
         None,
-        description='Signature value used to validate successful client-side computation of live session token.',
+        description="Signature value used to validate successful client-side computation of live session token.",
     )
     live_session_token_expiration: Optional[int] = Field(
         None,
-        description='Unix timestamp in milliseconds of time of live session token computation by IB. Live session tokens are valid for 24 hours from this time.',
+        description="Unix timestamp in milliseconds of time of live session token computation by IB. Live session tokens are valid for 24 hours from this time.",
     )
 
 
@@ -10029,7 +10029,7 @@ class OauthRequestTokenPostResponse(BaseModel):
         populate_by_name=True,
     )
     oauth_token: Optional[str] = Field(
-        None, description='Temporary OAuth access token. 20 character hex value.'
+        None, description="Temporary OAuth access token. 20 character hex value."
     )
 
 
@@ -10039,20 +10039,20 @@ class PaAllperiodsPostRequest(BaseModel):
     )
     acct_ids: Optional[List[str]] = Field(
         None,
-        alias='acctIds',
-        description='An array of strings containing each account identifier to retrieve performance details for.',
+        alias="acctIds",
+        description="An array of strings containing each account identifier to retrieve performance details for.",
     )
 
 
 class Period(Enum):
-    field_1_d = '1D'
-    field_7_d = '7D'
-    mtd = 'MTD'
-    field_1_m = '1M'
-    field_3_m = '3M'
-    field_6_m = '6M'
-    field_12_m = '12M'
-    ytd = 'YTD'
+    field_1_d = "1D"
+    field_7_d = "7D"
+    mtd = "MTD"
+    field_1_m = "1M"
+    field_3_m = "3M"
+    field_6_m = "6M"
+    field_12_m = "12M"
+    ytd = "YTD"
 
 
 class PaPerformancePostRequest(BaseModel):
@@ -10061,12 +10061,12 @@ class PaPerformancePostRequest(BaseModel):
     )
     acct_ids: Optional[List] = Field(
         None,
-        alias='acctIds',
-        description='An array of strings containing each account identifier to retrieve performance details for.',
+        alias="acctIds",
+        description="An array of strings containing each account identifier to retrieve performance details for.",
     )
     period: Optional[Period] = Field(
-        '12M',
-        description='Specify the period for which the account should be analyzed. Available period lengths:\n  * `1D` - The last 24 hours.\n  * `7D` - The last 7 full days.\n  * `MTD` - Performance since the 1st of the month.\n  * `1M` - A full calendar month from the last full trade day.\n  * `3M` - 3 full calendar months from the last full trade day.\n  * `6M` - 6 full calendar months from the last full trade day.\n  * `12M` - 12 full calendar month from the last full trade day.\n  * `YTD` - Performance since January 1st.\n',
+        "12M",
+        description="Specify the period for which the account should be analyzed. Available period lengths:\n  * `1D` - The last 24 hours.\n  * `7D` - The last 7 full days.\n  * `MTD` - Performance since the 1st of the month.\n  * `1M` - A full calendar month from the last full trade day.\n  * `3M` - 3 full calendar months from the last full trade day.\n  * `6M` - 6 full calendar months from the last full trade day.\n  * `12M` - 12 full calendar month from the last full trade day.\n  * `YTD` - Performance since January 1st.\n",
     )
 
 
@@ -10076,18 +10076,18 @@ class PaTransactionsPostRequest(BaseModel):
     )
     acct_ids: Optional[List] = Field(
         None,
-        alias='acctIds',
-        description='Include each account ID as a string to receive data for.',
+        alias="acctIds",
+        description="Include each account ID as a string to receive data for.",
     )
     conids: Optional[List] = Field(
         None,
-        description='Include contract ID to receive data for.  Conids may be passed as integers or strings. Only supports one contract id at a time.\n',
+        description="Include contract ID to receive data for.  Conids may be passed as integers or strings. Only supports one contract id at a time.\n",
     )
     currency: Optional[str] = Field(
-        'USD', description='Define the currency to display price amounts with.'
+        "USD", description="Define the currency to display price amounts with."
     )
     days: Optional[int] = Field(
-        90, description='Specify the number of days to receive transaction data for.'
+        90, description="Specify the number of days to receive transaction data for."
     )
 
 
@@ -10096,7 +10096,7 @@ class PortfolioAccountsGetResponse(RootModel[List[AccountAttributes]]):
         populate_by_name=True,
     )
     root: List[AccountAttributes] = Field(
-        ..., description='Array of objects representing accounts in the structure.'
+        ..., description="Array of objects representing accounts in the structure."
     )
 
 
@@ -10117,7 +10117,7 @@ class PortfolioSubaccountsGetResponse(RootModel[List[AccountAttributes]]):
 
 
 class PortfolioAccountIdAllocationGetParametersQuery(BaseModel):
-    model: Optional[Any] = Field(None, description='model')
+    model: Optional[Any] = Field(None, description="model")
 
 
 class PortfolioAccountIdPositionsInvalidatePostResponse(BaseModel):
@@ -10126,7 +10126,7 @@ class PortfolioAccountIdPositionsInvalidatePostResponse(BaseModel):
     )
     message: Optional[str] = Field(
         None,
-        description='Indicates success or failure of request to discard cached positions.',
+        description="Indicates success or failure of request to discard cached positions.",
     )
 
 
@@ -10136,18 +10136,18 @@ class PortfolioAccountIdPositionsPageIdGetResponse(RootModel[List[IndividualPosi
     )
     root: List[IndividualPosition] = Field(
         ...,
-        description='Array of objects reflecting all positions in the given account.',
+        description="Array of objects reflecting all positions in the given account.",
     )
 
 
 class TrsrvAllConidsGetParametersQuery(BaseModel):
     exchange: str = Field(
         ...,
-        description='Exchange from which derivatives should be retrieved from.',
-        examples=['AMEX'],
+        description="Exchange from which derivatives should be retrieved from.",
+        examples=["AMEX"],
     )
     asset_class: Optional[Any] = Field(
-        'STK', alias='assetClass', description='asset class'
+        "STK", alias="assetClass", description="asset class"
     )
 
 
@@ -10156,13 +10156,13 @@ class TrsrvAllConidsGetResponseItem(BaseModel):
         populate_by_name=True,
     )
     ticker: Optional[str] = Field(
-        None, description='The ticker symbol of the contract.'
+        None, description="The ticker symbol of the contract."
     )
     conid: Optional[int] = Field(
-        None, description='The contract identifier of the returned contract.'
+        None, description="The contract identifier of the returned contract."
     )
     exchange: Optional[str] = Field(
-        None, description='The primary exchange of the returned contract.'
+        None, description="The primary exchange of the returned contract."
     )
 
 
@@ -10176,71 +10176,71 @@ class TrsrvAllConidsGetResponse(RootModel[List[TrsrvAllConidsGetResponseItem]]):
 class TrsrvFuturesGetParametersQuery(BaseModel):
     symbols: str = Field(
         ...,
-        description='Indicate the symbol(s) of the underlier you are trying to retrieve futures on. Accepts comma delimited string of symbols.',
-        examples=['ES,MES'],
+        description="Indicate the symbol(s) of the underlier you are trying to retrieve futures on. Accepts comma delimited string of symbols.",
+        examples=["ES,MES"],
     )
-    exchange: Optional[Any] = Field(None, description='exchange')
+    exchange: Optional[Any] = Field(None, description="exchange")
 
 
 class TrsrvSecdefGetParametersQuery(BaseModel):
     conids: str = Field(
         ...,
-        description='A comma separated series of contract IDs.',
-        examples=['265598,8314'],
+        description="A comma separated series of contract IDs.",
+        examples=["265598,8314"],
     )
 
 
 class AssetClass6(Enum):
-    stk = 'STK'
-    opt = 'OPT'
-    fut = 'FUT'
-    cfd = 'CFD'
-    war = 'WAR'
-    swp = 'SWP'
-    fnd = 'FND'
-    bnd = 'BND'
-    ics = 'ICS'
+    stk = "STK"
+    opt = "OPT"
+    fut = "FUT"
+    cfd = "CFD"
+    war = "WAR"
+    swp = "SWP"
+    fnd = "FND"
+    bnd = "BND"
+    ics = "ICS"
 
 
 class TrsrvSecdefScheduleGetParametersQuery(BaseModel):
     asset_class: AssetClass6 = Field(
         ...,
-        alias='assetClass',
-        description='Specify the security type of the given contract. Valid asset classes are:\n * `STK` - Stock\n * `OPT` - Option\n * `FUT` - Future\n * `CFD` - Contract for Difference\n * `WAR` - Warrant\n * `SWP` - Forex\n * `FND` - Mutual Fund\n * `BND` - Bond\n * `ICS` - Inter-Commodity Spread\n',
+        alias="assetClass",
+        description="Specify the security type of the given contract. Valid asset classes are:\n * `STK` - Stock\n * `OPT` - Option\n * `FUT` - Future\n * `CFD` - Contract for Difference\n * `WAR` - Warrant\n * `SWP` - Forex\n * `FND` - Mutual Fund\n * `BND` - Bond\n * `ICS` - Inter-Commodity Spread\n",
     )
     symbol: str = Field(
-        ..., description='Specify the symbol for your contract.', examples=['AAPL']
+        ..., description="Specify the symbol for your contract.", examples=["AAPL"]
     )
     exchange: Optional[str] = Field(
         None,
-        description='Specify the primary exchange of your contract.',
-        examples=['NASDAQ'],
+        description="Specify the primary exchange of your contract.",
+        examples=["NASDAQ"],
     )
     exchange_filter: Optional[str] = Field(
         None,
-        alias='exchangeFilter',
-        description='Specify all exchanges you want to retrieve data from.',
-        examples=['AMEX,NASDAQ,NYSE'],
+        alias="exchangeFilter",
+        description="Specify all exchanges you want to retrieve data from.",
+        examples=["AMEX,NASDAQ,NYSE"],
     )
 
 
 class TrsrvStocksGetParametersQuery(BaseModel):
     symbols: str = Field(
         ...,
-        description='Comma-separated list of stock symbols. Symbols must contain only capitalized letters.',
-        examples=['AAPL,IBKR'],
+        description="Comma-separated list of stock symbols. Symbols must contain only capitalized letters.",
+        examples=["AAPL,IBKR"],
     )
 
 
 class WsGetParametersQuery(BaseModel):
-    oauth_token: str = Field(..., examples=['a1b2c3d4'])
+    oauth_token: str = Field(..., examples=["a1b2c3d4"])
 
 
 class AccountRep(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    rep_details: Optional[List[RepDetail]] = Field(None, alias='repDetails')
+    rep_details: Optional[List[RepDetail]] = Field(None, alias="repDetails")
     included: Optional[bool] = None
 
 
@@ -10258,19 +10258,19 @@ class AccountSupportType(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    business_description: Optional[str] = Field(None, alias='businessDescription')
+    business_description: Optional[str] = Field(None, alias="businessDescription")
     primary_contributor: Optional[PrimaryContributorType] = Field(
-        None, alias='primaryContributor'
+        None, alias="primaryContributor"
     )
     administrator: Optional[AdministratorType] = None
     administrator_contact_person: Optional[AdministratorContactPersonType] = Field(
-        None, alias='administratorContactPerson'
+        None, alias="administratorContactPerson"
     )
-    owners_reside_us: Optional[bool] = Field(None, alias='ownersResideUS')
+    owners_reside_us: Optional[bool] = Field(None, alias="ownersResideUS")
     solicit_owners_reside_us: Optional[bool] = Field(
-        None, alias='solicitOwnersResideUS'
+        None, alias="solicitOwnersResideUS"
     )
-    accept_owners_reside_us: Optional[bool] = Field(None, alias='acceptOwnersResideUS')
+    accept_owners_reside_us: Optional[bool] = Field(None, alias="acceptOwnersResideUS")
     type: Optional[Type1] = None
 
 
@@ -10278,7 +10278,7 @@ class AddMiFIRData(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
     title: Optional[str] = None
     identifications: Optional[List[Identification]] = None
 
@@ -10287,16 +10287,16 @@ class AddNewUser(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
     prefix: Optional[str] = None
-    user_details: Optional[UserDetails] = Field(None, alias='userDetails')
+    user_details: Optional[UserDetails] = Field(None, alias="userDetails")
 
 
 class Answer(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    answer_details: Optional[List[AnswerDetail]] = Field(None, alias='answerDetails')
+    answer_details: Optional[List[AnswerDetail]] = Field(None, alias="answerDetails")
     detail: Optional[str] = None
     id: Optional[int] = None
 
@@ -10305,23 +10305,23 @@ class AssociatedEntity(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    entity_id: Optional[int] = Field(None, alias='entityId')
-    external_code: Optional[str] = Field(None, alias='externalCode')
+    entity_id: Optional[int] = Field(None, alias="entityId")
+    external_code: Optional[str] = Field(None, alias="externalCode")
     name: Optional[str] = None
     email: Optional[str] = None
-    organization_country: Optional[str] = Field(None, alias='organizationCountry')
+    organization_country: Optional[str] = Field(None, alias="organizationCountry")
     phones: Optional[Dict[str, str]] = None
     residence: Optional[Dict[str, str]] = None
     mailing: Optional[Dict[str, str]] = None
     associations: Optional[List[str]] = None
     identity_documents: Optional[List[Dict[str, str]]] = Field(
-        None, alias='identityDocuments'
+        None, alias="identityDocuments"
     )
     tax_treaty_details: Optional[List[Dict[str, str]]] = Field(
-        None, alias='taxTreatyDetails'
+        None, alias="taxTreatyDetails"
     )
     associated_persons: Optional[List[AssociatedPerson]] = Field(
-        None, alias='AssociatedPersons'
+        None, alias="AssociatedPersons"
     )
 
 
@@ -10329,14 +10329,14 @@ class Au10TixDetailResponse(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    start_date: Optional[datetime] = Field(None, alias='startDate')
-    expiry_date: Optional[datetime] = Field(None, alias='expiryDate')
+    start_date: Optional[datetime] = Field(None, alias="startDate")
+    expiry_date: Optional[datetime] = Field(None, alias="expiryDate")
     error: Optional[ErrorResponse] = None
-    has_error: Optional[bool] = Field(None, alias='hasError')
-    error_description: Optional[str] = Field(None, alias='errorDescription')
+    has_error: Optional[bool] = Field(None, alias="hasError")
+    error_description: Optional[str] = Field(None, alias="errorDescription")
     url: Optional[str] = None
-    external_id: Optional[str] = Field(None, alias='externalId')
-    entity_id: Optional[int] = Field(None, alias='entityId')
+    external_id: Optional[str] = Field(None, alias="externalId")
+    entity_id: Optional[int] = Field(None, alias="entityId")
     state: Optional[str] = None
 
 
@@ -10350,8 +10350,8 @@ class CommissionMarkupType(BaseModel):
     maximum: Optional[float] = None
     type: Optional[Type4] = None
     amount: Optional[float] = None
-    plus_cost: Optional[bool] = Field(None, alias='plusCost')
-    ticket_charge: Optional[float] = Field(None, alias='ticketCharge')
+    plus_cost: Optional[bool] = Field(None, alias="plusCost")
+    ticket_charge: Optional[float] = Field(None, alias="ticketCharge")
 
 
 class CommissionScheduleType(BaseModel):
@@ -10360,7 +10360,7 @@ class CommissionScheduleType(BaseModel):
     )
     markups: Optional[List[CommissionMarkupType]] = None
     pricing_structure: Optional[PricingStructure] = Field(
-        None, alias='pricingStructure'
+        None, alias="pricingStructure"
     )
 
 
@@ -10369,36 +10369,36 @@ class DepositFundsInstruction(BaseModel):
         populate_by_name=True,
     )
     client_instruction_id: float = Field(
-        ..., alias='clientInstructionId', examples=[1012983]
+        ..., alias="clientInstructionId", examples=[1012983]
     )
     account_id: constr(min_length=1, max_length=32) = Field(
-        ..., alias='accountId', examples=['U46377']
+        ..., alias="accountId", examples=["U46377"]
     )
-    currency: constr(min_length=1, max_length=3) = Field(..., examples=['USD'])
+    currency: constr(min_length=1, max_length=3) = Field(..., examples=["USD"])
     amount: PositiveFloat = Field(..., examples=[100])
     bank_instruction_method: BankInstructionMethod2 = Field(
-        ..., alias='bankInstructionMethod', examples=['WIRE']
+        ..., alias="bankInstructionMethod", examples=["WIRE"]
     )
     sending_institution: Optional[constr(min_length=0, max_length=128)] = Field(
-        None, alias='sendingInstitution', examples=['Sending Institution name']
+        None, alias="sendingInstitution", examples=["Sending Institution name"]
     )
     identifier: Optional[constr(min_length=0, max_length=64)] = Field(
-        None, examples=['indentifier']
+        None, examples=["indentifier"]
     )
     special_instruction: Optional[constr(min_length=0, max_length=128)] = Field(
-        None, alias='specialInstruction', examples=['U46377']
+        None, alias="specialInstruction", examples=["U46377"]
     )
     bank_instruction_name: Optional[constr(min_length=0, max_length=150)] = Field(
-        None, alias='bankInstructionName', examples=['Instruction']
+        None, alias="bankInstructionName", examples=["Instruction"]
     )
     sender_institution_name: Optional[constr(min_length=0, max_length=128)] = Field(
-        None, alias='senderInstitutionName', examples=['Senders Institution name']
+        None, alias="senderInstitutionName", examples=["Senders Institution name"]
     )
     ira_deposit_detail: Optional[IraDepositDetail] = Field(
-        None, alias='iraDepositDetail'
+        None, alias="iraDepositDetail"
     )
     recurring_instruction_detail: Optional[RecurringInstructionDetail] = Field(
-        None, alias='recurringInstructionDetail'
+        None, alias="recurringInstructionDetail"
     )
 
 
@@ -10406,45 +10406,45 @@ class DepositFundsPollingResult(PollingInstructionResult):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    deposit_details: Optional[DepositDetails] = Field(None, alias='depositDetails')
+    deposit_details: Optional[DepositDetails] = Field(None, alias="depositDetails")
 
 
 class DepositNotification(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    check_details: Optional[CheckDetails] = Field(None, alias='checkDetails')
-    wire_details: Optional[WireDetails] = Field(None, alias='wireDetails')
-    ach_details: Optional[ACHDetails] = Field(None, alias='achDetails')
+    check_details: Optional[CheckDetails] = Field(None, alias="checkDetails")
+    wire_details: Optional[WireDetails] = Field(None, alias="wireDetails")
+    ach_details: Optional[ACHDetails] = Field(None, alias="achDetails")
     ira_deposit_details: Optional[IRADepositDetails] = Field(
-        None, alias='iraDepositDetails'
+        None, alias="iraDepositDetails"
     )
     type: Optional[Type7] = None
     amount: Optional[float] = None
     currency: Optional[Currency] = None
-    ib_account: Optional[str] = Field(None, alias='ibAccount')
+    ib_account: Optional[str] = Field(None, alias="ibAccount")
 
 
 class Document(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    signed_by: Optional[List[str]] = Field(None, alias='signedBy')
-    attached_file: Optional[AttachedFileType] = Field(None, alias='attachedFile')
-    form_number: Optional[int] = Field(None, alias='formNumber')
-    valid_address: Optional[bool] = Field(None, alias='validAddress')
-    exec_login_timestamp: Optional[int] = Field(None, alias='execLoginTimestamp')
-    exec_timestamp: Optional[int] = Field(None, alias='execTimestamp')
-    document_type: Optional[DocumentType] = Field(None, alias='documentType')
+    signed_by: Optional[List[str]] = Field(None, alias="signedBy")
+    attached_file: Optional[AttachedFileType] = Field(None, alias="attachedFile")
+    form_number: Optional[int] = Field(None, alias="formNumber")
+    valid_address: Optional[bool] = Field(None, alias="validAddress")
+    exec_login_timestamp: Optional[int] = Field(None, alias="execLoginTimestamp")
+    exec_timestamp: Optional[int] = Field(None, alias="execTimestamp")
+    document_type: Optional[DocumentType] = Field(None, alias="documentType")
     signature: Optional[str] = None
-    external_account_id: Optional[str] = Field(None, alias='externalAccountId')
-    external_individual_id: Optional[str] = Field(None, alias='externalIndividualId')
+    external_account_id: Optional[str] = Field(None, alias="externalAccountId")
+    external_individual_id: Optional[str] = Field(None, alias="externalIndividualId")
     proof_of_identity_type: Optional[ProofOfIdentityType] = Field(
-        None, alias='proofOfIdentityType'
+        None, alias="proofOfIdentityType"
     )
-    expiration_date: Optional[date] = Field(None, alias='expirationDate')
+    expiration_date: Optional[date] = Field(None, alias="expirationDate")
     proof_of_address_type: Optional[ProofOfAddressType] = Field(
-        None, alias='proofOfAddressType'
+        None, alias="proofOfAddressType"
     )
     payload: Optional[FilePayload] = None
 
@@ -10454,8 +10454,8 @@ class DocumentSubmission(BaseModel):
         populate_by_name=True,
     )
     documents: Optional[List[Document]] = None
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
-    input_language: Optional[InputLanguage] = Field(None, alias='inputLanguage')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
+    input_language: Optional[InputLanguage] = Field(None, alias="inputLanguage")
     translation: Optional[bool] = None
 
 
@@ -10465,7 +10465,7 @@ class EligibleContractParticipant(BaseModel):
     )
     eligible_contract_participant_details: Optional[
         List[EligibleContractParticipantDetails]
-    ] = Field(None, alias='eligibleContractParticipantDetails')
+    ] = Field(None, alias="eligibleContractParticipantDetails")
     status: Optional[bool] = None
 
 
@@ -10473,7 +10473,7 @@ class EnrollInSYEP(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
     documents: Optional[List[Document]] = None
 
 
@@ -10482,42 +10482,42 @@ class ExtPositionsTransferType(BaseModel):
         populate_by_name=True,
     )
     partial_stock_positions: Optional[List[PartialStockPosition]] = Field(
-        None, alias='partialStockPositions'
+        None, alias="partialStockPositions"
     )
     partial_bond_positions: Optional[List[PartialBondPosition]] = Field(
-        None, alias='partialBondPositions'
+        None, alias="partialBondPositions"
     )
     partial_option_positions: Optional[List[PartialOptionPosition]] = Field(
-        None, alias='partialOptionPositions'
+        None, alias="partialOptionPositions"
     )
     partial_warrant_positions: Optional[List[PartialWarrantPosition]] = Field(
-        None, alias='partialWarrantPositions'
+        None, alias="partialWarrantPositions"
     )
     partial_fund_positions: Optional[List[PartialFundPosition]] = Field(
-        None, alias='partialFundPositions'
+        None, alias="partialFundPositions"
     )
     partial_cash_positions: Optional[List[PartialCashPosition]] = Field(
-        None, alias='partialCashPositions'
+        None, alias="partialCashPositions"
     )
     type: Optional[Type8] = None
-    sub_type: Optional[SubType] = Field(None, alias='subType')
-    broker_id: Optional[str] = Field(None, alias='brokerId')
-    broker_name: Optional[str] = Field(None, alias='brokerName')
-    account_at_broker: Optional[str] = Field(None, alias='accountAtBroker')
-    src_ira_type: Optional[SrcIraType] = Field(None, alias='srcIRAType')
-    margin_loan: Optional[bool] = Field(None, alias='marginLoan')
-    short_pos: Optional[bool] = Field(None, alias='shortPos')
-    option_pos: Optional[bool] = Field(None, alias='optionPos')
-    ib_account: Optional[str] = Field(None, alias='ibAccount')
-    third_party_type: Optional[str] = Field(None, alias='thirdPartyType')
+    sub_type: Optional[SubType] = Field(None, alias="subType")
+    broker_id: Optional[str] = Field(None, alias="brokerId")
+    broker_name: Optional[str] = Field(None, alias="brokerName")
+    account_at_broker: Optional[str] = Field(None, alias="accountAtBroker")
+    src_ira_type: Optional[SrcIraType] = Field(None, alias="srcIRAType")
+    margin_loan: Optional[bool] = Field(None, alias="marginLoan")
+    short_pos: Optional[bool] = Field(None, alias="shortPos")
+    option_pos: Optional[bool] = Field(None, alias="optionPos")
+    ib_account: Optional[str] = Field(None, alias="ibAccount")
+    third_party_type: Optional[str] = Field(None, alias="thirdPartyType")
     approximate_account_value: Optional[int] = Field(
-        None, alias='approximateAccountValue'
+        None, alias="approximateAccountValue"
     )
     ssn: Optional[str] = None
     ein: Optional[str] = None
     signature: Optional[str] = None
     authorize_to_remove_fund: Optional[bool] = Field(
-        None, alias='authorizeToRemoveFund'
+        None, alias="authorizeToRemoveFund"
     )
 
 
@@ -10526,26 +10526,26 @@ class FinancialInformation(BaseModel):
         populate_by_name=True,
     )
     investment_experience: Optional[List[AssetExperience]] = Field(
-        None, alias='investmentExperience'
+        None, alias="investmentExperience"
     )
     investment_objectives: Optional[List[InvestmentObjective]] = Field(
-        None, alias='investmentObjectives'
+        None, alias="investmentObjectives"
     )
     additional_sources_of_income: Optional[List[SourceOfIncomeType]] = Field(
-        None, alias='additionalSourcesOfIncome'
+        None, alias="additionalSourcesOfIncome"
     )
     sources_of_wealth: Optional[List[SourceOfWealthType]] = Field(
-        None, alias='sourcesOfWealth'
+        None, alias="sourcesOfWealth"
     )
     soi_questionnaire: Optional[SOIQuestionnaire] = Field(
-        None, alias='soiQuestionnaire'
+        None, alias="soiQuestionnaire"
     )
     questionnaires: Optional[List[QuestionnaireType]] = None
-    net_worth: Optional[float] = Field(None, alias='netWorth')
-    liquid_net_worth: Optional[float] = Field(None, alias='liquidNetWorth')
-    annual_net_income: Optional[float] = Field(None, alias='annualNetIncome')
-    total_assets: Optional[float] = Field(None, alias='totalAssets')
-    source_of_funds: Optional[str] = Field(None, alias='sourceOfFunds')
+    net_worth: Optional[float] = Field(None, alias="netWorth")
+    liquid_net_worth: Optional[float] = Field(None, alias="liquidNetWorth")
+    annual_net_income: Optional[float] = Field(None, alias="annualNetIncome")
+    total_assets: Optional[float] = Field(None, alias="totalAssets")
+    source_of_funds: Optional[str] = Field(None, alias="sourceOfFunds")
     translated: Optional[bool] = None
 
 
@@ -10553,17 +10553,17 @@ class FormDetails(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    form_number: Optional[int] = Field(None, alias='formNumber')
-    sha1_checksum: Optional[str] = Field(None, alias='sha1Checksum')
-    date_modified: Optional[datetime] = Field(None, alias='dateModified')
-    file_name: Optional[str] = Field(None, alias='fileName')
+    form_number: Optional[int] = Field(None, alias="formNumber")
+    sha1_checksum: Optional[str] = Field(None, alias="sha1Checksum")
+    date_modified: Optional[datetime] = Field(None, alias="dateModified")
+    file_name: Optional[str] = Field(None, alias="fileName")
     language: Optional[str] = None
-    form_name: Optional[str] = Field(None, alias='formName')
+    form_name: Optional[str] = Field(None, alias="formName")
     payload: Optional[FormPayload] = None
     error: Optional[ErrorResponse] = None
-    has_error: Optional[bool] = Field(None, alias='hasError')
-    error_description: Optional[str] = Field(None, alias='errorDescription')
-    file_length: Optional[int] = Field(None, alias='fileLength')
+    has_error: Optional[bool] = Field(None, alias="hasError")
+    error_description: Optional[str] = Field(None, alias="errorDescription")
+    file_length: Optional[int] = Field(None, alias="fileLength")
 
 
 class FormFileResponse(BaseModel):
@@ -10571,55 +10571,55 @@ class FormFileResponse(BaseModel):
         populate_by_name=True,
     )
     error: Optional[ErrorResponse] = None
-    has_error: Optional[bool] = Field(None, alias='hasError')
-    error_description: Optional[str] = Field(None, alias='errorDescription')
-    file_data: Optional[FileData] = Field(None, alias='fileData')
-    form_details: Optional[List[FormDetails]] = Field(None, alias='formDetails')
+    has_error: Optional[bool] = Field(None, alias="hasError")
+    error_description: Optional[str] = Field(None, alias="errorDescription")
+    file_data: Optional[FileData] = Field(None, alias="fileData")
+    form_details: Optional[List[FormDetails]] = Field(None, alias="formDetails")
 
 
 class FormW8BEN(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    local_tax_forms: Optional[List[LocalTaxForm]] = Field(None, alias='localTaxForms')
+    local_tax_forms: Optional[List[LocalTaxForm]] = Field(None, alias="localTaxForms")
     name: Optional[str] = None
     tin: Optional[str] = None
-    foreign_tax_id: Optional[str] = Field(None, alias='foreignTaxId')
+    foreign_tax_id: Optional[str] = Field(None, alias="foreignTaxId")
     tin_or_explanation_required: Optional[bool] = Field(
-        None, alias='tinOrExplanationRequired'
+        None, alias="tinOrExplanationRequired"
     )
     explanation: Optional[Explanation] = None
-    reference_number: Optional[int] = Field(None, alias='referenceNumber')
-    part29_a_country: Optional[str] = Field(None, alias='part29ACountry')
+    reference_number: Optional[int] = Field(None, alias="referenceNumber")
+    part29_a_country: Optional[str] = Field(None, alias="part29ACountry")
     cert: Optional[bool] = None
-    signature_type: Optional[SignatureType] = Field(None, alias='signatureType')
-    blank_form: Optional[bool] = Field(None, alias='blankForm')
-    tax_form_file: Optional[str] = Field(None, alias='taxFormFile')
-    proprietary_form_number: Optional[int] = Field(None, alias='proprietaryFormNumber')
-    electronic_format: Optional[bool] = Field(None, alias='electronicFormat')
-    submit_date: Optional[str] = Field(None, alias='submitDate')
+    signature_type: Optional[SignatureType] = Field(None, alias="signatureType")
+    blank_form: Optional[bool] = Field(None, alias="blankForm")
+    tax_form_file: Optional[str] = Field(None, alias="taxFormFile")
+    proprietary_form_number: Optional[int] = Field(None, alias="proprietaryFormNumber")
+    electronic_format: Optional[bool] = Field(None, alias="electronicFormat")
+    submit_date: Optional[str] = Field(None, alias="submitDate")
 
 
 class FormW9(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    local_tax_forms: Optional[List[LocalTaxForm]] = Field(None, alias='localTaxForms')
+    local_tax_forms: Optional[List[LocalTaxForm]] = Field(None, alias="localTaxForms")
     name: Optional[str] = None
-    business_name: Optional[str] = Field(None, alias='businessName')
-    customer_type: Optional[CustomerType] = Field(None, alias='customerType')
-    tax_classification: Optional[str] = Field(None, alias='taxClassification')
-    other_customer_type: Optional[str] = Field(None, alias='otherCustomerType')
+    business_name: Optional[str] = Field(None, alias="businessName")
+    customer_type: Optional[CustomerType] = Field(None, alias="customerType")
+    tax_classification: Optional[str] = Field(None, alias="taxClassification")
+    other_customer_type: Optional[str] = Field(None, alias="otherCustomerType")
     tin: Optional[str] = None
-    tin_type: Optional[TinType] = Field(None, alias='tinType')
+    tin_type: Optional[TinType] = Field(None, alias="tinType")
     cert1: Optional[bool] = None
     cert2: Optional[bool] = None
     cert3: Optional[bool] = None
     cert4: Optional[bool] = None
-    signature_type: Optional[SignatureType] = Field(None, alias='signatureType')
-    blank_form: Optional[bool] = Field(None, alias='blankForm')
-    tax_form_file: Optional[str] = Field(None, alias='taxFormFile')
-    proprietary_form_number: Optional[int] = Field(None, alias='proprietaryFormNumber')
+    signature_type: Optional[SignatureType] = Field(None, alias="signatureType")
+    blank_form: Optional[bool] = Field(None, alias="blankForm")
+    tax_form_file: Optional[str] = Field(None, alias="taxFormFile")
+    proprietary_form_number: Optional[int] = Field(None, alias="proprietaryFormNumber")
 
 
 class HighWaterMarkType(BaseModel):
@@ -10628,7 +10628,7 @@ class HighWaterMarkType(BaseModel):
     )
     hwm: Optional[HighWaterMarkConfigurationType] = None
     previous_losses: Optional[List[PreviousLossesType]] = Field(
-        None, alias='previousLosses'
+        None, alias="previousLosses"
     )
 
 
@@ -10637,9 +10637,9 @@ class IndividualTaxInformation(BaseModel):
         populate_by_name=True,
     )
     w9: Optional[FormW9] = None
-    w8_ben: Optional[FormW8BEN] = Field(None, alias='w8Ben')
+    w8_ben: Optional[FormW8BEN] = Field(None, alias="w8Ben")
     crs: Optional[FormCRS] = None
-    w8_ben_e: Optional[FormW8BENE] = Field(None, alias='w8BenE')
+    w8_ben_e: Optional[FormW8BENE] = Field(None, alias="w8BenE")
 
 
 class InstructionErrorResult(InstructionResult):
@@ -10655,10 +10655,10 @@ class InstructionPollingResponse(BaseModel):
     )
     status: float = Field(..., examples=[202])
     instruction_set_id: float = Field(
-        ..., alias='instructionSetId', examples=[-1988905739]
+        ..., alias="instructionSetId", examples=[-1988905739]
     )
     instruction_result: Optional[PollingInstructionResult] = Field(
-        None, alias='instructionResult'
+        None, alias="instructionResult"
     )
 
 
@@ -10668,10 +10668,10 @@ class InstructionResponse(BaseModel):
     )
     status: float = Field(..., examples=[202])
     instruction_set_id: float = Field(
-        ..., alias='instructionSetId', examples=[-1988905739]
+        ..., alias="instructionSetId", examples=[-1988905739]
     )
     instruction_result: Optional[InstructionResult] = Field(
-        None, alias='instructionResult'
+        None, alias="instructionResult"
     )
 
 
@@ -10684,12 +10684,12 @@ class LegalEntity(BaseModel):
     phones: Optional[List[PhoneInfo]] = None
     email: Optional[str] = None
     legal_entity_identification: Optional[LegalEntityIdentification] = Field(
-        None, alias='legalEntityIdentification'
+        None, alias="legalEntityIdentification"
     )
-    tax_residencies: Optional[List[TaxResidency]] = Field(None, alias='taxResidencies')
+    tax_residencies: Optional[List[TaxResidency]] = Field(None, alias="taxResidencies")
     id: Optional[str] = None
-    external_id: Optional[str] = Field(None, alias='externalId')
-    us_tax_resident: Optional[bool] = Field(None, alias='usTaxResident')
+    external_id: Optional[str] = Field(None, alias="externalId")
+    us_tax_resident: Optional[bool] = Field(None, alias="usTaxResident")
     translated: Optional[bool] = None
 
 
@@ -10698,10 +10698,10 @@ class ORGRegulatoryInfoType(BaseModel):
         populate_by_name=True,
     )
     public_company_info: Optional[PublicCompanyInfoType] = Field(
-        None, alias='publicCompanyInfo'
+        None, alias="publicCompanyInfo"
     )
     org_regulators: Optional[List[ORGRegulatorType]] = Field(
-        None, alias='orgRegulators'
+        None, alias="orgRegulators"
     )
     regulated: Optional[bool] = None
     public: Optional[bool] = None
@@ -10712,18 +10712,18 @@ class OrganizationIdentification(BaseModel):
         populate_by_name=True,
     )
     place_of_business_address: Optional[Address] = Field(
-        None, alias='placeOfBusinessAddress'
+        None, alias="placeOfBusinessAddress"
     )
-    mailing_address: Optional[Address] = Field(None, alias='mailingAddress')
+    mailing_address: Optional[Address] = Field(None, alias="mailingAddress")
     phones: Optional[List[PhoneInfo]] = None
     name: Optional[str] = None
-    business_description: Optional[str] = Field(None, alias='businessDescription')
-    website_address: Optional[str] = Field(None, alias='websiteAddress')
+    business_description: Optional[str] = Field(None, alias="businessDescription")
+    website_address: Optional[str] = Field(None, alias="websiteAddress")
     identification: Optional[str] = None
-    identification_country: Optional[str] = Field(None, alias='identificationCountry')
-    formation_country: Optional[str] = Field(None, alias='formationCountry')
-    formation_state: Optional[str] = Field(None, alias='formationState')
-    same_mail_address: Optional[bool] = Field(None, alias='sameMailAddress')
+    identification_country: Optional[str] = Field(None, alias="identificationCountry")
+    formation_country: Optional[str] = Field(None, alias="formationCountry")
+    formation_state: Optional[str] = Field(None, alias="formationState")
+    same_mail_address: Optional[bool] = Field(None, alias="sameMailAddress")
     translated: Optional[bool] = None
 
 
@@ -10732,7 +10732,7 @@ class ProcessDocuments(BaseModel):
         populate_by_name=True,
     )
     documents: Optional[List[Document]] = None
-    input_language: Optional[InputLanguage] = Field(None, alias='inputLanguage')
+    input_language: Optional[InputLanguage] = Field(None, alias="inputLanguage")
     translation: Optional[bool] = None
 
 
@@ -10741,11 +10741,11 @@ class ProhibitedCountryQuestionnaire(BaseModel):
         populate_by_name=True,
     )
     prohibited_questionnaire_details: Optional[List[ProhibitedQuestionnaireDetail]] = (
-        Field(None, alias='prohibitedQuestionnaireDetails')
+        Field(None, alias="prohibitedQuestionnaireDetails")
     )
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
-    external_id: Optional[str] = Field(None, alias='externalId')
-    entity_id: Optional[str] = Field(None, alias='entityId')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
+    external_id: Optional[str] = Field(None, alias="externalId")
+    entity_id: Optional[str] = Field(None, alias="entityId")
 
 
 class ProhibitedCountryQuestionnaireList(BaseModel):
@@ -10753,11 +10753,11 @@ class ProhibitedCountryQuestionnaireList(BaseModel):
         populate_by_name=True,
     )
     prohibited_questionnaire_detail: Optional[List[ProhibitedQuestionnaireDetail]] = (
-        Field(None, alias='prohibitedQuestionnaireDetail')
+        Field(None, alias="prohibitedQuestionnaireDetail")
     )
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
-    external_id: Optional[str] = Field(None, alias='externalId')
-    entity_id: Optional[str] = Field(None, alias='entityId')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
+    external_id: Optional[str] = Field(None, alias="externalId")
+    entity_id: Optional[str] = Field(None, alias="entityId")
 
 
 class QualifiedPurchaser(BaseModel):
@@ -10765,7 +10765,7 @@ class QualifiedPurchaser(BaseModel):
         populate_by_name=True,
     )
     qualified_purchaser_details: Optional[List[QualifiedPurchaserDetails]] = Field(
-        None, alias='qualifiedPurchaserDetails'
+        None, alias="qualifiedPurchaserDetails"
     )
     status: Optional[bool] = None
 
@@ -10775,7 +10775,7 @@ class QueryIRAContributionsResponse(InstructionPollingResponse):
         populate_by_name=True,
     )
     instruction_result: Optional[QueryIRAContributionsResult] = Field(
-        None, alias='instructionResult'
+        None, alias="instructionResult"
     )
 
 
@@ -10784,7 +10784,7 @@ class QueryRecentInstructionResponse(InstructionPollingResponse):
         populate_by_name=True,
     )
     instruction_result: Optional[QueryRecentInstructionResult] = Field(
-        None, alias='instructionResult'
+        None, alias="instructionResult"
     )
 
 
@@ -10793,7 +10793,7 @@ class QueryWithdrawableAmountsResponse(InstructionPollingResponse):
         populate_by_name=True,
     )
     instruction_result: Optional[QueryWithdrawableAmountsInstructionResult] = Field(
-        None, alias='instructionResult'
+        None, alias="instructionResult"
     )
 
 
@@ -10802,7 +10802,7 @@ class QueryWithdrawableAmountsWithoutOriginHoldResponse(InstructionPollingRespon
         populate_by_name=True,
     )
     instruction_result: Optional[QueryWithdrawableAmountsWithoutOriginHoldResult] = (
-        Field(None, alias='instructionResult')
+        Field(None, alias="instructionResult")
     )
 
 
@@ -10811,7 +10811,7 @@ class Questionnaire(BaseModel):
         populate_by_name=True,
     )
     answers: Optional[List[Answer]] = None
-    form_number: Optional[int] = Field(None, alias='formNumber')
+    form_number: Optional[int] = Field(None, alias="formNumber")
 
 
 class Questionnaires(BaseModel):
@@ -10819,7 +10819,7 @@ class Questionnaires(BaseModel):
         populate_by_name=True,
     )
     questionnaire: Optional[List[Questionnaire]] = None
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
 
 
 class RegulatoryInformation(BaseModel):
@@ -10827,30 +10827,30 @@ class RegulatoryInformation(BaseModel):
         populate_by_name=True,
     )
     regulatory_details: Optional[List[RegulatoryDetail]] = Field(
-        None, alias='regulatoryDetails'
+        None, alias="regulatoryDetails"
     )
     regulatory_detail: Optional[List[RegulatoryDetail]] = Field(
-        None, alias='regulatoryDetail'
+        None, alias="regulatoryDetail"
     )
     self_regulated_membership: Optional[SelfRegulatedMembershipType] = Field(
-        None, alias='selfRegulatedMembership'
+        None, alias="selfRegulatedMembership"
     )
     affiliation_details: Optional[AffiliationDetailsType] = Field(
-        None, alias='affiliationDetails'
+        None, alias="affiliationDetails"
     )
-    financial_org_types: Optional[List[str]] = Field(None, alias='financialOrgTypes')
+    financial_org_types: Optional[List[str]] = Field(None, alias="financialOrgTypes")
     org_regulatory_info: Optional[ORGRegulatoryInfoType] = Field(
-        None, alias='orgRegulatoryInfo'
+        None, alias="orgRegulatoryInfo"
     )
     aus_exposure_details: Optional[AUSExposureDetailsType] = Field(
-        None, alias='ausExposureDetails'
+        None, alias="ausExposureDetails"
     )
     controller_exchange_code: Optional[str] = Field(
-        None, alias='controllerExchangeCode'
+        None, alias="controllerExchangeCode"
     )
     political_military_diplomatic_details: Optional[
         PoliticalMilitaryDiplomaticDetailsType
-    ] = Field(None, alias='politicalMilitaryDiplomaticDetails')
+    ] = Field(None, alias="politicalMilitaryDiplomaticDetails")
     translated: Optional[bool] = None
 
 
@@ -10859,9 +10859,9 @@ class RemoveTradingPermissions(BaseModel):
         populate_by_name=True,
     )
     trading_permissions: Optional[List[TradingPermission]] = Field(
-        None, alias='tradingPermissions'
+        None, alias="tradingPermissions"
     )
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
 
 
 class SynchronousInstructionResponse(RootModel[InstructionResponse]):
@@ -10875,15 +10875,15 @@ class TaxPayerDetails(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    w8_ben: Optional[FormW8BEN] = Field(None, alias='w8Ben')
-    user_name: Optional[str] = Field(None, alias='userName')
+    w8_ben: Optional[FormW8BEN] = Field(None, alias="w8Ben")
+    user_name: Optional[str] = Field(None, alias="userName")
 
 
 class TradingInstrument2(TradingInstrumentDescription):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    currency: constr(min_length=1, max_length=3) = Field(..., examples=['USD'])
+    currency: constr(min_length=1, max_length=3) = Field(..., examples=["USD"])
 
 
 class TradingInstrument(RootModel[Union[TradingInstrument1, TradingInstrument2]]):
@@ -10899,7 +10899,7 @@ class Trust(BaseModel):
     )
     identification: Optional[TrustIdentification] = None
     regulatory_information: Optional[RegulatoryInformation] = Field(
-        None, alias='regulatoryInformation'
+        None, alias="regulatoryInformation"
     )
 
 
@@ -10908,102 +10908,102 @@ class TrusteeIndividual(BaseModel):
         populate_by_name=True,
     )
     name: Optional[IndividualName] = None
-    native_name: Optional[IndividualName] = Field(None, alias='nativeName')
-    birth_name: Optional[IndividualName] = Field(None, alias='birthName')
-    mother_maiden_name: Optional[IndividualName] = Field(None, alias='motherMaidenName')
+    native_name: Optional[IndividualName] = Field(None, alias="nativeName")
+    birth_name: Optional[IndividualName] = Field(None, alias="birthName")
+    mother_maiden_name: Optional[IndividualName] = Field(None, alias="motherMaidenName")
     date_of_birth: Optional[str] = Field(
         None,
-        alias='dateOfBirth',
-        description='Date of birth of the applicant. The applicant must be 18 years or older to open an account. <br><ul><li>If the YYY-MM-DD < 18 years error will be triggered and the account will not be created.</li><li>If YYYY-MM-DD < 21 the applicant is restricted to opening a CASH account only.</li><li>UGMA and UTMA accounts are available for minors 18 years of age or younger. An individual or entity who manages an account for a minor until that minor reaches a specific age. Available to US residents only.</li><li>This application must be opened using the front-end application which is available within the IBKR Portal.</li><li>Assets held in a single account managed by a single Custodian user.</li><li>Error will be thrown if dateOfBirth is any value other than YYYY-MM-DD.</li></ul>',
-        examples=['1990-08-14'],
+        alias="dateOfBirth",
+        description="Date of birth of the applicant. The applicant must be 18 years or older to open an account. <br><ul><li>If the YYY-MM-DD < 18 years error will be triggered and the account will not be created.</li><li>If YYYY-MM-DD < 21 the applicant is restricted to opening a CASH account only.</li><li>UGMA and UTMA accounts are available for minors 18 years of age or younger. An individual or entity who manages an account for a minor until that minor reaches a specific age. Available to US residents only.</li><li>This application must be opened using the front-end application which is available within the IBKR Portal.</li><li>Assets held in a single account managed by a single Custodian user.</li><li>Error will be thrown if dateOfBirth is any value other than YYYY-MM-DD.</li></ul>",
+        examples=["1990-08-14"],
     )
-    country_of_birth: Optional[str] = Field(None, alias='countryOfBirth')
-    city_of_birth: Optional[str] = Field(None, alias='cityOfBirth')
+    country_of_birth: Optional[str] = Field(None, alias="countryOfBirth")
+    city_of_birth: Optional[str] = Field(None, alias="cityOfBirth")
     gender: Optional[Gender] = None
-    marital_status: Optional[MaritalStatus] = Field(None, alias='maritalStatus')
-    num_dependents: Optional[int] = Field(None, alias='numDependents')
+    marital_status: Optional[MaritalStatus] = Field(None, alias="maritalStatus")
+    num_dependents: Optional[int] = Field(None, alias="numDependents")
     residence_address: Optional[ResidenceAddress] = Field(
-        None, alias='residenceAddress'
+        None, alias="residenceAddress"
     )
-    mailing_address: Optional[Address] = Field(None, alias='mailingAddress')
+    mailing_address: Optional[Address] = Field(None, alias="mailingAddress")
     phones: Optional[List[PhoneInfo]] = None
     email: Optional[str] = None
     identification: Optional[Identification] = None
-    employment_type: Optional[str] = Field(None, alias='employmentType')
+    employment_type: Optional[str] = Field(None, alias="employmentType")
     employment_details: Optional[EmploymentDetails] = Field(
-        None, alias='employmentDetails'
+        None, alias="employmentDetails"
     )
-    employee_title: Optional[str] = Field(None, alias='employeeTitle')
-    tax_residencies: Optional[List[TaxResidency]] = Field(None, alias='taxResidencies')
+    employee_title: Optional[str] = Field(None, alias="employeeTitle")
+    tax_residencies: Optional[List[TaxResidency]] = Field(None, alias="taxResidencies")
     w9: Optional[FormW9] = None
-    w8_ben: Optional[FormW8BEN] = Field(None, alias='w8Ben')
+    w8_ben: Optional[FormW8BEN] = Field(None, alias="w8Ben")
     crs: Optional[FormCRS] = None
     prohibited_country_questionnaire: Optional[ProhibitedCountryQuestionnaireList] = (
-        Field(None, alias='prohibitedCountryQuestionnaire')
+        Field(None, alias="prohibitedCountryQuestionnaire")
     )
     id: Optional[str] = None
-    external_id: Optional[str] = Field(None, alias='externalId')
-    user_id: Optional[str] = Field(None, alias='userId')
-    same_mail_address: Optional[bool] = Field(None, alias='sameMailAddress')
+    external_id: Optional[str] = Field(None, alias="externalId")
+    user_id: Optional[str] = Field(None, alias="userId")
+    same_mail_address: Optional[bool] = Field(None, alias="sameMailAddress")
     authorized_to_sign_on_behalf_of_owner: Optional[bool] = Field(
-        None, alias='authorizedToSignOnBehalfOfOwner'
+        None, alias="authorizedToSignOnBehalfOfOwner"
     )
-    authorized_trader: Optional[bool] = Field(None, alias='authorizedTrader')
-    us_tax_resident: Optional[bool] = Field(None, alias='usTaxResident')
+    authorized_trader: Optional[bool] = Field(None, alias="authorizedTrader")
+    us_tax_resident: Optional[bool] = Field(None, alias="usTaxResident")
     translated: Optional[bool] = None
-    primary_trustee: Optional[bool] = Field(None, alias='primaryTrustee')
-    nfa_registered: Optional[bool] = Field(None, alias='nfaRegistered')
-    nfa_registration_number: Optional[str] = Field(None, alias='nfaRegistrationNumber')
+    primary_trustee: Optional[bool] = Field(None, alias="primaryTrustee")
+    nfa_registered: Optional[bool] = Field(None, alias="nfaRegistered")
+    nfa_registration_number: Optional[str] = Field(None, alias="nfaRegistrationNumber")
 
 
 class UpdateCredentials(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    update_email: Optional[UpdateEmail] = Field(None, alias='updateEmail')
-    update_password: Optional[UpdatePassword] = Field(None, alias='updatePassword')
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
-    reference_user_name: Optional[str] = Field(None, alias='referenceUserName')
+    update_email: Optional[UpdateEmail] = Field(None, alias="updateEmail")
+    update_password: Optional[UpdatePassword] = Field(None, alias="updatePassword")
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
+    reference_user_name: Optional[str] = Field(None, alias="referenceUserName")
 
 
 class UpdateTaxForm(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    local_tax_forms: Optional[List[LocalTaxForm]] = Field(None, alias='localTaxForms')
-    w8_ben: Optional[FormW8BEN] = Field(None, alias='w8Ben')
-    w8_ben_e: Optional[FormW8BENE] = Field(None, alias='w8BenE')
+    local_tax_forms: Optional[List[LocalTaxForm]] = Field(None, alias="localTaxForms")
+    w8_ben: Optional[FormW8BEN] = Field(None, alias="w8Ben")
+    w8_ben_e: Optional[FormW8BENE] = Field(None, alias="w8BenE")
     w9: Optional[FormW9] = None
     translation: Optional[bool] = None
-    input_language: Optional[InputLanguage] = Field(None, alias='inputLanguage')
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
+    input_language: Optional[InputLanguage] = Field(None, alias="inputLanguage")
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
     documents: Optional[List[Document]] = None
-    entity_id: Optional[str] = Field(None, alias='entityId')
-    external_id: Optional[str] = Field(None, alias='externalId')
+    entity_id: Optional[str] = Field(None, alias="entityId")
+    external_id: Optional[str] = Field(None, alias="externalId")
 
 
 class UpdateW8BEN(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    tax_payer_details: Optional[TaxPayerDetails] = Field(None, alias='taxPayerDetails')
+    tax_payer_details: Optional[TaxPayerDetails] = Field(None, alias="taxPayerDetails")
     documents: Optional[List[Document]] = None
-    input_language: Optional[InputLanguage] = Field(None, alias='inputLanguage')
+    input_language: Optional[InputLanguage] = Field(None, alias="inputLanguage")
     translation: Optional[bool] = None
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
 
 
 class UserModel(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    user_privileges: Optional[List[UserPrivilege]] = Field(None, alias='userPrivileges')
-    md_services: Optional[List[int]] = Field(None, alias='mdServices')
+    user_privileges: Optional[List[UserPrivilege]] = Field(None, alias="userPrivileges")
+    md_services: Optional[List[int]] = Field(None, alias="mdServices")
     id: Optional[str] = None
-    external_user_id: Optional[str] = Field(None, alias='externalUserId')
-    external_individual_id: Optional[str] = Field(None, alias='externalIndividualId')
-    encrypted_password: Optional[str] = Field(None, alias='encryptedPassword')
-    encrypted_key_name: Optional[str] = Field(None, alias='encryptedKeyName')
+    external_user_id: Optional[str] = Field(None, alias="externalUserId")
+    external_individual_id: Optional[str] = Field(None, alias="externalIndividualId")
+    encrypted_password: Optional[str] = Field(None, alias="encryptedPassword")
+    encrypted_key_name: Optional[str] = Field(None, alias="encryptedKeyName")
     prefix: Optional[str] = None
 
 
@@ -11013,24 +11013,24 @@ class AllocationGroup(BaseModel):
     )
     name: Optional[str] = Field(
         None,
-        description='Name used to refer to your allocation group. This will be used while placing orders.',
+        description="Name used to refer to your allocation group. This will be used while placing orders.",
     )
     accounts: Optional[List] = Field(
         None,
-        description='Contains a series of objects depicting which accounts are involved and, for user-defined allocation methods, the distribution value for each sub-account.',
+        description="Contains a series of objects depicting which accounts are involved and, for user-defined allocation methods, the distribution value for each sub-account.",
     )
-    default_method: Optional[AllocationMethod] = 'N'
+    default_method: Optional[AllocationMethod] = "N"
 
 
 class AvailableFundsResponse(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    total: Optional[Total] = Field(None, description='total values')
-    crypto_at_paxos: Optional[Funds] = Field(None, alias='Crypto at Paxos')
+    total: Optional[Total] = Field(None, description="total values")
+    crypto_at_paxos: Optional[Funds] = Field(None, alias="Crypto at Paxos")
     commodities: Optional[Funds] = None
     securities: Optional[Securities] = Field(
-        None, description='Contains an overview of Security specific fund values.'
+        None, description="Contains an overview of Security specific fund values."
     )
 
 
@@ -11040,34 +11040,34 @@ class HmdsHistoryResponse(BaseModel):
     )
     start_time: Optional[str] = Field(
         None,
-        alias='startTime',
-        description='UTC date and time of the start (chronologically earlier) of the complete period in format YYYYMMDD-hh:mm:ss.',
+        alias="startTime",
+        description="UTC date and time of the start (chronologically earlier) of the complete period in format YYYYMMDD-hh:mm:ss.",
     )
     start_time_val: Optional[int] = Field(
         None,
-        alias='startTimeVal',
-        description='Unix timestamp of the start (chronologically earlier) of the complete period.',
+        alias="startTimeVal",
+        description="Unix timestamp of the start (chronologically earlier) of the complete period.",
     )
     end_time: Optional[str] = Field(
         None,
-        alias='endTime',
-        description='UTC date and time of the end (chronologically later) of the complete period in format YYYYMMDD-hh:mm:ss.',
+        alias="endTime",
+        description="UTC date and time of the end (chronologically later) of the complete period in format YYYYMMDD-hh:mm:ss.",
     )
     end_time_val: Optional[int] = Field(
         None,
-        alias='endTimeVal',
-        description='Unix timestamp of the end (chronologically later) of the complete period.',
+        alias="endTimeVal",
+        description="Unix timestamp of the end (chronologically later) of the complete period.",
     )
     data: Optional[List[SingleHistoricalBar]] = Field(
-        None, description='Array containing OHLC bars for the requested period.'
+        None, description="Array containing OHLC bars for the requested period."
     )
     points: Optional[int] = Field(
-        None, description='Count of the number of bars returned in the data array.'
+        None, description="Count of the number of bars returned in the data array."
     )
     mkt_data_delay: Optional[int] = Field(
         None,
-        alias='mktDataDelay',
-        description='Number of milliseconds taken to satisfy this historical data request.',
+        alias="mktDataDelay",
+        description="Number of milliseconds taken to satisfy this historical data request.",
     )
 
 
@@ -11076,21 +11076,21 @@ class IserverHistoryResponse(BaseModel):
         populate_by_name=True,
     )
     server_id: Optional[str] = Field(
-        None, alias='serverId', description='Internal use. Identifier of the request.'
+        None, alias="serverId", description="Internal use. Identifier of the request."
     )
-    symbol: Optional[str] = Field(None, description='Symbol of the request instrument.')
+    symbol: Optional[str] = Field(None, description="Symbol of the request instrument.")
     text: Optional[str] = Field(
-        None, description='Description or company name of the instrument.'
+        None, description="Description or company name of the instrument."
     )
     price_factor: Optional[int] = Field(
         None,
-        alias='priceFactor',
-        description='Internal use. Used to scale Client Portal chart Y-axis.',
+        alias="priceFactor",
+        description="Internal use. Used to scale Client Portal chart Y-axis.",
     )
     start_time: Optional[str] = Field(
         None,
-        alias='startTime',
-        description='UTC date and time of the start (chronologically earlier) of the complete period in format YYYYMMDD-hh:mm:ss.',
+        alias="startTime",
+        description="UTC date and time of the start (chronologically earlier) of the complete period in format YYYYMMDD-hh:mm:ss.",
     )
     high: Optional[str] = Field(
         None,
@@ -11101,77 +11101,77 @@ class IserverHistoryResponse(BaseModel):
         description="Internal use. Delivers lowest price value in total interval. Used for chart scaling. A string constructed as 'lowestPrice*priceFactor/totalVolume*volumeFactor/minutesFromStartTime'.",
     )
     time_period: Optional[str] = Field(
-        None, alias='timePeriod', description='The client-specified period value.'
+        None, alias="timePeriod", description="The client-specified period value."
     )
     bar_length: Optional[int] = Field(
         None,
-        alias='barLength',
-        description='The client-specified bar width, represented in seconds.',
+        alias="barLength",
+        description="The client-specified bar width, represented in seconds.",
     )
     md_availability: Optional[str] = Field(
         None,
-        alias='mdAvailability',
-        description='A three-character string reflecting the nature of available data. R = Realtime, D = Delayed, Z = Frozen, Y = Frozen Delayed, N = Not Subscribed. P = Snapshot, p = Consolidated. B = Top of book.',
+        alias="mdAvailability",
+        description="A three-character string reflecting the nature of available data. R = Realtime, D = Delayed, Z = Frozen, Y = Frozen Delayed, N = Not Subscribed. P = Snapshot, p = Consolidated. B = Top of book.",
     )
     outside_rth: Optional[bool] = Field(
         None,
-        alias='outsideRth',
-        description='Indicates whether data from outside regular trading hours is included in the response.',
+        alias="outsideRth",
+        description="Indicates whether data from outside regular trading hours is included in the response.",
     )
     trading_day_duration: Optional[int] = Field(
         None,
-        alias='tradingDayDuration',
+        alias="tradingDayDuration",
         description="Length of instrument's trading day in seconds.",
     )
     volume_factor: Optional[int] = Field(
         None,
-        alias='volumeFactor',
-        description='Internal use. Used to scale volume histograms.',
+        alias="volumeFactor",
+        description="Internal use. Used to scale volume histograms.",
     )
     price_display_rule: Optional[int] = Field(
         None,
-        alias='priceDisplayRule',
-        description='Internal use. Governs application of pricing display rule.',
+        alias="priceDisplayRule",
+        description="Internal use. Governs application of pricing display rule.",
     )
     price_display_value: Optional[str] = Field(
         None,
-        alias='priceDisplayValue',
-        description='Internal use. Governs rendering of displayed pricing.',
+        alias="priceDisplayValue",
+        description="Internal use. Governs rendering of displayed pricing.",
     )
     chart_pan_start_time: Optional[str] = Field(
         None,
-        alias='chartPanStartTime',
-        description='Internal use. UTC datetime string used to center Client Portal charts. Format YYYYMMDD-hh:mm:ss.',
+        alias="chartPanStartTime",
+        description="Internal use. UTC datetime string used to center Client Portal charts. Format YYYYMMDD-hh:mm:ss.",
     )
     direction: Optional[int] = Field(
         None,
-        description='Indicates how the period is applied in relation to the startTime. Value will always be -1, indicating that the period extends from the startTime forward into the future.',
+        description="Indicates how the period is applied in relation to the startTime. Value will always be -1, indicating that the period extends from the startTime forward into the future.",
     )
     negative_capable: Optional[bool] = Field(
         None,
-        alias='negativeCapable',
-        description='Indicates whether instrument is capable of negative pricing.',
+        alias="negativeCapable",
+        description="Indicates whether instrument is capable of negative pricing.",
     )
     message_version: Optional[int] = Field(
         None,
-        alias='messageVersion',
-        description='Internal use. Reflects the version of the response schema used.',
+        alias="messageVersion",
+        description="Internal use. Reflects the version of the response schema used.",
     )
     travel_time: Optional[int] = Field(
         None,
-        alias='travelTime',
-        description='Internal time in flight to serve the request.',
+        alias="travelTime",
+        description="Internal time in flight to serve the request.",
     )
     data: Optional[List[SingleHistoricalBar]] = Field(
-        None, description='Array containing OHLC bars for the requested period.'
+        None, description="Array containing OHLC bars for the requested period."
     )
     points: Optional[int] = Field(
-        None, description='Count of the number of bars returned in the data array.'
+        None, description="Count of the number of bars returned in the data array."
     )
     mkt_data_delay: Optional[int] = Field(
         None,
-        alias='mktDataDelay',
-        description='Number of milliseconds taken to satisfy this historical data request.',
+        alias="mktDataDelay",
+        description="Number of milliseconds taken to satisfy this historical data request.",
     )
 
 
@@ -11181,7 +11181,7 @@ class OrdersSubmissionRequest(RootModel[List[SingleOrderSubmissionRequest]]):
     )
     root: List[SingleOrderSubmissionRequest] = Field(
         ...,
-        description='Array of order tickets objects. Only one order ticket object may be submitted per request, unless constructing a bracket.',
+        description="Array of order tickets objects. Only one order ticket object may be submitted per request, unless constructing a bracket.",
     )
 
 
@@ -11193,229 +11193,229 @@ class PortfolioSummary(BaseModel):
     accountready: Optional[PortfolioSummaryValue] = None
     accounttype: Optional[PortfolioSummaryValue] = None
     accruedcash: Optional[PortfolioSummaryValue] = None
-    accruedcash_c: Optional[PortfolioSummaryValue] = Field(None, alias='accruedcash-c')
-    accruedcash_s: Optional[PortfolioSummaryValue] = Field(None, alias='accruedcash-s')
+    accruedcash_c: Optional[PortfolioSummaryValue] = Field(None, alias="accruedcash-c")
+    accruedcash_s: Optional[PortfolioSummaryValue] = Field(None, alias="accruedcash-s")
     accrueddividend: Optional[PortfolioSummaryValue] = None
     accrueddividend_c: Optional[PortfolioSummaryValue] = Field(
-        None, alias='accrueddividend-c'
+        None, alias="accrueddividend-c"
     )
     accrueddividend_s: Optional[PortfolioSummaryValue] = Field(
-        None, alias='accrueddividend-s'
+        None, alias="accrueddividend-s"
     )
     availablefunds: Optional[PortfolioSummaryValue] = None
     availablefunds_c: Optional[PortfolioSummaryValue] = Field(
-        None, alias='availablefunds-c'
+        None, alias="availablefunds-c"
     )
     availablefunds_s: Optional[PortfolioSummaryValue] = Field(
-        None, alias='availablefunds-s'
+        None, alias="availablefunds-s"
     )
     availabletotrade: Optional[PortfolioSummaryValue] = None
     availabletotrade_c: Optional[PortfolioSummaryValue] = Field(
-        None, alias='availabletotrade-c'
+        None, alias="availabletotrade-c"
     )
     availabletotrade_s: Optional[PortfolioSummaryValue] = Field(
-        None, alias='availabletotrade-s'
+        None, alias="availabletotrade-s"
     )
     availabletowithdraw: Optional[PortfolioSummaryValue] = None
     availabletowithdraw_c: Optional[PortfolioSummaryValue] = Field(
-        None, alias='availabletowithdraw-c'
+        None, alias="availabletowithdraw-c"
     )
     availabletowithdraw_s: Optional[PortfolioSummaryValue] = Field(
-        None, alias='availabletowithdraw-s'
+        None, alias="availabletowithdraw-s"
     )
     billable: Optional[PortfolioSummaryValue] = None
-    billable_c: Optional[PortfolioSummaryValue] = Field(None, alias='billable-c')
-    billable_s: Optional[PortfolioSummaryValue] = Field(None, alias='billable-s')
+    billable_c: Optional[PortfolioSummaryValue] = Field(None, alias="billable-c")
+    billable_s: Optional[PortfolioSummaryValue] = Field(None, alias="billable-s")
     buyingpower: Optional[PortfolioSummaryValue] = None
-    columnprio_c: Optional[PortfolioSummaryValue] = Field(None, alias='columnprio-c')
-    columnprio_s: Optional[PortfolioSummaryValue] = Field(None, alias='columnprio-s')
+    columnprio_c: Optional[PortfolioSummaryValue] = Field(None, alias="columnprio-c")
+    columnprio_s: Optional[PortfolioSummaryValue] = Field(None, alias="columnprio-s")
     cushion: Optional[PortfolioSummaryValue] = None
     daytradesremaining: Optional[PortfolioSummaryValue] = None
     daytradesremainingt_1: Optional[PortfolioSummaryValue] = Field(
-        None, alias='daytradesremainingt+1'
+        None, alias="daytradesremainingt+1"
     )
     daytradesremainingt_2: Optional[PortfolioSummaryValue] = Field(
-        None, alias='daytradesremainingt+2'
+        None, alias="daytradesremainingt+2"
     )
     daytradesremainingt_3: Optional[PortfolioSummaryValue] = Field(
-        None, alias='daytradesremainingt+3'
+        None, alias="daytradesremainingt+3"
     )
     daytradesremainingt_4: Optional[PortfolioSummaryValue] = Field(
-        None, alias='daytradesremainingt+4'
+        None, alias="daytradesremainingt+4"
     )
     daytradingstatus_s: Optional[PortfolioSummaryValue] = Field(
-        None, alias='daytradingstatus-s'
+        None, alias="daytradingstatus-s"
     )
     depositoncredithold: Optional[PortfolioSummaryValue] = None
     equitywithloanvalue: Optional[PortfolioSummaryValue] = None
     equitywithloanvalue_c: Optional[PortfolioSummaryValue] = Field(
-        None, alias='equitywithloanvalue-c'
+        None, alias="equitywithloanvalue-c"
     )
     equitywithloanvalue_s: Optional[PortfolioSummaryValue] = Field(
-        None, alias='equitywithloanvalue-s'
+        None, alias="equitywithloanvalue-s"
     )
     excessliquidity: Optional[PortfolioSummaryValue] = None
     excessliquidity_c: Optional[PortfolioSummaryValue] = Field(
-        None, alias='excessliquidity-c'
+        None, alias="excessliquidity-c"
     )
     excessliquidity_s: Optional[PortfolioSummaryValue] = Field(
-        None, alias='excessliquidity-s'
+        None, alias="excessliquidity-s"
     )
     fullavailablefunds: Optional[PortfolioSummaryValue] = None
     fullavailablefunds_c: Optional[PortfolioSummaryValue] = Field(
-        None, alias='fullavailablefunds-c'
+        None, alias="fullavailablefunds-c"
     )
     fullavailablefunds_s: Optional[PortfolioSummaryValue] = Field(
-        None, alias='fullavailablefunds-s'
+        None, alias="fullavailablefunds-s"
     )
     fullexcessliquidity: Optional[PortfolioSummaryValue] = None
     fullexcessliquidity_c: Optional[PortfolioSummaryValue] = Field(
-        None, alias='fullexcessliquidity-c'
+        None, alias="fullexcessliquidity-c"
     )
     fullexcessliquidity_s: Optional[PortfolioSummaryValue] = Field(
-        None, alias='fullexcessliquidity-s'
+        None, alias="fullexcessliquidity-s"
     )
     fullinitmarginreq: Optional[PortfolioSummaryValue] = None
     fullinitmarginreq_c: Optional[PortfolioSummaryValue] = Field(
-        None, alias='fullinitmarginreq-c'
+        None, alias="fullinitmarginreq-c"
     )
     fullinitmarginreq_s: Optional[PortfolioSummaryValue] = Field(
-        None, alias='fullinitmarginreq-s'
+        None, alias="fullinitmarginreq-s"
     )
     fullmaintmarginreq: Optional[PortfolioSummaryValue] = None
     fullmaintmarginreq_c: Optional[PortfolioSummaryValue] = Field(
-        None, alias='fullmaintmarginreq-c'
+        None, alias="fullmaintmarginreq-c"
     )
     fullmaintmarginreq_s: Optional[PortfolioSummaryValue] = Field(
-        None, alias='fullmaintmarginreq-s'
+        None, alias="fullmaintmarginreq-s"
     )
     grosspositionvalue: Optional[PortfolioSummaryValue] = None
     grosspositionvalue_s: Optional[PortfolioSummaryValue] = Field(
-        None, alias='grosspositionvalue-s'
+        None, alias="grosspositionvalue-s"
     )
     guarantee: Optional[PortfolioSummaryValue] = None
-    guarantee_c: Optional[PortfolioSummaryValue] = Field(None, alias='guarantee-c')
-    guarantee_s: Optional[PortfolioSummaryValue] = Field(None, alias='guarantee-s')
+    guarantee_c: Optional[PortfolioSummaryValue] = Field(None, alias="guarantee-c")
+    guarantee_s: Optional[PortfolioSummaryValue] = Field(None, alias="guarantee-s")
     highestseverity: Optional[PortfolioSummaryValue] = None
     indianstockhaircut: Optional[PortfolioSummaryValue] = None
     indianstockhaircut_c: Optional[PortfolioSummaryValue] = Field(
-        None, alias='indianstockhaircut-c'
+        None, alias="indianstockhaircut-c"
     )
     indianstockhaircut_s: Optional[PortfolioSummaryValue] = Field(
-        None, alias='indianstockhaircut-s'
+        None, alias="indianstockhaircut-s"
     )
     initmarginreq: Optional[PortfolioSummaryValue] = None
     initmarginreq_c: Optional[PortfolioSummaryValue] = Field(
-        None, alias='initmarginreq-c'
+        None, alias="initmarginreq-c"
     )
     initmarginreq_s: Optional[PortfolioSummaryValue] = Field(
-        None, alias='initmarginreq-s'
+        None, alias="initmarginreq-s"
     )
-    leverage_s: Optional[PortfolioSummaryValue] = Field(None, alias='leverage-s')
+    leverage_s: Optional[PortfolioSummaryValue] = Field(None, alias="leverage-s")
     lookaheadavailablefunds: Optional[PortfolioSummaryValue] = None
     lookaheadavailablefunds_c: Optional[PortfolioSummaryValue] = Field(
-        None, alias='lookaheadavailablefunds-c'
+        None, alias="lookaheadavailablefunds-c"
     )
     lookaheadavailablefunds_s: Optional[PortfolioSummaryValue] = Field(
-        None, alias='lookaheadavailablefunds-s'
+        None, alias="lookaheadavailablefunds-s"
     )
     lookaheadexcessliquidity: Optional[PortfolioSummaryValue] = None
     lookaheadexcessliquidity_c: Optional[PortfolioSummaryValue] = Field(
-        None, alias='lookaheadexcessliquidity-c'
+        None, alias="lookaheadexcessliquidity-c"
     )
     lookaheadexcessliquidity_s: Optional[PortfolioSummaryValue] = Field(
-        None, alias='lookaheadexcessliquidity-s'
+        None, alias="lookaheadexcessliquidity-s"
     )
     lookaheadinitmarginreq: Optional[PortfolioSummaryValue] = None
     lookaheadinitmarginreq_c: Optional[PortfolioSummaryValue] = Field(
-        None, alias='lookaheadinitmarginreq-c'
+        None, alias="lookaheadinitmarginreq-c"
     )
     lookaheadinitmarginreq_s: Optional[PortfolioSummaryValue] = Field(
-        None, alias='lookaheadinitmarginreq-s'
+        None, alias="lookaheadinitmarginreq-s"
     )
     lookaheadmaintmarginreq: Optional[PortfolioSummaryValue] = None
     lookaheadmaintmarginreq_c: Optional[PortfolioSummaryValue] = Field(
-        None, alias='lookaheadmaintmarginreq-c'
+        None, alias="lookaheadmaintmarginreq-c"
     )
     lookaheadmaintmarginreq_s: Optional[PortfolioSummaryValue] = Field(
-        None, alias='lookaheadmaintmarginreq-s'
+        None, alias="lookaheadmaintmarginreq-s"
     )
     lookaheadnextchange: Optional[PortfolioSummaryValue] = None
     maintmarginreq: Optional[PortfolioSummaryValue] = None
     maintmarginreq_c: Optional[PortfolioSummaryValue] = Field(
-        None, alias='maintmarginreq-c'
+        None, alias="maintmarginreq-c"
     )
     maintmarginreq_s: Optional[PortfolioSummaryValue] = Field(
-        None, alias='maintmarginreq-s'
+        None, alias="maintmarginreq-s"
     )
     netliquidation: Optional[PortfolioSummaryValue] = None
     netliquidation_c: Optional[PortfolioSummaryValue] = Field(
-        None, alias='netliquidation-c'
+        None, alias="netliquidation-c"
     )
     netliquidation_s: Optional[PortfolioSummaryValue] = Field(
-        None, alias='netliquidation-s'
+        None, alias="netliquidation-s"
     )
     netliquidationuncertainty: Optional[PortfolioSummaryValue] = None
     nlvandmargininreview: Optional[PortfolioSummaryValue] = None
     pasharesvalue: Optional[PortfolioSummaryValue] = None
     pasharesvalue_c: Optional[PortfolioSummaryValue] = Field(
-        None, alias='pasharesvalue-c'
+        None, alias="pasharesvalue-c"
     )
     pasharesvalue_s: Optional[PortfolioSummaryValue] = Field(
-        None, alias='pasharesvalue-s'
+        None, alias="pasharesvalue-s"
     )
     physicalcertificatevalue: Optional[PortfolioSummaryValue] = None
     physicalcertificatevalue_c: Optional[PortfolioSummaryValue] = Field(
-        None, alias='physicalcertificatevalue-c'
+        None, alias="physicalcertificatevalue-c"
     )
     physicalcertificatevalue_s: Optional[PortfolioSummaryValue] = Field(
-        None, alias='physicalcertificatevalue-s'
+        None, alias="physicalcertificatevalue-s"
     )
     postexpirationexcess: Optional[PortfolioSummaryValue] = None
     postexpirationexcess_c: Optional[PortfolioSummaryValue] = Field(
-        None, alias='postexpirationexcess-c'
+        None, alias="postexpirationexcess-c"
     )
     postexpirationexcess_s: Optional[PortfolioSummaryValue] = Field(
-        None, alias='postexpirationexcess-s'
+        None, alias="postexpirationexcess-s"
     )
     postexpirationmargin: Optional[PortfolioSummaryValue] = None
     postexpirationmargin_c: Optional[PortfolioSummaryValue] = Field(
-        None, alias='postexpirationmargin-c'
+        None, alias="postexpirationmargin-c"
     )
     postexpirationmargin_s: Optional[PortfolioSummaryValue] = Field(
-        None, alias='postexpirationmargin-s'
+        None, alias="postexpirationmargin-s"
     )
     previousdayequitywithloanvalue: Optional[PortfolioSummaryValue] = None
     previousdayequitywithloanvalue_s: Optional[PortfolioSummaryValue] = Field(
-        None, alias='previousdayequitywithloanvalue-s'
+        None, alias="previousdayequitywithloanvalue-s"
     )
     regtequity: Optional[PortfolioSummaryValue] = None
-    regtequity_s: Optional[PortfolioSummaryValue] = Field(None, alias='regtequity-s')
+    regtequity_s: Optional[PortfolioSummaryValue] = Field(None, alias="regtequity-s")
     regtmargin: Optional[PortfolioSummaryValue] = None
-    regtmargin_s: Optional[PortfolioSummaryValue] = Field(None, alias='regtmargin-s')
+    regtmargin_s: Optional[PortfolioSummaryValue] = Field(None, alias="regtmargin-s")
     segmenttitle_c: Optional[PortfolioSummaryValue] = Field(
-        None, alias='segmenttitle-c'
+        None, alias="segmenttitle-c"
     )
     segmenttitle_s: Optional[PortfolioSummaryValue] = Field(
-        None, alias='segmenttitle-s'
+        None, alias="segmenttitle-s"
     )
     sma: Optional[PortfolioSummaryValue] = None
-    sma_s: Optional[PortfolioSummaryValue] = Field(None, alias='sma-s')
+    sma_s: Optional[PortfolioSummaryValue] = Field(None, alias="sma-s")
     totalcashvalue: Optional[PortfolioSummaryValue] = None
     totalcashvalue_c: Optional[PortfolioSummaryValue] = Field(
-        None, alias='totalcashvalue-c'
+        None, alias="totalcashvalue-c"
     )
     totalcashvalue_s: Optional[PortfolioSummaryValue] = Field(
-        None, alias='totalcashvalue-s'
+        None, alias="totalcashvalue-s"
     )
     totaldebitcardpendingcharges: Optional[PortfolioSummaryValue] = None
     totaldebitcardpendingcharges_c: Optional[PortfolioSummaryValue] = Field(
-        None, alias='totaldebitcardpendingcharges-c'
+        None, alias="totaldebitcardpendingcharges-c"
     )
     totaldebitcardpendingcharges_s: Optional[PortfolioSummaryValue] = Field(
-        None, alias='totaldebitcardpendingcharges-s'
+        None, alias="totaldebitcardpendingcharges-s"
     )
-    tradingtype_s: Optional[PortfolioSummaryValue] = Field(None, alias='tradingtype-s')
+    tradingtype_s: Optional[PortfolioSummaryValue] = Field(None, alias="tradingtype-s")
     whatifpmenabled: Optional[PortfolioSummaryValue] = None
 
 
@@ -11424,7 +11424,7 @@ class SignatureAndOwners(BaseModel):
         populate_by_name=True,
     )
     account_id: Optional[str] = Field(
-        None, alias='accountId', description='Account identifier'
+        None, alias="accountId", description="Account identifier"
     )
     users: Optional[List[User]] = None
     applicant: Optional[Applicant] = None
@@ -11434,20 +11434,20 @@ class SingleWatchlist(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    id: Optional[str] = Field(None, description='Identifier of the watchlist.')
+    id: Optional[str] = Field(None, description="Identifier of the watchlist.")
     hash: Optional[str] = Field(
-        None, description='Internal use. Unique hash of the watchlist.'
+        None, description="Internal use. Unique hash of the watchlist."
     )
     name: Optional[str] = Field(
-        None, description='Human-readable display name of the watchlist.'
+        None, description="Human-readable display name of the watchlist."
     )
     read_only: Optional[bool] = Field(
         None,
-        alias='readOnly',
-        description='Indicates whether the watchlist can be edited.',
+        alias="readOnly",
+        description="Indicates whether the watchlist can be edited.",
     )
     instruments: Optional[List[SingleWatchlistEntry]] = Field(
-        None, description='Array of instruments contained in the watchlist.'
+        None, description="Array of instruments contained in the watchlist."
     )
 
 
@@ -11455,7 +11455,7 @@ class GwApiV1ExternalCashTransfersPostRequest(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    instruction_type: InstructionType6 = Field(..., alias='instructionType')
+    instruction_type: InstructionType6 = Field(..., alias="instructionType")
     instruction: Union[DepositFundsInstruction, WithdrawFundsInstruction]
 
 
@@ -11481,31 +11481,31 @@ class AccountDetailsResponse(BaseModel):
         populate_by_name=True,
     )
     error: Optional[ErrorResponse] = None
-    has_error: Optional[bool] = Field(None, alias='hasError')
-    error_description: Optional[str] = Field(None, alias='errorDescription')
+    has_error: Optional[bool] = Field(None, alias="hasError")
+    error_description: Optional[str] = Field(None, alias="errorDescription")
     account: Optional[AccountData] = None
     associated_persons: Optional[List[AssociatedPerson]] = Field(
-        None, alias='associatedPersons'
+        None, alias="associatedPersons"
     )
     associated_entities: Optional[List[AssociatedEntity]] = Field(
-        None, alias='associatedEntities'
+        None, alias="associatedEntities"
     )
     with_holding_statement: Optional[Dict[str, str]] = Field(
-        None, alias='withHoldingStatement'
+        None, alias="withHoldingStatement"
     )
-    market_data: Optional[List[Dict[str, str]]] = Field(None, alias='marketData')
+    market_data: Optional[List[Dict[str, str]]] = Field(None, alias="marketData")
     financial_information: Optional[Dict[str, Dict[str, Any]]] = Field(
-        None, alias='financialInformation'
+        None, alias="financialInformation"
     )
     sources_of_wealth: Optional[List[Dict[str, Dict[str, Any]]]] = Field(
-        None, alias='sourcesOfWealth'
+        None, alias="sourcesOfWealth"
     )
-    trade_bundles: Optional[List[str]] = Field(None, alias='tradeBundles')
+    trade_bundles: Optional[List[str]] = Field(None, alias="tradeBundles")
     individual_ira_beneficiaries: Optional[List[IndividualIRABene]] = Field(
-        None, alias='individualIRABeneficiaries'
+        None, alias="individualIRABeneficiaries"
     )
     entity_ira_beneficiaries: Optional[List[EntityIRABene]] = Field(
-        None, alias='entityIRABeneficiaries'
+        None, alias="entityIRABeneficiaries"
     )
     decedents: Optional[List[Dict[str, str]]] = None
     restrictions: Optional[List[RestrictionInfo]] = None
@@ -11516,13 +11516,13 @@ class AccreditedInvestor(BaseModel):
         populate_by_name=True,
     )
     qualified_purchaser: Optional[QualifiedPurchaser] = Field(
-        None, alias='qualifiedPurchaser'
+        None, alias="qualifiedPurchaser"
     )
     eligible_contract_participant: Optional[EligibleContractParticipant] = Field(
-        None, alias='eligibleContractParticipant'
+        None, alias="eligibleContractParticipant"
     )
-    signed_by: Optional[List[str]] = Field(None, alias='signedBy')
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
+    signed_by: Optional[List[str]] = Field(None, alias="signedBy")
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
     status: Optional[bool] = None
     signature: Optional[str] = None
 
@@ -11531,7 +11531,7 @@ class AddCLPCapability(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
     documents: Optional[List[Document]] = None
 
 
@@ -11540,12 +11540,12 @@ class AddTradingPermissions(BaseModel):
         populate_by_name=True,
     )
     trading_permissions: Optional[List[TradingPermission]] = Field(
-        None, alias='tradingPermissions'
+        None, alias="tradingPermissions"
     )
     document_submission: Optional[DocumentSubmission] = Field(
-        None, alias='documentSubmission'
+        None, alias="documentSubmission"
     )
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
 
 
 class AssociatedIndividual(BaseModel):
@@ -11553,54 +11553,54 @@ class AssociatedIndividual(BaseModel):
         populate_by_name=True,
     )
     name: Optional[IndividualName] = None
-    native_name: Optional[IndividualName] = Field(None, alias='nativeName')
-    birth_name: Optional[IndividualName] = Field(None, alias='birthName')
-    mother_maiden_name: Optional[IndividualName] = Field(None, alias='motherMaidenName')
+    native_name: Optional[IndividualName] = Field(None, alias="nativeName")
+    birth_name: Optional[IndividualName] = Field(None, alias="birthName")
+    mother_maiden_name: Optional[IndividualName] = Field(None, alias="motherMaidenName")
     date_of_birth: Optional[str] = Field(
         None,
-        alias='dateOfBirth',
-        description='Date of birth of the applicant. The applicant must be 18 years or older to open an account. <br><ul><li>If the YYY-MM-DD < 18 years error will be triggered and the account will not be created.</li><li>If YYYY-MM-DD < 21 the applicant is restricted to opening a CASH account only.</li><li>UGMA and UTMA accounts are available for minors 18 years of age or younger. An individual or entity who manages an account for a minor until that minor reaches a specific age. Available to US residents only.</li><li>This application must be opened using the front-end application which is available within the IBKR Portal.</li><li>Assets held in a single account managed by a single Custodian user.</li><li>Error will be thrown if dateOfBirth is any value other than YYYY-MM-DD.</li></ul>',
-        examples=['1990-08-14'],
+        alias="dateOfBirth",
+        description="Date of birth of the applicant. The applicant must be 18 years or older to open an account. <br><ul><li>If the YYY-MM-DD < 18 years error will be triggered and the account will not be created.</li><li>If YYYY-MM-DD < 21 the applicant is restricted to opening a CASH account only.</li><li>UGMA and UTMA accounts are available for minors 18 years of age or younger. An individual or entity who manages an account for a minor until that minor reaches a specific age. Available to US residents only.</li><li>This application must be opened using the front-end application which is available within the IBKR Portal.</li><li>Assets held in a single account managed by a single Custodian user.</li><li>Error will be thrown if dateOfBirth is any value other than YYYY-MM-DD.</li></ul>",
+        examples=["1990-08-14"],
     )
-    country_of_birth: Optional[str] = Field(None, alias='countryOfBirth')
-    city_of_birth: Optional[str] = Field(None, alias='cityOfBirth')
+    country_of_birth: Optional[str] = Field(None, alias="countryOfBirth")
+    city_of_birth: Optional[str] = Field(None, alias="cityOfBirth")
     gender: Optional[Gender] = None
-    marital_status: Optional[MaritalStatus] = Field(None, alias='maritalStatus')
-    num_dependents: Optional[int] = Field(None, alias='numDependents')
+    marital_status: Optional[MaritalStatus] = Field(None, alias="maritalStatus")
+    num_dependents: Optional[int] = Field(None, alias="numDependents")
     residence_address: Optional[ResidenceAddress] = Field(
-        None, alias='residenceAddress'
+        None, alias="residenceAddress"
     )
-    mailing_address: Optional[Address] = Field(None, alias='mailingAddress')
+    mailing_address: Optional[Address] = Field(None, alias="mailingAddress")
     phones: Optional[List[PhoneInfo]] = None
     email: Optional[str] = None
     identification: Optional[Identification] = None
-    employment_type: Optional[str] = Field(None, alias='employmentType')
+    employment_type: Optional[str] = Field(None, alias="employmentType")
     employment_details: Optional[EmploymentDetails] = Field(
-        None, alias='employmentDetails'
+        None, alias="employmentDetails"
     )
-    employee_title: Optional[str] = Field(None, alias='employeeTitle')
-    tax_residencies: Optional[List[TaxResidency]] = Field(None, alias='taxResidencies')
+    employee_title: Optional[str] = Field(None, alias="employeeTitle")
+    tax_residencies: Optional[List[TaxResidency]] = Field(None, alias="taxResidencies")
     w9: Optional[FormW9] = None
-    w8_ben: Optional[FormW8BEN] = Field(None, alias='w8Ben')
+    w8_ben: Optional[FormW8BEN] = Field(None, alias="w8Ben")
     crs: Optional[FormCRS] = None
     prohibited_country_questionnaire: Optional[ProhibitedCountryQuestionnaireList] = (
-        Field(None, alias='prohibitedCountryQuestionnaire')
+        Field(None, alias="prohibitedCountryQuestionnaire")
     )
     id: Optional[str] = None
-    external_id: Optional[str] = Field(None, alias='externalId')
-    user_id: Optional[str] = Field(None, alias='userId')
-    same_mail_address: Optional[bool] = Field(None, alias='sameMailAddress')
+    external_id: Optional[str] = Field(None, alias="externalId")
+    user_id: Optional[str] = Field(None, alias="userId")
+    same_mail_address: Optional[bool] = Field(None, alias="sameMailAddress")
     authorized_to_sign_on_behalf_of_owner: Optional[bool] = Field(
-        None, alias='authorizedToSignOnBehalfOfOwner'
+        None, alias="authorizedToSignOnBehalfOfOwner"
     )
-    authorized_trader: Optional[bool] = Field(None, alias='authorizedTrader')
-    us_tax_resident: Optional[bool] = Field(None, alias='usTaxResident')
+    authorized_trader: Optional[bool] = Field(None, alias="authorizedTrader")
+    us_tax_resident: Optional[bool] = Field(None, alias="usTaxResident")
     translated: Optional[bool] = None
-    primary_trustee: Optional[bool] = Field(None, alias='primaryTrustee')
-    ownership_percentage: Optional[float] = Field(None, alias='ownershipPercentage')
+    primary_trustee: Optional[bool] = Field(None, alias="primaryTrustee")
+    ownership_percentage: Optional[float] = Field(None, alias="ownershipPercentage")
     titles: Optional[List[Title]] = None
-    authorized_person: Optional[bool] = Field(None, alias='authorizedPerson')
-    reference_username: Optional[str] = Field(None, alias='referenceUsername')
+    authorized_person: Optional[bool] = Field(None, alias="authorizedPerson")
+    reference_username: Optional[str] = Field(None, alias="referenceUsername")
 
 
 class AssociationTypeEntities(BaseModel):
@@ -11608,7 +11608,7 @@ class AssociationTypeEntities(BaseModel):
         populate_by_name=True,
     )
     individual: Optional[List[AssociatedIndividual]] = None
-    legal_entity: Optional[List[LegalEntity]] = Field(None, alias='legalEntity')
+    legal_entity: Optional[List[LegalEntity]] = Field(None, alias="legalEntity")
 
 
 class AsynchronousInstructionResponse(RootModel[InstructionResponse]):
@@ -11623,30 +11623,30 @@ class AutomatedWrapFeeDetailsType(BaseModel):
         populate_by_name=True,
     )
     per_trade_markups: Optional[CommissionScheduleType] = Field(
-        None, alias='perTradeMarkups'
+        None, alias="perTradeMarkups"
     )
     annual_blended_percentages: Optional[List[AnnualBlendedPercentage]] = Field(
-        None, alias='annualBlendedPercentages'
+        None, alias="annualBlendedPercentages"
     )
-    nav_ranges: Optional[List[NAVRangeType]] = Field(None, alias='navRanges')
+    nav_ranges: Optional[List[NAVRangeType]] = Field(None, alias="navRanges")
     type: Optional[Type2] = None
-    max_fee: Optional[float] = Field(None, alias='maxFee')
-    num_contracts: Optional[int] = Field(None, alias='numContracts')
-    post_frequency: Optional[str] = Field(None, alias='postFrequency')
-    percent_of_nlv_cap: Optional[str] = Field(None, alias='percentOfNLVCap')
-    percent_of_nlv_cap_q: Optional[str] = Field(None, alias='percentOfNLVCapQ')
+    max_fee: Optional[float] = Field(None, alias="maxFee")
+    num_contracts: Optional[int] = Field(None, alias="numContracts")
+    post_frequency: Optional[str] = Field(None, alias="postFrequency")
+    percent_of_nlv_cap: Optional[str] = Field(None, alias="percentOfNLVCap")
+    percent_of_nlv_cap_q: Optional[str] = Field(None, alias="percentOfNLVCapQ")
 
 
 class BusinessRejectResponse(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    type: str = Field(..., examples=['/simple'])
-    title: str = Field(..., examples=['Business Error'])
+    type: str = Field(..., examples=["/simple"])
+    title: str = Field(..., examples=["Business Error"])
     status: int = Field(..., examples=[422])
-    instruction_set_id: int = Field(..., alias='instructionSetId', examples=[8389943])
+    instruction_set_id: int = Field(..., alias="instructionSetId", examples=[8389943])
     instruction_result: Optional[InstructionErrorResult] = Field(
-        None, alias='instructionResult'
+        None, alias="instructionResult"
     )
 
 
@@ -11655,12 +11655,12 @@ class ChangeAccountHolderDetail(BaseModel):
         populate_by_name=True,
     )
     new_account_holder_details: Optional[List[AssociatedIndividual]] = Field(
-        None, alias='newAccountHolderDetails'
+        None, alias="newAccountHolderDetails"
     )
     documents: Optional[DocumentSubmission] = None
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
-    reference_user_name: Optional[str] = Field(None, alias='referenceUserName')
-    input_language: Optional[InputLanguage] = Field(None, alias='inputLanguage')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
+    reference_user_name: Optional[str] = Field(None, alias="referenceUserName")
+    input_language: Optional[InputLanguage] = Field(None, alias="inputLanguage")
     translation: Optional[bool] = None
 
 
@@ -11668,10 +11668,10 @@ class ChangeFinancialInformation(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
-    reference_user_name: Optional[str] = Field(None, alias='referenceUserName')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
+    reference_user_name: Optional[str] = Field(None, alias="referenceUserName")
     new_financial_information: Optional[FinancialInformation] = Field(
-        None, alias='newFinancialInformation'
+        None, alias="newFinancialInformation"
     )
 
 
@@ -11680,10 +11680,10 @@ class ChangeMarginType(BaseModel):
         populate_by_name=True,
     )
     document_submission: Optional[DocumentSubmission] = Field(
-        None, alias='documentSubmission'
+        None, alias="documentSubmission"
     )
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
-    new_margin: Optional[str] = Field(None, alias='newMargin')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
+    new_margin: Optional[str] = Field(None, alias="newMargin")
 
 
 class ComplexAssetTransferInstruction(BaseModel):
@@ -11691,17 +11691,17 @@ class ComplexAssetTransferInstruction(BaseModel):
         populate_by_name=True,
     )
     client_instruction_id: float = Field(
-        ..., alias='clientInstructionId', examples=[1012983]
+        ..., alias="clientInstructionId", examples=[1012983]
     )
-    direction: Direction = Field(..., examples=['IN'])
+    direction: Direction = Field(..., examples=["IN"])
     account_id: constr(min_length=1, max_length=32) = Field(
-        ..., alias='accountId', examples=['U46377']
+        ..., alias="accountId", examples=["U46377"]
     )
     quantity: PositiveFloat = Field(..., examples=[1000])
-    trading_instrument: TradingInstrument = Field(..., alias='tradingInstrument')
-    contra_broker_info: ContraBrokerInfo = Field(..., alias='contraBrokerInfo')
+    trading_instrument: TradingInstrument = Field(..., alias="tradingInstrument")
+    contra_broker_info: ContraBrokerInfo = Field(..., alias="contraBrokerInfo")
     non_disclosed_detail: Optional[NonDisclosedDetail] = Field(
-        None, alias='nonDisclosedDetail'
+        None, alias="nonDisclosedDetail"
     )
 
 
@@ -11710,7 +11710,7 @@ class DepositFundsPollingResponse(InstructionPollingResponse):
         populate_by_name=True,
     )
     instruction_result: Optional[DepositFundsPollingResult] = Field(
-        None, alias='instructionResult'
+        None, alias="instructionResult"
     )
 
 
@@ -11719,27 +11719,27 @@ class DwacInstruction(BaseModel):
         populate_by_name=True,
     )
     client_instruction_id: float = Field(
-        ..., alias='clientInstructionId', examples=[1012983]
+        ..., alias="clientInstructionId", examples=[1012983]
     )
-    direction: Direction = Field(..., examples=['IN'])
+    direction: Direction = Field(..., examples=["IN"])
     account_id: constr(min_length=1, max_length=32) = Field(
-        ..., alias='accountId', examples=['U46377']
+        ..., alias="accountId", examples=["U46377"]
     )
     contra_broker_account_id: constr(min_length=1, max_length=20) = Field(
-        ..., alias='contraBrokerAccountId', examples=['12345678A']
+        ..., alias="contraBrokerAccountId", examples=["12345678A"]
     )
     contra_broker_tax_id: constr(min_length=1, max_length=25) = Field(
-        ..., alias='contraBrokerTaxId', examples=['123456789']
+        ..., alias="contraBrokerTaxId", examples=["123456789"]
     )
     quantity: PositiveFloat = Field(..., examples=[1000])
     trading_instrument: Optional[TradingInstrument] = Field(
-        None, alias='tradingInstrument'
+        None, alias="tradingInstrument"
     )
     account_title: Optional[constr(min_length=0, max_length=140)] = Field(
-        None, alias='accountTitle', examples=['Title']
+        None, alias="accountTitle", examples=["Title"]
     )
     refrence_id: Optional[constr(min_length=0, max_length=20)] = Field(
-        None, alias='refrenceId', examples=['refId']
+        None, alias="refrenceId", examples=["refId"]
     )
 
 
@@ -11748,21 +11748,21 @@ class FopInstruction(BaseModel):
         populate_by_name=True,
     )
     client_instruction_id: float = Field(
-        ..., alias='clientInstructionId', examples=[1012983]
+        ..., alias="clientInstructionId", examples=[1012983]
     )
-    direction: Direction = Field(..., examples=['IN'])
+    direction: Direction = Field(..., examples=["IN"])
     account_id: constr(min_length=1, max_length=32) = Field(
-        ..., alias='accountId', examples=['U46377']
+        ..., alias="accountId", examples=["U46377"]
     )
     contra_broker_account_id: constr(min_length=1, max_length=20) = Field(
-        ..., alias='contraBrokerAccountId', examples=['12345678A']
+        ..., alias="contraBrokerAccountId", examples=["12345678A"]
     )
     contra_broker_dtc_code: constr(min_length=1, max_length=20) = Field(
-        ..., alias='contraBrokerDtcCode', examples=['348']
+        ..., alias="contraBrokerDtcCode", examples=["348"]
     )
     quantity: PositiveFloat = Field(..., examples=[1000])
     trading_instrument: Optional[TradingInstrument] = Field(
-        None, alias='tradingInstrument'
+        None, alias="tradingInstrument"
     )
 
 
@@ -11770,15 +11770,15 @@ class ForbiddenRequestResponse(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    type: str = Field(..., examples=['/invalid-argument'])
-    title: str = Field(..., examples=['Bad Request'])
+    type: str = Field(..., examples=["/invalid-argument"])
+    title: str = Field(..., examples=["Bad Request"])
     status: int = Field(..., examples=[400])
     detail: str = Field(
         ...,
         examples=["Input is not a JSON Object or doesn't contain all expected fields"],
     )
-    instruction_set_id: int = Field(..., alias='instructionSetId', examples=[8389943])
-    instruction_result: InstructionErrorResult = Field(..., alias='instructionResult')
+    instruction_set_id: int = Field(..., alias="instructionSetId", examples=[8389943])
+    instruction_result: InstructionErrorResult = Field(..., alias="instructionResult")
 
 
 class IRAContingentBeneficiary(BaseModel):
@@ -11786,51 +11786,51 @@ class IRAContingentBeneficiary(BaseModel):
         populate_by_name=True,
     )
     name: Optional[IndividualName] = None
-    native_name: Optional[IndividualName] = Field(None, alias='nativeName')
-    birth_name: Optional[IndividualName] = Field(None, alias='birthName')
-    mother_maiden_name: Optional[IndividualName] = Field(None, alias='motherMaidenName')
+    native_name: Optional[IndividualName] = Field(None, alias="nativeName")
+    birth_name: Optional[IndividualName] = Field(None, alias="birthName")
+    mother_maiden_name: Optional[IndividualName] = Field(None, alias="motherMaidenName")
     date_of_birth: Optional[str] = Field(
         None,
-        alias='dateOfBirth',
-        description='Date of birth of the applicant. The applicant must be 18 years or older to open an account. <br><ul><li>If the YYY-MM-DD < 18 years error will be triggered and the account will not be created.</li><li>If YYYY-MM-DD < 21 the applicant is restricted to opening a CASH account only.</li><li>UGMA and UTMA accounts are available for minors 18 years of age or younger. An individual or entity who manages an account for a minor until that minor reaches a specific age. Available to US residents only.</li><li>This application must be opened using the front-end application which is available within the IBKR Portal.</li><li>Assets held in a single account managed by a single Custodian user.</li><li>Error will be thrown if dateOfBirth is any value other than YYYY-MM-DD.</li></ul>',
-        examples=['1990-08-14'],
+        alias="dateOfBirth",
+        description="Date of birth of the applicant. The applicant must be 18 years or older to open an account. <br><ul><li>If the YYY-MM-DD < 18 years error will be triggered and the account will not be created.</li><li>If YYYY-MM-DD < 21 the applicant is restricted to opening a CASH account only.</li><li>UGMA and UTMA accounts are available for minors 18 years of age or younger. An individual or entity who manages an account for a minor until that minor reaches a specific age. Available to US residents only.</li><li>This application must be opened using the front-end application which is available within the IBKR Portal.</li><li>Assets held in a single account managed by a single Custodian user.</li><li>Error will be thrown if dateOfBirth is any value other than YYYY-MM-DD.</li></ul>",
+        examples=["1990-08-14"],
     )
-    country_of_birth: Optional[str] = Field(None, alias='countryOfBirth')
-    city_of_birth: Optional[str] = Field(None, alias='cityOfBirth')
+    country_of_birth: Optional[str] = Field(None, alias="countryOfBirth")
+    city_of_birth: Optional[str] = Field(None, alias="cityOfBirth")
     gender: Optional[Gender] = None
-    marital_status: Optional[MaritalStatus] = Field(None, alias='maritalStatus')
-    num_dependents: Optional[int] = Field(None, alias='numDependents')
+    marital_status: Optional[MaritalStatus] = Field(None, alias="maritalStatus")
+    num_dependents: Optional[int] = Field(None, alias="numDependents")
     residence_address: Optional[ResidenceAddress] = Field(
-        None, alias='residenceAddress'
+        None, alias="residenceAddress"
     )
-    mailing_address: Optional[Address] = Field(None, alias='mailingAddress')
+    mailing_address: Optional[Address] = Field(None, alias="mailingAddress")
     phones: Optional[List[PhoneInfo]] = None
     email: Optional[str] = None
     identification: Optional[Identification] = None
-    employment_type: Optional[str] = Field(None, alias='employmentType')
+    employment_type: Optional[str] = Field(None, alias="employmentType")
     employment_details: Optional[EmploymentDetails] = Field(
-        None, alias='employmentDetails'
+        None, alias="employmentDetails"
     )
-    employee_title: Optional[str] = Field(None, alias='employeeTitle')
-    tax_residencies: Optional[List[TaxResidency]] = Field(None, alias='taxResidencies')
+    employee_title: Optional[str] = Field(None, alias="employeeTitle")
+    tax_residencies: Optional[List[TaxResidency]] = Field(None, alias="taxResidencies")
     w9: Optional[FormW9] = None
-    w8_ben: Optional[FormW8BEN] = Field(None, alias='w8Ben')
+    w8_ben: Optional[FormW8BEN] = Field(None, alias="w8Ben")
     crs: Optional[FormCRS] = None
     prohibited_country_questionnaire: Optional[ProhibitedCountryQuestionnaireList] = (
-        Field(None, alias='prohibitedCountryQuestionnaire')
+        Field(None, alias="prohibitedCountryQuestionnaire")
     )
     id: Optional[str] = None
-    external_id: Optional[str] = Field(None, alias='externalId')
-    user_id: Optional[str] = Field(None, alias='userId')
-    same_mail_address: Optional[bool] = Field(None, alias='sameMailAddress')
+    external_id: Optional[str] = Field(None, alias="externalId")
+    user_id: Optional[str] = Field(None, alias="userId")
+    same_mail_address: Optional[bool] = Field(None, alias="sameMailAddress")
     authorized_to_sign_on_behalf_of_owner: Optional[bool] = Field(
-        None, alias='authorizedToSignOnBehalfOfOwner'
+        None, alias="authorizedToSignOnBehalfOfOwner"
     )
-    authorized_trader: Optional[bool] = Field(None, alias='authorizedTrader')
-    us_tax_resident: Optional[bool] = Field(None, alias='usTaxResident')
+    authorized_trader: Optional[bool] = Field(None, alias="authorizedTrader")
+    us_tax_resident: Optional[bool] = Field(None, alias="usTaxResident")
     translated: Optional[bool] = None
-    primary_trustee: Optional[bool] = Field(None, alias='primaryTrustee')
-    ownership_percentage: Optional[float] = Field(None, alias='ownershipPercentage')
+    primary_trustee: Optional[bool] = Field(None, alias="primaryTrustee")
+    ownership_percentage: Optional[float] = Field(None, alias="ownershipPercentage")
     title: Optional[Title] = None
     relationship: Optional[Relationship] = None
 
@@ -11840,53 +11840,53 @@ class IRADecedent(BaseModel):
         populate_by_name=True,
     )
     name: Optional[IndividualName] = None
-    native_name: Optional[IndividualName] = Field(None, alias='nativeName')
-    birth_name: Optional[IndividualName] = Field(None, alias='birthName')
-    mother_maiden_name: Optional[IndividualName] = Field(None, alias='motherMaidenName')
+    native_name: Optional[IndividualName] = Field(None, alias="nativeName")
+    birth_name: Optional[IndividualName] = Field(None, alias="birthName")
+    mother_maiden_name: Optional[IndividualName] = Field(None, alias="motherMaidenName")
     date_of_birth: Optional[str] = Field(
         None,
-        alias='dateOfBirth',
-        description='Date of birth of the applicant. The applicant must be 18 years or older to open an account. <br><ul><li>If the YYY-MM-DD < 18 years error will be triggered and the account will not be created.</li><li>If YYYY-MM-DD < 21 the applicant is restricted to opening a CASH account only.</li><li>UGMA and UTMA accounts are available for minors 18 years of age or younger. An individual or entity who manages an account for a minor until that minor reaches a specific age. Available to US residents only.</li><li>This application must be opened using the front-end application which is available within the IBKR Portal.</li><li>Assets held in a single account managed by a single Custodian user.</li><li>Error will be thrown if dateOfBirth is any value other than YYYY-MM-DD.</li></ul>',
-        examples=['1990-08-14'],
+        alias="dateOfBirth",
+        description="Date of birth of the applicant. The applicant must be 18 years or older to open an account. <br><ul><li>If the YYY-MM-DD < 18 years error will be triggered and the account will not be created.</li><li>If YYYY-MM-DD < 21 the applicant is restricted to opening a CASH account only.</li><li>UGMA and UTMA accounts are available for minors 18 years of age or younger. An individual or entity who manages an account for a minor until that minor reaches a specific age. Available to US residents only.</li><li>This application must be opened using the front-end application which is available within the IBKR Portal.</li><li>Assets held in a single account managed by a single Custodian user.</li><li>Error will be thrown if dateOfBirth is any value other than YYYY-MM-DD.</li></ul>",
+        examples=["1990-08-14"],
     )
-    country_of_birth: Optional[str] = Field(None, alias='countryOfBirth')
-    city_of_birth: Optional[str] = Field(None, alias='cityOfBirth')
+    country_of_birth: Optional[str] = Field(None, alias="countryOfBirth")
+    city_of_birth: Optional[str] = Field(None, alias="cityOfBirth")
     gender: Optional[Gender] = None
-    marital_status: Optional[MaritalStatus] = Field(None, alias='maritalStatus')
-    num_dependents: Optional[int] = Field(None, alias='numDependents')
+    marital_status: Optional[MaritalStatus] = Field(None, alias="maritalStatus")
+    num_dependents: Optional[int] = Field(None, alias="numDependents")
     residence_address: Optional[ResidenceAddress] = Field(
-        None, alias='residenceAddress'
+        None, alias="residenceAddress"
     )
-    mailing_address: Optional[Address] = Field(None, alias='mailingAddress')
+    mailing_address: Optional[Address] = Field(None, alias="mailingAddress")
     phones: Optional[List[PhoneInfo]] = None
     email: Optional[str] = None
     identification: Optional[Identification] = None
-    employment_type: Optional[str] = Field(None, alias='employmentType')
+    employment_type: Optional[str] = Field(None, alias="employmentType")
     employment_details: Optional[EmploymentDetails] = Field(
-        None, alias='employmentDetails'
+        None, alias="employmentDetails"
     )
-    employee_title: Optional[str] = Field(None, alias='employeeTitle')
-    tax_residencies: Optional[List[TaxResidency]] = Field(None, alias='taxResidencies')
+    employee_title: Optional[str] = Field(None, alias="employeeTitle")
+    tax_residencies: Optional[List[TaxResidency]] = Field(None, alias="taxResidencies")
     w9: Optional[FormW9] = None
-    w8_ben: Optional[FormW8BEN] = Field(None, alias='w8Ben')
+    w8_ben: Optional[FormW8BEN] = Field(None, alias="w8Ben")
     crs: Optional[FormCRS] = None
     prohibited_country_questionnaire: Optional[ProhibitedCountryQuestionnaireList] = (
-        Field(None, alias='prohibitedCountryQuestionnaire')
+        Field(None, alias="prohibitedCountryQuestionnaire")
     )
     id: Optional[str] = None
-    external_id: Optional[str] = Field(None, alias='externalId')
-    user_id: Optional[str] = Field(None, alias='userId')
-    same_mail_address: Optional[bool] = Field(None, alias='sameMailAddress')
+    external_id: Optional[str] = Field(None, alias="externalId")
+    user_id: Optional[str] = Field(None, alias="userId")
+    same_mail_address: Optional[bool] = Field(None, alias="sameMailAddress")
     authorized_to_sign_on_behalf_of_owner: Optional[bool] = Field(
-        None, alias='authorizedToSignOnBehalfOfOwner'
+        None, alias="authorizedToSignOnBehalfOfOwner"
     )
-    authorized_trader: Optional[bool] = Field(None, alias='authorizedTrader')
-    us_tax_resident: Optional[bool] = Field(None, alias='usTaxResident')
+    authorized_trader: Optional[bool] = Field(None, alias="authorizedTrader")
+    us_tax_resident: Optional[bool] = Field(None, alias="usTaxResident")
     translated: Optional[bool] = None
-    primary_trustee: Optional[bool] = Field(None, alias='primaryTrustee')
-    date_of_death: Optional[date] = Field(None, alias='dateOfDeath')
+    primary_trustee: Optional[bool] = Field(None, alias="primaryTrustee")
+    date_of_death: Optional[date] = Field(None, alias="dateOfDeath")
     title: Optional[Title] = None
-    inheritor_type: Optional[InheritorType] = Field(None, alias='inheritorType')
+    inheritor_type: Optional[InheritorType] = Field(None, alias="inheritorType")
     relationship: Optional[Relationship2] = None
 
 
@@ -11895,51 +11895,51 @@ class IRAPrimaryBeneficiary(BaseModel):
         populate_by_name=True,
     )
     name: Optional[IndividualName] = None
-    native_name: Optional[IndividualName] = Field(None, alias='nativeName')
-    birth_name: Optional[IndividualName] = Field(None, alias='birthName')
-    mother_maiden_name: Optional[IndividualName] = Field(None, alias='motherMaidenName')
+    native_name: Optional[IndividualName] = Field(None, alias="nativeName")
+    birth_name: Optional[IndividualName] = Field(None, alias="birthName")
+    mother_maiden_name: Optional[IndividualName] = Field(None, alias="motherMaidenName")
     date_of_birth: Optional[str] = Field(
         None,
-        alias='dateOfBirth',
-        description='Date of birth of the applicant. The applicant must be 18 years or older to open an account. <br><ul><li>If the YYY-MM-DD < 18 years error will be triggered and the account will not be created.</li><li>If YYYY-MM-DD < 21 the applicant is restricted to opening a CASH account only.</li><li>UGMA and UTMA accounts are available for minors 18 years of age or younger. An individual or entity who manages an account for a minor until that minor reaches a specific age. Available to US residents only.</li><li>This application must be opened using the front-end application which is available within the IBKR Portal.</li><li>Assets held in a single account managed by a single Custodian user.</li><li>Error will be thrown if dateOfBirth is any value other than YYYY-MM-DD.</li></ul>',
-        examples=['1990-08-14'],
+        alias="dateOfBirth",
+        description="Date of birth of the applicant. The applicant must be 18 years or older to open an account. <br><ul><li>If the YYY-MM-DD < 18 years error will be triggered and the account will not be created.</li><li>If YYYY-MM-DD < 21 the applicant is restricted to opening a CASH account only.</li><li>UGMA and UTMA accounts are available for minors 18 years of age or younger. An individual or entity who manages an account for a minor until that minor reaches a specific age. Available to US residents only.</li><li>This application must be opened using the front-end application which is available within the IBKR Portal.</li><li>Assets held in a single account managed by a single Custodian user.</li><li>Error will be thrown if dateOfBirth is any value other than YYYY-MM-DD.</li></ul>",
+        examples=["1990-08-14"],
     )
-    country_of_birth: Optional[str] = Field(None, alias='countryOfBirth')
-    city_of_birth: Optional[str] = Field(None, alias='cityOfBirth')
+    country_of_birth: Optional[str] = Field(None, alias="countryOfBirth")
+    city_of_birth: Optional[str] = Field(None, alias="cityOfBirth")
     gender: Optional[Gender] = None
-    marital_status: Optional[MaritalStatus] = Field(None, alias='maritalStatus')
-    num_dependents: Optional[int] = Field(None, alias='numDependents')
+    marital_status: Optional[MaritalStatus] = Field(None, alias="maritalStatus")
+    num_dependents: Optional[int] = Field(None, alias="numDependents")
     residence_address: Optional[ResidenceAddress] = Field(
-        None, alias='residenceAddress'
+        None, alias="residenceAddress"
     )
-    mailing_address: Optional[Address] = Field(None, alias='mailingAddress')
+    mailing_address: Optional[Address] = Field(None, alias="mailingAddress")
     phones: Optional[List[PhoneInfo]] = None
     email: Optional[str] = None
     identification: Optional[Identification] = None
-    employment_type: Optional[str] = Field(None, alias='employmentType')
+    employment_type: Optional[str] = Field(None, alias="employmentType")
     employment_details: Optional[EmploymentDetails] = Field(
-        None, alias='employmentDetails'
+        None, alias="employmentDetails"
     )
-    employee_title: Optional[str] = Field(None, alias='employeeTitle')
-    tax_residencies: Optional[List[TaxResidency]] = Field(None, alias='taxResidencies')
+    employee_title: Optional[str] = Field(None, alias="employeeTitle")
+    tax_residencies: Optional[List[TaxResidency]] = Field(None, alias="taxResidencies")
     w9: Optional[FormW9] = None
-    w8_ben: Optional[FormW8BEN] = Field(None, alias='w8Ben')
+    w8_ben: Optional[FormW8BEN] = Field(None, alias="w8Ben")
     crs: Optional[FormCRS] = None
     prohibited_country_questionnaire: Optional[ProhibitedCountryQuestionnaireList] = (
-        Field(None, alias='prohibitedCountryQuestionnaire')
+        Field(None, alias="prohibitedCountryQuestionnaire")
     )
     id: Optional[str] = None
-    external_id: Optional[str] = Field(None, alias='externalId')
-    user_id: Optional[str] = Field(None, alias='userId')
-    same_mail_address: Optional[bool] = Field(None, alias='sameMailAddress')
+    external_id: Optional[str] = Field(None, alias="externalId")
+    user_id: Optional[str] = Field(None, alias="userId")
+    same_mail_address: Optional[bool] = Field(None, alias="sameMailAddress")
     authorized_to_sign_on_behalf_of_owner: Optional[bool] = Field(
-        None, alias='authorizedToSignOnBehalfOfOwner'
+        None, alias="authorizedToSignOnBehalfOfOwner"
     )
-    authorized_trader: Optional[bool] = Field(None, alias='authorizedTrader')
-    us_tax_resident: Optional[bool] = Field(None, alias='usTaxResident')
+    authorized_trader: Optional[bool] = Field(None, alias="authorizedTrader")
+    us_tax_resident: Optional[bool] = Field(None, alias="usTaxResident")
     translated: Optional[bool] = None
-    primary_trustee: Optional[bool] = Field(None, alias='primaryTrustee')
-    ownership_percentage: Optional[float] = Field(None, alias='ownershipPercentage')
+    primary_trustee: Optional[bool] = Field(None, alias="primaryTrustee")
+    ownership_percentage: Optional[float] = Field(None, alias="ownershipPercentage")
     title: Optional[Title] = None
     relationship: Optional[Relationship3] = None
 
@@ -11949,50 +11949,50 @@ class Individual(BaseModel):
         populate_by_name=True,
     )
     name: Optional[IndividualName] = None
-    native_name: Optional[IndividualName] = Field(None, alias='nativeName')
-    birth_name: Optional[IndividualName] = Field(None, alias='birthName')
-    mother_maiden_name: Optional[IndividualName] = Field(None, alias='motherMaidenName')
+    native_name: Optional[IndividualName] = Field(None, alias="nativeName")
+    birth_name: Optional[IndividualName] = Field(None, alias="birthName")
+    mother_maiden_name: Optional[IndividualName] = Field(None, alias="motherMaidenName")
     date_of_birth: Optional[str] = Field(
         None,
-        alias='dateOfBirth',
-        description='Date of birth of the applicant. The applicant must be 18 years or older to open an account. <br><ul><li>If the YYY-MM-DD < 18 years error will be triggered and the account will not be created.</li><li>If YYYY-MM-DD < 21 the applicant is restricted to opening a CASH account only.</li><li>UGMA and UTMA accounts are available for minors 18 years of age or younger. An individual or entity who manages an account for a minor until that minor reaches a specific age. Available to US residents only.</li><li>This application must be opened using the front-end application which is available within the IBKR Portal.</li><li>Assets held in a single account managed by a single Custodian user.</li><li>Error will be thrown if dateOfBirth is any value other than YYYY-MM-DD.</li></ul>',
-        examples=['1990-08-14'],
+        alias="dateOfBirth",
+        description="Date of birth of the applicant. The applicant must be 18 years or older to open an account. <br><ul><li>If the YYY-MM-DD < 18 years error will be triggered and the account will not be created.</li><li>If YYYY-MM-DD < 21 the applicant is restricted to opening a CASH account only.</li><li>UGMA and UTMA accounts are available for minors 18 years of age or younger. An individual or entity who manages an account for a minor until that minor reaches a specific age. Available to US residents only.</li><li>This application must be opened using the front-end application which is available within the IBKR Portal.</li><li>Assets held in a single account managed by a single Custodian user.</li><li>Error will be thrown if dateOfBirth is any value other than YYYY-MM-DD.</li></ul>",
+        examples=["1990-08-14"],
     )
-    country_of_birth: Optional[str] = Field(None, alias='countryOfBirth')
-    city_of_birth: Optional[str] = Field(None, alias='cityOfBirth')
+    country_of_birth: Optional[str] = Field(None, alias="countryOfBirth")
+    city_of_birth: Optional[str] = Field(None, alias="cityOfBirth")
     gender: Optional[Gender] = None
-    marital_status: Optional[MaritalStatus] = Field(None, alias='maritalStatus')
-    num_dependents: Optional[int] = Field(None, alias='numDependents')
+    marital_status: Optional[MaritalStatus] = Field(None, alias="maritalStatus")
+    num_dependents: Optional[int] = Field(None, alias="numDependents")
     residence_address: Optional[ResidenceAddress] = Field(
-        None, alias='residenceAddress'
+        None, alias="residenceAddress"
     )
-    mailing_address: Optional[Address] = Field(None, alias='mailingAddress')
+    mailing_address: Optional[Address] = Field(None, alias="mailingAddress")
     phones: Optional[List[PhoneInfo]] = None
     email: Optional[str] = None
     identification: Optional[Identification] = None
-    employment_type: Optional[str] = Field(None, alias='employmentType')
+    employment_type: Optional[str] = Field(None, alias="employmentType")
     employment_details: Optional[EmploymentDetails] = Field(
-        None, alias='employmentDetails'
+        None, alias="employmentDetails"
     )
-    employee_title: Optional[str] = Field(None, alias='employeeTitle')
-    tax_residencies: Optional[List[TaxResidency]] = Field(None, alias='taxResidencies')
+    employee_title: Optional[str] = Field(None, alias="employeeTitle")
+    tax_residencies: Optional[List[TaxResidency]] = Field(None, alias="taxResidencies")
     w9: Optional[FormW9] = None
-    w8_ben: Optional[FormW8BEN] = Field(None, alias='w8Ben')
+    w8_ben: Optional[FormW8BEN] = Field(None, alias="w8Ben")
     crs: Optional[FormCRS] = None
     prohibited_country_questionnaire: Optional[ProhibitedCountryQuestionnaireList] = (
-        Field(None, alias='prohibitedCountryQuestionnaire')
+        Field(None, alias="prohibitedCountryQuestionnaire")
     )
     id: Optional[str] = None
-    external_id: Optional[str] = Field(None, alias='externalId')
-    user_id: Optional[str] = Field(None, alias='userId')
-    same_mail_address: Optional[bool] = Field(None, alias='sameMailAddress')
+    external_id: Optional[str] = Field(None, alias="externalId")
+    user_id: Optional[str] = Field(None, alias="userId")
+    same_mail_address: Optional[bool] = Field(None, alias="sameMailAddress")
     authorized_to_sign_on_behalf_of_owner: Optional[bool] = Field(
-        None, alias='authorizedToSignOnBehalfOfOwner'
+        None, alias="authorizedToSignOnBehalfOfOwner"
     )
-    authorized_trader: Optional[bool] = Field(None, alias='authorizedTrader')
-    us_tax_resident: Optional[bool] = Field(None, alias='usTaxResident')
+    authorized_trader: Optional[bool] = Field(None, alias="authorizedTrader")
+    us_tax_resident: Optional[bool] = Field(None, alias="usTaxResident")
     translated: Optional[bool] = None
-    primary_trustee: Optional[bool] = Field(None, alias='primaryTrustee')
+    primary_trustee: Optional[bool] = Field(None, alias="primaryTrustee")
 
 
 class IndividualApplicant(BaseModel):
@@ -12000,25 +12000,25 @@ class IndividualApplicant(BaseModel):
         populate_by_name=True,
     )
     account_holder_details: Optional[List[AssociatedIndividual]] = Field(
-        None, alias='accountHolderDetails'
+        None, alias="accountHolderDetails"
     )
     financial_information: Optional[List[FinancialInformation]] = Field(
-        None, alias='financialInformation'
+        None, alias="financialInformation"
     )
     regulatory_information: Optional[List[RegulatoryInformation]] = Field(
-        None, alias='regulatoryInformation'
+        None, alias="regulatoryInformation"
     )
     regulated_memberships: Optional[List[RegulatedMembership]] = Field(
-        None, alias='regulatedMemberships'
+        None, alias="regulatedMemberships"
     )
     accredited_investor_information: Optional[AccreditedInvestorInformation] = Field(
-        None, alias='accreditedInvestorInformation'
+        None, alias="accreditedInvestorInformation"
     )
     tax_information: Optional[IndividualTaxInformation] = Field(
-        None, alias='taxInformation'
+        None, alias="taxInformation"
     )
     withholding_statement: Optional[WithholdingStatementType] = Field(
-        None, alias='withholdingStatement'
+        None, alias="withholdingStatement"
     )
 
 
@@ -12027,18 +12027,18 @@ class InternalPositionTransferInstruction(BaseModel):
         populate_by_name=True,
     )
     client_instruction_id: float = Field(
-        ..., alias='clientInstructionId', examples=[1012983]
+        ..., alias="clientInstructionId", examples=[1012983]
     )
     source_account_id: constr(min_length=1) = Field(
-        ..., alias='sourceAccountId', examples=['U46377']
+        ..., alias="sourceAccountId", examples=["U46377"]
     )
     target_account_id: constr(min_length=1) = Field(
-        ..., alias='targetAccountId', examples=['U463756']
+        ..., alias="targetAccountId", examples=["U463756"]
     )
     transfer_quantity: PositiveFloat = Field(
-        ..., alias='transferQuantity', examples=[100]
+        ..., alias="transferQuantity", examples=[100]
     )
-    trading_instrument: TradingInstrument = Field(..., alias='tradingInstrument')
+    trading_instrument: TradingInstrument = Field(..., alias="tradingInstrument")
 
 
 class JointApplicant(BaseModel):
@@ -12046,28 +12046,28 @@ class JointApplicant(BaseModel):
         populate_by_name=True,
     )
     first_holder_details: Optional[List[AssociatedIndividual]] = Field(
-        None, alias='firstHolderDetails'
+        None, alias="firstHolderDetails"
     )
     second_holder_details: Optional[List[AssociatedIndividual]] = Field(
-        None, alias='secondHolderDetails'
+        None, alias="secondHolderDetails"
     )
     financial_information: Optional[List[FinancialInformation]] = Field(
-        None, alias='financialInformation'
+        None, alias="financialInformation"
     )
     regulatory_information: Optional[List[RegulatoryInformation]] = Field(
-        None, alias='regulatoryInformation'
+        None, alias="regulatoryInformation"
     )
     regulated_memberships: Optional[List[RegulatedMembership]] = Field(
-        None, alias='regulatedMemberships'
+        None, alias="regulatedMemberships"
     )
     accredited_investor_information: Optional[AccreditedInvestorInformation] = Field(
-        None, alias='accreditedInvestorInformation'
+        None, alias="accreditedInvestorInformation"
     )
     tax_information: Optional[IndividualTaxInformation] = Field(
-        None, alias='taxInformation'
+        None, alias="taxInformation"
     )
     withholding_statement: Optional[WithholdingStatementType] = Field(
-        None, alias='withholdingStatement'
+        None, alias="withholdingStatement"
     )
     type: Optional[Type10] = None
 
@@ -12078,7 +12078,7 @@ class Organization(BaseModel):
     )
     identification: Optional[OrganizationIdentification] = None
     regulatory_information: Optional[RegulatoryInformation] = Field(
-        None, alias='regulatoryInformation'
+        None, alias="regulatoryInformation"
     )
 
 
@@ -12086,7 +12086,7 @@ class TrusteeEntityType(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    legal_entity: Optional[LegalEntity] = Field(None, alias='legalEntity')
+    legal_entity: Optional[LegalEntity] = Field(None, alias="legalEntity")
     employees: Optional[List[Individual]] = None
 
 
@@ -12103,17 +12103,17 @@ class UpdateEntity(BaseModel):
         populate_by_name=True,
     )
     add_relationships: Optional[List[AddRelationship]] = Field(
-        None, alias='addRelationships'
+        None, alias="addRelationships"
     )
     delete_relationships: Optional[List[DeleteRelationship]] = Field(
-        None, alias='deleteRelationships'
+        None, alias="deleteRelationships"
     )
     individual: Optional[Individual] = None
-    legal_entity: Optional[LegalEntity] = Field(None, alias='legalEntity')
+    legal_entity: Optional[LegalEntity] = Field(None, alias="legalEntity")
     trust: Optional[Trust] = None
     organization: Optional[Organization] = None
     documents: Optional[List[Document]] = None
-    ib_entity_id: Optional[int] = Field(None, alias='ibEntityId')
+    ib_entity_id: Optional[int] = Field(None, alias="ibEntityId")
 
 
 class GwApiV1ClientInstructionsClientInstructionIdGetResponse(
@@ -12143,7 +12143,7 @@ class GwApiV1ExternalAssetTransfersPostRequest(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    instruction_type: InstructionType5 = Field(..., alias='instructionType')
+    instruction_type: InstructionType5 = Field(..., alias="instructionType")
     instruction: Union[
         FopInstruction,
         DwacInstruction,
@@ -12188,7 +12188,7 @@ class GwApiV1InternalAssetTransfersPostRequest(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    instruction_type: InstructionType12 = Field(..., alias='instructionType')
+    instruction_type: InstructionType12 = Field(..., alias="instructionType")
     instruction: InternalPositionTransferInstruction
 
 
@@ -12197,10 +12197,10 @@ class AddEntity(BaseModel):
         populate_by_name=True,
     )
     add_relationships: Optional[List[AddRelationship]] = Field(
-        None, alias='addRelationships'
+        None, alias="addRelationships"
     )
     individual: Optional[Individual] = None
-    legal_entity: Optional[LegalEntity] = Field(None, alias='legalEntity')
+    legal_entity: Optional[LegalEntity] = Field(None, alias="legalEntity")
     documents: Optional[List[Document]] = None
 
 
@@ -12209,18 +12209,18 @@ class AdvisorWrapFeesType(BaseModel):
         populate_by_name=True,
     )
     automated_fees_details: Optional[List[AutomatedWrapFeeDetailsType]] = Field(
-        None, alias='automatedFeesDetails'
+        None, alias="automatedFeesDetails"
     )
     high_water_mark_config_hwma: Optional[HighWaterMarkType] = Field(
-        None, alias='highWaterMarkConfigHwma'
+        None, alias="highWaterMarkConfigHwma"
     )
     high_water_mark_config_hwmq: Optional[HighWaterMarkType] = Field(
-        None, alias='highWaterMarkConfigHwmq'
+        None, alias="highWaterMarkConfigHwmq"
     )
     strategy: Optional[Strategy] = None
-    charge_advisor: Optional[bool] = Field(None, alias='chargeAdvisor')
+    charge_advisor: Optional[bool] = Field(None, alias="chargeAdvisor")
     charge_other_fees_to_advisor: Optional[bool] = Field(
-        None, alias='chargeOtherFeesToAdvisor'
+        None, alias="chargeOtherFeesToAdvisor"
     )
 
 
@@ -12229,10 +12229,10 @@ class AssociatedEntities(BaseModel):
         populate_by_name=True,
     )
     associated_individuals: Optional[List[AssociatedIndividual]] = Field(
-        None, alias='associatedIndividuals'
+        None, alias="associatedIndividuals"
     )
     associated_entities: Optional[List[AssociatedEntity]] = Field(
-        None, alias='associatedEntities'
+        None, alias="associatedEntities"
     )
 
 
@@ -12241,7 +12241,7 @@ class CustodianType(BaseModel):
         populate_by_name=True,
     )
     individual: Optional[Individual] = None
-    legal_entity: Optional[LegalEntity] = Field(None, alias='legalEntity')
+    legal_entity: Optional[LegalEntity] = Field(None, alias="legalEntity")
     employee: Optional[Individual] = None
 
 
@@ -12259,14 +12259,14 @@ class IRAContingentBeneficiaryEntity(BaseModel):
     name: Optional[str] = None
     address: Optional[Address] = None
     id: Optional[str] = None
-    external_id: Optional[str] = Field(None, alias='externalId')
-    ownership_percentage: Optional[float] = Field(None, alias='ownershipPercentage')
+    external_id: Optional[str] = Field(None, alias="externalId")
+    ownership_percentage: Optional[float] = Field(None, alias="ownershipPercentage")
     title: Optional[Title] = None
     relationship: Optional[Relationship] = None
     executor: Optional[Individual] = None
-    execution_date: Optional[date] = Field(None, alias='executionDate')
-    article_of_will: Optional[str] = Field(None, alias='articleOfWill')
-    entity_type: Optional[EntityType2] = Field(None, alias='entityType')
+    execution_date: Optional[date] = Field(None, alias="executionDate")
+    article_of_will: Optional[str] = Field(None, alias="articleOfWill")
+    entity_type: Optional[EntityType2] = Field(None, alias="entityType")
 
 
 class IRAPrimaryBeneficiaryEntity(BaseModel):
@@ -12276,25 +12276,25 @@ class IRAPrimaryBeneficiaryEntity(BaseModel):
     name: Optional[str] = None
     address: Optional[Address] = None
     id: Optional[str] = None
-    external_id: Optional[str] = Field(None, alias='externalId')
-    ownership_percentage: Optional[float] = Field(None, alias='ownershipPercentage')
+    external_id: Optional[str] = Field(None, alias="externalId")
+    ownership_percentage: Optional[float] = Field(None, alias="ownershipPercentage")
     title: Optional[Title] = None
     relationship: Optional[Relationship3] = None
     executor: Optional[Individual] = None
-    execution_date: Optional[date] = Field(None, alias='executionDate')
-    article_of_will: Optional[str] = Field(None, alias='articleOfWill')
-    entity_type: Optional[EntityType2] = Field(None, alias='entityType')
-    charity_number: Optional[str] = Field(None, alias='charityNumber')
+    execution_date: Optional[date] = Field(None, alias="executionDate")
+    article_of_will: Optional[str] = Field(None, alias="articleOfWill")
+    entity_type: Optional[EntityType2] = Field(None, alias="entityType")
+    charity_number: Optional[str] = Field(None, alias="charityNumber")
 
 
 class InformationChange(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    add_entities: Optional[List[AddEntity]] = Field(None, alias='addEntities')
-    update_entities: Optional[List[UpdateEntity]] = Field(None, alias='updateEntities')
-    delete_entities: Optional[List[DeleteEntity]] = Field(None, alias='deleteEntities')
-    ib_account_id: Optional[str] = Field(None, alias='ibAccountId')
+    add_entities: Optional[List[AddEntity]] = Field(None, alias="addEntities")
+    update_entities: Optional[List[UpdateEntity]] = Field(None, alias="updateEntities")
+    delete_entities: Optional[List[DeleteEntity]] = Field(None, alias="deleteEntities")
+    ib_account_id: Optional[str] = Field(None, alias="ibAccountId")
 
 
 class OrganizationApplicant(BaseModel):
@@ -12302,41 +12302,41 @@ class OrganizationApplicant(BaseModel):
         populate_by_name=True,
     )
     identifications: Optional[List[OrganizationIdentification]] = None
-    account_support: Optional[AccountSupportType] = Field(None, alias='accountSupport')
+    account_support: Optional[AccountSupportType] = Field(None, alias="accountSupport")
     financial_information: Optional[List[FinancialInformation]] = Field(
-        None, alias='financialInformation'
+        None, alias="financialInformation"
     )
     accredited_investor_information: Optional[AccreditedInvestorInformation] = Field(
-        None, alias='accreditedInvestorInformation'
+        None, alias="accreditedInvestorInformation"
     )
     regulatory_information: Optional[List[RegulatoryInformation]] = Field(
-        None, alias='regulatoryInformation'
+        None, alias="regulatoryInformation"
     )
-    managing_owner: Optional[ManagingOwner] = Field(None, alias='managingOwner')
+    managing_owner: Optional[ManagingOwner] = Field(None, alias="managingOwner")
     associated_entities: Optional[AssociatedEntities] = Field(
-        None, alias='associatedEntities'
+        None, alias="associatedEntities"
     )
     regulated_memberships: Optional[List[RegulatedMembership]] = Field(
-        None, alias='regulatedMemberships'
+        None, alias="regulatedMemberships"
     )
-    tax_residencies: Optional[List[TaxResidency]] = Field(None, alias='taxResidencies')
-    w8_ben_e: Optional[FormW8BENE] = Field(None, alias='w8BenE')
-    w8_imy: Optional[FormW8IMY] = Field(None, alias='w8IMY')
+    tax_residencies: Optional[List[TaxResidency]] = Field(None, alias="taxResidencies")
+    w8_ben_e: Optional[FormW8BENE] = Field(None, alias="w8BenE")
+    w8_imy: Optional[FormW8IMY] = Field(None, alias="w8IMY")
     withholding_statement: Optional[WithholdingStatementType] = Field(
-        None, alias='withholdingStatement'
+        None, alias="withholdingStatement"
     )
-    type_of_trading: Optional[TypeOfTrading] = Field(None, alias='typeOfTrading')
+    type_of_trading: Optional[TypeOfTrading] = Field(None, alias="typeOfTrading")
     type: Optional[Type11] = None
-    org_us_subsidiary: Optional[bool] = Field(None, alias='orgUsSubsidiary')
-    qualified_intermediary: Optional[bool] = Field(None, alias='qualifiedIntermediary')
+    org_us_subsidiary: Optional[bool] = Field(None, alias="orgUsSubsidiary")
+    qualified_intermediary: Optional[bool] = Field(None, alias="qualifiedIntermediary")
     assumed_primary_reporting: Optional[bool] = Field(
-        None, alias='assumedPrimaryReporting'
+        None, alias="assumedPrimaryReporting"
     )
     accepted_primary_withholding: Optional[bool] = Field(
-        None, alias='acceptedPrimaryWithholding'
+        None, alias="acceptedPrimaryWithholding"
     )
     us_tax_purpose_type: Optional[UsTaxPurposeType] = Field(
-        None, alias='usTaxPurposeType'
+        None, alias="usTaxPurposeType"
     )
 
 
@@ -12346,28 +12346,28 @@ class TrustApplicant(BaseModel):
     )
     identification: Optional[List[TrustIdentification]] = None
     financial_information: Optional[List[FinancialInformation]] = Field(
-        None, alias='financialInformation'
+        None, alias="financialInformation"
     )
     regulatory_information: Optional[List[RegulatoryInformation]] = Field(
-        None, alias='regulatoryInformation'
+        None, alias="regulatoryInformation"
     )
     regulated_memberships: Optional[List[RegulatedMembership]] = Field(
-        None, alias='regulatedMemberships'
+        None, alias="regulatedMemberships"
     )
     accredited_investor_information: Optional[AccreditedInvestorInformation] = Field(
-        None, alias='accreditedInvestorInformation'
+        None, alias="accreditedInvestorInformation"
     )
     trustees: Optional[TrusteesType] = None
     beneficiaries: Optional[AssociationTypeEntities] = None
     grantors: Optional[AssociationTypeEntities] = None
-    tax_residencies: Optional[List[TaxResidency]] = Field(None, alias='taxResidencies')
-    w8_ben_e: Optional[FormW8BENE] = Field(None, alias='w8BenE')
-    w8_imy: Optional[FormW8IMY] = Field(None, alias='w8IMY')
+    tax_residencies: Optional[List[TaxResidency]] = Field(None, alias="taxResidencies")
+    w8_ben_e: Optional[FormW8BENE] = Field(None, alias="w8BenE")
+    w8_imy: Optional[FormW8IMY] = Field(None, alias="w8IMY")
     withholding_statement: Optional[WithholdingStatementType] = Field(
-        None, alias='withholdingStatement'
+        None, alias="withholdingStatement"
     )
-    third_party_management: Optional[bool] = Field(None, alias='thirdPartyManagement')
-    trust_type: Optional[TrustType] = Field(None, alias='trustType')
+    third_party_management: Optional[bool] = Field(None, alias="thirdPartyManagement")
+    trust_type: Optional[TrustType] = Field(None, alias="trustType")
 
 
 class Customer(BaseModel):
@@ -12375,39 +12375,39 @@ class Customer(BaseModel):
         populate_by_name=True,
     )
     organization: Optional[OrganizationApplicant] = None
-    account_holder: Optional[IndividualApplicant] = Field(None, alias='accountHolder')
-    joint_holders: Optional[JointApplicant] = Field(None, alias='jointHolders')
+    account_holder: Optional[IndividualApplicant] = Field(None, alias="accountHolder")
+    joint_holders: Optional[JointApplicant] = Field(None, alias="jointHolders")
     trust: Optional[TrustApplicant] = None
     id: Optional[str] = None
-    external_id: Optional[str] = Field(None, alias='externalId')
+    external_id: Optional[str] = Field(None, alias="externalId")
     transfer_us_micro_cap_stock: Optional[bool] = Field(
-        None, alias='transferUsMicroCapStock'
+        None, alias="transferUsMicroCapStock"
     )
     type: Optional[Type5] = None
     prefix: Optional[str] = None
-    user_name: Optional[str] = Field(None, alias='userName')
-    user_name_alias: Optional[str] = Field(None, alias='userNameAlias')
-    user_name_source: Optional[str] = Field(None, alias='userNameSource')
+    user_name: Optional[str] = Field(None, alias="userName")
+    user_name_alias: Optional[str] = Field(None, alias="userNameAlias")
+    user_name_source: Optional[str] = Field(None, alias="userNameSource")
     email: Optional[str] = None
-    md_status_non_pro: Optional[bool] = Field(None, alias='mdStatusNonPro')
+    md_status_non_pro: Optional[bool] = Field(None, alias="mdStatusNonPro")
     preferred_primary_language: Optional[str] = Field(
-        None, alias='preferredPrimaryLanguage'
+        None, alias="preferredPrimaryLanguage"
     )
     preferred_secondary_language: Optional[str] = Field(
-        None, alias='preferredSecondaryLanguage'
+        None, alias="preferredSecondaryLanguage"
     )
-    legal_residence_country: Optional[str] = Field(None, alias='legalResidenceCountry')
-    tax_treaty_country: Optional[str] = Field(None, alias='taxTreatyCountry')
-    meet_aml_standard: Optional[str] = Field(None, alias='meetAmlStandard')
-    meets_aml_standard: Optional[str] = Field(None, alias='meetsAmlStandard')
-    direct_trading_access: Optional[bool] = Field(None, alias='directTradingAccess')
-    origin_country: Optional[str] = Field(None, alias='originCountry')
-    termination_age: Optional[int] = Field(None, alias='terminationAge')
-    governing_state: Optional[str] = Field(None, alias='governingState')
-    opt_for_debit_card: Optional[bool] = Field(None, alias='optForDebitCard')
-    robo_fa_client: Optional[bool] = Field(None, alias='roboFaClient')
-    independent_account: Optional[bool] = Field(None, alias='independentAccount')
-    paper_account: Optional[bool] = Field(None, alias='paperAccount')
+    legal_residence_country: Optional[str] = Field(None, alias="legalResidenceCountry")
+    tax_treaty_country: Optional[str] = Field(None, alias="taxTreatyCountry")
+    meet_aml_standard: Optional[str] = Field(None, alias="meetAmlStandard")
+    meets_aml_standard: Optional[str] = Field(None, alias="meetsAmlStandard")
+    direct_trading_access: Optional[bool] = Field(None, alias="directTradingAccess")
+    origin_country: Optional[str] = Field(None, alias="originCountry")
+    termination_age: Optional[int] = Field(None, alias="terminationAge")
+    governing_state: Optional[str] = Field(None, alias="governingState")
+    opt_for_debit_card: Optional[bool] = Field(None, alias="optForDebitCard")
+    robo_fa_client: Optional[bool] = Field(None, alias="roboFaClient")
+    independent_account: Optional[bool] = Field(None, alias="independentAccount")
+    paper_account: Optional[bool] = Field(None, alias="paperAccount")
 
 
 class IRABeneficiariesType(BaseModel):
@@ -12415,19 +12415,19 @@ class IRABeneficiariesType(BaseModel):
         populate_by_name=True,
     )
     primary_beneficiaries: Optional[List[IRAPrimaryBeneficiary]] = Field(
-        None, alias='primaryBeneficiaries'
+        None, alias="primaryBeneficiaries"
     )
     primary_beneficiary_entities: Optional[List[IRAPrimaryBeneficiaryEntity]] = Field(
-        None, alias='primaryBeneficiaryEntities'
+        None, alias="primaryBeneficiaryEntities"
     )
     contingent_beneficiaries: Optional[List[IRAContingentBeneficiary]] = Field(
-        None, alias='contingentBeneficiaries'
+        None, alias="contingentBeneficiaries"
     )
     contingent_beneficiary_entities: Optional[List[IRAContingentBeneficiaryEntity]] = (
-        Field(None, alias='contingentBeneficiaryEntities')
+        Field(None, alias="contingentBeneficiaryEntities")
     )
     spouse_primary_beneficary: Optional[bool] = Field(
-        None, alias='spousePrimaryBeneficary'
+        None, alias="spousePrimaryBeneficary"
     )
     successor: Optional[bool] = None
 
@@ -12437,79 +12437,79 @@ class Account(BaseModel):
         populate_by_name=True,
     )
     account_configuration: Optional[AccountConfigurationType] = Field(
-        None, alias='accountConfiguration'
+        None, alias="accountConfiguration"
     )
     investment_objectives: Optional[List[InvestmentObjective]] = Field(
-        None, alias='investmentObjectives'
+        None, alias="investmentObjectives"
     )
     brokerage_service_codes: Optional[List[BrokerageServiceCode]] = Field(
-        None, alias='brokerageServiceCodes'
+        None, alias="brokerageServiceCodes"
     )
     capabilities: Optional[List[Capability]] = None
     trading_permissions: Optional[List[TradingPermission]] = Field(
-        None, alias='tradingPermissions'
+        None, alias="tradingPermissions"
     )
     commission_configs: Optional[List[CommissionConfig]] = Field(
-        None, alias='commissionConfigs'
+        None, alias="commissionConfigs"
     )
     all_exchange_access: Optional[List[ExchangeAccess]] = Field(
-        None, alias='allExchangeAccess'
+        None, alias="allExchangeAccess"
     )
     dvp_instructions: Optional[List[DVPInstruction]] = Field(
-        None, alias='dvpInstructions'
+        None, alias="dvpInstructions"
     )
-    trading_limits: Optional[TradingLimits] = Field(None, alias='tradingLimits')
+    trading_limits: Optional[TradingLimits] = Field(None, alias="tradingLimits")
     advisor_wrap_fees: Optional[AdvisorWrapFeesType] = Field(
-        None, alias='advisorWrapFees'
+        None, alias="advisorWrapFees"
     )
-    fees_template_name: Optional[str] = Field(None, alias='feesTemplateName')
+    fees_template_name: Optional[str] = Field(None, alias="feesTemplateName")
     client_commission_schedule: Optional[CommissionScheduleType] = Field(
-        None, alias='clientCommissionSchedule'
+        None, alias="clientCommissionSchedule"
     )
     client_interest_markup_schedules: Optional[List[InterestMarkupType]] = Field(
-        None, alias='clientInterestMarkupSchedules'
+        None, alias="clientInterestMarkupSchedules"
     )
     decendent: Optional[IRADecedent] = None
     ira_beneficiaries: Optional[IRABeneficiariesType] = Field(
-        None, alias='iraBeneficiaries'
+        None, alias="iraBeneficiaries"
     )
     ext_positions_transfers: Optional[List[ExtPositionsTransferType]] = Field(
-        None, alias='extPositionsTransfers'
+        None, alias="extPositionsTransfers"
     )
     deposit_notification: Optional[DepositNotification] = Field(
-        None, alias='depositNotification'
+        None, alias="depositNotification"
     )
     ach_instructions: Optional[List[ACHInstruction]] = Field(
-        None, alias='achInstructions'
+        None, alias="achInstructions"
     )
     recurring_transactions: Optional[List[RecurringTransaction]] = Field(
-        None, alias='recurringTransactions'
+        None, alias="recurringTransactions"
     )
     custodian: Optional[CustodianType] = None
     successor_custodian: Optional[CustodianType] = Field(
-        None, alias='successorCustodian'
+        None, alias="successorCustodian"
     )
-    account_rep: Optional[AccountRep] = Field(None, alias='accountRep')
+    account_rep: Optional[AccountRep] = Field(None, alias="accountRep")
     id: Optional[str] = None
-    external_id: Optional[str] = Field(None, alias='externalId')
-    property_profile: Optional[str] = Field(None, alias='propertyProfile')
-    base_currency: Optional[BaseCurrency] = Field(None, alias='baseCurrency')
-    employee_plan: Optional[str] = Field(None, alias='employeePlan')
-    multi_currency: Optional[bool] = Field(None, alias='multiCurrency')
+    external_id: Optional[str] = Field(None, alias="externalId")
+    property_profile: Optional[str] = Field(None, alias="propertyProfile")
+    base_currency: Optional[BaseCurrency] = Field(None, alias="baseCurrency")
+    employee_plan: Optional[str] = Field(None, alias="employeePlan")
+    multi_currency: Optional[bool] = Field(None, alias="multiCurrency")
     migration: Optional[bool] = None
-    source_account_id: Optional[str] = Field(None, alias='sourceAccountId')
+    source_account_id: Optional[str] = Field(None, alias="sourceAccountId")
     margin: Optional[str] = None
     ira: Optional[bool] = None
-    ira_type: Optional[IraType] = Field(None, alias='iraType')
-    ira_official_title: Optional[str] = Field(None, alias='iraOfficialTitle')
-    client_active_trading: Optional[bool] = Field(None, alias='clientActiveTrading')
+    ira_type: Optional[IraType] = Field(None, alias="iraType")
+    ira_official_title: Optional[str] = Field(None, alias="iraOfficialTitle")
+    client_active_trading: Optional[bool] = Field(None, alias="clientActiveTrading")
     duplicate: Optional[bool] = None
-    number_of_duplicates: Optional[int] = Field(None, alias='numberOfDuplicates')
-    stock_yield_program: Optional[bool] = Field(None, alias='stockYieldProgram')
+    number_of_duplicates: Optional[int] = Field(None, alias="numberOfDuplicates")
+    stock_yield_program: Optional[bool] = Field(None, alias="stockYieldProgram")
     alias: Optional[str] = None
-    account_type: Optional[AccountType1] = Field(None, alias='accountType')
+    account_type: Optional[AccountType1] = Field(None, alias="accountType")
     drip: Optional[bool] = None
-    limited_options: Optional[bool] = Field(None, alias='limitedOptions')
+    limited_options: Optional[bool] = Field(None, alias="limitedOptions")
 
 
 class AddAdditionalAccount(BaseModel):
@@ -12520,7 +12520,7 @@ class AddAdditionalAccount(BaseModel):
     account: Optional[Account] = None
     documents: Optional[List[Document]] = None
     users: Optional[List[UserModel]] = None
-    reference_account_id: Optional[str] = Field(None, alias='referenceAccountId')
+    reference_account_id: Optional[str] = Field(None, alias="referenceAccountId")
 
 
 class Application(BaseModel):
@@ -12532,13 +12532,13 @@ class Application(BaseModel):
     users: Optional[List[UserModel]] = None
     documents: Optional[List[Document]] = None
     additional_accounts: Optional[List[AddAdditionalAccount]] = Field(
-        None, alias='additionalAccounts'
+        None, alias="additionalAccounts"
     )
-    master_account_id: Optional[str] = Field(None, alias='masterAccountId')
+    master_account_id: Optional[str] = Field(None, alias="masterAccountId")
     id: Optional[str] = None
-    input_language: Optional[InputLanguage] = Field(None, alias='inputLanguage')
+    input_language: Optional[InputLanguage] = Field(None, alias="inputLanguage")
     translation: Optional[bool] = None
-    paper_account: Optional[bool] = Field(None, alias='paperAccount')
+    paper_account: Optional[bool] = Field(None, alias="paperAccount")
 
 
 class ApplicationPayload(BaseModel):
@@ -12553,117 +12553,117 @@ class AccountManagementRequests(BaseModel):
         populate_by_name=True,
     )
     update_external_id: Optional[UpdateExternalId] = Field(
-        None, alias='updateExternalId'
+        None, alias="updateExternalId"
     )
     update_property_profile: Optional[UpdatePropertyProfile] = Field(
-        None, alias='updatePropertyProfile'
+        None, alias="updatePropertyProfile"
     )
     update_account_alias: Optional[UpdateAccountAlias] = Field(
-        None, alias='updateAccountAlias'
+        None, alias="updateAccountAlias"
     )
     change_base_currency: Optional[ChangeBaseCurrency] = Field(
-        None, alias='changeBaseCurrency'
+        None, alias="changeBaseCurrency"
     )
-    abandon_account: Optional[AbandonAccount] = Field(None, alias='abandonAccount')
-    add_new_user: Optional[AddNewUser] = Field(None, alias='addNewUser')
+    abandon_account: Optional[AbandonAccount] = Field(None, alias="abandonAccount")
+    add_new_user: Optional[AddNewUser] = Field(None, alias="addNewUser")
     add_lev_fx_capability: Optional[AddLEVFXCapability] = Field(
-        None, alias='addLevFxCapability'
+        None, alias="addLevFxCapability"
     )
-    add_mi_fir_data: Optional[AddMiFIRData] = Field(None, alias='addMiFirData')
+    add_mi_fir_data: Optional[AddMiFIRData] = Field(None, alias="addMiFirData")
     add_trading_permissions: Optional[AddTradingPermissions] = Field(
-        None, alias='addTradingPermissions'
+        None, alias="addTradingPermissions"
     )
     remove_trading_permissions: Optional[RemoveTradingPermissions] = Field(
-        None, alias='removeTradingPermissions'
+        None, alias="removeTradingPermissions"
     )
     change_margin_type: Optional[ChangeMarginType] = Field(
-        None, alias='changeMarginType'
+        None, alias="changeMarginType"
     )
     add_clp_capability: Optional[AddCLPCapability] = Field(
-        None, alias='addCLPCapability'
+        None, alias="addCLPCapability"
     )
     change_financial_information: Optional[ChangeFinancialInformation] = Field(
-        None, alias='changeFinancialInformation'
+        None, alias="changeFinancialInformation"
     )
     reset_abandoned_account: Optional[ResetAbandonedAccount] = Field(
-        None, alias='resetAbandonedAccount'
+        None, alias="resetAbandonedAccount"
     )
     update_credentials: Optional[UpdateCredentials] = Field(
-        None, alias='updateCredentials'
+        None, alias="updateCredentials"
     )
     update_account_representatives: Optional[UpdateAccountRepresentatives] = Field(
-        None, alias='updateAccountRepresentatives'
+        None, alias="updateAccountRepresentatives"
     )
     complete_login_message: Optional[CompleteLoginMessage] = Field(
-        None, alias='completeLoginMessage'
+        None, alias="completeLoginMessage"
     )
-    reopen_account: Optional[ReopenAccount] = Field(None, alias='reopenAccount')
-    enroll_in_syep: Optional[EnrollInSYEP] = Field(None, alias='enrollInSyep')
-    leave_syep: Optional[LeaveSYEP] = Field(None, alias='leaveSyep')
-    enroll_in_drip: Optional[EnrollInDRIP] = Field(None, alias='enrollInDrip')
-    leave_drip: Optional[LeaveDRIP] = Field(None, alias='leaveDrip')
-    update_w8_ben: Optional[UpdateW8BEN] = Field(None, alias='updateW8Ben')
-    yodlee_session: Optional[YodleeSession] = Field(None, alias='yodleeSession')
+    reopen_account: Optional[ReopenAccount] = Field(None, alias="reopenAccount")
+    enroll_in_syep: Optional[EnrollInSYEP] = Field(None, alias="enrollInSyep")
+    leave_syep: Optional[LeaveSYEP] = Field(None, alias="leaveSyep")
+    enroll_in_drip: Optional[EnrollInDRIP] = Field(None, alias="enrollInDrip")
+    leave_drip: Optional[LeaveDRIP] = Field(None, alias="leaveDrip")
+    update_w8_ben: Optional[UpdateW8BEN] = Field(None, alias="updateW8Ben")
+    yodlee_session: Optional[YodleeSession] = Field(None, alias="yodleeSession")
     enable_account_in_brokerage: Optional[EnableAccountInBrokerage] = Field(
-        None, alias='enableAccountInBrokerage'
+        None, alias="enableAccountInBrokerage"
     )
     disable_account_in_brokerage: Optional[DisableAccountInBrokerage] = Field(
-        None, alias='disableAccountInBrokerage'
+        None, alias="disableAccountInBrokerage"
     )
     link_duplicate_account: Optional[LinkDuplicateAccount] = Field(
-        None, alias='linkDuplicateAccount'
+        None, alias="linkDuplicateAccount"
     )
     duplicate_account: Optional[DuplicateAccount] = Field(
-        None, alias='duplicateAccount'
+        None, alias="duplicateAccount"
     )
-    ach_instruction: Optional[ACHInstruction] = Field(None, alias='achInstruction')
+    ach_instruction: Optional[ACHInstruction] = Field(None, alias="achInstruction")
     recurring_transaction: Optional[RecurringTransaction] = Field(
-        None, alias='recurringTransaction'
+        None, alias="recurringTransaction"
     )
     deposit_notification: Optional[DepositNotification] = Field(
-        None, alias='depositNotification'
+        None, alias="depositNotification"
     )
     document_submission: Optional[DocumentSubmission] = Field(
-        None, alias='documentSubmission'
+        None, alias="documentSubmission"
     )
     process_documents: Optional[ProcessDocuments] = Field(
-        None, alias='processDocuments'
+        None, alias="processDocuments"
     )
-    update_bcan: Optional[UpdateBCAN] = Field(None, alias='updateBcan')
+    update_bcan: Optional[UpdateBCAN] = Field(None, alias="updateBcan")
     prohibited_country_questionnaire: Optional[ProhibitedCountryQuestionnaire] = Field(
-        None, alias='prohibitedCountryQuestionnaire'
+        None, alias="prohibitedCountryQuestionnaire"
     )
     update_withholding_statement: Optional[UpdateWithholdingStatement] = Field(
-        None, alias='updateWithholdingStatement'
+        None, alias="updateWithholdingStatement"
     )
     accredited_investor: Optional[AccreditedInvestor] = Field(
-        None, alias='accreditedInvestor'
+        None, alias="accreditedInvestor"
     )
     change_account_holder_detail: Optional[ChangeAccountHolderDetail] = Field(
-        None, alias='changeAccountHolderDetail'
+        None, alias="changeAccountHolderDetail"
     )
-    get_java_script: Optional[GetJavaScript] = Field(None, alias='getJavaScript')
+    get_java_script: Optional[GetJavaScript] = Field(None, alias="getJavaScript")
     update_user_access_rights: Optional[UpdateUserAccessRights] = Field(
-        None, alias='updateUserAccessRights'
+        None, alias="updateUserAccessRights"
     )
     information_change: Optional[InformationChange] = Field(
-        None, alias='informationChange'
+        None, alias="informationChange"
     )
     add_additional_account: Optional[AddAdditionalAccount] = Field(
-        None, alias='addAdditionalAccount'
+        None, alias="addAdditionalAccount"
     )
     account_configuration: Optional[AccountConfiguration] = Field(
-        None, alias='accountConfiguration'
+        None, alias="accountConfiguration"
     )
-    allocate_van: Optional[AllocateVAN] = Field(None, alias='allocateVan')
+    allocate_van: Optional[AllocateVAN] = Field(None, alias="allocateVan")
     create_user_for_second_holder: Optional[CreateUserForSecondHolder] = Field(
-        None, alias='createUserForSecondHolder'
+        None, alias="createUserForSecondHolder"
     )
-    create_user: Optional[CreateUser] = Field(None, alias='createUser')
-    update_tax_form: Optional[UpdateTaxForm] = Field(None, alias='updateTaxForm')
+    create_user: Optional[CreateUser] = Field(None, alias="createUser")
+    update_tax_form: Optional[UpdateTaxForm] = Field(None, alias="updateTaxForm")
     questionnaires: Optional[Questionnaires] = None
     security_questions: Optional[SecurityQuestions] = Field(
-        None, alias='securityQuestions'
+        None, alias="securityQuestions"
     )
 
 
@@ -12672,7 +12672,7 @@ class AccountManagementRequestsPayload(BaseModel):
         populate_by_name=True,
     )
     account_management_requests: Optional[AccountManagementRequests] = Field(
-        None, alias='accountManagementRequests'
+        None, alias="accountManagementRequests"
     )
 
 

@@ -1,8 +1,8 @@
-from textual.widgets import Table, ListView, TabPane
+from sqlalchemy.ext.asyncio import AsyncSession
 from textual.app import ComposeResult
 from textual.containers import Vertical
 from textual.events import Select
-from sqlalchemy.ext.asyncio import AsyncSession
+from textual.widgets import ListView, Table, TabPane
 
 from src import db
 

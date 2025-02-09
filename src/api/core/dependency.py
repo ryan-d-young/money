@@ -1,4 +1,4 @@
-from typing import Protocol, AsyncContextManager, TypeVar, ClassVar
+from typing import AsyncContextManager, ClassVar, Protocol, TypeVar
 
 DependencyT = TypeVar("DependencyT", bound=AsyncContextManager)
 
@@ -6,6 +6,7 @@ DependencyT = TypeVar("DependencyT", bound=AsyncContextManager)
 class Dependency[DependencyT](Protocol):
     name: ClassVar[str]
     _instance: ClassVar[DependencyT | None] = None
+
     async def start(self, env: dict[str, str]) -> None: ...
     async def __aenter__(self): ...
     async def __aexit__(self): ...

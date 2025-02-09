@@ -1,6 +1,8 @@
-import aiohttp
-from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine, AsyncSession
 from typing import ClassVar
+
+import aiohttp
+from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, create_async_engine
+
 from .core import dependency
 
 

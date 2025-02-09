@@ -11,6 +11,8 @@ async def load_schemas(engine: AsyncEngine) -> list[str]:
 
 async def load_tables(engine: AsyncEngine, schema: str) -> list[str]:
     async with engine.begin() as conn:
-        stmt = text(f"SELECT table_name FROM information_schema.tables WHERE table_schema = '{schema}'")
+        stmt = text(
+            f"SELECT table_name FROM information_schema.tables WHERE table_schema = '{schema}'"
+        )
         result = await conn.execute(stmt)
         return result.scalars().all()

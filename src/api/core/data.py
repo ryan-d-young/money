@@ -15,7 +15,7 @@ class Record(_Data):
     @property
     def json(self) -> dict:
         return self.data
-    
+
 
 class Object(Record):
     model: type[BaseModel]
