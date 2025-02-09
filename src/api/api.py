@@ -10,7 +10,7 @@ async def connect(debug: bool = False) -> core.Session:
         write=debug
     )
     session = await core.Session(
-        dependencies.ClientSession, 
+        dependencies.HttpClient, 
         dependencies.DBEngine,
         env=env,
         logger=logger

@@ -44,6 +44,28 @@ class Bridge(Command):
         response = await self.bridge(session, response)
         return response
 
+
+class Paginate(Command):
+    def __init__(self, router: Router, page_size: int):
+        self.router = router
+        self.page_size = page_size
+
+    async def __call__(
+        self, 
+        session: Session, 
+        response: Response
+    ) -> list[Response]:
+        page_id = 1
+        responses = []
+        while True:
+            response = await self.router(session, response)
+            responses.append(response)
+            if len(response.json) < self.page_size:
+                break
+            page_id += 1
+        return responses
+
+
 class Macro:
     def __init__(self, *steps: Router | Command):
         self.steps = steps

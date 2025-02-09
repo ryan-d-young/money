@@ -4,8 +4,8 @@ from datetime import datetime
 PROJECT_NAME = "money"
 
 ROOT = Path(".").resolve()
-PROJECT = ROOT / "src" / PROJECT_NAME
-SOURCES = PROJECT / "ext"
+PROJECT = ROOT / "src"
+PROVIDERS = PROJECT / "ext"
 
 HOME = Path("~").resolve() / f".{PROJECT_NAME}"
 HOME.mkdir(exist_ok=True, parents=True)

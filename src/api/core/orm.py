@@ -34,5 +34,5 @@ metadata_tables = {
 }
 
 
-def raw_metadata(source: str):
+def schema(source: str):
     return MetaData(schema=f"raw_{source}")

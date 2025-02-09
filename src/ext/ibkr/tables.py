@@ -8,8 +8,8 @@ from sqlalchemy.ext.hybrid import hybrid_property
 
 from . import models, models_generated
 
-metadata = api.core.orm.raw_metadata("ibkr")
-Base = declarative_base(metadata=metadata)
+schema = api.core.schema("ibkr")
+Base = declarative_base(metadata=schema)
 
 
 class OHLC(Base):

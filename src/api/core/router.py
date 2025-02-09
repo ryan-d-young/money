@@ -109,7 +109,10 @@ def metadata(**metadata: Unpack[Metadata]) -> Callable[[Router], Router]:
 
 class Provider:
     routers: dict[str, Router]
-    
+
+    def __repr__(self):
+        return f"<Provider {self.routers}>"
+
     def __init__(self, mod: ModuleType):
         self._logger = util.log.get_logger(__name__)
         self.routers = {}
@@ -123,14 +126,18 @@ class Registry:
     providers: ClassVar[dict[str, Provider]] = {}
     _logger: Logger
 
+    def __repr__(self):
+        return f"<Registry {self.providers}>"
+
     @classmethod
     def scan(cls, ext_root: Path, logger: Logger):
         cls._logger = logger
-        for fp in ext_root.walk():
-            if fp.stem == "routers":
-                cls._logger.info(f"Scanning provider {fp.parent}")
-                mod = import_module(".".join("src", "ext", fp.parent, fp.stem))
-                cls.providers[fp.parent.stem] = Provider(mod)
+        for fp_provider in ext_root.glob("*"):
+            for fp_router in fp_provider.glob("*.py"):
+                if fp_router.stem == "routers":
+                    cls._logger.info(f"Scanning provider {fp_provider.stem}")
+                    mod = import_module(".".join(["src", "ext", fp_provider.stem, fp_router.stem]))
+                    cls.providers[fp_provider.stem] = Provider(mod)
         return cls
 
     @classmethod

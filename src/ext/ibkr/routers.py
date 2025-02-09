@@ -24,7 +24,7 @@ except KeyError as e:
     accepts=models_generated.HmdsHistoryGetParametersQuery,
     returns=models.OHLCBar,
     stores=tables.OHLC,
-    requires={"client": api.dependencies.ClientSession},
+    requires={"client": api.dependencies.HttpClient},
 )
 async def hmds_historical_bars(
     client: ClientSession, 
@@ -57,7 +57,7 @@ async def hmds_historical_bars(
     accepts=models_generated.IserverMarketdataHistoryGetParametersQuery,
     returns=models.OHLCBar,
     stores=tables.OHLC,
-    requires={"client": api.dependencies.ClientSession}
+    requires={"client": api.dependencies.HttpClient}
 )
 async def iserver_historical_bars(
     client: ClientSession, 
@@ -89,7 +89,7 @@ async def iserver_historical_bars(
 @api.router(
     accepts=models_generated.Currency,
     returns=models_generated.CurrencyPairs,
-    requires={"client": api.dependencies.ClientSession}
+    requires={"client": api.dependencies.HttpClient}
 )
 async def iserver_currency_pairs(
     client: ClientSession, 
@@ -122,7 +122,7 @@ async def iserver_currency_pairs(
     accepts=models_generated.IserverExchangerateGetParametersQuery,
     returns=models.FXSpot,
     stores=tables.FXSpot,
-    requires={"client": api.dependencies.ClientSession}
+    requires={"client": api.dependencies.HttpClient}
 )
 async def iserver_exchange_rate(
     client: ClientSession, 
@@ -152,7 +152,7 @@ async def iserver_exchange_rate(
 @api.router(
     accepts=models_generated.TrsrvAllConidsGetParametersQuery,
     returns=models_generated.TrsrvAllConidsGetResponse,
-    requires={"client": api.dependencies.ClientSession}    
+    requires={"client": api.dependencies.HttpClient}    
 )
 async def trsrv_conids(
     client: ClientSession, 
@@ -180,7 +180,7 @@ async def trsrv_conids(
     accepts=models_generated.TrsrvFuturesGetParametersQuery,
     returns=models.FuturesContract,
     stores=tables.FuturesChains,
-    requires={"client": api.dependencies.ClientSession}
+    requires={"client": api.dependencies.HttpClient}
 )
 async def trsrv_futures_from_symbol(
     client: ClientSession, 
@@ -208,7 +208,7 @@ async def trsrv_futures_from_symbol(
 @api.router(
     accepts=models_generated.TrsrvSecdefScheduleGetParametersQuery,
     returns=models_generated.TradingScheduleItem,
-    requires={"client": api.dependencies.ClientSession}
+    requires={"client": api.dependencies.HttpClient}
 )
 async def trsrv_schedule_from_symbol(
     client: ClientSession, 
@@ -235,7 +235,7 @@ async def trsrv_schedule_from_symbol(
 @api.router(
     accepts=models.ContractId,
     returns=models_generated.IserverContractConidInfoAndRulesGetResponse,
-    requires={"client": api.dependencies.ClientSession}
+    requires={"client": api.dependencies.HttpClient}
 )
 async def iserver_contract_info_from_conid(
     client: ClientSession, 
@@ -292,7 +292,7 @@ async def iserver_strikes_from_conid(
 @api.router(
     accepts=models_generated.IserverSecdefSearchGetParametersQuery,
     returns=models_generated.SecdefSearchResponse,
-    requires={"client": api.dependencies.ClientSession}
+    requires={"client": api.dependencies.HttpClient}
 )
 async def iserver_secdef_search(
     client: ClientSession, 
@@ -317,7 +317,7 @@ async def iserver_secdef_search(
 
 @api.router(
     returns=models_generated.GwApiV1AccountsGetResponse,
-    requires={"client": api.dependencies.ClientSession}
+    requires={"client": api.dependencies.HttpClient}
 )
 async def iserver_accounts(
     client: ClientSession, 
@@ -341,7 +341,7 @@ async def iserver_accounts(
 @api.router(
     accepts=models_generated.IserverSecdefInfoGetParametersQuery,
     returns=models_generated.SecDefInfoResponse,
-    requires={"client": api.dependencies.ClientSession}
+    requires={"client": api.dependencies.HttpClient}
 )
 async def iserver_secdef_info(
     client: ClientSession, 
@@ -367,7 +367,7 @@ async def iserver_secdef_info(
 @api.router(
     accepts=models.OrderId,
     returns=models_generated.OrderStatus,
-    requires={"client": api.dependencies.ClientSession}
+    requires={"client": api.dependencies.HttpClient}
 )
 async def iserver_account_order_status(
     client: ClientSession, 
@@ -392,7 +392,7 @@ async def iserver_account_order_status(
 @api.router(
     returns=models_generated.OrderSubmitSuccess | models_generated.OrderSubmitError | 
     models_generated.OrderReplyMessage | models_generated.AdvancedOrderReject,
-    requires={"client": api.dependencies.ClientSession}
+    requires={"client": api.dependencies.HttpClient}
 )
 async def iserver_account_post_order(
     client: ClientSession, 
@@ -431,7 +431,7 @@ async def iserver_account_post_order(
 
 
 @api.router(
-    requires={"client": api.dependencies.ClientSession},
+    requires={"client": api.dependencies.HttpClient},
     returns=models_generated.OrderCancelSuccess | models_generated.OrderSubmitError
 )
 async def iserver_account_delete_order(
@@ -468,7 +468,7 @@ async def iserver_account_delete_order(
 
 @api.router(
     returns=models_generated.AccountAttributes,
-    requires={"client": api.dependencies.ClientSession}
+    requires={"client": api.dependencies.HttpClient}
 )
 async def portfolio_accounts(client: ClientSession) -> AsyncGenerator[dict, None]:
     url = ROOT / "portfolio" / "accounts"
@@ -492,7 +492,7 @@ async def portfolio_accounts(client: ClientSession) -> AsyncGenerator[dict, None
     accepts=models.AccountId,
     returns=models.Ledger,
     stores=tables.AccountLedger,
-    requires={"client": api.dependencies.ClientSession}
+    requires={"client": api.dependencies.HttpClient}
 )
 async def portfolio_account_ledger(
     client: ClientSession, 
@@ -522,7 +522,7 @@ async def portfolio_account_ledger(
     accepts=models.AccountId,
     returns=models_generated.PortfolioSummary,
     stores=tables.AccountSummary,
-    requires={"client": api.dependencies.ClientSession}    
+    requires={"client": api.dependencies.HttpClient}    
 )
 async def portfolio_account_summary(
     client: ClientSession, 
@@ -548,7 +548,7 @@ async def portfolio_account_summary(
     accepts=models.AccountId,
     returns=models_generated.IndividualPosition,
     stores=tables.AccountPositions,
-    requires={"client": api.dependencies.ClientSession}
+    requires={"client": api.dependencies.HttpClient}
 )
 async def portfolio_account_positions(
     client: ClientSession, 
