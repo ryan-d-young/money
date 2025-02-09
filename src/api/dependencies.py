@@ -1,5 +1,5 @@
 import aiohttp
-from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
+from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine, AsyncSession
 from typing import ClassVar
 from .core import dependency
 
@@ -37,5 +37,27 @@ class DBEngine(dependency.Dependency[AsyncEngine]):
     @classmethod
     async def stop(cls, env: dict[str, str]):
         await cls._instance.dispose()
+        cls._instance = None
+        return cls
+
+
+class DBSession(dependency.Dependency[AsyncSession]):
+    _instance: ClassVar[AsyncSession | None] = None
+    name = "db_session"
+
+    @classmethod
+    async def start(cls, env: dict[str, str]):
+        if DBEngine._instance is None:
+            raise RuntimeError("DBEngine is not started")
+        cls._instance = AsyncSession(
+            DBEngine._instance,
+            autoflush=False,
+            expire_on_commit=False,
+        )
+        return cls
+
+    @classmethod
+    async def stop(cls, env: dict[str, str]):
+        await cls._instance.close()
         cls._instance = None
         return cls

@@ -19,6 +19,7 @@ def test_build_registry():
     )
     assert "ibkr" in registry.providers
     assert len(registry.providers["ibkr"].routers) > 0
+    assert len(registry.providers["ibkr"].tables) > 0
 
 
 @pytest.mark.asyncio
@@ -28,7 +29,6 @@ async def test_session_start_stop(dependencies: tuple[api.core.Dependency], env:
         env=env,
         logger=util.log.get_logger("test", write=False)
     )
-    await session.start()
-    
+    await session.start()    
     await session.stop()
     

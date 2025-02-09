@@ -27,7 +27,7 @@ class Session:
         return self.dependency_manager.get(name)
 
     def router(self, provider: str, name: str) -> Router:
-        router = self.registry.get(provider, name)
+        router = self.registry.router(provider, name)
         return self.inject(router)
 
     @property
