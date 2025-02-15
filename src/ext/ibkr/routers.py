@@ -5,8 +5,8 @@ from aiohttp import ClientSession
 from pydantic import ValidationError
 
 from src import api, util
-
 from . import models, models_generated, tables
+from .util import unix_to_iso
 
 
 try:
@@ -33,17 +33,17 @@ async def hmds_historical_bars(
     client: ClientSession, request: models_generated.HmdsHistoryGetParametersQuery
 ) -> AsyncGenerator[api.core.Response, None]:
     url = ROOT / "hmds" / "history"
-    params = request.model_dump()
-    async with client.get(url, params=params) as response:
+    params = request.model_dump(exclude_none=True)
+    async with client.get(url, params=params, ssl=False) as response:
         response.raise_for_status()
         json = await response.json()
     for record in json["data"]:
         yield api.core.Response(
             request=request,
-            identifier=api.core.Identifier(request.conid),
-            timestamp=api.core.Timestamp(record.get("t")),
-            attribute=api.core.Attribute("price"),
             data=api.core.Record(
+                identifier=api.core.Identifier(request.conid),
+                timestamp=api.core.Timestamp(unix_to_iso(record.get("t"))),
+                attribute=api.core.Attribute("price"),
                 data={
                     "open_": record.get("o"),
                     "high": record.get("h"),
@@ -51,7 +51,7 @@ async def hmds_historical_bars(
                     "close": record.get("c"),
                     "volume": record.get("v"),
                 }
-            ),
+            )
         )
 
 
@@ -346,7 +346,7 @@ async def iserver_secdef_info(
     )
 
 
-@api.router(
+@api.core.router.define(
     accepts=models.OrderId,
     returns=models_generated.OrderStatus,
     requires={"client": api.dependencies.HttpClient},
@@ -367,7 +367,8 @@ async def iserver_account_order_status(
     )
 
 
-@api.router(
+@api.core.router.define(
+    accepts=models.OrderPayload,
     returns=models_generated.OrderSubmitSuccess
     | models_generated.OrderSubmitError
     | models_generated.OrderReplyMessage
@@ -406,9 +407,10 @@ async def iserver_account_post_order(
     )
 
 
-@api.router(
-    requires={"client": api.dependencies.HttpClient},
+@api.core.router.define(
+    accepts=models.CancelOrder,
     returns=models_generated.OrderCancelSuccess | models_generated.OrderSubmitError,
+    requires={"client": api.dependencies.HttpClient},
 )
 async def iserver_account_delete_order(
     client: ClientSession, request: models.CancelOrder
@@ -438,7 +440,7 @@ async def iserver_account_delete_order(
     )
 
 
-@api.router(
+@api.core.router.define(
     returns=models_generated.AccountAttributes,
     requires={"client": api.dependencies.HttpClient},
 )
@@ -457,7 +459,7 @@ async def portfolio_accounts(client: ClientSession) -> AsyncGenerator[dict, None
         )
 
 
-@api.router(
+@api.core.router.define(
     accepts=models.AccountId,
     returns=models.Ledger,
     stores=tables.AccountLedger,
@@ -482,7 +484,7 @@ async def portfolio_account_ledger(
         )
 
 
-@api.router(
+@api.core.router.define(
     accepts=models.AccountId,
     returns=models_generated.PortfolioSummary,
     stores=tables.AccountSummary,
@@ -504,7 +506,7 @@ async def portfolio_account_summary(
     )
 
 
-@api.router(
+@api.core.router.define(
     accepts=models.AccountId,
     returns=models_generated.IndividualPosition,
     stores=tables.AccountPositions,

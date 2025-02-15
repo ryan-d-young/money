@@ -28,29 +28,17 @@ def api_root(env: dict[str, str]) -> URL:
 
 
 @pytest_asyncio.fixture
-async def http_client(env: dict[str, str]) -> AsyncGenerator[ClientSession, None]:
-    session = await api.dependencies.HttpClient.start(env)
-    yield session._instance
-    await api.dependencies.HttpClient.stop(env)
+async def session(env: dict[str, str]) -> api.core.Session:
+    session = api.core.Session(
+        api.dependencies.HttpClient,
+        api.dependencies.DBEngine,
+        env=env
+    )
+    await session.start()
+    return session
 
 
 @pytest_asyncio.fixture
-async def db_engine(env: dict[str, str]) -> AsyncGenerator[sqlalchemy.Engine, None]:
-    engine = await api.dependencies.DBEngine.start(env)
-    yield engine._instance
-    await api.dependencies.DBEngine.stop(env)
-
-
-@pytest_asyncio.fixture
-async def dependencies(
-    db_engine: sqlalchemy.Engine, 
-    http_client: ClientSession
-) -> AsyncGenerator[tuple[sqlalchemy.Engine, ClientSession], None]:
-    return db_engine, http_client
-
-
-@pytest_asyncio.fixture
-async def session(dependencies: tuple[sqlalchemy.Engine, ClientSession]) -> AsyncGenerator[api.core.Session, None]:
-    session = await api.connect(*dependencies)
+async def test_session(session: api.core.Session) -> AsyncGenerator[api.core.Session, None]:
     yield session
-    await api.disconnect(session)
+    await session.stop()

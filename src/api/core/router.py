@@ -12,7 +12,7 @@ from typing import (
 import pydantic
 from sqlalchemy import Table
 
-from .dependency import Dependency, Dependencies
+from .dependency import Dependencies
 from .request import Request
 from .response import Response
 
@@ -31,7 +31,7 @@ class Info(TypedDict, total=False):
     accepts: type[pydantic.BaseModel] | Union[type[pydantic.BaseModel]] | None
     returns: type[pydantic.BaseModel] | Union[type[pydantic.BaseModel]] | None
     stores: Table | None
-    requires: list[Dependency] | None
+    requires: Dependencies | None
     rate_limit: RateLimit | None = None
 
 

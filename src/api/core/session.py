@@ -1,9 +1,7 @@
-from functools import partial
 from logging import Logger
 from typing import AsyncGenerator
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.db import orm
 from src.util import log
 from src.const import PROVIDERS
 from .dependency import Dependency, DependencyManager
@@ -24,25 +22,13 @@ class Session:
         self.logger = logger or log.get_logger(__name__)
         self.registry = Registry.scan(PROVIDERS, logger=self.logger)
         self._env = dict(env)
-        self._db_session = AsyncSession(self.dependency_manager.acquire("db_engine"))
+        self._db_session = AsyncSession(self["db"]._instance)
 
-    async def start(self):
-        await self.dependency_manager.start(self._env)
-        self.logger.info("Session started")
-        return self
+    def __getitem__(self, name: str) -> Dependency:
+        return self.dependency_manager[name]
 
-    async def stop(self):
-        await self.dependency_manager.stop(self._env)
-        await self._db_session.close()
-        self.logger.info("Session stopped")
-        return self
-
-    async def dependency(self, name: str) -> Dependency:
-        return await self.dependency_manager.acquire(name)
-
-    async def router(self, provider: str, name: str) -> Router:
-        router = self.registry.router(provider, name)
-        return await self.inject(router)
+    def router(self, provider: str, name: str) -> Router:
+        return self.registry.router(provider, name)
 
     @property
     def env(self) -> dict[str, str]:
@@ -56,19 +42,29 @@ class Session:
     def session(self, session: AsyncSession):
         self._db_session = session
 
-    async def inject(self, router: Router) -> Router:
-        deps = [await self.dependency(name) for name in router.info.requires]
-        return partial(router, *deps)
+    async def start(self):
+        await self.dependency_manager.start(self._env)
+        self.logger.info("Session started")
+        return self
 
-    async def call(self, provider: str, router: str, **kwargs: RequestKwargs) -> AsyncGenerator[Response, None]:
-        router = await self.router(provider, router)
-        router = await self.inject(router)
-        if router.info.accepts:
-            request = Request(router.info.model)
-            request.make(**kwargs)
-            router = router(request.data)
-        return router
+    async def stop(self):
+        await self.dependency_manager.stop(self._env)
+        await self._db_session.close()
+        self.logger.info("Session stopped")
+        return self
 
     def __call__(self, provider: str, router: str, **kwargs: RequestKwargs) -> AsyncGenerator[Response, None]:
-        self.logger.info(f"Calling {provider}.{router} with {kwargs}")
-        return self.call(provider, router, **kwargs)
+        router: Router = self.router(provider, router)        
+        router_kwargs = {}
+        if router.info["requires"]:
+            deps = {
+                kwd: self[dep.name]._instance
+                for kwd, dep 
+                in router.info["requires"].items()
+            }
+            router_kwargs.update(deps)
+        if router.info["accepts"]:
+            request = Request(router.info["accepts"])
+            request.make(**kwargs)
+            router_kwargs.update(request=request.data)
+        return router(**router_kwargs)

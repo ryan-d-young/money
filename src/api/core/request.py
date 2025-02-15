@@ -1,12 +1,23 @@
-from typing import TypeVar, Unpack
+from typing import TypeVar, TypedDict, Protocol
 
 from pydantic import BaseModel
 
 from src.util import dt, ident
+from .symbols import Identifier, Attribute, Timestamp
 
 RequestModelT = TypeVar("RequestModelT", bound=type[BaseModel])
 RequestInstanceT = TypeVar("RequestInstanceT", bound=BaseModel)
-RequestKwargs = Unpack[RequestModelT]
+
+
+class Serializable(Protocol):
+    def data(self) -> dict:
+        ...
+
+
+class RequestKwargs(TypedDict, total=False):
+    identifier: Identifier
+    attribute: Attribute | None
+    timestamp: Timestamp | None
 
 
 class Request[RequestModelT, RequestInstanceT]:
@@ -32,11 +43,13 @@ class Request[RequestModelT, RequestInstanceT]:
     def id(self):
         return self._id
 
-    @property
-    def data(self):
-        return self._data
-
     def make(self, **kwargs: RequestKwargs) -> None:
-        if self.completed:
+        if self._data:
             raise ValueError(f"An instance of {self} already exists")
         self._data = self._model(**kwargs)
+
+    @property
+    def data(self) -> Serializable:
+        if not self._data:
+            raise ValueError(f"{self} is not set")
+        return self._data

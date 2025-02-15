@@ -1,69 +1,97 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 from collections import UserList, UserString
-from datetime import datetime
+from datetime import datetime, date, timedelta, time
 from typing import Any, ClassVar
 
-from pydantic import RootModel
+from pydantic import GetCoreSchemaHandler
+from pydantic_core import CoreSchema, core_schema
 
 from src.util import dt
 
+ILLEGAL = {","}
+RESERVED = {"$", "#", "@"}
 
-class _Discriminated(ABC, UserString):
-    discriminator: ClassVar[str]
+
+class _ABCSymbol(UserString, ABC):
+    discriminator: ClassVar[str] = ""
+
+    @classmethod
+    def __get_pydantic_core_schema__(
+        cls, 
+        _source_type: Any, 
+        _handler: GetCoreSchemaHandler
+    ) -> CoreSchema:
+        return core_schema.str_schema(
+            strip_whitespace=True,
+            strict=True,
+            coerce_numbers_to_str=True,
+            to_lower=True
+        )
 
     def __init__(self, data: str):
-        seq = data.removeprefix(self.discriminator)
-        super().__init__(seq)
-
-    @property
-    def obj(self) -> Any:
-        return self
-
-
-class _Symbol(_Discriminated, RootModel[str]):
-    discriminator: ClassVar[str] = ""
+        if any(char in data for char in ILLEGAL):
+            raise ValueError(f"Invalid symbol encountered: {data}")
+        elif any(char in data.removeprefix(self.discriminator) for char in RESERVED):
+            raise ValueError(f"Reserved symbol encountered: {data}")
+        super().__init__(data.removeprefix(self.discriminator))
 
     def __repr__(self) -> str:
         return f"{self.discriminator}{self.data}"
 
+    @property
+    @abstractmethod
+    def obj(self) -> str:
+        ...
 
-class Identifier(_Symbol):
+
+class Symbol(_ABCSymbol):
+    def __init__(self, data: str):
+        super().__init__(data)
+
+    def __repr__(self) -> str:
+        return f"{self.discriminator}{self.obj}"
+
+    @property
+    def obj(self) -> str:
+        return self.data
+
+
+class Identifier(Symbol):
     discriminator: ClassVar[str] = "$"
 
 
-class Timestamp(_Symbol):
-    discriminator: ClassVar[str] = "@"
-
-    def __init__(self, data: str | None = None):
-        if data is None:
-            data = f"@{dt.isotoday()}"
-        else:
-            try:
-                datetime.strptime(
-                    data.removeprefix(self.discriminator), dt._ISODATETIME
-                )
-            except ValueError:
-                raise ValueError(f"Invalid timestamp format: {data}")
-        super().__init__(data)
-
-    @property
-    def obj(self) -> datetime:
-        return dt.convert(dt_str=self.data)
-
-
-class Attribute(_Symbol):
+class Attribute(Symbol):
     discriminator: ClassVar[str] = "#"
 
 
-class Collection(_Discriminated, UserList[_Symbol]):
+class Timestamp(Symbol):
+    discriminator: ClassVar[str] = "@"
+
+    def __init__(self, data: str | datetime | date | timedelta | time | None = None):
+        if isinstance(data, str):
+            data = f"@{data}"
+        else:
+            data = f"@{dt.convert(data)}"
+        super().__init__(data)
+
+
+class Collection(UserList[Symbol]):
     discriminator: ClassVar[str] = "+"
 
     @staticmethod
-    def _raise_if_heterogenous(*symbols: _Symbol) -> None:
+    def _raise_if_heterogenous(*symbols: _ABCSymbol) -> None:
         if len(set([symbol.discriminator for symbol in symbols])) > 1:
             raise ValueError("Multiple discriminators encountered in provided symbols")
 
-    def __init__(self, *symbols: _Symbol):
+    @staticmethod
+    def _concat(*symbols: _ABCSymbol) -> str:
+        return ",".join([symbol.data for symbol in symbols])
+
+    @staticmethod
+    def _parse_str(symbols: str) -> list[_ABCSymbol]:
+        return [_ABCSymbol(symbol.strip()) for symbol in symbols.split(",")]
+
+    def __init__(self, *symbols: _ABCSymbol):
         self._raise_if_heterogenous(*symbols)
         super().__init__(symbols)
 
@@ -86,14 +114,10 @@ class Collection(_Discriminated, UserList[_Symbol]):
         symbols_li = list({symbol.strip() for symbol in symbols.split(",")})
         return cls.parse_li(*symbols_li)
 
+    @classmethod
+    def parse_strs(cls, symbols: list[str]):
+        return cls.parse_str(cls._concat(*symbols))
 
-def symbol(data: str) -> Timestamp | Attribute | Identifier | Collection:
-    match data[0]:
-        case Identifier.discriminator:
-            Identifier(data)
-        case Attribute.discriminator:
-            Attribute(data)
-        case Timestamp.discriminator:
-            Timestamp(data)
-        case Collection.discriminator:
-            return Collection.parse_str(data)
+    @property
+    def obj(self) -> str:
+        return self._concat(*self.data)

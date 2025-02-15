@@ -8,6 +8,7 @@ dependencies = [
     "aiohttp>=3.11.11",
     "asyncpg>=0.30.0",
     "datamodel-code-generator>=0.26.5",
+    "greenlet>=3.1.1",
     "ipython>=8.32.0",
     "pydantic>=2.10.6",
     "pytest>=8.3.4",

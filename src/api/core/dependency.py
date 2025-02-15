@@ -1,4 +1,3 @@
-import asyncio
 from typing import AsyncContextManager, ClassVar, Protocol, TypeVar
 
 DependencyT = TypeVar("DependencyT", bound=AsyncContextManager)
@@ -16,41 +15,25 @@ class Dependency[DependencyT](Protocol):
 
 
 Dependencies = dict[str, Dependency]
-Locks = dict[str, asyncio.Lock | None]
+
 
 class DependencyManager:
-    dependencies: Dependencies
-    locks: Locks
-
     def __init__(self, *dependencies: Dependency):
-        dependencies, locks = {}, {}
+        dependency_dict = {}
         for dependency in dependencies:
-            dependencies[dependency.name] = dependency
-            locks[dependency.name] = asyncio.Lock() if dependency.exclusive else None
-        self.dependencies, self.locks = dependencies, locks
+            dependency_dict[dependency.name] = dependency
+        self._dependencies = dependency_dict
 
     def __repr__(self):
-        return f"{self.__class__.__name__}({self.dependencies})"
+        return f"{self.__class__.__name__}({self._dependencies})"
 
-    async def acquire(self, name: str) -> Dependency:
-        if name in self.locks:
-            async with self.locks[name]:
-                return self.dependencies[name]._instance
-        else:
-            return self.dependencies[name]._instance
+    def __getitem__(self, name: str) -> Dependency:
+        return self._dependencies[name]
 
     async def start(self, env: dict[str, str]):
-        for name, lock_or_none in self.locks.items():
-            if lock_or_none:
-                async with lock_or_none:
-                    await self.dependencies[name].start(env)
-            else:
-                await self.dependencies[name].start(env)
+        for dependency in self._dependencies.values():
+            await dependency.start(env)
 
     async def stop(self, env: dict[str, str]):
-        for name, lock_or_none in self.locks.items():
-            if lock_or_none:
-                async with lock_or_none:
-                    await self.dependencies[name].stop(env)
-            else:
-                await self.dependencies[name].stop(env)
+        for dependency in self._dependencies.values():
+            await dependency.stop(env)
