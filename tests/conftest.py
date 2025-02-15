@@ -8,12 +8,12 @@ from yarl import URL
 from src import api, util
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def env() -> dict[str, str]:
-    return util.env.load()
+    return util.env.refresh()
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def api_root(env: dict[str, str]) -> URL:
     return (
         URL.build(
@@ -25,30 +25,29 @@ def api_root(env: dict[str, str]) -> URL:
         / "api"
     )
 
-@pytest_asyncio.fixture
+
+@pytest_asyncio.fixture(scope="session")
 async def http_client(env: dict[str, str]) -> AsyncGenerator[ClientSession, None]:
     session = await api.dependencies.HttpClient.start(env)
-    yield session
+    yield session._instance
     await api.dependencies.HttpClient.stop(env)
 
 
-@pytest_asyncio.fixture
-async def session() -> AsyncGenerator[api.core.session.Session, None]:
-    session = await api.connect()
-    yield session
-    await api.disconnect(session)
-
-
-@pytest_asyncio.fixture
+@pytest_asyncio.fixture(scope="session")
 async def db_engine(env: dict[str, str]) -> AsyncGenerator[sqlalchemy.Engine, None]:
     engine = await api.dependencies.DBEngine.start(env)
-    yield engine
+    yield engine._instance
     await api.dependencies.DBEngine.stop(env)
 
 
-@pytest_asyncio.fixture
-async def dependencies(
-    db_engine: sqlalchemy.Engine, 
-    http_client: ClientSession
-) -> AsyncGenerator[tuple[sqlalchemy.Engine, ClientSession], None]:
+@pytest_asyncio.fixture(scope="session")
+async def dependencies(db_engine: sqlalchemy.Engine, http_client: ClientSession) -> AsyncGenerator[tuple[sqlalchemy.Engine, ClientSession], None]:
     return db_engine, http_client
+
+
+@pytest_asyncio.fixture(scope="session")
+async def session(dependencies: tuple[sqlalchemy.Engine, ClientSession]) -> AsyncGenerator[api.session.Session, None]:
+    session = await api.connect(*dependencies)
+    yield session
+    await api.disconnect(session)
+

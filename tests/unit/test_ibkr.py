@@ -1,13 +1,18 @@
+import aiohttp
 import pytest
-from aiohttp import ClientSession
+from aiohttp import ClientSession, ClientTimeout
 from yarl import URL
 
 from src import api
 from src.ext.ibkr import models_generated
 
 @pytest.mark.asyncio
-async def test_connection(api_root: URL, client: ClientSession):
-    async with client.get(api_root / "iserver" / "accounts", ssl=False) as response:
+async def test_connection(api_root: URL, http_client: ClientSession):
+    async with http_client.get(
+        api_root / "iserver" / "accounts", 
+        ssl=False, 
+        timeout=ClientTimeout(total=15)
+    ) as response:
         assert response.status == 200
 
 

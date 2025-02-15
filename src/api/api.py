@@ -3,12 +3,12 @@ from src import util
 from . import core, dependencies
 
 
-async def connect(debug: bool = False) -> core.Session:
-    env = util.env.load()
+async def connect(debug: bool = False, *args: core.Dependency, **kwargs: dict[str, str]) -> core.Session:
     logger = util.log.get_logger(__name__, level=0 if debug else 20, write=debug)
-    session = await core.Session(
-        dependencies.HttpClient, dependencies.DBEngine, env=env, logger=logger
-    ).start()
+    env = util.env.refresh()
+    env.update(kwargs)
+    session = core.Session(*args, env=env, logger=logger)
+    await session.start()
     return session
 
 

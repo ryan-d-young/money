@@ -8,10 +8,13 @@ from src import api, util
 
 from . import models, models_generated, tables
 
+
 try:
     ROOT = (
         yarl.URL.build(
-            host=util.env.get("IBKR_HOST"), port=int(util.env.get("IBKR_PORT"))
+            scheme="https", 
+            host=util.env.get("IBKR_HOST"), 
+            port=int(util.env.get("IBKR_PORT"))
         )
         / "v1"
         / "api"
@@ -20,7 +23,7 @@ except KeyError as e:
     raise EnvironmentError("Unable to obtain IBKR credentials from environment") from e
 
 
-@api.router(
+@api.core.router.define(
     accepts=models_generated.HmdsHistoryGetParametersQuery,
     returns=models.OHLCBar,
     stores=tables.OHLC,
@@ -52,7 +55,7 @@ async def hmds_historical_bars(
         )
 
 
-@api.router(
+@api.core.router.define(
     accepts=models_generated.IserverMarketdataHistoryGetParametersQuery,
     returns=models.OHLCBar,
     stores=tables.OHLC,
@@ -85,7 +88,7 @@ async def iserver_historical_bars(
         )
 
 
-@api.router(
+@api.core.router.define(
     accepts=models_generated.Currency,
     returns=models_generated.CurrencyPairs,
     requires={"client": api.dependencies.HttpClient},
@@ -115,7 +118,7 @@ async def iserver_currency_pairs(
         )
 
 
-@api.router(
+@api.core.router.define(
     accepts=models_generated.IserverExchangerateGetParametersQuery,
     returns=models.FXSpot,
     stores=tables.FXSpot,
@@ -146,7 +149,7 @@ async def iserver_exchange_rate(
     )
 
 
-@api.router(
+@api.core.router.define(
     accepts=models_generated.TrsrvAllConidsGetParametersQuery,
     returns=models_generated.TrsrvAllConidsGetResponse,
     requires={"client": api.dependencies.HttpClient},
@@ -171,7 +174,7 @@ async def trsrv_conids(
         )
 
 
-@api.router(
+@api.core.router.define(
     accepts=models_generated.TrsrvFuturesGetParametersQuery,
     returns=models.FuturesContract,
     stores=tables.FuturesChains,
@@ -196,7 +199,7 @@ async def trsrv_futures_from_symbol(
             )
 
 
-@api.router(
+@api.core.router.define(
     accepts=models_generated.TrsrvSecdefScheduleGetParametersQuery,
     returns=models_generated.TradingScheduleItem,
     requires={"client": api.dependencies.HttpClient},
@@ -222,7 +225,7 @@ async def trsrv_schedule_from_symbol(
         )
 
 
-@api.router(
+@api.core.router.define(
     accepts=models.ContractId,
     returns=models_generated.IserverContractConidInfoAndRulesGetResponse,
     requires={"client": api.dependencies.HttpClient},
@@ -246,7 +249,7 @@ async def iserver_contract_info_from_conid(
     )
 
 
-@api.router(
+@api.core.router.define(
     accepts=models_generated.IserverSecdefStrikesGetParametersQuery,
     returns=models.OptionsStrikes,
     stores=tables.OptionsStrikes,
@@ -278,7 +281,7 @@ async def iserver_strikes_from_conid(
     )
 
 
-@api.router(
+@api.core.router.define(
     accepts=models_generated.IserverSecdefSearchGetParametersQuery,
     returns=models_generated.SecdefSearchResponse,
     requires={"client": api.dependencies.HttpClient},
@@ -301,7 +304,7 @@ async def iserver_secdef_search(
     )
 
 
-@api.router(
+@api.core.router.define(
     returns=models_generated.GwApiV1AccountsGetResponse,
     requires={"client": api.dependencies.HttpClient},
 )
@@ -321,7 +324,7 @@ async def iserver_accounts(
     )
 
 
-@api.router(
+@api.core.router.define(
     accepts=models_generated.IserverSecdefInfoGetParametersQuery,
     returns=models_generated.SecDefInfoResponse,
     requires={"client": api.dependencies.HttpClient},

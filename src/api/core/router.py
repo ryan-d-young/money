@@ -22,16 +22,8 @@ from . import dependency, request, response
 
 
 class RateLimit(TypedDict):
-    """
-    A rate limit for a router.
-
-    Attributes:
-        limit (int): The maximum number of requests per period.
-        period (int): The period in **seconds**.
-    """
-
     limit: int
-    period: int
+    period: float  # seconds
 
 
 class Metadata(TypedDict, total=False):
@@ -60,10 +52,10 @@ class Context:
 
 
 class Router(Protocol):
-    def __call__(
+    async def __call__(
         self,
         request: request.Request | None = None,
-        **args: dict[str, dependency.Dependency],
+        **kwargs: dict[str, dependency.Dependency],
     ) -> AsyncGenerator[response.Response, None]: ...
 
 
@@ -141,7 +133,7 @@ class Provider:
         tbl = {}
         for router in self.routers.values():
             if "stores" in router.info:
-                tbl[router.info["stores"].__tablename__] = router.info["stores"]
+                tbl[router.info["stores"].__tablename__] = router.info["stores"]  # type: ignore
         return tbl
 
 

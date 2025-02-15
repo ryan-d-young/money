@@ -9,6 +9,7 @@ from src.const import ROOT
 
 @lru_cache(maxsize=None)
 def load() -> dict[str, str]:
+    dotenv.load_dotenv(ROOT / ".env")
     return os.environ
 
 

@@ -1,14 +1,14 @@
 from typing import ClassVar
 
 import aiohttp
-from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, create_async_engine
+from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
 
 from .core import dependency
 
 
 class HttpClient(dependency.Dependency[aiohttp.ClientSession]):
     _instance: ClassVar[aiohttp.ClientSession | None] = None
-    name = "http_client"
+    name = "http"
 
     @classmethod
     async def start(cls, env: dict[str, str]):
@@ -21,17 +21,25 @@ class HttpClient(dependency.Dependency[aiohttp.ClientSession]):
         cls._instance = None
         return cls
 
+    async def __aenter__(self) -> aiohttp.ClientSession:
+        return self._instance
+
+    async def __aexit__(self, exc_type, exc_value, traceback) -> None:
+        pass
+
 
 class DBEngine(dependency.Dependency[AsyncEngine]):
     _instance: ClassVar[AsyncEngine | None] = None
-    name = "db_engine"
+    name = "db"
 
     @classmethod
     async def start(cls, env: dict[str, str]):
         url = (
             f"postgresql+asyncpg://"
-            f"{env['DBUSER']}:{env['DBPASS']}@"
-            f"{env['DBHOST']}:{env['DBPORT']}"
+            f"{env.get('DBUSER')}"
+            f"@{env.get('DBHOST')}"
+            f":{env.get('DBPORT')}"
+            f"/{env.get('DBNAME')}"
         )
         cls._instance = create_async_engine(url)
         return cls
@@ -42,24 +50,8 @@ class DBEngine(dependency.Dependency[AsyncEngine]):
         cls._instance = None
         return cls
 
+    async def __aenter__(self) -> AsyncEngine:
+        return self._instance
 
-class DBSession(dependency.Dependency[AsyncSession]):
-    _instance: ClassVar[AsyncSession | None] = None
-    name = "db_session"
-
-    @classmethod
-    async def start(cls, env: dict[str, str]):
-        if DBEngine._instance is None:
-            raise RuntimeError("DBEngine is not started")
-        cls._instance = AsyncSession(
-            DBEngine._instance,
-            autoflush=False,
-            expire_on_commit=False,
-        )
-        return cls
-
-    @classmethod
-    async def stop(cls, env: dict[str, str]):
-        await cls._instance.close()
-        cls._instance = None
-        return cls
+    async def __aexit__(self, exc_type, exc_value, traceback) -> None:
+        pass
