@@ -1,13 +1,15 @@
 import asyncio
 from functools import partial
 from logging import Logger
-
+from typing import AsyncGenerator
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from api.core.request import Request
-from api.core.response import Response
-from src import const
-from . import Dependency, Router, Registry
+from src.const import PROVIDERS
+from .dependency import Dependency
+from .provider import Registry
+from .request import Request
+from .response import Response
+from .router import Router
 
 
 class DependencyManager:
@@ -47,7 +49,7 @@ class Session:
     def __init__(self, *dependencies: Dependency, env: dict[str, str], logger: Logger):
         self.dependency_manager = DependencyManager(*dependencies)
         self.logger = logger
-        self.registry = Registry.scan(const.PROVIDERS, logger=self.logger)
+        self.registry = Registry.scan(PROVIDERS, logger=self.logger)
         self._env = dict(env)
         self._db_session = AsyncSession(self.dependency_manager.get("db_engine"))
 
@@ -85,12 +87,16 @@ class Session:
         deps = [await self.dependency(name) for name in router.info.requires]
         return partial(router, *deps)
 
-    async def call(self, provider: str, router: str, request: Request) -> AsyncGenerator[Response, None]:  # type: ignore
+    async def call(
+        self, provider: str, router: str, request: Request
+    ) -> AsyncGenerator[Response, None]:
         router = await self.router(provider, router)
         router = await self.inject(router)
         async for response in router(request):
             yield response
 
-    def __call__(self, provider: str, router: str, request: Request) -> AsyncGenerator[Response, None]:  # type: ignore
+    def __call__(
+        self, provider: str, router: str, request: Request
+    ) -> AsyncGenerator[Response, None]:  
         self.logger.info(f"Calling {provider}.{router} with {request}")
         return self.call(provider, router, request)

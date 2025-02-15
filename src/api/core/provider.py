@@ -1,7 +1,12 @@
+from pathlib import Path
+from typing import ClassVar
+from types import ModuleType
+from importlib import import_module
+from logging import Logger
+
+from sqlalchemy import Table
+
 from src.util import log
-
-from typing import ModuleType
-
 from .router import Router
 
 
@@ -27,3 +32,31 @@ class Provider:
             if "stores" in router.info:
                 tbl[router.info["stores"].__tablename__] = router.info["stores"]  # type: ignore
         return tbl
+
+
+class Registry:
+    providers: ClassVar[dict[str, Provider]] = {}
+
+    def __repr__(self):
+        return f"<Registry {self.providers}>"
+
+    @classmethod
+    def scan(cls, ext_root: Path, logger: Logger):
+        cls._logger = logger
+        for fp_provider in ext_root.glob("*"):
+            for fp_router in fp_provider.glob("*.py"):
+                if fp_router.stem == "routers":
+                    cls._logger.info(f"Scanning provider {fp_provider.stem}")
+                    mod = import_module(
+                        ".".join(["src", "ext", fp_provider.stem, fp_router.stem])
+                    )
+                    cls.providers[fp_provider.stem] = Provider(mod)
+        return cls
+
+    @classmethod
+    def router(cls, provider: str, router: str) -> Router:
+        return cls.providers[provider].routers[router]
+
+    @classmethod
+    def table(cls, provider: str, table: str) -> Table:
+        return cls.providers[provider].tables[table]

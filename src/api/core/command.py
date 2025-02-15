@@ -1,4 +1,7 @@
-from . import Router, Response, Request, Dependency
+from .router import Router
+from .request import Request
+from .response import Response
+from .dependency import Dependency
 
 
 class Command(Router): 
@@ -32,9 +35,9 @@ class Chain(Command):
         super().__init_subclass__(**kwargs)
 
     async def __call__(self, request: Request, **kwargs: dict[str, Dependency]) -> Response:
-        result = None
+        result = request
         for step in self.steps.values():
-            result = await step(request, **kwargs)
+            result = await step(result, **kwargs)
         return result
     
     def __repr__(self):
