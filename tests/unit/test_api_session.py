@@ -7,7 +7,7 @@ def test_make_dependency_manager(dependencies: tuple[api.core.Dependency]):
     manager = api.core.DependencyManager(*dependencies)
     for dependency in dependencies:
         assert isinstance(
-            manager.get(dependency.name),
+            manager.acquire(dependency.name),
             dependency.__orig_bases__[0].__args__[0],  # type: ignore
         )
 

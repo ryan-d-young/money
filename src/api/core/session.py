@@ -1,54 +1,26 @@
-import asyncio
 from functools import partial
 from logging import Logger
 from typing import AsyncGenerator
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from src.util import log
 from src.const import PROVIDERS
-from .dependency import Dependency
+from .dependency import Dependency, DependencyManager
 from .provider import Registry
 from .request import Request
 from .response import Response
 from .router import Router
 
 
-class DependencyManager:
-    def __init__(self, *dependencies: Dependency):
-        self.dependencies = {}
-        self.locks = {}
-        for dependency in dependencies:
-            self.dependencies[dependency.name] = dependency
-            if dependency.exclusive:
-                self.locks[dependency.name] = asyncio.Lock()
-
-    def __repr__(self):
-        return f"{self.__class__.__name__}({self.dependencies})"
-
-    async def get(self, name: str) -> Dependency:
-        if name in self.locks:
-            async with self.locks[name]:
-                return self.dependencies[name]._instance
-        else:
-            return self.dependencies[name]._instance
-
-    async def restart(self, name: str):
-        if name in self.locks:
-            async with self.locks[name]:
-                await self.dependencies[name].stop(self._env)
-                await self.dependencies[name].start(self._env)
-        else:
-            await self.dependencies[name].stop(self._env)
-            await self.dependencies[name].start(self._env)
-
-    async def stop(self, env: dict[str, str]):
-        for dependency in self.dependencies.values():
-            await dependency.stop(env)
-
-
 class Session:
-    def __init__(self, *dependencies: Dependency, env: dict[str, str], logger: Logger):
+    def __init__(
+        self,
+        *dependencies: Dependency, 
+        env: dict[str, str],
+        logger: Logger | None = None,
+    ):
         self.dependency_manager = DependencyManager(*dependencies)
-        self.logger = logger
+        self.logger = logger or log.get_logger(__name__)
         self.registry = Registry.scan(PROVIDERS, logger=self.logger)
         self._env = dict(env)
         self._db_session = AsyncSession(self.dependency_manager.get("db_engine"))
@@ -65,7 +37,7 @@ class Session:
         return self
 
     async def dependency(self, name: str) -> Dependency:
-        return await self.dependency_manager.get(name)
+        return await self.dependency_manager.acquire(name)
 
     async def router(self, provider: str, name: str) -> Router:
         router = self.registry.router(provider, name)

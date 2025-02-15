@@ -7,6 +7,7 @@ from src.util import dt, ident
 
 RequestModelT = TypeVar("RequestModelT", bound=type[BaseModel])
 RequestInstanceT = TypeVar("RequestInstanceT", bound=BaseModel)
+RequestKwargs = Unpack[RequestModelT]
 
 
 class Request[RequestModelT, RequestInstanceT]:
@@ -21,8 +22,6 @@ class Request[RequestModelT, RequestInstanceT]:
         self._data = None
         self._id = ident.uuid()
         self._created_at = dt.now()
-        self._completed_at = None
-        self._lock = asyncio.Lock()
 
     def __repr__(self):
         s = f"{self._model.__name__}({self._id})"
@@ -47,9 +46,7 @@ class Request[RequestModelT, RequestInstanceT]:
         if self.completed:
             return self._completed_at - self._created_at
 
-    async def make(self, **kwargs: Unpack[RequestModelT]) -> None:
+    def make(self, **kwargs: RequestKwargs) -> None:
         if self.completed:
             raise ValueError(f"An instance of {self} already exists")
-        async with self._lock:
-            self._data = self._model(**kwargs)
-            self._completed_at = dt.now()
+        self._data = self._model(**kwargs)

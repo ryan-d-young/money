@@ -24,3 +24,6 @@ class Response(_Data):
             "attribute": self.attribute,
             "data": self.data.json,
         }
+
+    def __repr__(self):
+        return f"<Response({self.request})>"

@@ -8,51 +8,41 @@ from typing import (
     Unpack,
     Protocol,
 )
-from logging import Logger
 
 import pydantic
 from sqlalchemy import Table
 
-from src import util
-from . import dependency, request, response
+from .dependency import Dependency, Dependencies
+from .request import Request
+from .response import Response
 
 
-class RateLimit(TypedDict):
-    limit: int
-    period: float  # seconds
+RateLimit = tuple[int, float]  # (limit, seconds)
 
 
-class Metadata(TypedDict, total=False):
-    rate_limit: RateLimit | None
+@dataclass(slots=True)
+class Metadata:
+    history: list[Request] | None = None
+    def __post_init__(self):
+        self.history = []
 
 
 class Info(TypedDict, total=False):
     accepts: type[pydantic.BaseModel] | Union[type[pydantic.BaseModel]] | None
     returns: type[pydantic.BaseModel] | Union[type[pydantic.BaseModel]] | None
     stores: Table | None
-    requires: list[dependency.Dependency] | None
-
-
-@dataclass(slots=True)
-class Context:
-    logger: Logger
-    history: list[request.Request] | None = None
-    metadata: Metadata | None = None
-
-    def __post_init__(self):
-        self.history = []
-        self.metadata = {}
-
-    def clear(self):
-        self.history = []
+    requires: list[Dependency] | None
+    rate_limit: RateLimit | None = None
 
 
 class Router(Protocol):
+    metadata: Metadata
+    info: Info
     async def __call__(
         self,
-        request: request.Request | None = None,
-        **kwargs: dict[str, dependency.Dependency],
-    ) -> AsyncGenerator[response.Response, None]: ...
+        request: Request | None = None,
+        **kwargs: Dependencies,
+    ) -> AsyncGenerator[Response, None]: ...
 
 
 def define(**info: Unpack[Info]) -> Callable[[Router], Router]:
@@ -68,6 +58,8 @@ def define(**info: Unpack[Info]) -> Callable[[Router], Router]:
             The database table where the data is stored.
         requires (list[protocols.Dependency] | None):
             A list of dependencies required by the API route.
+        rate_limit (RateLimit | None):
+            The external rate limit, in (limit, seconds).
 
     Returns:
     Callable[[protocols.Router], protocols.Router]:
@@ -79,31 +71,8 @@ def define(**info: Unpack[Info]) -> Callable[[Router], Router]:
         def wrapper(*args, **kwargs):
             return router(*args, **kwargs)
 
+        wrapper.metadata = Metadata()
         wrapper.info = Info(**info)
-        logger = util.log.get_logger(__name__)
-        wrapper.context = Context(logger=logger)
-        return wrapper
-
-    return decorator
-
-
-def metadata(**metadata: Unpack[Metadata]) -> Callable[[Router], Router]:
-    """
-    A decorator to define metadata for a router function. Attaches 'Metadata' to the router function's 'Context'.
-    This decorator must be used after the 'define' decorator, as 'Context' is attached to the router function by
-    the 'define' decorator.
-
-    Parameters:
-        rate_limit (RateLimit | None):
-            The rate limit for the router.
-    """
-
-    def decorator(router: Router) -> Router:
-        @functools.wraps(router)
-        def wrapper(*args, **kwargs):
-            return router(*args, **kwargs)
-
-        wrapper.context.metadata.update(metadata)
         return wrapper
 
     return decorator

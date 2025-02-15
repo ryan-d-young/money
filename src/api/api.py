@@ -1,6 +1,6 @@
 from src import util
 
-from . import core, dependencies
+from . import core
 
 
 async def connect(debug: bool = False, *args: core.Dependency, **kwargs: dict[str, str]) -> core.Session:
