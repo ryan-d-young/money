@@ -1,4 +1,3 @@
-import asyncio
 from typing import TypeVar, Unpack
 
 from pydantic import BaseModel
@@ -36,15 +35,6 @@ class Request[RequestModelT, RequestInstanceT]:
     @property
     def data(self):
         return self._data
-
-    @property
-    def completed(self) -> bool:
-        return self._completed_at is not None
-
-    @property
-    def elapsed(self) -> float | None:
-        if self.completed:
-            return self._completed_at - self._created_at
 
     def make(self, **kwargs: RequestKwargs) -> None:
         if self.completed:

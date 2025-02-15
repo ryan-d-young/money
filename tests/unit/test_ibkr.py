@@ -16,9 +16,8 @@ async def test_connection(api_root: URL, http_client: ClientSession):
 
 @pytest.mark.asyncio
 async def test_ibkr_hmds_historical_bars(session: api.core.Session):
-    router = session.router("ibkr", "hmds.historical_bars")
-    request = api.core.Request(models_generated.HmdsHistoryGetParametersQuery)
-    request.make(
+    response = session(
+        "ibkr", "hmds_historical_bars",
         conid="265598",
         bar_type="Last",
         start_time="2024-01-01",
@@ -26,8 +25,7 @@ async def test_ibkr_hmds_historical_bars(session: api.core.Session):
         direction="-1",
         bar="5mins",
         outside_rth=False
-    )
-    
-    async for response in router(request):
+)
+    async for record in response:
         assert response.status == 200
         

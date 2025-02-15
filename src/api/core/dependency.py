@@ -32,7 +32,7 @@ class DependencyManager:
     def __repr__(self):
         return f"{self.__class__.__name__}({self.dependencies})"
 
-    async def get(self, name: str) -> Dependency:
+    async def acquire(self, name: str) -> Dependency:
         if name in self.locks:
             async with self.locks[name]:
                 return self.dependencies[name]._instance

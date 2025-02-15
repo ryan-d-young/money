@@ -3,11 +3,12 @@ from logging import Logger
 from typing import AsyncGenerator
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from src.db import orm
 from src.util import log
 from src.const import PROVIDERS
 from .dependency import Dependency, DependencyManager
 from .provider import Registry
-from .request import Request
+from .request import Request, RequestKwargs
 from .response import Response
 from .router import Router
 
@@ -23,7 +24,7 @@ class Session:
         self.logger = logger or log.get_logger(__name__)
         self.registry = Registry.scan(PROVIDERS, logger=self.logger)
         self._env = dict(env)
-        self._db_session = AsyncSession(self.dependency_manager.get("db_engine"))
+        self._db_session = AsyncSession(self.dependency_manager.acquire("db_engine"))
 
     async def start(self):
         await self.dependency_manager.start(self._env)
@@ -59,16 +60,15 @@ class Session:
         deps = [await self.dependency(name) for name in router.info.requires]
         return partial(router, *deps)
 
-    async def call(
-        self, provider: str, router: str, request: Request
-    ) -> AsyncGenerator[Response, None]:
+    async def call(self, provider: str, router: str, **kwargs: RequestKwargs) -> AsyncGenerator[Response, None]:
         router = await self.router(provider, router)
         router = await self.inject(router)
-        async for response in router(request):
-            yield response
+        if router.info.accepts:
+            request = Request(router.info.model)
+            request.make(**kwargs)
+            router = router(request.data)
+        return router
 
-    def __call__(
-        self, provider: str, router: str, request: Request
-    ) -> AsyncGenerator[Response, None]:  
-        self.logger.info(f"Calling {provider}.{router} with {request}")
-        return self.call(provider, router, request)
+    def __call__(self, provider: str, router: str, **kwargs: RequestKwargs) -> AsyncGenerator[Response, None]:
+        self.logger.info(f"Calling {provider}.{router} with {kwargs}")
+        return self.call(provider, router, **kwargs)

@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from src import api
+from src import db
 from sqlalchemy import types as t
 from sqlalchemy.orm import Mapped, mapped_column, declarative_base
 from sqlalchemy.sql.functions import now
@@ -8,8 +8,8 @@ from sqlalchemy.ext.hybrid import hybrid_property
 
 from . import models, models_generated
 
-schema = api.core.schema("ibkr")
-Base = declarative_base(metadata=schema)
+metadata = db.orm.raw.metadata("ibkr")
+Base = declarative_base(metadata=metadata)
 
 
 class OHLC(Base):
