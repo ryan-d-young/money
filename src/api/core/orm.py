@@ -17,7 +17,7 @@ class Providers(metadata):
     app_metadata: Mapped[dict] = mapped_column(t.JSON)
     routers: Mapped[list["Routers"]] = relationship(back_populates="provider")
     collections: Mapped[list["Collections"]] = relationship(back_populates="provider")
-    requests: Mapped[list["Requests"]] = relationship(back_populates="provider")
+    requests: Mapped[list["Schedule"]] = relationship(back_populates="provider")
     
 
 class Routers(metadata):
@@ -27,7 +27,7 @@ class Routers(metadata):
     provider_id: Mapped[int] = mapped_column(t.Integer, ForeignKey("meta.providers.id"))
     provider: Mapped[Providers] = relationship(back_populates="routers")
     app_metadata: Mapped[dict] = mapped_column(t.JSON)
-    requests: Mapped[list["Requests"]] = relationship(back_populates="router")
+    requests: Mapped[list["Schedule"]] = relationship(back_populates="router")
 
 
 class Collections(metadata):
@@ -39,8 +39,8 @@ class Collections(metadata):
     collection: Mapped[list[str]] = mapped_column(t.ARRAY(t.String))
 
 
-class Requests(metadata):
-    __tablename__ = "requests"
+class Schedule(metadata):
+    __tablename__ = "schedule"
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     provider_id: Mapped[int] = mapped_column(t.Integer, ForeignKey("meta.providers.id"))
     router_id: Mapped[int] = mapped_column(t.Integer, ForeignKey("meta.routers.id"))

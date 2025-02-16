@@ -20,7 +20,7 @@ class RequestKwargs(TypedDict, total=False):
     timestamp: Timestamp | None
 
 
-class Request[RequestInstanceT]:
+class Request[RequestInstanceT](Serializable):
     _id: ident.UUID
     _submitted_at: float
     _created_at: float | None

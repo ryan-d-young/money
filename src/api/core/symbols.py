@@ -64,6 +64,10 @@ class Attribute(Symbol):
     discriminator: ClassVar[str] = "#"
 
 
+class Provider(Symbol):
+    discriminator: ClassVar[str] = "!"
+
+
 class Timestamp(Symbol):
     discriminator: ClassVar[str] = "@"
 
@@ -75,7 +79,6 @@ class Timestamp(Symbol):
         else:
             data = f"@{dt.convert(data)}"
         super().__init__(data)
-
 
 class Collection(UserList[Symbol]):
     discriminator: ClassVar[str] = "+"

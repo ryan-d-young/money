@@ -4,7 +4,7 @@ from .request import Request, RequestKwargs, RequestModelT
 from .response import Object, Record, Response
 from .router import Info, Metadata, Router, define
 from .symbols import Attribute, Collection, Identifier, Timestamp, Symbol
-from .orm import Providers, Routers, Collections, Requests
+from .orm import Providers, Routers, Collections, Schedule
 
 
 __all__ = [
@@ -12,5 +12,5 @@ __all__ = [
     "Response", "Object", "Record",
     "Info", "Metadata", "Router", "define",
     "Attribute", "Collection", "Identifier", "Timestamp", "Symbol",
-    "Providers", "Routers", "Collections", "Requests",
+    "Providers", "Routers", "Collections", "Schedule",
 ]
