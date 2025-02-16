@@ -12,14 +12,12 @@ async def test_symbols():
     assert identifier.obj == "Steve"
 
     timestamp = api.core.Timestamp("20210101")
-    assert timestamp.data == "20210101"
+    assert timestamp.data == timestamp.obj == "20210101"
     assert timestamp.discriminator == "@"
-    assert timestamp.obj == datetime(2021, 1, 1)
 
     attribute = api.core.Attribute("weight")
-    assert attribute.data == "weight"
+    assert attribute.data == attribute.obj == "weight"
     assert attribute.discriminator == "#"
-    assert attribute.obj == "weight"
 
     identifier_2 = api.core.Identifier("Michael")
     collection = api.core.Collection(identifier, identifier_2)

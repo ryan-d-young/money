@@ -1,12 +1,12 @@
 from logging import Logger
-from typing import AsyncGenerator
+from typing import AsyncGenerator, Unpack
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.util import log
 from src.const import PROVIDERS
 from .dependency import Dependency, DependencyManager
 from .provider import Registry
-from .request import Request, RequestKwargs
+from .request import Request, RequestKwargs, RequestModelT
 from .response import Response
 from .router import Router
 
@@ -53,9 +53,13 @@ class Session:
         self.logger.info("Session stopped")
         return self
 
-    def __call__(self, provider: str, router: str, **kwargs: RequestKwargs) -> AsyncGenerator[Response, None]:
-        router: Router = self.router(provider, router)        
+    def _inject(self, router: Router, kwargs: RequestKwargs | Unpack[RequestModelT]) -> dict:
         router_kwargs = {}
+        
+        if router.info["accepts"]:
+            request = Request(router.info["accepts"])
+            request.make(**kwargs)
+            router_kwargs.update(**request.data)
         if router.info["requires"]:
             deps = {
                 kwd: self[dep.name]._instance
@@ -63,8 +67,13 @@ class Session:
                 in router.info["requires"].items()
             }
             router_kwargs.update(deps)
-        if router.info["accepts"]:
-            request = Request(router.info["accepts"])
-            request.make(**kwargs)
-            router_kwargs.update(request=request.data)
-        return router(**router_kwargs)
+        return router_kwargs
+
+    def __call__(
+        self, 
+        provider: str, router: str, 
+        **kwargs: RequestKwargs | Unpack[RequestModelT]
+    ) -> AsyncGenerator[Response, None]:
+        router = self.router(provider, router)
+        kwargs = self._inject(router, kwargs)
+        return router(**kwargs)

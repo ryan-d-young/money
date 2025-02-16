@@ -6,12 +6,13 @@ import sqlalchemy
 from aiohttp import ClientSession
 from yarl import URL
 
-from src import api, util
+from src import api
+from src.util import env as env_
 
 
 @pytest.fixture(scope="session")
 def env() -> dict[str, str]:
-    return util.env.refresh()
+    return env_.refresh()
 
 
 @pytest.fixture(scope="session")

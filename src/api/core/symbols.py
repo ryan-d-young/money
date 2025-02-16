@@ -68,7 +68,9 @@ class Timestamp(Symbol):
     discriminator: ClassVar[str] = "@"
 
     def __init__(self, data: str | datetime | date | timedelta | time | None = None):
-        if isinstance(data, str):
+        if data is None:
+            data = f"@{dt.isotoday()}"
+        elif isinstance(data, str):
             data = f"@{data}"
         else:
             data = f"@{dt.convert(data)}"
