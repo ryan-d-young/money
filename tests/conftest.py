@@ -26,20 +26,3 @@ def api_root(env: dict[str, str]) -> URL:
         / "v1"
         / "api"
     )
-
-
-@pytest_asyncio.fixture
-async def session(env: dict[str, str]) -> api.core.Session:
-    session = api.core.Session(
-        api.dependencies.HttpClient,
-        api.dependencies.DBEngine,
-        env=env
-    )
-    await session.start()
-    return session
-
-
-@pytest_asyncio.fixture
-async def test_session(session: api.core.Session) -> AsyncGenerator[api.core.Session, None]:
-    yield session
-    await session.stop()

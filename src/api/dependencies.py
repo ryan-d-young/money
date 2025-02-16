@@ -55,3 +55,6 @@ class DBEngine(dependency.Dependency[AsyncEngine]):
 
     async def __aexit__(self, exc_type, exc_value, traceback) -> None:
         pass
+
+
+core_dependencies = [DBEngine,]

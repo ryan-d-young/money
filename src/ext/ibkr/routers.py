@@ -37,7 +37,7 @@ async def hmds_historical_bars(client: ClientSession, **request) -> AsyncGenerat
     for record in json["data"]:
         yield api.core.Response(
             request=request,
-            data=api.core.Record(
+            _data=api.core.Record(
                 identifier=api.core.Identifier(request["conid"]),
                 timestamp=api.core.Timestamp(unix_to_iso(record.get("t"))),
                 attribute=api.core.Attribute("price"),
@@ -66,7 +66,7 @@ async def iserver_historical_bars(client: ClientSession, **request) -> AsyncGene
     for record in json["data"]:
         yield api.core.Response(
             request=request,
-            data=api.core.Record(
+            _data=api.core.Record(
                 identifier=api.core.Identifier(request["conid"]),
                 timestamp=api.core.Timestamp(unix_to_iso(record.get("t"))),
                 attribute=api.core.Attribute("price"),
@@ -94,7 +94,7 @@ async def iserver_currency_pairs(client: ClientSession, **request) -> AsyncGener
     for record in json[request["value"]]:
         yield api.core.Response(
             request=request,
-            data=api.core.Object(
+            _data=api.core.Object(
                 identifier=api.core.Identifier(record.get("symbol")),
                 timestamp=api.core.Timestamp(),
                 attribute=api.core.Attribute("currency_pair"),
@@ -124,7 +124,7 @@ async def iserver_exchange_rate(client: ClientSession, **request) -> AsyncGenera
         identifier=api.core.Identifier(f"{request['source']}/{request['target']}"),
         timestamp=api.core.Timestamp(),
         attribute=api.core.Attribute("price"),
-        data=api.core.Object(
+        _data=api.core.Object(
             model=models.FXSpot,
             data={
                 "base": request["source"],
@@ -151,7 +151,7 @@ async def trsrv_conids(client: ClientSession, **request) -> AsyncGenerator[api.c
             identifier=api.core.Identifier(record.get("symbol")),
             timestamp=api.core.Timestamp(record.get("t")),
             attribute=api.core.Attribute("conid"),
-            data=api.core.Object(
+            _data=api.core.Object(
                 model=models_generated.TrsrvAllConidsGetResponseItem, data=record
             ),
         )
@@ -175,7 +175,7 @@ async def trsrv_futures_from_symbol(client: ClientSession, **request) -> AsyncGe
                 identifier=api.core.Identifier(symbol),
                 timestamp=api.core.Timestamp(contract.get("t")),
                 attribute=api.core.Attribute("futures_contract"),
-                data=api.core.Object(model=models.FuturesContract, data=contract),
+                _data=api.core.Object(model=models.FuturesContract, data=contract),
             )
 
 
@@ -195,7 +195,7 @@ async def trsrv_schedule_from_symbol(client: ClientSession, **request) -> AsyncG
             identifier=api.core.Identifier(record.get("symbol")),
             timestamp=api.core.Timestamp(record.get("t")),
             attribute=api.core.Attribute("schedule"),
-            data=api.core.Object(
+            _data=api.core.Object(
                 model=models_generated.TradingScheduleItem, data=record
             ),
         )
@@ -216,7 +216,7 @@ async def iserver_contract_info_from_conid(client: ClientSession, **request) -> 
         identifier=api.core.Identifier(request.root),
         timestamp=None,
         attribute=api.core.Attribute("contract_info"),
-        data=api.core.Object(
+        _data=api.core.Object(
             model=models_generated.IserverContractConidInfoAndRulesGetResponse,
             data=json,
         ),
@@ -238,7 +238,7 @@ async def iserver_strikes_from_conid(client: ClientSession, **request) -> AsyncG
         identifier=api.core.Identifier(request["conid"]),
         timestamp=None,
         attribute=api.core.Attribute("strikes"),
-        data=api.core.Object(
+        _data=api.core.Object(
             model=models.OptionsStrikes,
             data={
                 "conid": request["conid"],
@@ -266,7 +266,7 @@ async def iserver_secdef_search(client: ClientSession, **request) -> AsyncGenera
         identifier=api.core.Identifier(request["conid"]),
         timestamp=None,
         attribute=api.core.Attribute("secdef_search"),
-        data=api.core.Object(model=models_generated.SecdefSearchResponse, data=json),
+        _data=api.core.Object(model=models_generated.SecdefSearchResponse, data=json),
     )
 
 
@@ -284,7 +284,7 @@ async def iserver_accounts(client: ClientSession) -> AsyncGenerator[api.core.Res
         identifier=api.core.Identifier(json.get("root")),
         timestamp=None,
         attribute=api.core.Attribute("accounts"),
-        data=api.core.Object(model=models_generated.UserAccountsResponse, data=json),
+        _data=api.core.Object(model=models_generated.UserAccountsResponse, data=json),
     )
 
 
@@ -303,7 +303,7 @@ async def iserver_secdef_info(client: ClientSession, **request) -> AsyncGenerato
         identifier=api.core.Identifier(request["conid"]),
         timestamp=None,
         attribute=api.core.Attribute("secdef_info"),
-        data=api.core.Object(model=models_generated.SecDefInfoResponse, data=json),
+        _data=api.core.Object(model=models_generated.SecDefInfoResponse, data=json),
     )
 
 
@@ -322,7 +322,7 @@ async def iserver_account_order_status(client: ClientSession, **request) -> Asyn
         identifier=api.core.Identifier(request.root),
         timestamp=None,
         attribute=api.core.Attribute("order_status"),
-        data=api.core.Object(model=models_generated.OrderStatus, data=json),
+        _data=api.core.Object(model=models_generated.OrderStatus, data=json),
     )
 
 
@@ -359,7 +359,7 @@ async def iserver_account_post_order(client: ClientSession, **request) -> AsyncG
         identifier=api.core.Identifier(request["account_id"]),
         timestamp=None,
         attribute=api.core.Attribute("order_submit"),
-        data=api.core.Object(model=model, data=instance.model_dump()),
+        _data=api.core.Object(model=model, data=instance.model_dump()),
     )
 
 
@@ -390,7 +390,7 @@ async def iserver_account_delete_order(client: ClientSession, **request) -> Asyn
         identifier=api.core.Identifier(request["account_id"]),
         timestamp=None,
         attribute=api.core.Attribute("order_cancel"),
-        data=api.core.Object(model=model, data=instance.model_dump()),
+        _data=api.core.Object(model=model, data=instance.model_dump()),
     )
 
 
@@ -409,7 +409,7 @@ async def portfolio_accounts(client: ClientSession) -> AsyncGenerator[api.core.R
             identifier=api.core.Identifier(record.get("root")),
             timestamp=None,
             attribute=api.core.Attribute("account_attributes"),
-            data=api.core.Object(model=models_generated.AccountAttributes, data=record),
+            _data=api.core.Object(model=models_generated.AccountAttributes, data=record),
         )
 
 
@@ -430,7 +430,7 @@ async def portfolio_account_ledger(client: ClientSession, **request) -> AsyncGen
             identifier=api.core.Identifier(request["root"]),
             timestamp=None,
             attribute=api.core.Attribute("account_ledger"),
-            data=api.core.Object(
+            _data=api.core.Object(
                 model=models.Ledger, data={"currency": currency, **ledger}
             ),
         )
@@ -452,7 +452,7 @@ async def portfolio_account_summary(client: ClientSession, **request) -> AsyncGe
         identifier=api.core.Identifier(request["root"]),
         timestamp=None,
         attribute=api.core.Attribute("account_summary"),
-        data=api.core.Object(model=models_generated.PortfolioSummary, data=json),
+        _data=api.core.Object(model=models_generated.PortfolioSummary, data=json),
     )
 
 
@@ -475,7 +475,7 @@ async def portfolio_account_positions(client: ClientSession, **request) -> Async
                 identifier=api.core.Identifier(request["root"]),
                 timestamp=None,
                 attribute=api.core.Attribute("account_positions"),
-                data=api.core.Object(
+                _data=api.core.Object(
                     model=models_generated.IndividualPosition, data=record
                 ),
             )

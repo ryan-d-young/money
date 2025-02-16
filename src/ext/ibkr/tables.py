@@ -1,14 +1,14 @@
 from datetime import datetime
 
-from src import db
 from sqlalchemy import types as t
+from sqlalchemy import MetaData
 from sqlalchemy.orm import Mapped, mapped_column, declarative_base
 from sqlalchemy.sql.functions import now
 from sqlalchemy.ext.hybrid import hybrid_property
 
 from . import models, models_generated
 
-metadata = db.orm.raw.metadata("ibkr")
+metadata = MetaData(schema="ibkr")
 Base = declarative_base(metadata=metadata)
 
 
@@ -108,7 +108,7 @@ class AccountPositions(Base):
 
     @hybrid_property
     def position(self) -> models_generated.IndividualPosition:
-        return models_generated.IndividualPosition(self._summary)
+        return models_generated.IndividualPosition(self._position)
 
     @position.setter
     def set_position(self, value: models_generated.IndividualPosition):

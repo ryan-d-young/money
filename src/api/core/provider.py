@@ -1,62 +1,84 @@
 from pathlib import Path
-from typing import ClassVar
+from typing import ClassVar, TypeVar
 from types import ModuleType
 from importlib import import_module
 from logging import Logger
 
-from sqlalchemy import Table
+from sqlalchemy.orm import DeclarativeMeta
+from sqlalchemy import MetaData
 
-from src.util import log
 from .router import Router
+from .dependency import Dependencies
 
 
 class Provider:
     routers: dict[str, Router]
+    dependencies: Dependencies
+    metadata: MetaData | None = None
 
     def __repr__(self):
         return f"<Provider {self.name}>"
 
-    def __init__(self, mod: ModuleType):
-        self.name = __name__.split(".")[-1]
-        self._logger = log.get_logger(self.name)
-        self.routers = {}
-        for fname, fn in mod.__dict__.items():
-            if hasattr(fn, "info") and hasattr(fn, "metadata"):
-                self._logger.info(f"Found router {fname}")
-                self.routers[fname] = fn
+    def __init__(self, logger: Logger, metadata: MetaData, routers: ModuleType | None):
+        self.metadata = metadata
+        self.dependencies = {}
+        self._routers = {}
+        if routers:
+            for fname, fn in routers.__dict__.items():
+                if hasattr(fn, "info") and hasattr(fn, "metadata"):
+                    logger.info(f"Found router {fname}")
+                    self._routers[fname] = fn
+                    if "requires" in fn.info:
+                        logger.info(f"Adding dependencies for {fname}")
+                        self.dependencies.update(fn.info["requires"])
 
     @property
-    def tables(self) -> dict[str, Table]:
-        tbl = {}
-        for router in self.routers.values():
-            if router.info["stores"]:
-                tbl[router.info["stores"].__tablename__] = router.info["stores"]  # type: ignore
-        return tbl
+    def routers(self) -> dict[str, Router]:
+        return self._routers
+
+    @property
+    def tables(self) -> dict[str, DeclarativeMeta]:
+        return self._tables
+
+    @property
+    def name(self) -> str:
+        return self.metadata.schema
 
 
-class Registry:
-    providers: ClassVar[dict[str, Provider]] = {}
+ProviderDictT = TypeVar("ProviderDictT", bound=dict[str, Provider])
 
-    def __repr__(self):
-        return f"<Registry {self.providers}>"
+
+class ProviderDirectoryMixin:
+    providers: ClassVar[ProviderDictT] = {}
 
     @classmethod
-    def scan(cls, ext_root: Path, logger: Logger):
-        cls._logger = logger
-        for fp_provider in ext_root.glob("*"):
-            for fp_router in fp_provider.glob("*.py"):
-                if fp_router.stem == "routers":
-                    cls._logger.info(f"Scanning provider {fp_provider.stem}")
-                    mod = import_module(
-                        ".".join(["src", "ext", fp_provider.stem, fp_router.stem])
-                    )
-                    cls.providers[fp_provider.stem] = Provider(mod)
-        return cls
+    def load_provider(cls, provider: Path, logger: Logger):
+        provider_metadata = None
+        provider_routers_mod = None
+        for fp in provider.glob("*.py"):
+            if fp.stem == "routers":
+                logger.info(f"Scanning provider {fp.stem} routers")
+                provider_routers_mod = import_module(
+                    ".".join(["src", "ext", provider.stem, fp.stem])
+                )
+            elif fp.stem == "tables":
+                logger.info(f"Scanning provider {fp.stem} tables")
+                provider_tables_mod = import_module(
+                    ".".join(["src", "ext", provider.stem, fp.stem])
+                )
+                if hasattr(provider_tables_mod, "metadata"):
+                    provider_metadata = getattr(provider_tables_mod, "metadata")
+        provider = Provider(logger, provider_metadata, provider_routers_mod)
+        cls.providers[provider.name] = provider
 
     @classmethod
     def router(cls, provider: str, router: str) -> Router:
         return cls.providers[provider].routers[router]
 
     @classmethod
-    def table(cls, provider: str, table: str) -> Table:
-        return cls.providers[provider].tables[table]
+    def routers(cls, provider: str) -> dict[str, Router]:
+        return cls.providers[provider].routers
+
+    @classmethod
+    def dependencies(cls, provider: str) -> Dependencies:
+        return cls.providers[provider].dependencies
