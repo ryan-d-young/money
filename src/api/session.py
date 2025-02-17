@@ -58,9 +58,9 @@ class Session(ProviderDirectoryMixin, OrmSessionMixin, DependencyManagerMixin):
         )
         return self
 
-    async def stop(self) -> "Session":
+    async def stop(self, commit: bool = True) -> "Session":
         await self.stop_dependencies(self._env)
-        await self.stop_db()
+        await self.stop_db(commit)
         return self
 
     @property

@@ -2,7 +2,7 @@ from typing import ClassVar
 from datetime import datetime, timedelta
 
 from sqlalchemy import MetaData, ForeignKey, types as t
-from sqlalchemy.ext.asyncio import AsyncSession, AsyncEngine
+from sqlalchemy.ext.asyncio import AsyncSession, AsyncEngine, AsyncConnection
 from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase, declarative_base
 from sqlalchemy.sql import text
 
@@ -41,35 +41,43 @@ class Schedule(metadata):
 
 
 class OrmSessionMixin:
-    db_session: ClassVar[AsyncSession | None] = None
-
-    async def init_db(self, dbengine: AsyncEngine, provider_metadata: list[MetaData]) -> "OrmSessionMixin":        
-        async with dbengine.begin() as conn:
-            schema = metadata.metadata.schema
-            if schema:
-                await conn.execute(text(f"CREATE SCHEMA IF NOT EXISTS {schema}"))
-            
-            for md in provider_metadata:
-                if md.schema:
-                    await conn.execute(text(f"CREATE SCHEMA IF NOT EXISTS {md.schema}"))
-            
-            await conn.run_sync(metadata.metadata.create_all)
-            for md in provider_metadata:
-                await conn.run_sync(md.create_all)
-                    
-        self.db_session = AsyncSession(dbengine)        
-        return self
-    
-    async def stop_db(self) -> "OrmSessionMixin":
-        await self.db_session.close()
-        return self
+    _conn: AsyncConnection | None = None
+    _session: AsyncSession | None = None
 
     @property
-    def db(self) -> AsyncSession:
-        if not self.db_session:
+    def conn(self) -> AsyncConnection:
+        if not self._conn:
+            raise ValueError("Database connection not initialized")
+        return self._conn
+
+    @property
+    def session(self) -> AsyncSession:
+        if not self._session:
             raise ValueError("Database session not initialized")
-        return self.db_session
+        return self._session
+
+    async def init_db(self, dbengine: AsyncEngine, provider_metadata: list[MetaData]) -> None:        
+        self._conn = dbengine.connect()
+        await self._conn.start()
+        self._session = AsyncSession(self.conn)
+
+        schema = metadata.metadata.schema
+
+        await self.session.run_sync(metadata.metadata.create_all)
+
+        await self.conn.execute(text(f"CREATE SCHEMA IF NOT EXISTS {schema}"))
+
+        for md in provider_metadata:
+            if md.schema:
+                await self.conn.execute(text(f"CREATE SCHEMA IF NOT EXISTS {md.schema}"))
+        
+        for md in provider_metadata:
+            await self.session.run_sync(md.create_all)
+
+    async def stop_db(self, commit: bool = True) -> None:
+        if commit:
+            await self.session.commit()
+        await self.session.close()
 
     async def load_metadata(self, metadata: MetaData) -> None:
-        async with self.db_session.begin() as conn:
-            await conn.run_sync(metadata.create_all)
+        await self.session.run_sync(metadata.create_all)
