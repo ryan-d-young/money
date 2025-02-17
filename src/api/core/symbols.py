@@ -43,7 +43,6 @@ class _ABCSymbol(UserString, ABC):
     def obj(self) -> str:
         ...
 
-
 class Symbol(_ABCSymbol):
     def __init__(self, data: str):
         super().__init__(data)
@@ -79,6 +78,7 @@ class Timestamp(Symbol):
         else:
             data = f"@{dt.convert(data)}"
         super().__init__(data)
+
 
 class Collection(UserList[Symbol]):
     discriminator: ClassVar[str] = "+"

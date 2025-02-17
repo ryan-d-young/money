@@ -1,8 +1,9 @@
 from typing import ClassVar
+from datetime import datetime, timedelta
 
 from sqlalchemy import MetaData, ForeignKey, types as t
 from sqlalchemy.ext.asyncio import AsyncSession, AsyncEngine
-from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase, declarative_base, relationship
+from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase, declarative_base
 from sqlalchemy.sql import text
 
 base_metadata = MetaData(schema="meta")
@@ -15,39 +16,28 @@ class Providers(metadata):
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     name: Mapped[str] = mapped_column(unique=True)
     app_metadata: Mapped[dict] = mapped_column(t.JSON)
-    routers: Mapped[list["Routers"]] = relationship(back_populates="provider")
-    collections: Mapped[list["Collections"]] = relationship(back_populates="provider")
-    requests: Mapped[list["Schedule"]] = relationship(back_populates="provider")
-    
-
-class Routers(metadata):
-    __tablename__ = "routers"
-    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    name: Mapped[str]
-    provider_id: Mapped[int] = mapped_column(t.Integer, ForeignKey("meta.providers.id"))
-    provider: Mapped[Providers] = relationship(back_populates="routers")
-    app_metadata: Mapped[dict] = mapped_column(t.JSON)
-    requests: Mapped[list["Schedule"]] = relationship(back_populates="router")
 
 
 class Collections(metadata):
     __tablename__ = "collections"
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    name: Mapped[str]
+    name: Mapped[str] = mapped_column(unique=True)
     provider_id: Mapped[int] = mapped_column(t.Integer, ForeignKey("meta.providers.id"))
-    provider: Mapped[Providers] = relationship(back_populates="collections")
     collection: Mapped[list[str]] = mapped_column(t.ARRAY(t.String))
 
 
 class Schedule(metadata):
     __tablename__ = "schedule"
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    provider_id: Mapped[int] = mapped_column(t.Integer, ForeignKey("meta.providers.id"))
-    router_id: Mapped[int] = mapped_column(t.Integer, ForeignKey("meta.routers.id"))
-    provider: Mapped[Providers] = relationship(back_populates="requests")
-    router: Mapped[Routers] = relationship(back_populates="requests")
-    app_metadata: Mapped[dict] = mapped_column(t.JSON)
+    provider: Mapped[str] = mapped_column(t.String, ForeignKey("meta.providers.name"))
+    router: Mapped[str] = mapped_column(t.String, nullable=True)
+    collection: Mapped[str] = mapped_column(t.String, ForeignKey("meta.collections.name"), nullable=True)
+    table_name: Mapped[str] = mapped_column(t.String, nullable=True)
+    model_name: Mapped[str] = mapped_column(t.String, nullable=True)
     request: Mapped[dict] = mapped_column(t.JSON)
+    start: Mapped[datetime] = mapped_column(t.DateTime)
+    end: Mapped[datetime] = mapped_column(t.DateTime, nullable=True)
+    recurrence: Mapped[timedelta] = mapped_column(t.Interval)
 
 
 class OrmSessionMixin:

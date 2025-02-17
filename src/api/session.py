@@ -91,3 +91,6 @@ class Session(ProviderDirectoryMixin, OrmSessionMixin, DependencyManagerMixin):
         router = self.providers.router(provider, router)
         kwargs = self._inject(router, kwargs)
         return router(**kwargs)
+
+    def __repr__(self) -> str:
+        return f"<Session({', '.join(self.providers.keys())})>"
