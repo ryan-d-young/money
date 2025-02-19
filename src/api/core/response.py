@@ -29,11 +29,7 @@ class Record:
 
 @dataclass(frozen=True)
 class Object(Record):
-    model: type[BaseModel] | None = None
-
-    def __post_init__(self):
-        if self.model is None:
-            raise ValueError("Model is required")
+    model: type[BaseModel] = field(default_factory=BaseModel)
 
     @property
     def data(self) -> dict:
@@ -50,11 +46,7 @@ class Object(Record):
 @dataclass(frozen=True)
 class Response(Serializable):
     request: Request | None = None
-    _data: Object | Record | None = None
-
-    def __post_init__(self):
-        if self._data is None:
-            raise ValueError("Data is required")
+    _data: Object | Record | None = field(default_factory=Record)
 
     def __repr__(self):
         return f"<Response({self.id})>"
