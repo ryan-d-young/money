@@ -63,21 +63,19 @@ async def iserver_historical_bars(client: ClientSession, **request) -> AsyncGene
         response.raise_for_status()
         json = await response.json()
     for record in json["data"]:
-        yield api.core.Response(
-            request=request,
-            _data=api.core.Record(
-                identifier=api.core.Identifier(request["conid"]),
-                timestamp=api.core.Timestamp(unix_to_iso(record.get("t"))),
-                attribute=api.core.Attribute("price"),
-                data={
-                    "open_": record.get("o"),
-                    "high": record.get("h"),
-                    "low": record.get("l"),
-                    "close": record.get("c"),
-                    "volume": record.get("v"),
-                }
-            )
+        record_out = api.core.Record(
+            identifier=api.core.Identifier(request["conid"]),
+            timestamp=api.core.Timestamp(unix_to_iso(record.get("t"))),
+            attribute=api.core.Attribute("price"),
+            data={
+                "open_": record.get("o"),
+                "high": record.get("h"),
+                "low": record.get("l"),
+                "close": record.get("c"),
+                "volume": record.get("v"),
+            }
         )
+        yield api.core.Response(request, record_out)
 
 
 @api.core.router.define(
@@ -91,20 +89,18 @@ async def iserver_currency_pairs(client: ClientSession, **request) -> AsyncGener
         response.raise_for_status()
         json = await response.json()
     for record in json[request["value"]]:
-        yield api.core.Response(
-            request=request,
-            _data=api.core.Object(
-                identifier=api.core.Identifier(record.get("symbol")),
-                timestamp=api.core.Timestamp(),
-                attribute=api.core.Attribute("currency_pair"),
-                model=models_generated.CurrencyPair,
+        record_out = api.core.Object(
+            identifier=api.core.Identifier(record.get("symbol")),
+            timestamp=api.core.Timestamp(),
+            attribute=api.core.Attribute("currency_pair"),
+            model=models_generated.CurrencyPair,
                 data={
                     "symbol": record.get("symbol"),
                     "conid": record.get("conid"),
-                    "ccy_pair": record.get("ccyPair"),
-                },
-            ),
+                "ccy_pair": record.get("ccyPair"),
+            },
         )
+        yield api.core.Response(request, record_out)
 
 
 @api.core.router.define(
@@ -312,13 +308,14 @@ async def iserver_account_order_status(client: ClientSession, **request) -> Asyn
     async with client.get(url) as response:
         response.raise_for_status()
         json = await response.json()
-    yield api.core.Response(
-        request=request,
+    record_out = api.core.Object(
         identifier=api.core.Identifier(request.root),
         timestamp=None,
         attribute=api.core.Attribute("order_status"),
-        _data=api.core.Object(model=models_generated.OrderStatus, data=json),
+        model=models_generated.OrderStatus,
+        data=json,
     )
+    yield api.core.Response(request, record_out)
 
 
 @api.core.router.define(
@@ -349,13 +346,14 @@ async def iserver_account_post_order(client: ClientSession, **request) -> AsyncG
             continue
     if instance is None:
         raise ValueError(f"Unrecognized response format: {json}")
-    yield api.core.Response(
-        request=request,
+    record_out = api.core.Object(
         identifier=api.core.Identifier(request["account_id"]),
         timestamp=None,
         attribute=api.core.Attribute("order_submit"),
-        _data=api.core.Object(model=model, data=instance.model_dump()),
+        model=model,
+        data=instance.model_dump(),
     )
+    yield api.core.Response(request, record_out)
 
 
 @api.core.router.define(
@@ -376,17 +374,19 @@ async def iserver_account_delete_order(client: ClientSession, **request) -> Asyn
         try:
             model = model_received
             instance = model(**json)
-        except:
+        except ValidationError:
+            model = None
             continue
     if instance is None:
         raise ValueError(f"Unrecognized response format: {json}")
-    yield api.core.Response(
-        request=request,
+    record_out = api.core.Object(
         identifier=api.core.Identifier(request["account_id"]),
         timestamp=None,
         attribute=api.core.Attribute("order_cancel"),
-        _data=api.core.Object(model=model, data=instance.model_dump()),
+        model=model,
+        data=instance.model_dump(),
     )
+    yield api.core.Response(request, record_out)
 
 
 @api.core.router.define(
@@ -399,14 +399,14 @@ async def portfolio_accounts(client: ClientSession) -> AsyncGenerator[api.core.R
         response.raise_for_status()
         json = await response.json()
     for record in json["root"]:
-        yield api.core.Response(
-            request=None,
+        record_out = api.core.Object(
             identifier=api.core.Identifier(record.get("root")),
             timestamp=None,
             attribute=api.core.Attribute("account_attributes"),
-            _data=api.core.Object(model=models_generated.AccountAttributes, data=record),
+            model=models_generated.AccountAttributes,
+            data=record,
         )
-
+        yield api.core.Response(None, record_out)
 
 @api.core.router.define(
     accepts=models.AccountId,
@@ -420,15 +420,14 @@ async def portfolio_account_ledger(client: ClientSession, **request) -> AsyncGen
         response.raise_for_status()
         json = await response.json()
     for currency, ledger in json["root"].items():
-        yield api.core.Response(
-            request=request,
+        record_out = api.core.Object(
             identifier=api.core.Identifier(request["root"]),
             timestamp=None,
             attribute=api.core.Attribute("account_ledger"),
-            _data=api.core.Object(
-                model=models.Ledger, data={"currency": currency, **ledger}
-            ),
+            model=models.Ledger,
+            data={"currency": currency, **ledger},
         )
+        yield api.core.Response(request, record_out)
 
 
 @api.core.router.define(
@@ -442,13 +441,14 @@ async def portfolio_account_summary(client: ClientSession, **request) -> AsyncGe
     async with client.get(url) as response:
         response.raise_for_status()
         json = await response.json()
-    yield api.core.Response(
-        request=request,
+    record_out = api.core.Object(
         identifier=api.core.Identifier(request["root"]),
         timestamp=None,
         attribute=api.core.Attribute("account_summary"),
-        _data=api.core.Object(model=models_generated.PortfolioSummary, data=json),
+        model=models_generated.PortfolioSummary,
+        data=json,
     )
+    yield api.core.Response(request, record_out)
 
 
 @api.core.router.define(
@@ -465,15 +465,14 @@ async def portfolio_account_positions(client: ClientSession, **request) -> Async
             response.raise_for_status()
             json = await response.json()
         for record in json["root"]:
-            yield api.core.Response(
-                request=request,
+            record_out = api.core.Object(
                 identifier=api.core.Identifier(request["root"]),
                 timestamp=None,
                 attribute=api.core.Attribute("account_positions"),
-                _data=api.core.Object(
-                    model=models_generated.IndividualPosition, data=record
-                ),
+                model=models_generated.IndividualPosition,
+                data=record,
             )
+            yield api.core.Response(request, record_out)
         if len(json["root"]) < 100:
             break
         page_id += 1
