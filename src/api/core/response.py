@@ -8,10 +8,14 @@ from .symbols import Attribute, Identifier, Timestamp
 
 @dataclass(frozen=True)
 class Record:
-    identifier: Identifier
+    identifier: Identifier | None = None
     timestamp: Timestamp | None = None
     attribute: Attribute | None = None
     _data: Serializable = field(default_factory=dict)
+
+    def __post_init__(self):
+        if self.identifier is None:
+            raise ValueError("Identifier is required")
 
     @property
     def data(self) -> dict:
@@ -25,7 +29,11 @@ class Record:
 
 @dataclass(frozen=True)
 class Object(Record):
-    model: type[BaseModel]
+    model: type[BaseModel] | None = None
+
+    def __post_init__(self):
+        if self.model is None:
+            raise ValueError("Model is required")
 
     @property
     def data(self) -> dict:
@@ -42,7 +50,11 @@ class Object(Record):
 @dataclass(frozen=True)
 class Response(Serializable):
     request: Request | None = None
-    _data: Object | Record
+    _data: Object | Record | None = None
+
+    def __post_init__(self):
+        if self._data is None:
+            raise ValueError("Data is required")
 
     def __repr__(self):
         return f"<Response({self.id})>"
