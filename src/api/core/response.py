@@ -1,4 +1,3 @@
-from typing import TypedDict
 from dataclasses import dataclass
 
 from pydantic import BaseModel
@@ -7,48 +6,52 @@ from .request import Request, Serializable
 from .symbols import Attribute, Identifier, Timestamp
 
 
-def empty() -> dict[str, dict[str, None]]:
-    return {"data": dict()}
-
-
-class Record(TypedDict, total=False):
+@dataclass(frozen=True)
+class Record:
     identifier: Identifier
-    timestamp: Timestamp | None
-    attribute: Attribute | None
-    _data: Serializable
+    timestamp: Timestamp | None = None
+    attribute: Attribute | None = None
+    _data: Serializable = None
+
+    def __post_init__(self):
+        self.data = self.data or dict()
 
     @property
     def data(self) -> dict:
         return {
-            "identifier": self["identifier"].obj,
-            "timestamp": self["timestamp"].obj,
-            "attribute": self["attribute"].obj,
-            **self["_data"],
+            "identifier": self.identifier.obj,
+            "timestamp": self.timestamp.obj,
+            "attribute": self.attribute.obj,
+            **self._data,
         }
 
 
+@dataclass(frozen=True)
 class Object(Record):
     model: type[BaseModel]
 
     @property
     def data(self) -> dict:
-        model_instance = self.model(**self["_data"])
+        model_instance = self.model(**self._data)
         data = model_instance.model_dump(exclude_none=True)
         return {
-            "identifier": self["identifier"].obj,
-            "timestamp": self["timestamp"].obj,
-            "attribute": self["attribute"].obj,
+            "identifier": self.identifier.obj,
+            "timestamp": self.timestamp.obj,
+            "attribute": self.attribute.obj,
             **data,
         }
 
 
 @dataclass(frozen=True)
 class Response(Serializable):
-    request: Request
+    request: Request | None = None
     _data: Object | Record | None = None
 
     def __post_init__(self):
-        self._data = self._data or empty()
+        self._data = self._data or Record(
+            timestamp=Timestamp(),
+            _data=dict(),
+        )
 
     def __repr__(self):
         return f"<Response({self.id})>"
@@ -63,4 +66,6 @@ class Response(Serializable):
 
     @property
     def model(self) -> type[BaseModel] | None:
-        return getattr(self._data, "model", None)
+        if isinstance(self._data, Object):
+            return self._data.model
+        raise ValueError("Response data is not an Object")

@@ -10,11 +10,13 @@ dependencies = [
     "datamodel-code-generator>=0.26.5",
     "greenlet>=3.1.1",
     "ipython>=8.32.0",
+    "prompt-toolkit>=3.0.50",
     "pydantic>=2.10.6",
     "pytest>=8.3.4",
     "pytest-asyncio>=0.25.3",
     "python-dotenv>=1.0.1",
     "sqlalchemy>=2.0.37",
     "textual>=1.0.0",
+    "textual-dev>=1.7.0",
     "typer>=0.15.1",
 ]

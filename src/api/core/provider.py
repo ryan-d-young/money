@@ -22,6 +22,23 @@ class Provider:
     def __repr__(self):
         return f"<Provider {self.name}>"
 
+    @staticmethod
+    def _check_relation(
+        routers: ModuleType | None, 
+        tables: ModuleType | None, 
+        models: list[ModuleType] | ModuleType | None, 
+        metadata: MetaData) -> str:
+        parents = set()
+        for obj in {routers, tables, models}:
+            if obj:
+                parents.add(obj.__name__)
+        if len(parents) > 1:
+            raise ValueError("Routers, tables, and models must have the same parent module")
+        parent = parents.pop()
+        if parent != metadata.schema:
+            raise ValueError("Provider name must match the parent module name")
+        return parent
+        
     def __init__(
         self, 
         logger: Logger, 
@@ -30,6 +47,7 @@ class Provider:
         tables: ModuleType | None,
         models: list[ModuleType] | ModuleType | None
     ):
+        self.name = self._check_relation(routers, tables, models, metadata)  # allows us to use their names interchangeably
         self.metadata = metadata
         self.dependencies = {}
         self._routers = {}
@@ -50,7 +68,7 @@ class Provider:
                 for name, obj in mod.__dict__.items():
                     if isinstance(obj, BaseModel):
                         logger.info(f"Found model {name}")
-                        self._models[f"{mod.__name__}.{name}"] = obj
+                        self._models[f"{mod.__name__}.{name}"] = obj  # NOTE addition of module name to avoid collisions
         if tables:
             for name, obj in tables.__dict__.items():
                 if isinstance(obj, DeclarativeMeta):

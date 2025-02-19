@@ -12,8 +12,8 @@ async def connect(
     """Connect to the API. Shadows `Session.start`.
 
     Args:
-        providers (list[str] | bool, optional): Providers to load. If a list is provided, only the providers in the list 
-            will be loaded. If True, all providers will be loaded. If False, no providers will be loaded. 
+        providers (list[str] | bool, optional): Providers to load. If a list is provided, only the providers in the list
+            will be loaded. If True, all providers will be loaded. If False, no providers will be loaded.
             Defaults to True.
         logger (Logger | None, optional): Logger to use. Defaults to None.
         **env_vars (dict[str, str]): Environment variables to override.

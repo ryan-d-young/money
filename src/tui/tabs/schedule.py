@@ -18,5 +18,5 @@ COLS = [
 
 class Schedule(TabPane):
     def __init__(self, session: api.Session, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.session = session
+        super().__init__(session, title="schedule", id="schedule")
+

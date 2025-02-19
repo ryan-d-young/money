@@ -12,6 +12,6 @@ class Content(Container):
         self.session = session
 
     def compose(self) -> ComposeResult:
-        for tab in tabs:
-            with Tab(tab["name"], id=f"tab-{tab['name']}"):
-                yield tab["content"](self.session)
+        for name, tab in tabs:
+            with Tab(name, id=f"tab-{name}"):
+                yield tab(self.session)

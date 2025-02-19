@@ -34,22 +34,21 @@ async def hmds_historical_bars(client: ClientSession, **request) -> AsyncGenerat
     async with client.get(url, params=request, ssl=False) as response:
         response.raise_for_status()
         json = await response.json()
-    for record in json["data"]:
-        yield api.core.Response(
-            request=request,
-            _data=api.core.Record(
-                identifier=api.core.Identifier(request["conid"]),
-                timestamp=api.core.Timestamp(unix_to_iso(record.get("t"))),
-                attribute=api.core.Attribute("price"),
-                data={
-                    "open_": record.get("o"),
-                    "high": record.get("h"),
-                    "low": record.get("l"),
-                    "close": record.get("c"),
-                    "volume": record.get("v"),
-                }
-            )
+    for record_in in json["data"]:
+        record_out = api.core.Record(
+            identifier=api.core.Identifier(request["conid"]),
+            timestamp=api.core.Timestamp(unix_to_iso(record_in.get("t"))),
+            attribute=api.core.Attribute("price"),
+            data={
+                "open_": record_in.get("o"),
+                "high": record_in.get("h"),
+                "low": record_in.get("l"),
+                "close": record_in.get("c"),
+                "volume": record_in.get("v"),
+            }
         )
+        yield api.core.Response(request, record_out)
+                
 
 
 @api.core.router.define(
@@ -119,20 +118,18 @@ async def iserver_exchange_rate(client: ClientSession, **request) -> AsyncGenera
     async with client.get(url, params={"source": request["source"], "target": request["target"]}) as response:
         response.raise_for_status()
         json = await response.json()
-    yield api.core.Response(
-        request=request,
-        identifier=api.core.Identifier(f"{request['source']}/{request['target']}"),
+    record_out = api.core.Object(
+        identifier=api.core.Identifier(".".join([request["source"], request["target"]])),
         timestamp=api.core.Timestamp(),
         attribute=api.core.Attribute("price"),
-        _data=api.core.Object(
-            model=models.FXSpot,
-            data={
-                "base": request["source"],
-                "terms": request["target"],
-                "spot": json.get("rate"),
-            },
-        ),
+        model=models.FXSpot,
+        data={
+            "base": request["source"],
+            "terms": request["target"],
+            "spot": json.get("rate"),
+        },
     )
+    yield api.core.Response(request, record_out)
 
 
 @api.core.router.define(
@@ -146,15 +143,14 @@ async def trsrv_conids(client: ClientSession, **request) -> AsyncGenerator[api.c
         response.raise_for_status()
         json = await response.json()
     for record in json["root"]:
-        yield api.core.Response(
-            request=request,
+        record_out = api.core.Object(
             identifier=api.core.Identifier(record.get("symbol")),
             timestamp=api.core.Timestamp(record.get("t")),
             attribute=api.core.Attribute("conid"),
-            _data=api.core.Object(
-                model=models_generated.TrsrvAllConidsGetResponseItem, data=record
-            ),
+            model=models_generated.TrsrvAllConidsGetResponseItem,
+            data=record,
         )
+        yield api.core.Response(request, record_out)
 
 
 @api.core.router.define(
@@ -170,13 +166,14 @@ async def trsrv_futures_from_symbol(client: ClientSession, **request) -> AsyncGe
         json = await response.json()
     for symbol in json:
         for contract in json[symbol]:
-            yield api.core.Response(
-                request=request,
+            record_out = api.core.Object(
                 identifier=api.core.Identifier(symbol),
                 timestamp=api.core.Timestamp(contract.get("t")),
                 attribute=api.core.Attribute("futures_contract"),
-                _data=api.core.Object(model=models.FuturesContract, data=contract),
+                model=models.FuturesContract,
+                data=contract,
             )
+            yield api.core.Response(request, record_out)
 
 
 @api.core.router.define(
@@ -195,9 +192,8 @@ async def trsrv_schedule_from_symbol(client: ClientSession, **request) -> AsyncG
             identifier=api.core.Identifier(record.get("symbol")),
             timestamp=api.core.Timestamp(record.get("t")),
             attribute=api.core.Attribute("schedule"),
-            _data=api.core.Object(
-                model=models_generated.TradingScheduleItem, data=record
-            ),
+            model=models_generated.TradingScheduleItem,
+            data=record,
         )
 
 
@@ -211,16 +207,14 @@ async def iserver_contract_info_from_conid(client: ClientSession, **request) -> 
     async with client.get(url) as response:
         response.raise_for_status()
         json = await response.json()
-    yield api.core.Response(
-        request=request,
+    record_out = api.core.Object(
         identifier=api.core.Identifier(request.root),
         timestamp=None,
         attribute=api.core.Attribute("contract_info"),
-        _data=api.core.Object(
-            model=models_generated.IserverContractConidInfoAndRulesGetResponse,
-            data=json,
-        ),
+        model=models_generated.IserverContractConidInfoAndRulesGetResponse,
+        data=json,
     )
+    yield api.core.Response(request, record_out)
 
 
 @api.core.router.define(
@@ -233,22 +227,20 @@ async def iserver_strikes_from_conid(client: ClientSession, **request) -> AsyncG
     async with client.get(url, params=request) as response:
         response.raise_for_status()
         json = await response.json()
-    yield api.core.Response(
-        request=request,
+    record_out = api.core.Object(
         identifier=api.core.Identifier(request["conid"]),
         timestamp=None,
         attribute=api.core.Attribute("strikes"),
-        _data=api.core.Object(
-            model=models.OptionsStrikes,
-            data={
-                "conid": request["conid"],
-                "sectype": request["sectype"],
-                "exchange": request["exchange"],
-                "call": json["call"],
-                "put": json["put"],
-            },
-        ),
+        model=models.OptionsStrikes,
+        data={
+            "conid": request["conid"],
+            "sectype": request["sectype"],
+            "exchange": request["exchange"],
+            "call": json["call"],
+            "put": json["put"],
+        },
     )
+    yield api.core.Response(request, record_out)
 
 
 @api.core.router.define(
@@ -261,13 +253,14 @@ async def iserver_secdef_search(client: ClientSession, **request) -> AsyncGenera
     async with client.get(url, params=request) as response:
         response.raise_for_status()
         json = await response.json()
-    yield api.core.Response(
-        request=request,
+    record_out = api.core.Object(
         identifier=api.core.Identifier(request["conid"]),
         timestamp=None,
         attribute=api.core.Attribute("secdef_search"),
-        _data=api.core.Object(model=models_generated.SecdefSearchResponse, data=json),
+        model=models_generated.SecdefSearchResponse,
+        data=json,
     )
+    yield api.core.Response(request, record_out)
 
 
 @api.core.router.define(
@@ -279,13 +272,14 @@ async def iserver_accounts(client: ClientSession) -> AsyncGenerator[api.core.Res
     async with client.get(url) as response:
         response.raise_for_status()
         json = await response.json()
-    yield api.core.Response(
-        request=None,
+    record_out = api.core.Object(
         identifier=api.core.Identifier(json.get("root")),
         timestamp=None,
         attribute=api.core.Attribute("accounts"),
-        _data=api.core.Object(model=models_generated.UserAccountsResponse, data=json),
+        model=models_generated.UserAccountsResponse,
+        data=json,
     )
+    yield api.core.Response(None, record_out)
 
 
 @api.core.router.define(
@@ -298,13 +292,14 @@ async def iserver_secdef_info(client: ClientSession, **request) -> AsyncGenerato
     async with client.get(url, params=request) as response:
         response.raise_for_status()
         json = await response.json()
-    yield api.core.Response(
-        request=request,
+    record_out = api.core.Object(
         identifier=api.core.Identifier(request["conid"]),
         timestamp=None,
         attribute=api.core.Attribute("secdef_info"),
-        _data=api.core.Object(model=models_generated.SecDefInfoResponse, data=json),
+        model=models_generated.SecDefInfoResponse,
+        data=json,
     )
+    yield api.core.Response(request, record_out)
 
 
 @api.core.router.define(
