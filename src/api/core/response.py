@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from pydantic import BaseModel
 
@@ -11,10 +11,7 @@ class Record:
     identifier: Identifier
     timestamp: Timestamp | None = None
     attribute: Attribute | None = None
-    _data: Serializable = None
-
-    def __post_init__(self):
-        self.data = self.data or dict()
+    _data: Serializable = field(default_factory=dict)
 
     @property
     def data(self) -> dict:
@@ -45,13 +42,7 @@ class Object(Record):
 @dataclass(frozen=True)
 class Response(Serializable):
     request: Request | None = None
-    _data: Object | Record | None = None
-
-    def __post_init__(self):
-        self._data = self._data or Record(
-            timestamp=Timestamp(),
-            _data=dict(),
-        )
+    _data: Object | Record
 
     def __repr__(self):
         return f"<Response({self.id})>"

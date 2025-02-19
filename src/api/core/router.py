@@ -6,7 +6,8 @@ from typing import (
     AsyncGenerator,
     TypedDict,
     Unpack,
-    Protocol,
+    Callable,
+    ClassVar,
 )
 
 import pydantic
@@ -35,9 +36,9 @@ class Info(TypedDict, total=False):
     rate_limit: RateLimit | None = None
 
 
-class Router(Protocol):
-    metadata: Metadata
-    info: Info
+class Router(Callable):
+    metadata: ClassVar[Metadata]
+    info: ClassVar[Info]
     async def __call__(
         self,
         request: Request | None = None,
