@@ -63,17 +63,18 @@ async def iserver_historical_bars(client: AsyncClient, **request) -> AsyncGenera
     response.raise_for_status()
     json = response.json()
     for record in json["data"]:
+        record_out_data = {
+            "open_": record.get("o"),
+            "high": record.get("h"),
+            "low": record.get("l"),
+            "close": record.get("c"),
+            "volume": record.get("v"),
+        }
         record_out = api.core.Record(
             identifier=api.core.Identifier(request["conid"]),
             timestamp=api.core.Timestamp(unix_to_iso(record.get("t"))),
             attribute=api.core.Attribute("price"),
-            data={
-                "open_": record.get("o"),
-                "high": record.get("h"),
-                "low": record.get("l"),
-                "close": record.get("c"),
-                "volume": record.get("v"),
-            }
+            _data=record_out_data,
         )
         yield api.core.Response(request, record_out)
 
@@ -89,16 +90,17 @@ async def iserver_currency_pairs(client: AsyncClient, **request) -> AsyncGenerat
     response.raise_for_status()
     json = response.json()
     for record in json[request["value"]]:
+        record_out_data = {
+            "symbol": record.get("symbol"),
+            "conid": record.get("conid"),
+            "ccy_pair": record.get("ccyPair"),
+        }
         record_out = api.core.Object(
             identifier=api.core.Identifier(record.get("symbol")),
             timestamp=api.core.Timestamp(),
             attribute=api.core.Attribute("currency_pair"),
             model=models_generated.CurrencyPair,
-                data={
-                    "symbol": record.get("symbol"),
-                    "conid": record.get("conid"),
-                "ccy_pair": record.get("ccyPair"),
-            },
+            _data=record_out_data,
         )
         yield api.core.Response(request, record_out)
 
@@ -114,16 +116,17 @@ async def iserver_exchange_rate(client: AsyncClient, **request) -> AsyncGenerato
     response = await client.get(url, params={"source": request["source"], "target": request["target"]})
     response.raise_for_status()
     json = response.json()
+    record_out_data = {
+        "base": request["source"],
+        "terms": request["target"],
+        "spot": json.get("rate"),
+    }
     record_out = api.core.Object(
         identifier=api.core.Identifier(".".join([request["source"], request["target"]])),
         timestamp=api.core.Timestamp(),
         attribute=api.core.Attribute("price"),
         model=models.FXSpot,
-        data={
-            "base": request["source"],
-            "terms": request["target"],
-            "spot": json.get("rate"),
-        },
+        _data=record_out_data,
     )
     yield api.core.Response(request, record_out)
 
@@ -144,7 +147,7 @@ async def trsrv_conids(client: AsyncClient, **request) -> AsyncGenerator[api.cor
             timestamp=api.core.Timestamp(record.get("t")),
             attribute=api.core.Attribute("conid"),
             model=models_generated.TrsrvAllConidsGetResponseItem,
-            data=record,
+            _data=record,
         )
         yield api.core.Response(request, record_out)
 
@@ -167,7 +170,7 @@ async def trsrv_futures_from_symbol(client: AsyncClient, **request) -> AsyncGene
                 timestamp=api.core.Timestamp(contract.get("t")),
                 attribute=api.core.Attribute("futures_contract"),
                 model=models.FuturesContract,
-                data=contract,
+                _data=contract,
             )
             yield api.core.Response(request, record_out)
 
@@ -189,7 +192,7 @@ async def trsrv_schedule_from_symbol(client: AsyncClient, **request) -> AsyncGen
             timestamp=api.core.Timestamp(record.get("t")),
             attribute=api.core.Attribute("schedule"),
             model=models_generated.TradingScheduleItem,
-            data=record,
+            _data=record,
         )
 
 
@@ -208,7 +211,7 @@ async def iserver_contract_info_from_conid(client: AsyncClient, **request) -> As
         timestamp=None,
         attribute=api.core.Attribute("contract_info"),
         model=models_generated.IserverContractConidInfoAndRulesGetResponse,
-        data=json,
+        _data=json,
     )
     yield api.core.Response(request, record_out)
 
@@ -223,18 +226,19 @@ async def iserver_strikes_from_conid(client: AsyncClient, **request) -> AsyncGen
     response = await client.get(url, params=request)
     response.raise_for_status()
     json = response.json()
+    record_out_data = {
+        "conid": request["conid"],
+        "sectype": request["sectype"],
+        "exchange": request["exchange"],
+        "call": json["call"],
+        "put": json["put"],
+    }
     record_out = api.core.Object(
         identifier=api.core.Identifier(request["conid"]),
         timestamp=None,
         attribute=api.core.Attribute("strikes"),
         model=models.OptionsStrikes,
-        data={
-            "conid": request["conid"],
-            "sectype": request["sectype"],
-            "exchange": request["exchange"],
-            "call": json["call"],
-            "put": json["put"],
-        },
+        _data=record_out_data,
     )
     yield api.core.Response(request, record_out)
 
@@ -254,7 +258,7 @@ async def iserver_secdef_search(client: AsyncClient, **request) -> AsyncGenerato
         timestamp=None,
         attribute=api.core.Attribute("secdef_search"),
         model=models_generated.SecdefSearchResponse,
-        data=json,
+        _data=json,
     )
     yield api.core.Response(request, record_out)
 
@@ -273,7 +277,7 @@ async def iserver_accounts(client: AsyncClient) -> AsyncGenerator[api.core.Respo
         timestamp=None,
         attribute=api.core.Attribute("accounts"),
         model=models_generated.UserAccountsResponse,
-        data=json,
+        _data=json,
     )
     yield api.core.Response(None, record_out)
 
@@ -293,7 +297,7 @@ async def iserver_secdef_info(client: AsyncClient, **request) -> AsyncGenerator[
         timestamp=None,
         attribute=api.core.Attribute("secdef_info"),
         model=models_generated.SecDefInfoResponse,
-        data=json,
+        _data=json,
     )
     yield api.core.Response(request, record_out)
 
@@ -313,7 +317,7 @@ async def iserver_account_order_status(client: AsyncClient, **request) -> AsyncG
         timestamp=None,
         attribute=api.core.Attribute("order_status"),
         model=models_generated.OrderStatus,
-        data=json,
+        _data=json,
     )
     yield api.core.Response(request, record_out)
 
@@ -351,7 +355,7 @@ async def iserver_account_post_order(client: AsyncClient, **request) -> AsyncGen
         timestamp=None,
         attribute=api.core.Attribute("order_submit"),
         model=model,
-        data=instance.model_dump(),
+        _data=instance.model_dump(),
     )
     yield api.core.Response(request, record_out)
 
@@ -384,7 +388,7 @@ async def iserver_account_delete_order(client: AsyncClient, **request) -> AsyncG
         timestamp=None,
         attribute=api.core.Attribute("order_cancel"),
         model=model,
-        data=instance.model_dump(),
+        _data=instance.model_dump(),
     )
     yield api.core.Response(request, record_out)
 
@@ -404,7 +408,7 @@ async def portfolio_accounts(client: AsyncClient) -> AsyncGenerator[api.core.Res
             timestamp=None,
             attribute=api.core.Attribute("account_attributes"),
             model=models_generated.AccountAttributes,
-            data=record,
+            _data=record,
         )
         yield api.core.Response(None, record_out)
 
@@ -420,12 +424,16 @@ async def portfolio_account_ledger(client: AsyncClient, **request) -> AsyncGener
     response.raise_for_status()
     json = response.json()
     for currency, ledger in json["root"].items():
+        record_out_data = {
+            "currency": currency,
+            **ledger,
+        }
         record_out = api.core.Object(
             identifier=api.core.Identifier(request["root"]),
             timestamp=None,
             attribute=api.core.Attribute("account_ledger"),
             model=models.Ledger,
-            data={"currency": currency, **ledger},
+            _data=record_out_data,
         )
         yield api.core.Response(request, record_out)
 
@@ -446,7 +454,7 @@ async def portfolio_account_summary(client: AsyncClient, **request) -> AsyncGene
         timestamp=None,
         attribute=api.core.Attribute("account_summary"),
         model=models_generated.PortfolioSummary,
-        data=json,
+        _data=json,
     )
     yield api.core.Response(request, record_out)
 
@@ -470,7 +478,7 @@ async def portfolio_account_positions(client: AsyncClient, **request) -> AsyncGe
                 timestamp=None,
                 attribute=api.core.Attribute("account_positions"),
                 model=models_generated.IndividualPosition,
-                data=record,
+                _data=record,
             )
             yield api.core.Response(request, record_out)
         if len(json["root"]) < 100:
