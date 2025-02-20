@@ -1,3 +1,4 @@
+from asyncio import AbstractEventLoop
 from contextvars import ContextVar
 from typing import AsyncContextManager, ClassVar, Protocol, TypeVar, Iterator
 
@@ -9,7 +10,7 @@ class Dependency[DependencyT](Protocol):
     core: ClassVar[bool] = False
     _instance: ClassVar[DependencyT | None] = None
 
-    async def start(self, env: dict[str, str]) -> None: ...
+    async def start(self, env: dict[str, str], loop: AbstractEventLoop) -> None: ...
     async def __aenter__(self) -> DependencyT: ...
     async def __aexit__(self, exc_type, exc_value, traceback) -> None: ...
     async def stop(self, env: dict[str, str]) -> None: ...
@@ -50,15 +51,15 @@ class DependencyManagerMixin:
     def dependency(self, name: str) -> DependencyT:
         return self[name].get()._instance
 
-    async def start_dependencies(self, env: dict[str, str]):
+    async def start_dependencies(self, env: dict[str, str], loop: AbstractEventLoop):
         for dependency in self:
-            await dependency.start(env)
+            await dependency.start(env, loop)
 
     async def stop_dependencies(self, env: dict[str, str]):
         for dependency in self:
             await dependency.stop(env)
 
-    async def load_dependency(self, *dependencies: Dependency, env: dict[str, str]):
+    async def load_dependency(self, *dependencies: Dependency, env: dict[str, str], loop: AbstractEventLoop):
         for dependency in dependencies:
-            await dependency.start(env)
+            await dependency.start(env, loop)
             self[dependency.name] = dependency

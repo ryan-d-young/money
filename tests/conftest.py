@@ -1,22 +1,22 @@
-from typing import AsyncGenerator
+import asyncio
 
 import pytest
 import pytest_asyncio
-import sqlalchemy
-from aiohttp import ClientSession
 from yarl import URL
 
 from src import api
 from src.util import env as env_
 
 
-@pytest.fixture(scope="session")
-def env() -> dict[str, str]:
-    return env_.refresh()
+@pytest_asyncio.fixture(scope="session", loop_scope="session")
+async def env() -> dict[str, str]:
+    _env = env_.refresh()
+    _env["_loop"] = asyncio.get_running_loop()
+    return _env
 
 
-@pytest.fixture(scope="session")
-def api_root(env: dict[str, str]) -> URL:
+@pytest_asyncio.fixture(scope="session", loop_scope="session")
+async def api_root(env: dict[str, str]) -> URL:
     return (
         URL.build(
             scheme="https", 
@@ -26,3 +26,8 @@ def api_root(env: dict[str, str]) -> URL:
         / "v1"
         / "api"
     )
+
+
+@pytest_asyncio.fixture(scope="session", loop_scope="session")
+async def ibkr_api_session(env: dict[str, str]) -> api.Session:
+    return await api.connect(providers=["ibkr"], env=env)

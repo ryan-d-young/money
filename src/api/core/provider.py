@@ -27,11 +27,14 @@ class Provider:
         routers: ModuleType | None, 
         tables: ModuleType | None, 
         models: list[ModuleType] | ModuleType | None, 
-        metadata: MetaData) -> str:
+        metadata: MetaData
+    ) -> str:
         parents = set()
-        for obj in {routers, tables, models}:
+        if isinstance(models, ModuleType):
+            models = [models]
+        for obj in {routers, tables, *models}:
             if obj:
-                parents.add(obj.__name__)
+                parents.add(obj.__package__.split(".")[-1])
         if len(parents) > 1:
             raise ValueError("Routers, tables, and models must have the same parent module")
         parent = parents.pop()
@@ -47,7 +50,7 @@ class Provider:
         tables: ModuleType | None,
         models: list[ModuleType] | ModuleType | None
     ):
-        self.name = self._check_relation(routers, tables, models, metadata)  # allows us to use their names interchangeably
+        self._name = self._check_relation(routers, tables, models, metadata)  # allows us to use their names interchangeably
         self.metadata = metadata
         self.dependencies = {}
         self._routers = {}
@@ -76,6 +79,10 @@ class Provider:
                     self._tables[name] = obj
 
     @property
+    def name(self) -> str:
+        return self._name
+
+    @property
     def routers(self) -> dict[str, Router]:
         return self._routers
 
@@ -86,10 +93,6 @@ class Provider:
     @property
     def tables(self) -> dict[str, DeclarativeMeta]:
         return self._tables
-
-    @property
-    def name(self) -> str:
-        return self.metadata.schema
 
 
 ProviderDictT = TypeVar("ProviderDictT", bound=dict[str, Provider])

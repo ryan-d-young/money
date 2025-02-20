@@ -1,7 +1,7 @@
 from typing import AsyncGenerator
 
 import yarl
-from aiohttp import ClientSession
+from httpx import AsyncClient
 from pydantic import ValidationError
 
 from src import api, util
@@ -29,26 +29,26 @@ except KeyError as e:
     stores=tables.OHLC,
     requires={"client": api.dependencies.HttpClient},
 )
-async def hmds_historical_bars(client: ClientSession, **request) -> AsyncGenerator[api.core.Response, None]:
+async def hmds_historical_bars(client: AsyncClient, **request) -> AsyncGenerator[api.core.Response, None]:
     url = ROOT / "hmds" / "history"
-    async with client.get(url, params=request, ssl=False) as response:
-        response.raise_for_status()
-        json = await response.json()
+    response = await client.get(str(url), params=request)
+    response.raise_for_status()
+    json = response.json()
     for record_in in json["data"]:
+        record_out_data = {
+            "open_": record_in.get("o"),
+            "high": record_in.get("h"),
+            "low": record_in.get("l"),
+            "close": record_in.get("c"),
+            "volume": record_in.get("v"),
+        }
         record_out = api.core.Record(
             identifier=api.core.Identifier(request["conid"]),
             timestamp=api.core.Timestamp(unix_to_iso(record_in.get("t"))),
             attribute=api.core.Attribute("price"),
-            data={
-                "open_": record_in.get("o"),
-                "high": record_in.get("h"),
-                "low": record_in.get("l"),
-                "close": record_in.get("c"),
-                "volume": record_in.get("v"),
-            }
+            _data=record_out_data,
         )
         yield api.core.Response(request, record_out)
-                
 
 
 @api.core.router.define(
@@ -57,11 +57,11 @@ async def hmds_historical_bars(client: ClientSession, **request) -> AsyncGenerat
     stores=tables.OHLC,
     requires={"client": api.dependencies.HttpClient},
 )
-async def iserver_historical_bars(client: ClientSession, **request) -> AsyncGenerator[api.core.Response, None]:
+async def iserver_historical_bars(client: AsyncClient, **request) -> AsyncGenerator[api.core.Response, None]:
     url = ROOT / "iserver" / "marketdata" / "history"
-    async with client.get(url, params=request, ssl=False) as response:
-        response.raise_for_status()
-        json = await response.json()
+    response = await client.get(url, params=request)
+    response.raise_for_status()
+    json = response.json()
     for record in json["data"]:
         record_out = api.core.Record(
             identifier=api.core.Identifier(request["conid"]),
@@ -83,11 +83,11 @@ async def iserver_historical_bars(client: ClientSession, **request) -> AsyncGene
     returns=models_generated.CurrencyPairs,
     requires={"client": api.dependencies.HttpClient},
 )
-async def iserver_currency_pairs(client: ClientSession, **request) -> AsyncGenerator[api.core.Response, None]:
+async def iserver_currency_pairs(client: AsyncClient, **request) -> AsyncGenerator[api.core.Response, None]:
     url = ROOT / "iserver" / "currency" / "pairs"
-    async with client.get(url, params={"currency": request["value"]}) as response:
-        response.raise_for_status()
-        json = await response.json()
+    response = await client.get(url, params={"currency": request["value"]})
+    response.raise_for_status()
+    json = response.json()
     for record in json[request["value"]]:
         record_out = api.core.Object(
             identifier=api.core.Identifier(record.get("symbol")),
@@ -109,11 +109,11 @@ async def iserver_currency_pairs(client: ClientSession, **request) -> AsyncGener
     stores=tables.FXSpot,
     requires={"client": api.dependencies.HttpClient},
 )
-async def iserver_exchange_rate(client: ClientSession, **request) -> AsyncGenerator[api.core.Response, None]:
+async def iserver_exchange_rate(client: AsyncClient, **request) -> AsyncGenerator[api.core.Response, None]:
     url = ROOT / "iserver" / "exchangerate"
-    async with client.get(url, params={"source": request["source"], "target": request["target"]}) as response:
-        response.raise_for_status()
-        json = await response.json()
+    response = await client.get(url, params={"source": request["source"], "target": request["target"]})
+    response.raise_for_status()
+    json = response.json()
     record_out = api.core.Object(
         identifier=api.core.Identifier(".".join([request["source"], request["target"]])),
         timestamp=api.core.Timestamp(),
@@ -133,11 +133,11 @@ async def iserver_exchange_rate(client: ClientSession, **request) -> AsyncGenera
     returns=models_generated.TrsrvAllConidsGetResponse,
     requires={"client": api.dependencies.HttpClient},
 )
-async def trsrv_conids(client: ClientSession, **request) -> AsyncGenerator[api.core.Response, None]:
+async def trsrv_conids(client: AsyncClient, **request) -> AsyncGenerator[api.core.Response, None]:
     url = ROOT / "trsrv" / "all-conids"
-    async with client.get(url, params=request) as response:
-        response.raise_for_status()
-        json = await response.json()
+    response = await client.get(url, params=request)
+    response.raise_for_status()
+    json = response.json()
     for record in json["root"]:
         record_out = api.core.Object(
             identifier=api.core.Identifier(record.get("symbol")),
@@ -155,11 +155,11 @@ async def trsrv_conids(client: ClientSession, **request) -> AsyncGenerator[api.c
     stores=tables.FuturesChains,
     requires={"client": api.dependencies.HttpClient},
 )
-async def trsrv_futures_from_symbol(client: ClientSession, **request) -> AsyncGenerator[api.core.Response, None]:
+async def trsrv_futures_from_symbol(client: AsyncClient, **request) -> AsyncGenerator[api.core.Response, None]:
     url = ROOT / "trsrv" / "futures"
-    async with client.get(url, params=request) as response:
-        response.raise_for_status()
-        json = await response.json()
+    response = await client.get(url, params=request)
+    response.raise_for_status()
+    json = response.json()
     for symbol in json:
         for contract in json[symbol]:
             record_out = api.core.Object(
@@ -177,11 +177,11 @@ async def trsrv_futures_from_symbol(client: ClientSession, **request) -> AsyncGe
     returns=models_generated.TradingScheduleItem,
     requires={"client": api.dependencies.HttpClient},
 )
-async def trsrv_schedule_from_symbol(client: ClientSession, **request) -> AsyncGenerator[api.core.Response, None]:
+async def trsrv_schedule_from_symbol(client: AsyncClient, **request) -> AsyncGenerator[api.core.Response, None]:
     url = ROOT / "trsrv" / "secdef" / "schedule"
-    async with client.get(url, params=request) as response:
-        response.raise_for_status()
-        json = await response.json()
+    response = await client.get(url, params=request)
+    response.raise_for_status()
+    json = response.json()
     for record in json["root"]:
         yield api.core.Response(
             request=request,
@@ -198,11 +198,11 @@ async def trsrv_schedule_from_symbol(client: ClientSession, **request) -> AsyncG
     returns=models_generated.IserverContractConidInfoAndRulesGetResponse,
     requires={"client": api.dependencies.HttpClient},
 )
-async def iserver_contract_info_from_conid(client: ClientSession, **request) -> AsyncGenerator[api.core.Response, None]:
+async def iserver_contract_info_from_conid(client: AsyncClient, **request) -> AsyncGenerator[api.core.Response, None]:
     url = ROOT / "iserver" / "contract" / request["root"] / "info-and-rules"
-    async with client.get(url) as response:
-        response.raise_for_status()
-        json = await response.json()
+    response = await client.get(url)
+    response.raise_for_status()
+    json = response.json()
     record_out = api.core.Object(
         identifier=api.core.Identifier(request.root),
         timestamp=None,
@@ -218,11 +218,11 @@ async def iserver_contract_info_from_conid(client: ClientSession, **request) -> 
     returns=models.OptionsStrikes,
     stores=tables.OptionsStrikes,
 )
-async def iserver_strikes_from_conid(client: ClientSession, **request) -> AsyncGenerator[api.core.Response, None]:
+async def iserver_strikes_from_conid(client: AsyncClient, **request) -> AsyncGenerator[api.core.Response, None]:
     url = ROOT / "iserver" / "secdef" / "strikes"
-    async with client.get(url, params=request) as response:
-        response.raise_for_status()
-        json = await response.json()
+    response = await client.get(url, params=request)
+    response.raise_for_status()
+    json = response.json()
     record_out = api.core.Object(
         identifier=api.core.Identifier(request["conid"]),
         timestamp=None,
@@ -244,11 +244,11 @@ async def iserver_strikes_from_conid(client: ClientSession, **request) -> AsyncG
     returns=models_generated.SecdefSearchResponse,
     requires={"client": api.dependencies.HttpClient},
 )
-async def iserver_secdef_search(client: ClientSession, **request) -> AsyncGenerator[api.core.Response, None]:
+async def iserver_secdef_search(client: AsyncClient, **request) -> AsyncGenerator[api.core.Response, None]:
     url = ROOT / "iserver" / "secdef" / "search"
-    async with client.get(url, params=request) as response:
-        response.raise_for_status()
-        json = await response.json()
+    response = await client.get(url, params=request)
+    response.raise_for_status()
+    json = response.json()
     record_out = api.core.Object(
         identifier=api.core.Identifier(request["conid"]),
         timestamp=None,
@@ -263,11 +263,11 @@ async def iserver_secdef_search(client: ClientSession, **request) -> AsyncGenera
     returns=models_generated.GwApiV1AccountsGetResponse,
     requires={"client": api.dependencies.HttpClient},
 )
-async def iserver_accounts(client: ClientSession) -> AsyncGenerator[api.core.Response, None]:
+async def iserver_accounts(client: AsyncClient) -> AsyncGenerator[api.core.Response, None]:
     url = ROOT / "iserver" / "accounts"
-    async with client.get(url) as response:
-        response.raise_for_status()
-        json = await response.json()
+    response = await client.get(url)
+    response.raise_for_status()
+    json = response.json()
     record_out = api.core.Object(
         identifier=api.core.Identifier(json.get("root")),
         timestamp=None,
@@ -283,11 +283,11 @@ async def iserver_accounts(client: ClientSession) -> AsyncGenerator[api.core.Res
     returns=models_generated.SecDefInfoResponse,
     requires={"client": api.dependencies.HttpClient},
 )
-async def iserver_secdef_info(client: ClientSession, **request) -> AsyncGenerator[api.core.Response, None]:
+async def iserver_secdef_info(client: AsyncClient, **request) -> AsyncGenerator[api.core.Response, None]:
     url = ROOT / "iserver" / "secdef" / "info"
-    async with client.get(url, params=request) as response:
-        response.raise_for_status()
-        json = await response.json()
+    response = await client.get(url, params=request)
+    response.raise_for_status()
+    json = response.json()
     record_out = api.core.Object(
         identifier=api.core.Identifier(request["conid"]),
         timestamp=None,
@@ -303,11 +303,11 @@ async def iserver_secdef_info(client: ClientSession, **request) -> AsyncGenerato
     returns=models_generated.OrderStatus,
     requires={"client": api.dependencies.HttpClient},
 )
-async def iserver_account_order_status(client: ClientSession, **request) -> AsyncGenerator[api.core.Response, None]:
+async def iserver_account_order_status(client: AsyncClient, **request) -> AsyncGenerator[api.core.Response, None]:
     url = ROOT / "iserver" / "account" / "order" / "status" / request["root"]
-    async with client.get(url) as response:
-        response.raise_for_status()
-        json = await response.json()
+    response = await client.get(url)
+    response.raise_for_status()
+    json = response.json()
     record_out = api.core.Object(
         identifier=api.core.Identifier(request.root),
         timestamp=None,
@@ -326,11 +326,11 @@ async def iserver_account_order_status(client: ClientSession, **request) -> Asyn
     | models_generated.AdvancedOrderReject,
     requires={"client": api.dependencies.HttpClient},
 )
-async def iserver_account_post_order(client: ClientSession, **request) -> AsyncGenerator[api.core.Response, None]:
+async def iserver_account_post_order(client: AsyncClient, **request) -> AsyncGenerator[api.core.Response, None]:
     url = ROOT / "iserver" / "account" / request["account_id"] / "orders"
-    async with client.post(url, payload=request) as response:
-        response.raise_for_status()
-        json = await response.json()
+    response = await client.post(url, json=request)
+    response.raise_for_status()
+    json = response.json()
     instance = None
     for model_received in (
         models_generated.OrderSubmitSuccess,
@@ -361,11 +361,11 @@ async def iserver_account_post_order(client: ClientSession, **request) -> AsyncG
     returns=models_generated.OrderCancelSuccess | models_generated.OrderSubmitError,
     requires={"client": api.dependencies.HttpClient},
 )
-async def iserver_account_delete_order(client: ClientSession, **request) -> AsyncGenerator[api.core.Response, None]:
+async def iserver_account_delete_order(client: AsyncClient, **request) -> AsyncGenerator[api.core.Response, None]:
     url = ROOT / "iserver" / "account" / request["account_id"] / "order" / request["order_id"]
-    async with client.delete(url) as response:
-        response.raise_for_status()
-        json = await response.json()
+    response = await client.delete(url, verify=False)
+    response.raise_for_status()
+    json = response.json()
     instance = None
     for model_received in (
         models_generated.OrderCancelSuccess,
@@ -393,11 +393,11 @@ async def iserver_account_delete_order(client: ClientSession, **request) -> Asyn
     returns=models_generated.AccountAttributes,
     requires={"client": api.dependencies.HttpClient},
 )
-async def portfolio_accounts(client: ClientSession) -> AsyncGenerator[api.core.Response, None]:
+async def portfolio_accounts(client: AsyncClient) -> AsyncGenerator[api.core.Response, None]:
     url = ROOT / "portfolio" / "accounts"
-    async with client.get(url) as response:
-        response.raise_for_status()
-        json = await response.json()
+    response = await client.get(url)
+    response.raise_for_status()
+    json = response.json()
     for record in json["root"]:
         record_out = api.core.Object(
             identifier=api.core.Identifier(record.get("root")),
@@ -414,11 +414,11 @@ async def portfolio_accounts(client: ClientSession) -> AsyncGenerator[api.core.R
     stores=tables.AccountLedger,
     requires={"client": api.dependencies.HttpClient},
 )
-async def portfolio_account_ledger(client: ClientSession, **request) -> AsyncGenerator[api.core.Response, None]:
+async def portfolio_account_ledger(client: AsyncClient, **request) -> AsyncGenerator[api.core.Response, None]:
     url = ROOT / "portfolio" / request["root"] / "ledger"
-    async with client.get(url) as response:
-        response.raise_for_status()
-        json = await response.json()
+    response = await client.get(url)
+    response.raise_for_status()
+    json = response.json()
     for currency, ledger in json["root"].items():
         record_out = api.core.Object(
             identifier=api.core.Identifier(request["root"]),
@@ -436,11 +436,11 @@ async def portfolio_account_ledger(client: ClientSession, **request) -> AsyncGen
     stores=tables.AccountSummary,
     requires={"client": api.dependencies.HttpClient},
 )
-async def portfolio_account_summary(client: ClientSession, **request) -> AsyncGenerator[api.core.Response, None]:
+async def portfolio_account_summary(client: AsyncClient, **request) -> AsyncGenerator[api.core.Response, None]:
     url = ROOT / "portfolio" / request["root"] / "summary"
-    async with client.get(url) as response:
-        response.raise_for_status()
-        json = await response.json()
+    response = await client.get(url, verify=False)
+    response.raise_for_status()
+    json = response.json()
     record_out = api.core.Object(
         identifier=api.core.Identifier(request["root"]),
         timestamp=None,
@@ -457,13 +457,13 @@ async def portfolio_account_summary(client: ClientSession, **request) -> AsyncGe
     stores=tables.AccountPositions,
     requires={"client": api.dependencies.HttpClient},
 )
-async def portfolio_account_positions(client: ClientSession, **request) -> AsyncGenerator[api.core.Response, None]:
+async def portfolio_account_positions(client: AsyncClient, **request) -> AsyncGenerator[api.core.Response, None]:
     page_id = 1
     while True:
         url = ROOT / "portfolio" / request["root"] / "positions" / page_id
-        async with client.get(url) as response:
-            response.raise_for_status()
-            json = await response.json()
+        response = await client.get(url)
+        response.raise_for_status()
+        json = response.json()
         for record in json["root"]:
             record_out = api.core.Object(
                 identifier=api.core.Identifier(request["root"]),

@@ -1,3 +1,4 @@
+from asyncio import AbstractEventLoop
 from logging import Logger
 from typing import AsyncGenerator, Unpack
 
@@ -10,15 +11,17 @@ from .core.dependency import DependencyManagerMixin
 
 class Session(ProviderDirectoryMixin, OrmSessionMixin, DependencyManagerMixin):
     def __init__(
-        self, *, 
+        self, 
+        loop: AbstractEventLoop, 
         logger: Logger | None = None, 
         env: dict[str, str] | None = None, 
-        dependencies: list[Dependency] | None = None
+        dependencies: list[Dependency] | None = None,
     ):
         dependencies = dependencies or []
         DependencyManagerMixin.__init__(self, *dependencies)
         self.logger = logger or util.log.get_logger(__name__)
         self._env = env or util.env.refresh()
+        self._loop = loop
 
     @staticmethod
     def _resolve_providers(providers: list[str] | bool | str) -> list[str]:
@@ -43,10 +46,10 @@ class Session(ProviderDirectoryMixin, OrmSessionMixin, DependencyManagerMixin):
 
     async def load_dependencies(self, providers: list[str]):
         for provider in providers:
-            for name, dependency in self.dependencies(provider).items():
-                await dependency.start(self.env)
-                self[name] = dependency
-        await self.start_dependencies(self.env)
+            for dependency in self.dependencies(provider).values():
+                await dependency.start(self.env, self.loop)
+                self[dependency.name] = dependency
+        await self.start_dependencies(self.env, self.loop)
 
     async def start(self, providers: list[str] | bool = True) -> "Session":
         providers = self._resolve_providers(providers)
@@ -54,7 +57,9 @@ class Session(ProviderDirectoryMixin, OrmSessionMixin, DependencyManagerMixin):
         await self.load_dependencies(providers)
         await self.init_db(
             dbengine=self.dependency("db"), 
-            provider_metadata=[p.metadata for p in self.providers.values()]
+            provider_metadata=[
+                p.metadata for p in self.providers.values()
+            ]
         )
         return self
 
@@ -62,6 +67,10 @@ class Session(ProviderDirectoryMixin, OrmSessionMixin, DependencyManagerMixin):
         await self.stop_dependencies(self._env)
         await self.stop_db(commit)
         return self
+
+    @property
+    def loop(self) -> AbstractEventLoop:
+        return self._loop
 
     @property
     def env(self) -> dict[str, str]:
@@ -82,15 +91,17 @@ class Session(ProviderDirectoryMixin, OrmSessionMixin, DependencyManagerMixin):
             router_kwargs.update(deps)
         return router_kwargs
 
-    def __call__(
+    async def __call__(
         self, 
         provider: str, 
         router: str, 
         **kwargs: RequestKwargs | Unpack[RequestModelT]
     ) -> AsyncGenerator[Response, None]:
-        router = self.providers.router(provider, router)
-        kwargs = self._inject(router, kwargs)
-        return router(**kwargs)
+        router_instance = self.router(provider, router)
+        router_kwargs = self._inject(router_instance, kwargs)
+        coro = router_instance(**router_kwargs)
+        async for response in coro:
+            yield response
 
     def __repr__(self) -> str:
         return f"<Session({', '.join(self.providers.keys())})>"
