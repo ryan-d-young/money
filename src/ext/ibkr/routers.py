@@ -59,7 +59,7 @@ async def hmds_historical_bars(client: AsyncClient, **request) -> AsyncGenerator
 )
 async def iserver_historical_bars(client: AsyncClient, **request) -> AsyncGenerator[api.core.Response, None]:
     url = ROOT / "iserver" / "marketdata" / "history"
-    response = await client.get(url, params=request)
+    response = await client.get(str(url), params=request)
     response.raise_for_status()
     json = response.json()
     for record in json["data"]:
@@ -86,7 +86,7 @@ async def iserver_historical_bars(client: AsyncClient, **request) -> AsyncGenera
 )
 async def iserver_currency_pairs(client: AsyncClient, **request) -> AsyncGenerator[api.core.Response, None]:
     url = ROOT / "iserver" / "currency" / "pairs"
-    response = await client.get(url, params={"currency": request["value"]})
+    response = await client.get(str(url), params={"currency": request["value"]})
     response.raise_for_status()
     json = response.json()
     for record in json[request["value"]]:
@@ -113,7 +113,7 @@ async def iserver_currency_pairs(client: AsyncClient, **request) -> AsyncGenerat
 )
 async def iserver_exchange_rate(client: AsyncClient, **request) -> AsyncGenerator[api.core.Response, None]:
     url = ROOT / "iserver" / "exchangerate"
-    response = await client.get(url, params={"source": request["source"], "target": request["target"]})
+    response = await client.get(str(url), params={"source": request["source"], "target": request["target"]})
     response.raise_for_status()
     json = response.json()
     record_out_data = {
@@ -138,7 +138,7 @@ async def iserver_exchange_rate(client: AsyncClient, **request) -> AsyncGenerato
 )
 async def trsrv_conids(client: AsyncClient, **request) -> AsyncGenerator[api.core.Response, None]:
     url = ROOT / "trsrv" / "all-conids"
-    response = await client.get(url, params=request)
+    response = await client.get(str(url), params=request)
     response.raise_for_status()
     json = response.json()
     for record in json["root"]:
@@ -160,7 +160,7 @@ async def trsrv_conids(client: AsyncClient, **request) -> AsyncGenerator[api.cor
 )
 async def trsrv_futures_from_symbol(client: AsyncClient, **request) -> AsyncGenerator[api.core.Response, None]:
     url = ROOT / "trsrv" / "futures"
-    response = await client.get(url, params=request)
+    response = await client.get(str(url), params=request)
     response.raise_for_status()
     json = response.json()
     for symbol in json:
@@ -182,7 +182,7 @@ async def trsrv_futures_from_symbol(client: AsyncClient, **request) -> AsyncGene
 )
 async def trsrv_schedule_from_symbol(client: AsyncClient, **request) -> AsyncGenerator[api.core.Response, None]:
     url = ROOT / "trsrv" / "secdef" / "schedule"
-    response = await client.get(url, params=request)
+    response = await client.get(str(url), params=request)
     response.raise_for_status()
     json = response.json()
     for record in json["root"]:
@@ -203,7 +203,7 @@ async def trsrv_schedule_from_symbol(client: AsyncClient, **request) -> AsyncGen
 )
 async def iserver_contract_info_from_conid(client: AsyncClient, **request) -> AsyncGenerator[api.core.Response, None]:
     url = ROOT / "iserver" / "contract" / request["root"] / "info-and-rules"
-    response = await client.get(url)
+    response = await client.get(str(url))
     response.raise_for_status()
     json = response.json()
     record_out = api.core.Object(
@@ -250,7 +250,7 @@ async def iserver_strikes_from_conid(client: AsyncClient, **request) -> AsyncGen
 )
 async def iserver_secdef_search(client: AsyncClient, **request) -> AsyncGenerator[api.core.Response, None]:
     url = ROOT / "iserver" / "secdef" / "search"
-    response = await client.get(url, params=request)
+    response = await client.get(str(url), params=request)
     response.raise_for_status()
     json = response.json()
     record_out = api.core.Object(
@@ -269,7 +269,7 @@ async def iserver_secdef_search(client: AsyncClient, **request) -> AsyncGenerato
 )
 async def iserver_accounts(client: AsyncClient) -> AsyncGenerator[api.core.Response, None]:
     url = ROOT / "iserver" / "accounts"
-    response = await client.get(url)
+    response = await client.get(str(url))
     response.raise_for_status()
     json = response.json()
     record_out = api.core.Object(
@@ -289,7 +289,7 @@ async def iserver_accounts(client: AsyncClient) -> AsyncGenerator[api.core.Respo
 )
 async def iserver_secdef_info(client: AsyncClient, **request) -> AsyncGenerator[api.core.Response, None]:
     url = ROOT / "iserver" / "secdef" / "info"
-    response = await client.get(url, params=request)
+    response = await client.get(str(url), params=request)
     response.raise_for_status()
     json = response.json()
     record_out = api.core.Object(
@@ -309,7 +309,7 @@ async def iserver_secdef_info(client: AsyncClient, **request) -> AsyncGenerator[
 )
 async def iserver_account_order_status(client: AsyncClient, **request) -> AsyncGenerator[api.core.Response, None]:
     url = ROOT / "iserver" / "account" / "order" / "status" / request["root"]
-    response = await client.get(url)
+    response = await client.get(str(url))
     response.raise_for_status()
     json = response.json()
     record_out = api.core.Object(
@@ -399,7 +399,7 @@ async def iserver_account_delete_order(client: AsyncClient, **request) -> AsyncG
 )
 async def portfolio_accounts(client: AsyncClient) -> AsyncGenerator[api.core.Response, None]:
     url = ROOT / "portfolio" / "accounts"
-    response = await client.get(url)
+    response = await client.get(str(url))
     response.raise_for_status()
     json = response.json()
     for record in json["root"]:
@@ -420,7 +420,7 @@ async def portfolio_accounts(client: AsyncClient) -> AsyncGenerator[api.core.Res
 )
 async def portfolio_account_ledger(client: AsyncClient, **request) -> AsyncGenerator[api.core.Response, None]:
     url = ROOT / "portfolio" / request["root"] / "ledger"
-    response = await client.get(url)
+    response = await client.get(str(url))
     response.raise_for_status()
     json = response.json()
     for currency, ledger in json["root"].items():
@@ -446,7 +446,7 @@ async def portfolio_account_ledger(client: AsyncClient, **request) -> AsyncGener
 )
 async def portfolio_account_summary(client: AsyncClient, **request) -> AsyncGenerator[api.core.Response, None]:
     url = ROOT / "portfolio" / request["root"] / "summary"
-    response = await client.get(url, verify=False)
+    response = await client.get(str(url), verify=False)
     response.raise_for_status()
     json = response.json()
     record_out = api.core.Object(
@@ -469,7 +469,7 @@ async def portfolio_account_positions(client: AsyncClient, **request) -> AsyncGe
     page_id = 1
     while True:
         url = ROOT / "portfolio" / request["root"] / "positions" / page_id
-        response = await client.get(url)
+        response = await client.get(str(url))
         response.raise_for_status()
         json = response.json()
         for record in json["root"]:
