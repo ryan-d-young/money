@@ -2,9 +2,11 @@ from asyncio import AbstractEventLoop
 from logging import Logger
 from typing import AsyncGenerator, Unpack
 
+from sqlalchemy import Table
+
 from src import const, util
 from .core import Router, Response, Request, RequestKwargs, RequestModelT, Dependency
-from .core.orm import OrmSessionMixin
+from .core.orm import OrmSessionMixin, metadata
 from .core.provider import ProviderDirectoryMixin
 from .core.dependency import DependencyManagerMixin
 
@@ -57,9 +59,7 @@ class Session(ProviderDirectoryMixin, OrmSessionMixin, DependencyManagerMixin):
         await self.load_dependencies(providers)
         await self.init_db(
             dbengine=self.dependency("db"), 
-            provider_metadata=[
-                p.metadata for p in self.providers.values()
-            ]
+            provider_metadata=[p.metadata for p in self.providers.values()]
         )
         return self
 
@@ -75,6 +75,13 @@ class Session(ProviderDirectoryMixin, OrmSessionMixin, DependencyManagerMixin):
     @property
     def env(self) -> dict[str, str]:
         return dict(self._env)
+
+    def table(self, table_name: str, provider: str | None = None) -> Table:
+        if provider:
+            table_metadata = self.providers[provider].metadata
+        else:
+            table_metadata = metadata
+        return self._table(table_name, table_metadata)
 
     def _inject(self, router: Router, kwargs: RequestKwargs | Unpack[RequestModelT]) -> dict:
         router_kwargs = {}

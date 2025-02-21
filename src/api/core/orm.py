@@ -1,22 +1,23 @@
 from datetime import datetime, timedelta
 
-from sqlalchemy import MetaData, ForeignKey, types as t
+from sqlalchemy import Table, MetaData, ForeignKey, types as t
 from sqlalchemy.ext.asyncio import AsyncSession, AsyncEngine
 from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase, declarative_base
 
-base_metadata = MetaData(schema="meta")
-base_metadata.create_schemas = True
-metadata: DeclarativeBase = declarative_base(metadata=base_metadata)
+metadata = MetaData(schema="meta")
+metadata.create_schemas = True
+
+base: DeclarativeBase = declarative_base(metadata=metadata)
 
 
-class Providers(metadata):
+class Providers(base):
     __tablename__ = "providers"
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     name: Mapped[str] = mapped_column(unique=True)
-    app_metadata: Mapped[dict] = mapped_column(t.JSON)
+    app_metadata: Mapped[dict] = mapped_column(t.JSON, default=dict)
 
 
-class Collections(metadata):
+class Collections(base):
     __tablename__ = "collections"
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     name: Mapped[str] = mapped_column(unique=True)
@@ -24,18 +25,16 @@ class Collections(metadata):
     collection: Mapped[list[str]] = mapped_column(t.ARRAY(t.String))
 
 
-class Schedule(metadata):
+class Schedule(base):
     __tablename__ = "schedule"
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     provider: Mapped[str] = mapped_column(t.String, ForeignKey("meta.providers.name"))
-    router: Mapped[str] = mapped_column(t.String, nullable=True)
+    router: Mapped[str] = mapped_column(t.String)
     collection: Mapped[str] = mapped_column(t.String, ForeignKey("meta.collections.name"), nullable=True)
-    table_name: Mapped[str] = mapped_column(t.String, nullable=True)
-    model_name: Mapped[str] = mapped_column(t.String, nullable=True)
-    request: Mapped[dict] = mapped_column(t.JSON)
-    start: Mapped[datetime] = mapped_column(t.DateTime)
+    request: Mapped[dict] = mapped_column(t.JSON, default=dict)
+    start: Mapped[datetime] = mapped_column(t.DateTime, default=datetime.now)
     end: Mapped[datetime] = mapped_column(t.DateTime, nullable=True)
-    recurrence: Mapped[timedelta] = mapped_column(t.Interval)
+    recurrence: Mapped[timedelta] = mapped_column(t.Interval, default=timedelta(days=1))
 
 
 class OrmSessionMixin:
@@ -54,7 +53,7 @@ class OrmSessionMixin:
     ) -> None:
         """Initialize the database connection."""
         async with dbengine.begin() as conn:
-            await conn.run_sync(base_metadata.create_all)
+            await conn.run_sync(metadata.create_all)
             for meta in provider_metadata:
                 await conn.run_sync(meta.create_all)    
         self._session = AsyncSession(dbengine)
@@ -66,3 +65,7 @@ class OrmSessionMixin:
 
     async def load_metadata(self, metadata: MetaData) -> None:
         await self.session.run_sync(metadata.create_all)
+
+    def _table(self, table_name: str, metadata: MetaData) -> Table:
+        table = Table(table_name, metadata, autoload_with=self.session.bind)
+        return table

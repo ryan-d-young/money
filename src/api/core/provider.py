@@ -78,6 +78,7 @@ class Provider:
                     logger.info(f"Found table {name}")
                     self._tables[name] = obj
 
+
     @property
     def name(self) -> str:
         return self._name

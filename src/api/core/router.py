@@ -6,7 +6,6 @@ from typing import (
     AsyncGenerator,
     TypedDict,
     Unpack,
-    Callable,
     ClassVar,
 )
 
@@ -17,7 +16,7 @@ from .dependency import Dependencies
 from .request import Request
 from .response import Response
 
-
+RouterT = Callable[[Request, Dependencies], AsyncGenerator[Response, None]]
 RateLimit = tuple[int, float]  # (limit, seconds)
 
 
@@ -36,13 +35,13 @@ class Info(TypedDict, total=False):
     rate_limit: RateLimit | None = None
 
 
-class Router(Callable):
+class Router(RouterT):
     metadata: ClassVar[Metadata]
     info: ClassVar[Info]
     async def __call__(
         self,
         request: Request | None = None,
-        **kwargs: Dependencies,
+        **dependencies: Dependencies,
     ) -> AsyncGenerator[Response, None]: ...
 
 
