@@ -59,6 +59,10 @@ class Identifier(Symbol):
     discriminator: ClassVar[str] = "$"
 
 
+class Router(Symbol):
+    discriminator: ClassVar[str] = "%"
+
+
 class Attribute(Symbol):
     discriminator: ClassVar[str] = "#"
 

@@ -27,17 +27,14 @@ class Request[RequestInstanceT](Serializable):
     _data: RequestInstanceT | None
     _model: RequestModelT
 
-    def __init__(self, model: RequestModelT):
+    def __init__(self, model: RequestModelT | None = None):
         self._model = model
         self._data = None
         self._id = ident.uuid()
         self._submitted_at = dt.now()
 
     def __repr__(self):
-        s = f"{self._model.__name__}({self._id})"
-        if self._created_at:
-            return f"{s}:\n {self.data}"
-        return s
+        return f"<Request({self._id})>"
 
     @property
     def id(self):

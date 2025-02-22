@@ -1,9 +1,9 @@
 from logging import Logger
+from asyncio import AbstractEventLoop, get_running_loop
+
 from src import util
 from .dependencies import core_dependencies
 from .session import Session
-import asyncio
-from asyncio import AbstractEventLoop
 
 
 async def connect(
@@ -29,7 +29,7 @@ async def connect(
     env.update(env_vars)
     logger.info("Environment loaded")
 
-    loop = loop or asyncio.get_running_loop()
+    loop = loop or get_running_loop()
     session = Session(logger=logger, env=env, dependencies=core_dependencies, loop=loop)
     await session.start(providers=providers)
     

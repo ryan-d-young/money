@@ -5,10 +5,9 @@ from enum import Enum
 
 import rich
 import typer
-from sqlalchemy.sql import select, insert
+from sqlalchemy.sql import select
 
-from .helpers import new_session
-
+from src.api import connect
 app = typer.Typer(add_completion=False)
 
 
@@ -24,7 +23,7 @@ def add(
     data: Annotated[dict, typer.Argument(help="The data to add to the table", parser=json.loads)],
 ) -> None:
     async def _add():
-        session = await new_session()
+        session = await connect()
         async with session.session.begin():
             await session.session.execute(
                 session.table(table.value)
@@ -41,7 +40,7 @@ def append(
     item: Annotated[str, typer.Argument(help="The item to append to the collection")]
 ) -> None:
     async def _append():
-        session = await new_session()
+        session = await connect()
         async with session.session.begin():
             result = await session.session.execute(
                 select(session.table(TableOptions.collections))
@@ -68,7 +67,7 @@ def patch(
     data: Annotated[dict, typer.Argument(help="The data to update the table with", parser=json.loads)],
 ) -> None:
     async def _patch():
-        session = await new_session()
+        session = await connect()
         async with session.session.begin():
             result = await session.session.execute(
                 select(session.table(table.value))
@@ -92,7 +91,7 @@ def list(
     table: Annotated[TableOptions, typer.Argument(help="The table to list the records from")],
 ) -> None:
     async def _list():
-        session = await new_session()
+        session = await connect()
         async with session.session.begin():
             result = await session.session.execute(
                 select(session.table(table.value))
@@ -109,7 +108,7 @@ def remove(
     id: Annotated[int, typer.Argument(help="The id of the record to delete")],
 ) -> None:
     async def _remove():
-        session = await new_session()
+        session = await connect()
         async with session.session.begin():
             await session.session.execute(
                 session.table(table.value)
@@ -127,7 +126,7 @@ def provider_metadata(
     value: Annotated[str | None, typer.Option(help="The value to set. If not provided, the value will be removed")] = None
 ) -> None:
     async def _set():
-        session = await new_session()
+        session = await connect()
         async with session.session.begin():
             result = await session.session.execute(
                 select(session.table(TableOptions.providers))
