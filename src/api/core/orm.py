@@ -21,8 +21,8 @@ class Collections(base):
     __tablename__ = "collections"
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     name: Mapped[str] = mapped_column(unique=True)
-    provider_id: Mapped[int] = mapped_column(t.Integer, ForeignKey("meta.providers.id"))
-    collection: Mapped[list[str]] = mapped_column(t.ARRAY(t.String))
+    provider_id: Mapped[int] = mapped_column(t.Integer, ForeignKey("meta.providers.id"), nullable=True)
+    collection: Mapped[list[str]] = mapped_column(t.ARRAY(t.String), default=list)
 
 
 class Schedule(base):

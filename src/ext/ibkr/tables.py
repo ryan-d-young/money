@@ -9,10 +9,10 @@ from sqlalchemy.ext.hybrid import hybrid_property
 from . import models, models_generated
 
 metadata = MetaData(schema="ibkr")
-Base = declarative_base(metadata=metadata)
+base = declarative_base(metadata=metadata)
 
 
-class OHLC(Base):
+class OHLC(base):
     __tablename__ = "ohlc"
     timestamp: Mapped[datetime] = mapped_column(t.DateTime, primary_key=True)
     symbol: Mapped[str] = mapped_column(t.String, primary_key=True)
@@ -23,7 +23,7 @@ class OHLC(Base):
     volume: Mapped[float] = mapped_column(t.Float, nullable=True)
 
 
-class FXSpot(Base):
+class FXSpot(base):
     __tablename__ = "fx_spot"
     timestamp: Mapped[datetime] = mapped_column(
         t.DateTime, primary_key=True, server_default=now()
@@ -33,7 +33,7 @@ class FXSpot(Base):
     spot: Mapped[float] = mapped_column(t.Float)
 
 
-class OptionsStrikes(Base):
+class OptionsStrikes(base):
     __tablename__ = "option_strikes"
     timestamp: Mapped[datetime] = mapped_column(
         t.DateTime, primary_key=True, server_default=now()
@@ -49,7 +49,7 @@ class OptionsStrikes(Base):
     put: Mapped[list[int]] = mapped_column(t.ARRAY(t.Integer))
 
 
-class FuturesChains(Base):
+class FuturesChains(base):
     __tablename__ = "futures_chains"
     timestamp: Mapped[datetime] = mapped_column(
         t.DateTime, primary_key=True, server_default=now()
@@ -63,7 +63,7 @@ class FuturesChains(Base):
     long_cutoff: Mapped[datetime] = mapped_column(t.DateTime)
 
 
-class AccountLedger(Base):
+class AccountLedger(base):
     __tablename__ = "account_ledger"
     timestamp: Mapped[datetime] = mapped_column(
         t.DateTime, primary_key=True, server_default=now()
@@ -79,7 +79,7 @@ class AccountLedger(Base):
         self._ledger = value.model_dump()
 
 
-class AccountSummary(Base):
+class AccountSummary(base):
     __tablename__ = "account_summary"
     timestamp: Mapped[datetime] = mapped_column(
         t.DateTime, primary_key=True, server_default=now()
@@ -97,7 +97,7 @@ class AccountSummary(Base):
         self._summary = value.model_dump()
 
 
-class AccountPositions(Base):
+class AccountPositions(base):
     __tablename__ = "account_positions"
     timestamp: Mapped[datetime] = mapped_column(
         t.DateTime, primary_key=True, server_default=now()
