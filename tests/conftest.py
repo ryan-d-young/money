@@ -5,7 +5,7 @@ import pytest_asyncio
 from yarl import URL
 
 from src import api
-from src.util import env as env_
+from util import fs as env_
 
 
 @pytest_asyncio.fixture(scope="session", loop_scope="session")

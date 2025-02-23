@@ -1,30 +1,25 @@
 import functools
 from dataclasses import dataclass
-from typing import (
-    Callable,
-    Union,
-    AsyncGenerator,
-    TypedDict,
-    Unpack,
-    ClassVar,
-)
+from typing import Callable, Union, AsyncGenerator, TypedDict, Unpack, ClassVar, TypeVar
 
 import pydantic
 from sqlalchemy import Table
 
+from src.util import dt
 from .dependency import Dependencies
 from .request import Request
 from .response import Response
 
-RouterT = Callable[[Request, Dependencies], AsyncGenerator[Response, None]]
-RateLimit = tuple[int, float]  # (limit, seconds)
+RateLimitT = TypeVar("RateLimitT", bound=tuple[int, float])  # (limit, seconds)
 
 
 @dataclass(slots=True)
 class Metadata:
-    history: list[Request] | None = None
+    history: dict[dt.datetime, Request] = None
+    rate_limit: RateLimitT | None = None
+
     def __post_init__(self):
-        self.history = []
+        self.history = {}
 
 
 class Info(TypedDict, total=False):
@@ -32,15 +27,15 @@ class Info(TypedDict, total=False):
     returns: type[pydantic.BaseModel] | Union[type[pydantic.BaseModel]] | None
     stores: Table | None
     requires: Dependencies | None
-    rate_limit: RateLimit | None = None
 
 
-class Router(RouterT):
+class Router(Callable[[Request, Dependencies], AsyncGenerator[Response, None]]):
     metadata: ClassVar[Metadata]
     info: ClassVar[Info]
+
     async def __call__(
         self,
-        request: Request | None = None,
+        request: Request,
         **dependencies: Dependencies,
     ) -> AsyncGenerator[Response, None]: ...
 
@@ -68,11 +63,14 @@ def define(**info: Unpack[Info]) -> Callable[[Router], Router]:
 
     def decorator(router: Router) -> Router:
         @functools.wraps(router)
-        def wrapper(*args, **kwargs):
-            return router(*args, **kwargs)
-
+        def wrapper(request: Request, **dependencies: Unpack[Dependencies]):
+            # dependencies injected from Session.__call__
+            # store request in history before passing to router
+            wrapper.metadata.history[dt.now()] = request
+            return router(request=request, **dependencies)
+        # attach metadata and info to wrapper
         wrapper.metadata = Metadata()
         wrapper.info = Info(**info)
         return wrapper
-
+    # decorated function processes request and contains metadata/info
     return decorator

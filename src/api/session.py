@@ -1,52 +1,58 @@
+from pathlib import Path
 from asyncio import AbstractEventLoop
 from logging import Logger
 from typing import AsyncGenerator, Unpack
 
 from sqlalchemy import Table
 
-from src import const, util
-from .core import Router, Response, Request, RequestKwargs, RequestModelT, Dependency
+from .core.dependency import Dependency, DependencyManagerMixin
 from .core.orm import OrmSessionMixin, metadata
 from .core.provider import ProviderDirectoryMixin
-from .core.dependency import DependencyManagerMixin
+from .core.request import Request, RequestKwargs, RequestModelT
+from .core.response import Response
+from .core.router import Router
 
 
 class Session(ProviderDirectoryMixin, OrmSessionMixin, DependencyManagerMixin):
+    """
+    A session for the API. Encapsulates the environment, loop, and dependencies.
+    """
+
     def __init__(
-        self, 
-        loop: AbstractEventLoop, 
-        logger: Logger | None = None, 
-        env: dict[str, str] | None = None, 
+        self,
+        provider_dir: Path,
+        loop: AbstractEventLoop,
+        logger: Logger,
+        env: dict[str, str],
         dependencies: list[Dependency] | None = None,
     ):
         dependencies = dependencies or []
         DependencyManagerMixin.__init__(self, *dependencies)
-        self.logger = logger or util.log.get_logger(__name__)
-        self._env = env or util.env.refresh()
+        self.logger = logger
+        self._env = env
         self._loop = loop
+        self._provider_dir = provider_dir
 
-    @staticmethod
-    def _resolve_providers(providers: list[str] | bool | str) -> list[str]:
+    def _resolve_providers(self, providers: list[str] | bool | str) -> list[str]:
         if isinstance(providers, bool):
             if providers:
-                providers = [p.stem for p in const.PROVIDERS.glob("*.py")]
+                providers = [p.stem for p in self._provider_dir.glob("*.py")]
             else:
                 providers = []
         elif isinstance(providers, str):
             providers = [providers]
         return providers
 
-    @classmethod
-    def load_providers(cls, providers: list[str] | bool, logger: Logger) -> None:
-        providers = cls._resolve_providers(providers)
+    def _load_providers(self, providers: list[str] | bool, logger: Logger) -> None:
+        providers = self._resolve_providers(providers)
         for provider in providers:
-            fp = const.PROVIDERS / provider
+            fp = self._provider_dir / provider
             if fp.exists():
-                cls.load_provider(fp, logger)
+                self.load_provider(fp, logger)
             else:
                 logger.warning(f"Provider {provider} not found")
 
-    async def load_dependencies(self, providers: list[str]):
+    async def _load_dependencies(self, providers: list[str]):
         for provider in providers:
             for dependency in self.dependencies(provider).values():
                 await dependency.start(self.env, self.loop)
@@ -55,11 +61,11 @@ class Session(ProviderDirectoryMixin, OrmSessionMixin, DependencyManagerMixin):
 
     async def start(self, providers: list[str] | bool = True) -> "Session":
         providers = self._resolve_providers(providers)
-        self.load_providers(providers, self.logger)
-        await self.load_dependencies(providers)
+        self._load_providers(providers, self.logger)
+        await self._load_dependencies(providers)
         await self.init_db(
-            dbengine=self.dependency("db"), 
-            provider_metadata=[p.metadata for p in self.providers.values()]
+            dbengine=self.dependency("db"),
+            provider_metadata=[p.metadata for p in self.providers.values()],
         )
         return self
 
@@ -83,31 +89,31 @@ class Session(ProviderDirectoryMixin, OrmSessionMixin, DependencyManagerMixin):
             table_metadata = metadata
         return self._table(table_name, table_metadata)
 
-    def _inject(self, router: Router, kwargs: RequestKwargs | Unpack[RequestModelT]) -> dict:
-        router_kwargs = {}
-        if router.info["accepts"]:
-            request = Request(router.info["accepts"])
-            request.make(**kwargs)
-            router_kwargs.update(**request.data)
-        if router.info["requires"]:
-            deps = {
-                kwd: self.dependency(dep.name)
-                for kwd, dep 
-                in router.info["requires"].items()
-            }
-            router_kwargs.update(deps)
-        return router_kwargs
+    def _inject_request(self, router: Router) -> dict:
+        deps = {
+            kwd: self.dependency(dep.name)
+            for kwd, dep in router.info["requires"].items()
+        }
+        return deps
+
+    @staticmethod
+    def _populate_request(
+        router: Router, **kwargs: RequestKwargs | Unpack[RequestModelT]
+    ) -> dict:
+        request = Request(router.info["accepts"])
+        request.make(**kwargs)
+        return request
 
     async def __call__(
-        self, 
-        provider: str, 
-        router: str, 
-        **kwargs: RequestKwargs | Unpack[RequestModelT]
+        self,
+        provider: str,
+        router: str,
+        **kwargs: RequestKwargs | Unpack[RequestModelT],
     ) -> AsyncGenerator[Response, None]:
         router_instance = self.router(provider, router)
-        router_kwargs = self._inject(router_instance, kwargs)
-        coro = router_instance(**router_kwargs)
-        async for response in coro:
+        deps = self._inject_request(router_instance)
+        request = self._populate_request(router_instance, **kwargs)
+        async for response in router_instance(request, **deps):
             yield response
 
     def __repr__(self) -> str:

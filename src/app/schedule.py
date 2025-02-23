@@ -1,19 +1,16 @@
+import asyncio
 from collections import UserList
-from datetime import datetime, timedelta, time
-from typing import TypedDict, Unpack
-
-from sqlalchemy.orm import DeclarativeMeta
-from pydantic import BaseModel
+from datetime import datetime, time
+from typing import TypedDict, Unpack, Generator
 
 from src.api import core
 
 
-class ItemData(TypedDict):
+class ItemData(TypedDict, total=False):
     id: int
-    provider: core.Provider
-    table: DeclarativeMeta | None
-    model: BaseModel | None
-    collection: core.Collection | None
+    provider: core.symbols.Provider
+    router: core.symbols.Router
+    collection: core.symbols.Collection | None
     request: dict
     time: time
 
@@ -23,30 +20,36 @@ class Item:
         self.data = data
         self.created_at = datetime.now()
         self.completed_at = None
+        self._lock = asyncio.Lock()
 
-    def __call__(self) -> ItemData:
-        if not self.completed_at:
-            self.completed_at = datetime.now()
-            return self.data
-        else:
-            raise RuntimeError("Item already completed")
+    async def __call__(self) -> ItemData:
+        async with self._lock:
+            if not self.completed_at:
+                self.completed_at = datetime.now()
+                return self.data
+            else:
+                raise RuntimeError("Item already completed")
 
 
 class Schedule(UserList[Item]):
     @staticmethod
-    def parse_orm_item(item: core.Schedule) -> list[Item]:
-        ...
-    
-    def __init__(self, *items: Item):
-        super().__init__(items)
-        self.sort(key=lambda x: x["start"])
+    def parse_record(record: dict) -> Generator[dict, None]:
+        record["end"] = record["end"] or datetime.today().replace(hour=23, minute=59, second=59)
+        recurrences = [record]
+        while recurrences[-1]["end"] < record["end"]:
+            i_n = record.copy()
+            i_n["start"] += record["recurrence"]
+            yield i_n
 
-        for item in self:
-            item["end"] = item["end"] or datetime.today().replace(hour=23, minute=59, second=59)
-            recurrences = [item]
+    @classmethod
+    def from_orm(cls, schedule: list[dict]):
+        data = []
+        for record in schedule:
+            for item in cls.parse_record(record):
+                data.append(Item(**item))
+        instance = cls(data)
+        instance.sort()
+        return instance
 
-            while recurrences[-1]["end"] < item["end"]:
-                item_copy = item.copy()
-                item_copy["start"] += item["recurrence"]
-                ...
-        
+    def sort(self, **kwargs):
+        super().sort(key=lambda x: x.data["start"])

@@ -1,9 +1,10 @@
 from dataclasses import dataclass, field
+from typing import AsyncGenerator
 
 from pydantic import BaseModel
 
-from .request import Request, Serializable
-from .symbols import Attribute, Identifier, Timestamp
+from .request import Request
+from .symbols import Attribute, Identifier, Serializable, Timestamp
 
 
 @dataclass(frozen=True)
@@ -20,9 +21,9 @@ class Record:
     @property
     def data(self) -> dict:
         return {
-            "identifier": self.identifier.obj,
-            "timestamp": self.timestamp.obj,
-            "attribute": self.attribute.obj,
+            "identifier": self.identifier.json,
+            "timestamp": self.timestamp.json,
+            "attribute": self.attribute.json,
             **self._data,
         }
 
@@ -36,9 +37,9 @@ class Object(Record):
         model_instance = self.model(**self._data)
         data = model_instance.model_dump(exclude_none=True)
         return {
-            "identifier": self.identifier.obj,
-            "timestamp": self.timestamp.obj,
-            "attribute": self.attribute.obj,
+            "identifier": self.identifier.json,
+            "timestamp": self.timestamp.json,
+            "attribute": self.attribute.json,
             **data,
         }
 
@@ -56,7 +57,7 @@ class Response(Serializable):
         return self.request.id
     
     @property
-    def data(self) -> dict:
+    def json(self) -> dict:
         return self._data.data
 
     @property
@@ -64,3 +65,6 @@ class Response(Serializable):
         if isinstance(self._data, Object):
             return self._data.model
         raise ValueError("Response data is not an Object")
+
+
+ResponseFactory = AsyncGenerator[Response, None]

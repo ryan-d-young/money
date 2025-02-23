@@ -1,6 +1,6 @@
 import asyncio
 
-from websockets.asyncio.server import serve, WebSocketClientProtocol
+from websockets.asyncio.server import serve
 
 from src.api import connect, Session
 from src.api.core import Request
@@ -10,7 +10,7 @@ async def handle_request(request: Request, session: Session):
     ...
 
 
-async def handler(websocket: WebSocketClientProtocol):
+async def handler(websocket):
     session = await connect()
     async for message in websocket:
         await handle_request(websocket, message, session)

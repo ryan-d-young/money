@@ -1,4 +1,4 @@
-from logging import Logger
+from ..utilogging imporfsogger
 from asyncio import AbstractEventLoop, get_running_loop
 
 from src import util
@@ -25,7 +25,7 @@ async def connect(
         Session: Session instance
     """
     logger = logger or util.log.get_logger(__name__)
-    env = util.env.refresh()
+    env = fs.refresh()
     env.update(env_vars)
     logger.info("Environment loaded")
 
@@ -36,4 +36,3 @@ async def connect(
     session.logger.info("Session initialized")
 
     return session
-

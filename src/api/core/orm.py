@@ -54,8 +54,8 @@ class OrmSessionMixin:
         """Initialize the database connection."""
         async with dbengine.begin() as conn:
             await conn.run_sync(metadata.create_all)
-            for meta in provider_metadata:
-                await conn.run_sync(meta.create_all)    
+            for md in provider_metadata:
+                await conn.run_sync(md.create_all)
         self._session = AsyncSession(dbengine)
 
     async def stop_db(self, commit: bool = True) -> None:
@@ -63,9 +63,9 @@ class OrmSessionMixin:
             await self.session.commit()
         await self.session.close()
 
-    async def load_metadata(self, metadata: MetaData) -> None:
-        await self.session.run_sync(metadata.create_all)
+    async def load_metadata(self, md: MetaData) -> None:
+        await self.session.run_sync(md.create_all)
 
-    def _table(self, table_name: str, metadata: MetaData) -> Table:
-        table = Table(table_name, metadata, autoload_with=self.session.bind)
+    def _table(self, table_name: str, md: MetaData) -> Table:
+        table = Table(table_name, md, autoload_with=self.session.bind)
         return table

@@ -1,17 +1,12 @@
-from typing import TypeVar, TypedDict, Protocol, Unpack
+from typing import TypeVar, TypedDict, Unpack, Any
 
 from pydantic import BaseModel
 
 from src.util import dt, ident
-from .symbols import Identifier, Attribute, Timestamp
+from .symbols import Serializable, Identifier, Attribute, Timestamp
 
 RequestModelT = TypeVar("RequestModelT", bound=type[BaseModel])
 RequestInstanceT = TypeVar("RequestInstanceT", bound=BaseModel)
-
-
-class Serializable(Protocol):
-    def data(self) -> dict:
-        ...
 
 
 class RequestKwargs(TypedDict, total=False):
@@ -24,8 +19,8 @@ class Request[RequestInstanceT](Serializable):
     _id: ident.UUID
     _submitted_at: float
     _created_at: float | None
-    _data: RequestInstanceT | None
-    _model: RequestModelT
+    _data: dict | None
+    _model: RequestModelT | None
 
     def __init__(self, model: RequestModelT | None = None):
         self._model = model
@@ -43,12 +38,16 @@ class Request[RequestInstanceT](Serializable):
     def make(self, **kwargs: RequestKwargs | Unpack[RequestModelT]) -> Serializable:
         if self._data:
             raise ValueError(f"An instance of {self} already exists")
-        self._data = self._model(**kwargs)
-        self._created_at = dt.now()
-        return self._data
+        if self._model:
+            self._data = self._model(**kwargs).model_dump(exclude_none=True)
+        else:
+            self._data = kwargs
 
     @property
-    def data(self) -> Serializable:
+    def json(self) -> dict:
         if not self._data:
             raise ValueError(f"{self} is not set")
-        return self._data.model_dump(exclude_none=True)
+        return dict(self._data)
+
+    def __getitem__(self, key: str) -> Any:
+        return self.json[key]

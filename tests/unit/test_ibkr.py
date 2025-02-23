@@ -38,8 +38,8 @@ async def test_auth(api_root: URL):
 @pytest.mark.asyncio
 async def test_ibkr_hmds_historical_bars(ibkr_api_session: api.Session):
     async for response in ibkr_api_session("ibkr", "hmds_historical_bars", **HMDS_BARS_REQUEST):
-        assert response.data
-        data = response.data
+        assert response.json
+        data = response.json
         for key in {"timestamp", "identifier", "attribute", "open_", "high", "low", "close", "volume"}:
             assert key in data
         break
