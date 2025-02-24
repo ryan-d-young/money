@@ -1,11 +1,25 @@
 import asyncio
-from dataclasses import dataclass
+from logging import Logger
 
-import aiohttp
+from src import api, util
 
-from src.api import core
+from . import schedule
 
 
-class Daemon:
-    def __init__(self):
-        ...
+async def run(
+    message_queue: asyncio.LifoQueue[api.core.Request],
+    schedule: schedule.Schedule,
+    logger: Logger,
+    *,
+    padding: float = 0.0,
+):
+    while True:
+        try:
+            current_request = next(schedule)
+            logger.info(f"Sleeping until {current_request['start']}")
+            await asyncio.sleep(current_request["start"] - util.dt.now() - padding)
+            await message_queue.put(current_request)
+            logger.info(f"Put request: {current_request}")
+        except StopIteration:
+            break
+    logger.info("Shutting down")

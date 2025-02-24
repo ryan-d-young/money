@@ -1,56 +1,59 @@
-from pathlib import Path
-from typing import ClassVar, TypeVar
-from types import ModuleType
 from importlib import import_module
 from logging import Logger
+from pathlib import Path
+from types import ModuleType
+from typing import ClassVar
 
 from pydantic import BaseModel
-from sqlalchemy.orm import DeclarativeMeta
 from sqlalchemy import MetaData
+from sqlalchemy.orm import DeclarativeMeta
 
+from .deps.dependency import Dependencies
 from .router import Router
-from .dependency import Dependencies
 
 
 class Provider:
-    routers: dict[str, Router]
     dependencies: Dependencies
-    models: dict[str, BaseModel]
-    tables: dict[str, DeclarativeMeta]
-    metadata: MetaData | None = None
+    metadata: MetaData
 
     def __repr__(self):
         return f"<Provider {self.name}>"
 
     @staticmethod
     def _check_relation(
-        routers: ModuleType | None, 
-        tables: ModuleType | None, 
-        models: list[ModuleType] | ModuleType | None, 
-        metadata: MetaData
+        routers: ModuleType | None,
+        tables: ModuleType | None,
+        models: list[ModuleType] | ModuleType | None,
+        metadata: MetaData,
     ) -> str:
         parents = set()
         if isinstance(models, ModuleType):
             models = [models]
-        for obj in {routers, tables, *models}:
+        for obj in [routers, tables, models]:
             if obj:
-                parents.add(obj.__package__.split(".")[-1])
+                if isinstance(obj, ModuleType):
+                    parents.add(obj.__package__.split(".")[-1])
+                elif isinstance(obj, list):
+                    for mod in obj:
+                        parents.add(mod.__package__.split(".")[-1])
         if len(parents) > 1:
             raise ValueError("Routers, tables, and models must have the same parent module")
         parent = parents.pop()
         if parent != metadata.schema:
             raise ValueError("Provider name must match the parent module name")
         return parent
-        
+
     def __init__(
-        self, 
-        logger: Logger, 
-        metadata: MetaData, 
-        routers: ModuleType | None, 
+        self,
+        logger: Logger,
+        metadata: MetaData,
+        routers: ModuleType | None,
         tables: ModuleType | None,
-        models: list[ModuleType] | ModuleType | None
+        models: list[ModuleType] | ModuleType | None,
     ):
-        self._name = self._check_relation(routers, tables, models, metadata)  # allows us to use their names interchangeably
+        self._name = self._check_relation(
+            routers, tables, models, metadata
+        )  # allows us to use their names interchangeably
         self.metadata = metadata
         self.dependencies = {}
         self._routers = {}
@@ -78,7 +81,6 @@ class Provider:
                     logger.info(f"Found table {name}")
                     self._tables[name] = obj
 
-
     @property
     def name(self) -> str:
         return self._name
@@ -96,11 +98,8 @@ class Provider:
         return self._tables
 
 
-ProviderDictT = TypeVar("ProviderDictT", bound=dict[str, Provider])
-
-
 class ProviderDirectoryMixin:
-    providers: ClassVar[ProviderDictT] = {}
+    providers: ClassVar[dict[str, Provider]] = {}
 
     @classmethod
     def load_provider(cls, provider: Path, logger: Logger):
@@ -110,23 +109,23 @@ class ProviderDirectoryMixin:
         for fp in provider.glob("*.py"):
             if fp.stem == "routers":
                 logger.info(f"Scanning provider {fp.stem} routers")
-                provider_routers_mod = import_module(
-                    ".".join(["src", "ext", provider.stem, fp.stem])
-                )
+                provider_routers_mod = import_module(".".join(["src", "ext", provider.stem, fp.stem]))
             elif fp.stem == "tables":
                 logger.info(f"Scanning provider {fp.stem} tables")
-                provider_tables_mod = import_module(
-                    ".".join(["src", "ext", provider.stem, fp.stem])
-                )
+                provider_tables_mod = import_module(".".join(["src", "ext", provider.stem, fp.stem]))
                 if hasattr(provider_tables_mod, "metadata"):
                     provider_metadata = getattr(provider_tables_mod, "metadata")
             elif fp.stem in {"models", "models_generated"}:
                 logger.info(f"Scanning provider {fp.stem} models")
-                provider_models_mod = import_module(
-                    ".".join(["src", "ext", provider.stem, fp.stem])
-                )
+                provider_models_mod = import_module(".".join(["src", "ext", provider.stem, fp.stem]))
                 provider_models_mods.append(provider_models_mod)
-        provider = Provider(logger, provider_metadata, provider_routers_mod, provider_tables_mod, provider_models_mods)
+        provider = Provider(
+            logger,
+            provider_metadata,
+            provider_routers_mod,
+            provider_tables_mod,
+            provider_models_mods,
+        )
         cls.providers[provider.name] = provider
 
     @classmethod

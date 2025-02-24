@@ -1,5 +1,3 @@
-from ...utilyping importfsyncGenerator
-
 import yarl
 from httpx import AsyncClient
 from pydantic import ValidationError
@@ -13,8 +11,8 @@ try:
     ROOT = (
         yarl.URL.build(
             scheme="https",
-            host=fs.get("IBKR_HOST"),
-            port=int(fs.get("IBKR_PORT")),
+            host=util.context.env().get("IBKR_HOST"),
+            port=int(util.context.env().get("IBKR_PORT")),
         )
         / "v1"
         / "api"
@@ -27,12 +25,9 @@ except KeyError as e:
     accepts=models_generated.HmdsHistoryGetParametersQuery,
     returns=models.OHLCBar,
     stores=tables.OHLC,
-    requires={"client": api.dependencies.HttpClient},
+    requires={"client": api.core.deps.http.HttpClient},
 )
-async def hmds_historical_bars(
-    client: AsyncClient,
-    request: api.core.Request[models_generated.HmdsHistoryGetParametersQuery],
-) -> AsyncGenerator[api.core.Response, None]:
+async def hmds_historical_bars(client: AsyncClient, request: api.core.Request) -> api.core.RouterReturnType:
     url = ROOT / "hmds" / "history"
     response = await client.get(str(url), params=request.json)
     response.raise_for_status()
@@ -46,9 +41,9 @@ async def hmds_historical_bars(
             "volume": record_in.get("v"),
         }
         record_out = api.core.Record(
-            identifier=api.core.Identifier(request["conid"]),
-            timestamp=api.core.Timestamp(unix_to_iso(record_in.get("t"))),
-            attribute=api.core.Attribute("price"),
+            identifier=api.core.symbols.Identifier(request["conid"]),
+            timestamp=api.core.symbols.Timestamp(unix_to_iso(record_in.get("t"))),
+            attribute=api.core.symbols.Attribute("price"),
             _data=record_out_data,
         )
         yield api.core.Response(request, record_out)
@@ -58,13 +53,11 @@ async def hmds_historical_bars(
     accepts=models_generated.IserverMarketdataHistoryGetParametersQuery,
     returns=models.OHLCBar,
     stores=tables.OHLC,
-    requires={"client": api.dependencies.HttpClient},
+    requires={"client": api.core.deps.http.HttpClient},
 )
-async def iserver_historical_bars(
-    client: AsyncClient, **request
-) -> AsyncGenerator[api.core.Response, None]:
+async def iserver_historical_bars(client: AsyncClient, request: api.core.Request) -> api.core.RouterReturnType:
     url = ROOT / "iserver" / "marketdata" / "history"
-    response = await client.get(str(url), params=request)
+    response = await client.get(str(url), params=request.json)
     response.raise_for_status()
     json = response.json()
     for record in json["data"]:
@@ -76,9 +69,9 @@ async def iserver_historical_bars(
             "volume": record.get("v"),
         }
         record_out = api.core.Record(
-            identifier=api.core.Identifier(request["conid"]),
-            timestamp=api.core.Timestamp(unix_to_iso(record.get("t"))),
-            attribute=api.core.Attribute("price"),
+            identifier=api.core.symbols.Identifier(request["conid"]),
+            timestamp=api.core.symbols.Timestamp(unix_to_iso(record.get("t"))),
+            attribute=api.core.symbols.Attribute("price"),
             _data=record_out_data,
         )
         yield api.core.Response(request, record_out)
@@ -87,25 +80,23 @@ async def iserver_historical_bars(
 @api.core.router.define(
     accepts=models_generated.Currency,
     returns=models_generated.CurrencyPairs,
-    requires={"client": api.dependencies.HttpClient},
+    requires={"client": api.core.deps.http.HttpClient},
 )
-async def iserver_currency_pairs(
-    client: AsyncClient, **request
-) -> AsyncGenerator[api.core.Response, None]:
+async def iserver_currency_pairs(client: AsyncClient, request: api.core.Request) -> api.core.RouterReturnType:
     url = ROOT / "iserver" / "currency" / "pairs"
-    response = await client.get(str(url), params={"currency": request["value"]})
+    response = await client.get(str(url), params={"currency": request.json["value"]})
     response.raise_for_status()
     json = response.json()
-    for record in json[request["value"]]:
+    for record in json[request.json["value"]]:
         record_out_data = {
             "symbol": record.get("symbol"),
             "conid": record.get("conid"),
             "ccy_pair": record.get("ccyPair"),
         }
         record_out = api.core.Object(
-            identifier=api.core.Identifier(record.get("symbol")),
-            timestamp=api.core.Timestamp(),
-            attribute=api.core.Attribute("currency_pair"),
+            identifier=api.core.symbols.Identifier(record.get("symbol")),
+            timestamp=api.core.symbols.Timestamp(),
+            attribute=api.core.symbols.Attribute("currency_pair"),
             model=models_generated.CurrencyPair,
             _data=record_out_data,
         )
@@ -116,28 +107,26 @@ async def iserver_currency_pairs(
     accepts=models_generated.IserverExchangerateGetParametersQuery,
     returns=models.FXSpot,
     stores=tables.FXSpot,
-    requires={"client": api.dependencies.HttpClient},
+    requires={"client": api.core.deps.http.HttpClient},
 )
-async def iserver_exchange_rate(
-    client: AsyncClient, **request
-) -> AsyncGenerator[api.core.Response, None]:
+async def iserver_exchange_rate(client: AsyncClient, request: api.core.Request) -> api.core.RouterReturnType:
     url = ROOT / "iserver" / "exchangerate"
     response = await client.get(
-        str(url), params={"source": request["source"], "target": request["target"]}
+        str(url), params={"source": request.json["source"], "target": request.json["target"]}
     )
     response.raise_for_status()
     json = response.json()
     record_out_data = {
-        "base": request["source"],
-        "terms": request["target"],
+        "base": request.json["source"],
+        "terms": request.json["target"],
         "spot": json.get("rate"),
     }
     record_out = api.core.Object(
-        identifier=api.core.Identifier(
-            ".".join([request["source"], request["target"]])
+        identifier=api.core.symbols.Identifier(
+            ".".join([request.json["source"], request.json["target"]])
         ),
-        timestamp=api.core.Timestamp(),
-        attribute=api.core.Attribute("price"),
+        timestamp=api.core.symbols.Timestamp(),
+        attribute=api.core.symbols.Attribute("price"),
         model=models.FXSpot,
         _data=record_out_data,
     )
@@ -147,20 +136,18 @@ async def iserver_exchange_rate(
 @api.core.router.define(
     accepts=models_generated.TrsrvAllConidsGetParametersQuery,
     returns=models_generated.TrsrvAllConidsGetResponse,
-    requires={"client": api.dependencies.HttpClient},
+    requires={"client": api.core.deps.http.HttpClient},
 )
-async def trsrv_conids(
-    client: AsyncClient, **request
-) -> AsyncGenerator[api.core.Response, None]:
+async def trsrv_conids(client: AsyncClient, request: api.core.Request) -> api.core.RouterReturnType:
     url = ROOT / "trsrv" / "all-conids"
-    response = await client.get(str(url), params=request)
+    response = await client.get(str(url), params=request.json)
     response.raise_for_status()
     json = response.json()
     for record in json["root"]:
         record_out = api.core.Object(
-            identifier=api.core.Identifier(record.get("symbol")),
-            timestamp=api.core.Timestamp(record.get("t")),
-            attribute=api.core.Attribute("conid"),
+            identifier=api.core.symbols.Identifier(record.get("symbol")),
+            timestamp=api.core.symbols.Timestamp(record.get("t")),
+            attribute=api.core.symbols.Attribute("conid"),
             model=models_generated.TrsrvAllConidsGetResponseItem,
             _data=record,
         )
@@ -171,21 +158,19 @@ async def trsrv_conids(
     accepts=models_generated.TrsrvFuturesGetParametersQuery,
     returns=models.FuturesContract,
     stores=tables.FuturesChains,
-    requires={"client": api.dependencies.HttpClient},
+    requires={"client": api.core.deps.http.HttpClient},
 )
-async def trsrv_futures_from_symbol(
-    client: AsyncClient, **request
-) -> AsyncGenerator[api.core.Response, None]:
+async def trsrv_futures_from_symbol(client: AsyncClient, request: api.core.Request) -> api.core.RouterReturnType:
     url = ROOT / "trsrv" / "futures"
-    response = await client.get(str(url), params=request)
+    response = await client.get(str(url), params=request.json)
     response.raise_for_status()
     json = response.json()
     for symbol in json:
         for contract in json[symbol]:
             record_out = api.core.Object(
-                identifier=api.core.Identifier(symbol),
-                timestamp=api.core.Timestamp(contract.get("t")),
-                attribute=api.core.Attribute("futures_contract"),
+                identifier=api.core.symbols.Identifier(symbol),
+                timestamp=api.core.symbols.Timestamp(contract.get("t")),
+                attribute=api.core.symbols.Attribute("futures_contract"),
                 model=models.FuturesContract,
                 _data=contract,
             )
@@ -195,21 +180,19 @@ async def trsrv_futures_from_symbol(
 @api.core.router.define(
     accepts=models_generated.TrsrvSecdefScheduleGetParametersQuery,
     returns=models_generated.TradingScheduleItem,
-    requires={"client": api.dependencies.HttpClient},
+    requires={"client": api.core.deps.http.HttpClient},
 )
-async def trsrv_schedule_from_symbol(
-    client: AsyncClient, **request
-) -> AsyncGenerator[api.core.Response, None]:
+async def trsrv_schedule_from_symbol(client: AsyncClient, request: api.core.Request) -> api.core.RouterReturnType:
     url = ROOT / "trsrv" / "secdef" / "schedule"
-    response = await client.get(str(url), params=request)
+    response = await client.get(str(url), params=request.json)
     response.raise_for_status()
     json = response.json()
     for record in json["root"]:
         yield api.core.Response(
             request=request,
-            identifier=api.core.Identifier(record.get("symbol")),
-            timestamp=api.core.Timestamp(record.get("t")),
-            attribute=api.core.Attribute("schedule"),
+            identifier=api.core.symbols.Identifier(record.get("symbol")),
+            timestamp=api.core.symbols.Timestamp(record.get("t")),
+            attribute=api.core.symbols.Attribute("schedule"),
             model=models_generated.TradingScheduleItem,
             _data=record,
         )
@@ -218,19 +201,17 @@ async def trsrv_schedule_from_symbol(
 @api.core.router.define(
     accepts=models.ContractId,
     returns=models_generated.IserverContractConidInfoAndRulesGetResponse,
-    requires={"client": api.dependencies.HttpClient},
+    requires={"client": api.core.deps.http.HttpClient},
 )
-async def iserver_contract_info_from_conid(
-    client: AsyncClient, **request
-) -> AsyncGenerator[api.core.Response, None]:
-    url = ROOT / "iserver" / "contract" / request["root"] / "info-and-rules"
+async def iserver_contract_info_from_conid(client: AsyncClient, request: api.core.Request) -> api.core.RouterReturnType:
+    url = ROOT / "iserver" / "contract" / request.json["root"] / "info-and-rules"
     response = await client.get(str(url))
     response.raise_for_status()
     json = response.json()
     record_out = api.core.Object(
-        identifier=api.core.Identifier(request.root),
+        identifier=api.core.symbols.Identifier(request.root),
         timestamp=None,
-        attribute=api.core.Attribute("contract_info"),
+        attribute=api.core.symbols.Attribute("contract_info"),
         model=models_generated.IserverContractConidInfoAndRulesGetResponse,
         _data=json,
     )
@@ -242,24 +223,22 @@ async def iserver_contract_info_from_conid(
     returns=models.OptionsStrikes,
     stores=tables.OptionsStrikes,
 )
-async def iserver_strikes_from_conid(
-    client: AsyncClient, **request
-) -> AsyncGenerator[api.core.Response, None]:
+async def iserver_strikes_from_conid(client: AsyncClient, request: api.core.Request) -> api.core.RouterReturnType:
     url = ROOT / "iserver" / "secdef" / "strikes"
-    response = await client.get(url, params=request)
+    response = await client.get(url, params=request.json)
     response.raise_for_status()
     json = response.json()
     record_out_data = {
-        "conid": request["conid"],
-        "sectype": request["sectype"],
-        "exchange": request["exchange"],
+        "conid": request.json["conid"],
+        "sectype": request.json["sectype"],
+        "exchange": request.json["exchange"],
         "call": json["call"],
         "put": json["put"],
     }
     record_out = api.core.Object(
-        identifier=api.core.Identifier(request["conid"]),
+        identifier=api.core.symbols.Identifier(request.json["conid"]),
         timestamp=None,
-        attribute=api.core.Attribute("strikes"),
+        attribute=api.core.symbols.Attribute("strikes"),
         model=models.OptionsStrikes,
         _data=record_out_data,
     )
@@ -269,19 +248,17 @@ async def iserver_strikes_from_conid(
 @api.core.router.define(
     accepts=models_generated.IserverSecdefSearchGetParametersQuery,
     returns=models_generated.SecdefSearchResponse,
-    requires={"client": api.dependencies.HttpClient},
+    requires={"client": api.core.deps.http.HttpClient},
 )
-async def iserver_secdef_search(
-    client: AsyncClient, **request
-) -> AsyncGenerator[api.core.Response, None]:
+async def iserver_secdef_search(client: AsyncClient, request: api.core.Request) -> api.core.RouterReturnType:
     url = ROOT / "iserver" / "secdef" / "search"
-    response = await client.get(str(url), params=request)
+    response = await client.get(str(url), params=request.json)
     response.raise_for_status()
     json = response.json()
     record_out = api.core.Object(
-        identifier=api.core.Identifier(request["conid"]),
+        identifier=api.core.symbols.Identifier(request.json["conid"]),
         timestamp=None,
-        attribute=api.core.Attribute("secdef_search"),
+        attribute=api.core.symbols.Attribute("secdef_search"),
         model=models_generated.SecdefSearchResponse,
         _data=json,
     )
@@ -290,19 +267,17 @@ async def iserver_secdef_search(
 
 @api.core.router.define(
     returns=models_generated.GwApiV1AccountsGetResponse,
-    requires={"client": api.dependencies.HttpClient},
+    requires={"client": api.core.deps.http.HttpClient},
 )
-async def iserver_accounts(
-    client: AsyncClient,
-) -> AsyncGenerator[api.core.Response, None]:
+async def iserver_accounts(client: AsyncClient) -> api.core.RouterReturnType:
     url = ROOT / "iserver" / "accounts"
     response = await client.get(str(url))
     response.raise_for_status()
     json = response.json()
     record_out = api.core.Object(
-        identifier=api.core.Identifier(json.get("root")),
+        identifier=api.core.symbols.Identifier(json.get("root")),
         timestamp=None,
-        attribute=api.core.Attribute("accounts"),
+        attribute=api.core.symbols.Attribute("accounts"),
         model=models_generated.UserAccountsResponse,
         _data=json,
     )
@@ -312,19 +287,17 @@ async def iserver_accounts(
 @api.core.router.define(
     accepts=models_generated.IserverSecdefInfoGetParametersQuery,
     returns=models_generated.SecDefInfoResponse,
-    requires={"client": api.dependencies.HttpClient},
+    requires={"client": api.core.deps.http.HttpClient},
 )
-async def iserver_secdef_info(
-    client: AsyncClient, **request
-) -> AsyncGenerator[api.core.Response, None]:
+async def iserver_secdef_info(client: AsyncClient, request: api.core.Request) -> api.core.RouterReturnType:
     url = ROOT / "iserver" / "secdef" / "info"
-    response = await client.get(str(url), params=request)
+    response = await client.get(str(url), params=request.json)
     response.raise_for_status()
     json = response.json()
     record_out = api.core.Object(
-        identifier=api.core.Identifier(request["conid"]),
+        identifier=api.core.symbols.Identifier(request.json["conid"]),
         timestamp=None,
-        attribute=api.core.Attribute("secdef_info"),
+        attribute=api.core.symbols.Attribute("secdef_info"),
         model=models_generated.SecDefInfoResponse,
         _data=json,
     )
@@ -334,19 +307,17 @@ async def iserver_secdef_info(
 @api.core.router.define(
     accepts=models.OrderId,
     returns=models_generated.OrderStatus,
-    requires={"client": api.dependencies.HttpClient},
+    requires={"client": api.core.deps.http.HttpClient},
 )
-async def iserver_account_order_status(
-    client: AsyncClient, **request
-) -> AsyncGenerator[api.core.Response, None]:
-    url = ROOT / "iserver" / "account" / "order" / "status" / request["root"]
+async def iserver_account_order_status(client: AsyncClient, request: api.core.Request) -> api.core.RouterReturnType:
+    url = ROOT / "iserver" / "account" / "order" / "status" / request.json["root"]
     response = await client.get(str(url))
     response.raise_for_status()
     json = response.json()
     record_out = api.core.Object(
-        identifier=api.core.Identifier(request.root),
+        identifier=api.core.symbols.Identifier(request.root),
         timestamp=None,
-        attribute=api.core.Attribute("order_status"),
+        attribute=api.core.symbols.Attribute("order_status"),
         model=models_generated.OrderStatus,
         _data=json,
     )
@@ -359,13 +330,11 @@ async def iserver_account_order_status(
     | models_generated.OrderSubmitError
     | models_generated.OrderReplyMessage
     | models_generated.AdvancedOrderReject,
-    requires={"client": api.dependencies.HttpClient},
+    requires={"client": api.core.deps.http.HttpClient},
 )
-async def iserver_account_post_order(
-    client: AsyncClient, **request
-) -> AsyncGenerator[api.core.Response, None]:
-    url = ROOT / "iserver" / "account" / request["account_id"] / "orders"
-    response = await client.post(url, json=request)
+async def iserver_account_post_order(client: AsyncClient, request: api.core.Request) -> api.core.RouterReturnType:
+    url = ROOT / "iserver" / "account" / request.json["account_id"] / "orders"
+    response = await client.post(url, json=request.json)
     response.raise_for_status()
     json = response.json()
     instance = None
@@ -384,9 +353,9 @@ async def iserver_account_post_order(
     if instance is None:
         raise ValueError(f"Unrecognized response format: {json}")
     record_out = api.core.Object(
-        identifier=api.core.Identifier(request["account_id"]),
+        identifier=api.core.symbols.Identifier(request.json["account_id"]),
         timestamp=None,
-        attribute=api.core.Attribute("order_submit"),
+        attribute=api.core.symbols.Attribute("order_submit"),
         model=model,
         _data=instance.model_dump(),
     )
@@ -396,18 +365,16 @@ async def iserver_account_post_order(
 @api.core.router.define(
     accepts=models.CancelOrder,
     returns=models_generated.OrderCancelSuccess | models_generated.OrderSubmitError,
-    requires={"client": api.dependencies.HttpClient},
+    requires={"client": api.core.deps.http.HttpClient},
 )
-async def iserver_account_delete_order(
-    client: AsyncClient, **request
-) -> AsyncGenerator[api.core.Response, None]:
+async def iserver_account_delete_order(client: AsyncClient, request: api.core.Request) -> api.core.RouterReturnType:
     url = (
         ROOT
         / "iserver"
         / "account"
-        / request["account_id"]
+        / request.json["account_id"]
         / "order"
-        / request["order_id"]
+        / request.json["order_id"]
     )
     response = await client.delete(url, verify=False)
     response.raise_for_status()
@@ -426,9 +393,9 @@ async def iserver_account_delete_order(
     if instance is None:
         raise ValueError(f"Unrecognized response format: {json}")
     record_out = api.core.Object(
-        identifier=api.core.Identifier(request["account_id"]),
+        identifier=api.core.symbols.Identifier(request.json["account_id"]),
         timestamp=None,
-        attribute=api.core.Attribute("order_cancel"),
+        attribute=api.core.symbols.Attribute("order_cancel"),
         model=model,
         _data=instance.model_dump(),
     )
@@ -437,20 +404,18 @@ async def iserver_account_delete_order(
 
 @api.core.router.define(
     returns=models_generated.AccountAttributes,
-    requires={"client": api.dependencies.HttpClient},
+    requires={"client": api.core.deps.http.HttpClient},
 )
-async def portfolio_accounts(
-    client: AsyncClient,
-) -> AsyncGenerator[api.core.Response, None]:
+async def portfolio_accounts(client: AsyncClient) -> api.core.RouterReturnType:
     url = ROOT / "portfolio" / "accounts"
     response = await client.get(str(url))
     response.raise_for_status()
     json = response.json()
     for record in json["root"]:
         record_out = api.core.Object(
-            identifier=api.core.Identifier(record.get("root")),
+            identifier=api.core.symbols.Identifier(record.get("root")),
             timestamp=None,
-            attribute=api.core.Attribute("account_attributes"),
+            attribute=api.core.symbols.Attribute("account_attributes"),
             model=models_generated.AccountAttributes,
             _data=record,
         )
@@ -461,12 +426,10 @@ async def portfolio_accounts(
     accepts=models.AccountId,
     returns=models.Ledger,
     stores=tables.AccountLedger,
-    requires={"client": api.dependencies.HttpClient},
+    requires={"client": api.core.deps.http.HttpClient},
 )
-async def portfolio_account_ledger(
-    client: AsyncClient, **request
-) -> AsyncGenerator[api.core.Response, None]:
-    url = ROOT / "portfolio" / request["root"] / "ledger"
+async def portfolio_account_ledger(client: AsyncClient, request: api.core.Request) -> api.core.RouterReturnType:
+    url = ROOT / "portfolio" / request.json["root"] / "ledger"
     response = await client.get(str(url))
     response.raise_for_status()
     json = response.json()
@@ -476,9 +439,9 @@ async def portfolio_account_ledger(
             **ledger,
         }
         record_out = api.core.Object(
-            identifier=api.core.Identifier(request["root"]),
+            identifier=api.core.symbols.Identifier(request.json["root"]),
             timestamp=None,
-            attribute=api.core.Attribute("account_ledger"),
+            attribute=api.core.symbols.Attribute("account_ledger"),
             model=models.Ledger,
             _data=record_out_data,
         )
@@ -489,19 +452,17 @@ async def portfolio_account_ledger(
     accepts=models.AccountId,
     returns=models_generated.PortfolioSummary,
     stores=tables.AccountSummary,
-    requires={"client": api.dependencies.HttpClient},
+    requires={"client": api.core.deps.http.HttpClient},
 )
-async def portfolio_account_summary(
-    client: AsyncClient, **request
-) -> AsyncGenerator[api.core.Response, None]:
-    url = ROOT / "portfolio" / request["root"] / "summary"
+async def portfolio_account_summary(client: AsyncClient, request: api.core.Request) -> api.core.RouterReturnType:
+    url = ROOT / "portfolio" / request.json["root"] / "summary"
     response = await client.get(str(url), verify=False)
     response.raise_for_status()
     json = response.json()
     record_out = api.core.Object(
-        identifier=api.core.Identifier(request["root"]),
+        identifier=api.core.symbols.Identifier(request.json["root"]),
         timestamp=None,
-        attribute=api.core.Attribute("account_summary"),
+        attribute=api.core.symbols.Attribute("account_summary"),
         model=models_generated.PortfolioSummary,
         _data=json,
     )
@@ -512,22 +473,20 @@ async def portfolio_account_summary(
     accepts=models.AccountId,
     returns=models_generated.IndividualPosition,
     stores=tables.AccountPositions,
-    requires={"client": api.dependencies.HttpClient},
+    requires={"client": api.core.deps.http.HttpClient},
 )
-async def portfolio_account_positions(
-    client: AsyncClient, **request
-) -> AsyncGenerator[api.core.Response, None]:
+async def portfolio_account_positions(client: AsyncClient, request: api.core.Request) -> api.core.RouterReturnType:
     page_id = 1
     while True:
-        url = ROOT / "portfolio" / request["root"] / "positions" / page_id
+        url = ROOT / "portfolio" / request.json["root"] / "positions" / page_id
         response = await client.get(str(url))
         response.raise_for_status()
         json = response.json()
         for record in json["root"]:
             record_out = api.core.Object(
-                identifier=api.core.Identifier(request["root"]),
+                identifier=api.core.symbols.Identifier(request.json["root"]),
                 timestamp=None,
-                attribute=api.core.Attribute("account_positions"),
+                attribute=api.core.symbols.Attribute("account_positions"),
                 model=models_generated.IndividualPosition,
                 _data=record,
             )

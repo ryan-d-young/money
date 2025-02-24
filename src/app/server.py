@@ -13,7 +13,7 @@ async def handle_request(request: Request, session: Session):
 async def handler(websocket):
     session = await connect()
     async for message in websocket:
-        await handle_request(websocket, message, session)
+        await handle_request(message, session)
 
 
 async def main():

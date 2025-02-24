@@ -17,7 +17,12 @@ def _reserved() -> set[str]:
 
 class Serializable(Protocol):
     @property
-    def json(self) -> dict: ...
+    def json(self) -> Any: ...
+
+
+class SerializableStr(Protocol):
+    @property
+    def json(self) -> str: ...
 
 
 class _ABCSymbol(UserString, Serializable):
@@ -39,7 +44,7 @@ class _ABCSymbol(UserString, Serializable):
                 f"Duplicate symbol encountered for {cls.__name__}: {MAP[cls.discriminator]} ({cls.discriminator})"
             )
         MAP[cls.discriminator] = cls
-        return super().__new__(cls, data)
+        return super().__new__(cls)
 
     def __init__(self, data: str):
         if any(char in data for char in _reserved()):
@@ -52,11 +57,11 @@ class Symbol(_ABCSymbol):
         super().__init__(data)
 
     def __repr__(self) -> str:
-        return f"{self.discriminator}{self.json}"
+        return self.json
 
     @property
     def json(self) -> str:
-        return self.data
+        return f"{self.discriminator}{self.data}"
 
 
 class Identifier(Symbol):

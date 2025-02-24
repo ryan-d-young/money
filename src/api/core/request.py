@@ -1,41 +1,57 @@
-from typing import TypeVar, TypedDict, Unpack, Any
+from typing import Any, NotRequired, TypedDict
+from uuid import UUID
 
 from pydantic import BaseModel
 
-from src.util import dt, ident
-from .symbols import Serializable, Identifier, Attribute, Timestamp
+from src import util
 
-RequestModelT = TypeVar("RequestModelT", bound=type[BaseModel])
-RequestInstanceT = TypeVar("RequestInstanceT", bound=BaseModel)
+from .symbols import Attribute, Identifier, Serializable, Timestamp
+
+RequestModel = type[BaseModel]
 
 
-class RequestKwargs(TypedDict, total=False):
+class SerializableObj(Serializable):
+    @property
+    def json(self) -> dict: ...
+
+
+class _RequestKwargs(TypedDict, total=False):
     identifier: Identifier
-    attribute: Attribute | None
-    timestamp: Timestamp | None
+    attribute: NotRequired[Attribute]
+    timestamp: NotRequired[Timestamp]
 
 
-class Request[RequestInstanceT](Serializable):
-    _id: ident.UUID
-    _submitted_at: float
-    _created_at: float | None
-    _data: dict | None
-    _model: RequestModelT | None
+RequestKwargs = _RequestKwargs | dict[str, Any]
 
-    def __init__(self, model: RequestModelT | None = None):
+
+class Request(SerializableObj):
+    _id: UUID
+    _submitted_at: util.dt.datetime
+
+    def __init__(self, model: RequestModel | None = None):
         self._model = model
         self._data = None
-        self._id = ident.uuid()
-        self._submitted_at = dt.now()
+        self._id = util.ident.uuid()
+        self._submitted_at = util.dt.now()
 
     def __repr__(self):
         return f"<Request({self._id})>"
 
     @property
-    def id(self):
+    def data(self) -> dict | None:
+        if not self._data:
+            return None
+        return dict(self._data)
+
+    @property
+    def model(self) -> RequestModel | None:
+        return self._model
+
+    @property
+    def id(self) -> UUID:
         return self._id
 
-    def make(self, **kwargs: RequestKwargs | Unpack[RequestModelT]) -> Serializable:
+    def make(self, **kwargs: RequestKwargs) -> None:
         if self._data:
             raise ValueError(f"An instance of {self} already exists")
         if self._model:
@@ -47,7 +63,7 @@ class Request[RequestInstanceT](Serializable):
     def json(self) -> dict:
         if not self._data:
             raise ValueError(f"{self} is not set")
-        return dict(self._data)
+        return self._data
 
     def __getitem__(self, key: str) -> Any:
         return self.json[key]
