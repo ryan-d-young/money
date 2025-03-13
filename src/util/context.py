@@ -5,32 +5,29 @@ from pathlib import Path
 from typing import Any
 
 import dotenv
-import yaml
+import tomlkit
 
+HOME = Path.home()
 ROOT = Path.cwd()
 PROJECT = ROOT / "src"
 PROVIDERS = PROJECT / "ext"
 
-parent_dir: ContextVar[Path] = ContextVar("parent_dir")
-project_name: ContextVar[str] = ContextVar("project_name")
+parent_dir: ContextVar[Path] = ContextVar("parent_dir", default=HOME)
+project_name: ContextVar[str] = ContextVar("project_name", default="root")
 
 
 @cache
 def project_root() -> Path:
-    parent = parent_dir.get() or Path.home()
-    return parent / project_name.get()
+    return parent_dir.get() / project_name.get()
 
 
 @cache
-def config() -> dict[str, Any]:
-    if (fp := project_root() / "config.yaml").exists():
-        with Path.open(fp, "r") as f:
-            config = yaml.safe_load(f)
-    else:
-        config = {}
-        with Path.open(fp, "w") as f:
-            yaml.dump(config, f)
-    return config
+def settings() -> dict[str, Any]:
+    settings = {}
+    if (fp := project_root() / "settings.toml").exists():
+        with Path.open(fp, "rb") as f:
+            settings = tomlkit.load(f)
+    return settings
 
 
 @cache

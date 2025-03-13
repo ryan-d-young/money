@@ -1,13 +1,14 @@
 import asyncio
 import json
-from typing import Annotated
 from enum import Enum
+from typing import Annotated
 
 import rich
 import typer
 from sqlalchemy.sql import select
 
 from src.api import connect
+
 app = typer.Typer(add_completion=False)
 
 
@@ -25,11 +26,9 @@ def add(
     async def _add():
         session = await connect()
         async with session.session.begin():
-            await session.session.execute(
-                session.table(table.value)
-                .insert()
-                .values(**data)
-            )
+            table_cls = await session.table(table.value)
+            await session.session.execute(table_cls.insert().values(**data))
+
     asyncio.run(_add())
     rich.print("Inserted: ", data)
 
@@ -37,25 +36,27 @@ def add(
 @app.command(name="append")
 def append(
     id: Annotated[int, typer.Argument(help="The id of the collection to append to")],
-    item: Annotated[str, typer.Argument(help="The item to append to the collection")]
+    item: Annotated[str, typer.Argument(help="The item to append to the collection")],
 ) -> None:
     async def _append():
         session = await connect()
         async with session.session.begin():
             result = await session.session.execute(
-                select(session.table(TableOptions.collections))
-                .where(session.table(TableOptions.collections).c.id == id)
+                select(session.table(TableOptions.collections)).where(
+                    session.table(TableOptions.collections).c.id == id
+                )
             )
             collection = result.mappings().one_or_none()
             if collection is None:
                 raise ValueError(f"Collection {id} not found")
-            new_collection = collection['collection'] + [item]
+            new_collection = collection["collection"] + [item]
             await session.session.execute(
                 session.table(TableOptions.collections)
                 .update()
                 .where(session.table(TableOptions.collections).c.id == id)
                 .values(collection=new_collection)
             )
+
     asyncio.run(_append())
     rich.print(f"Appended {item} to collection {id}")
 
@@ -70,18 +71,15 @@ def patch(
         session = await connect()
         async with session.session.begin():
             result = await session.session.execute(
-                select(session.table(table.value))
-                .where(session.table(table.value).c.id == id)
+                select(session.table(table.value)).where(session.table(table.value).c.id == id)
             )
             record = result.mappings().one_or_none()
             if record is None:
                 raise ValueError(f"Record {id} not found in table {table.value}")
             await session.session.execute(
-                session.table(table.value)
-                .update()
-                .where(session.table(table.value).c.id == id)
-                .values(**data)
+                session.table(table.value).update().where(session.table(table.value).c.id == id).values(**data)
             )
+
     asyncio.run(_patch())
     rich.print("Updated: ", data)
 
@@ -93,11 +91,10 @@ def list(
     async def _list():
         session = await connect()
         async with session.session.begin():
-            result = await session.session.execute(
-                select(session.table(table.value))
-            )
+            result = await session.session.execute(select(session.table(table.value)))
             records = result.mappings().all()
             return [{k: v for k, v in record.items()} for record in records]
+
     records = asyncio.run(_list())
     rich.print("Records:", *records)
 
@@ -111,10 +108,9 @@ def remove(
         session = await connect()
         async with session.session.begin():
             await session.session.execute(
-                session.table(table.value)
-                .delete()
-                .where(session.table(table.value).c.id == id)
+                session.table(table.value).delete().where(session.table(table.value).c.id == id)
             )
+
     asyncio.run(_remove())
     rich.print(f"Deleted record {id} from table {table.value}")
 
@@ -122,20 +118,23 @@ def remove(
 @app.command(name="metadata")
 def provider_metadata(
     id: Annotated[int, typer.Argument(help="The id of the provider")],
-    key: Annotated[str | None, typer.Option(help="The key to set or remove. If not provided, metadata is listed")] = None,
-    value: Annotated[str | None, typer.Option(help="The value to set. If not provided, the value will be removed")] = None
+    key: Annotated[
+        str | None, typer.Option(help="The key to set or remove. If not provided, metadata is listed")
+    ] = None,
+    value: Annotated[
+        str | None, typer.Option(help="The value to set. If not provided, the value will be removed")
+    ] = None,
 ) -> None:
     async def _set():
         session = await connect()
         async with session.session.begin():
             result = await session.session.execute(
-                select(session.table(TableOptions.providers))
-                .where(session.table(TableOptions.providers).c.id == id)
+                select(session.table(TableOptions.providers)).where(session.table(TableOptions.providers).c.id == id)
             )
             provider = result.mappings().one_or_none()
             if provider is None:
                 raise ValueError(f"Provider {id} not found")
-            
+
             if key is None:
                 rich.print(provider["app_metadata"])
             else:
@@ -146,7 +145,7 @@ def provider_metadata(
                 else:
                     metadata[key] = value
                     message = f"Set metadata {key}={value} for provider {id}"
-                
+
                 await session.session.execute(
                     session.table(TableOptions.providers)
                     .update()
@@ -154,6 +153,7 @@ def provider_metadata(
                     .values(app_metadata=metadata)
                 )
                 rich.print(message)
+
     asyncio.run(_set())
 
 

@@ -1,18 +1,17 @@
-from src import api
-from .common import TabPane, TableDisplay, DictSelector, RowListView
-
 from textual import on
 from textual.app import ComposeResult
-from textual.widgets import Input, Button, Rule
 from textual.containers import Horizontal, Vertical
+from textual.widgets import Button, Input, Rule
+
+from src import api
+
+from .common import DictSelector, RowListView, TableDisplay, TabPane
 
 
-class CollectionsInput(RowListView):
-    ...
+class CollectionsInput(RowListView): ...
 
 
-class ProviderSelector(DictSelector):
-    ...
+class ProviderSelector(DictSelector): ...
 
 
 class Collections(TabPane):
@@ -27,7 +26,7 @@ class Collections(TabPane):
                 yield Horizontal(
                     Input(name="name", id="collections-form-name"),
                     ProviderSelector(name="provider", id="collections-form-provider", data=self._session.providers),
-                    CollectionsInput(id="collections-form-collections", data=())
+                    CollectionsInput(id="collections-form-collections", data=()),
                 )
                 yield Vertical(
                     Horizontal(
@@ -35,9 +34,8 @@ class Collections(TabPane):
                         Button("Add", id="collections-form-add"),
                     ),
                     Horizontal(
-                        Button("Create", id="collections-form-create"),
-                        Button("Delete", id="collections-form-delete")
-                    )
+                        Button("Create", id="collections-form-create"), Button("Delete", id="collections-form-delete")
+                    ),
                 )
 
     @on(Button.Pressed, "#collections-form-create")
@@ -57,6 +55,4 @@ class Collections(TabPane):
         self.query_one("#collections-table").remove_row(*data)
 
     @on(Button.Pressed, "#collections-form-add")
-    def add_collection(self) -> None:
-        ...
-
+    def add_collection(self) -> None: ...

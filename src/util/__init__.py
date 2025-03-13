@@ -1,4 +1,4 @@
-from . import context, config, dt, log, ident
+from . import context, dt, log, ident, settings
 
 
-__all__ = ["context", "config", "dt", "log", "ident"]
+__all__ = ["context", "settings", "dt", "log", "ident"]

@@ -2,14 +2,15 @@ from typing import Any
 
 from sqlalchemy.orm import DeclarativeMeta
 from textual import work
-from textual.validation import ValidationResult, Validator
-from textual.widgets import Button, DataTable, Input, Select, ListItem, Label, TabPane as TabPane_
 from textual.app import ComposeResult
+from textual.validation import ValidationResult, Validator
+from textual.widgets import Button, DataTable, Input, Label, ListItem, Select
+from textual.widgets import TabPane as TabPane_
+
 from src import api, util
 
 
 class DateTimeInput(Input):
-
     class DateTimeValidator(Validator):
         def validate(self, value: str) -> ValidationResult:
             try:
@@ -28,12 +29,7 @@ class DateTimeInput(Input):
 
 class DictSelector(Select):
     def __init__(self, name: str, data: dict[str, Any], *args, **kwargs):
-        super().__init__(
-            options=list(data.keys()), 
-            prompt=name, 
-            id=f"selector-{name}", 
-            *args, **kwargs
-        )
+        super().__init__(options=list(data.keys()), prompt=name, id=f"selector-{name}", *args, **kwargs)
         self._map = data
 
     def value(self) -> str:
@@ -42,21 +38,12 @@ class DictSelector(Select):
 
 class TableDisplayRowDeleteButton(Button):
     def __init__(self, key: str, *args, **kwargs):
-        super().__init__(
-            label="-", 
-            id=f"delete-button-{key}", 
-            variant="error", 
-            *args, **kwargs
-        )
+        super().__init__(label="-", id=f"delete-button-{key}", variant="error", *args, **kwargs)
         self.key = key
 
     def on_click(self) -> None:
         self.parent.remove_row(self.key)
-        self.parent.delete_row(
-            row=self.parent._table(
-                *self.parent.get_row(self.key)
-            )
-        )
+        self.parent.delete_row(row=self.parent._table(*self.parent.get_row(self.key)))
 
 
 class RowListView(ListItem):
@@ -64,7 +51,7 @@ class RowListView(ListItem):
         super().__init__(*args, **kwargs)
         self.key = key
         self.data = {item: Label(item) for item in data}
-        
+
     def compose(self) -> ComposeResult:
         for value in self.data.values():
             yield value
@@ -97,19 +84,8 @@ class TableDisplay(DataTable):
     async def delete_index(self, index: int) -> None:
         await self.app.db.delete(self._table.get_row(index))
 
-    def __init__(
-        self, 
-        table: DeclarativeMeta, 
-        allow_add: bool = True, 
-        allow_delete: bool = True, 
-        *args, **kwargs
-    ):
-        super().__init__(
-            show_row_labels=False, 
-            fixed_rows=1 if allow_add else 0, 
-            cursor_type="row",
-            *args, **kwargs
-        )
+    def __init__(self, table: DeclarativeMeta, allow_add: bool = True, allow_delete: bool = True, *args, **kwargs):
+        super().__init__(show_row_labels=False, fixed_rows=1 if allow_add else 0, cursor_type="row", *args, **kwargs)
         keys = self.add_columns(*table.columns.keys())
         self._map = dict(zip(table.columns.keys(), keys))
         self._allow_delete = allow_delete

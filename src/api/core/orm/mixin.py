@@ -1,5 +1,8 @@
-from sqlalchemy import MetaData, Table
+from typing import Sequence
+
+from sqlalchemy import MetaData, RowMapping
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession
+from sqlalchemy.sql import select
 
 from .meta import metadata
 
@@ -45,6 +48,13 @@ class OrmSessionMixin:
         """Create tables for the given metadata."""
         await self.session.run_sync(md.create_all)
 
-    def _table(self, table_name: str, md: MetaData) -> Table:
+    async def _table(self, table_name: str, md: MetaData) -> Sequence[RowMapping]:
         """Get table by name from metadata."""
-        return Table(table_name, md, autoload_with=self.session.bind)
+        stmt = select(md.tables[table_name])
+        result = await self.session.execute(stmt)
+        return result.mappings().all()
+
+    async def store(self, table) -> None:
+        """Store a response in the database."""
+        await self.session.add(response)
+        await self.session.commit()

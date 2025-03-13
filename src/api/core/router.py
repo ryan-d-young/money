@@ -1,7 +1,7 @@
-import functools
 from collections.abc import AsyncGenerator
 from dataclasses import dataclass, field
-from typing import Callable, ClassVar, TypedDict, Unpack
+from functools import partial
+from typing import Callable, TypedDict, Unpack, Protocol, TypeVar
 
 import pydantic
 from sqlalchemy import Table
@@ -14,6 +14,7 @@ from .response import Response
 
 RateLimit = tuple[int, float]  # (limit, seconds)
 RouterReturnType = AsyncGenerator[Response, None]
+BoundRouterReturnType = partial[RouterReturnType]
 
 
 @dataclass(slots=True)
@@ -32,19 +33,34 @@ class Info(TypedDict, total=False):
     requires: Dependencies | None
 
 
-class Router(type[Callable[[Request, Dependencies], RouterReturnType]]):
-    metadata: ClassVar[Metadata]
-    info: ClassVar[Info]
+RouterT = TypeVar("RouterT", bound=Callable[..., RouterReturnType])
 
+
+class Router(Protocol):
+    info: Info
+    metadata: Metadata
     async def __call__(
         self,
         request: Request,
         **dependencies: Dependencies,
-    ) -> RouterReturnType: ...
+    ) -> AsyncGenerator[Response, None]: ...
 
 
-def define(**info: Unpack[Info]) -> Callable[[Router], Router]:
-    """Define a router function. Attaches 'Info' and 'Context' to the router function.
+class WrappedRouter:
+    def __init__(self, router: RouterT, info: Info):
+        self.router = router
+        self.info = info
+        self.metadata = Metadata()
+
+    async def __call__(self, request: Request, **dependencies: Dependencies) -> AsyncGenerator[Response, None]:
+        now = dt.utcnow()
+        self.metadata.history[now] = request
+        async for response in self.router(request, **dependencies):
+            yield response
+
+
+def define(**info: Unpack[Info]) -> Callable[[RouterT], Router]:
+    """Define a router function. Attaches 'Info' and 'Metadata' to the router function.
 
     Parameters
     ----------
@@ -61,24 +77,10 @@ def define(**info: Unpack[Info]) -> Callable[[Router], Router]:
 
     Returns
     -------
-        Callable[[Router], Router]:
-            A decorated router function with attached 'Info' and 'Context'.
-
+        Callable[[RouterT], Router]:
+            A decorated router function with attached 'Info' and 'Metadata'.
     """
 
-    def decorator(router: Router) -> Router:
-        @functools.wraps(router)
-        def wrapper(request: Request, **dependencies: Dependencies) -> AsyncGenerator[Response, None]:
-            # dependencies injected from Session.__call__
-            # store request in history before passing to router
-            now = dt.now()
-            wrapper.metadata.history[now] = request
-            return router(request=request, **dependencies)
-
-        # attach metadata and info to wrapper
-        wrapper.metadata = Metadata()
-        wrapper.info = Info(**info)
-        return wrapper
-
-    # decorated function processes request and contains metadata/info
+    def decorator(router: RouterT) -> Router:
+        return WrappedRouter(router, info)
     return decorator

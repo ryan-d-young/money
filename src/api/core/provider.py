@@ -20,6 +20,13 @@ class Provider:
         return f"<Provider {self.name}>"
 
     @staticmethod
+    def _get_package_name(module: ModuleType) -> str:
+        if not module.__package__:
+            return ""
+        parts = module.__package__.split(".")
+        return parts[-1] if parts else ""
+
+    @staticmethod
     def _check_relation(
         routers: ModuleType | None,
         tables: ModuleType | None,
@@ -32,10 +39,14 @@ class Provider:
         for obj in [routers, tables, models]:
             if obj:
                 if isinstance(obj, ModuleType):
-                    parents.add(obj.__package__.split(".")[-1])
+                    name = Provider._get_package_name(obj)
+                    if name:
+                        parents.add(name)
                 elif isinstance(obj, list):
                     for mod in obj:
-                        parents.add(mod.__package__.split(".")[-1])
+                        name = Provider._get_package_name(mod)
+                        if name:
+                            parents.add(name)
         if len(parents) > 1:
             raise ValueError("Routers, tables, and models must have the same parent module")
         parent = parents.pop()
@@ -102,22 +113,22 @@ class ProviderDirectoryMixin:
     providers: ClassVar[dict[str, Provider]] = {}
 
     @classmethod
-    def load_provider(cls, provider: Path, logger: Logger):
+    def load_provider(cls, provider_fp: Path, logger: Logger):
         provider_metadata = None
         provider_routers_mod = None
         provider_models_mods = []
-        for fp in provider.glob("*.py"):
+        for fp in provider_fp.glob("*.py"):
             if fp.stem == "routers":
                 logger.info(f"Scanning provider {fp.stem} routers")
-                provider_routers_mod = import_module(".".join(["src", "ext", provider.stem, fp.stem]))
+                provider_routers_mod = import_module(".".join(["src", "ext", provider_fp.stem, fp.stem]))
             elif fp.stem == "tables":
                 logger.info(f"Scanning provider {fp.stem} tables")
-                provider_tables_mod = import_module(".".join(["src", "ext", provider.stem, fp.stem]))
+                provider_tables_mod = import_module(".".join(["src", "ext", provider_fp.stem, fp.stem]))
                 if hasattr(provider_tables_mod, "metadata"):
                     provider_metadata = getattr(provider_tables_mod, "metadata")
             elif fp.stem in {"models", "models_generated"}:
                 logger.info(f"Scanning provider {fp.stem} models")
-                provider_models_mod = import_module(".".join(["src", "ext", provider.stem, fp.stem]))
+                provider_models_mod = import_module(".".join(["src", "ext", provider_fp.stem, fp.stem]))
                 provider_models_mods.append(provider_models_mod)
         provider = Provider(
             logger,
@@ -126,7 +137,7 @@ class ProviderDirectoryMixin:
             provider_tables_mod,
             provider_models_mods,
         )
-        cls.providers[provider.name] = provider
+        cls.providers[provider_fp.name] = provider
 
     @classmethod
     def router(cls, provider: str, router: str) -> Router:

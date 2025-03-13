@@ -1,6 +1,9 @@
-from time import time, strptime as _strptime
-from datetime import datetime, date as _Date, time as _Time
+from time import time as time_
+from datetime import datetime, date, time, timedelta
 
+_1S = timedelta(seconds=1)
+_NULL_TIME = time(0, 0, 0, 0)
+_EOD = time(23, 59, 59, 999999)
 _ISODATE = "%Y%m%d"
 _ISOTIME = "%H%M%S"
 _ISODATETIME = _ISODATE + "T" + _ISOTIME
@@ -11,69 +14,62 @@ _ISOTIMEDELTA = _ISODURATION + "T" + _ISODELTA
 ISO = {_ISODATE, _ISOTIME, _ISODATETIME, _ISODATETIMETZ, _ISODURATION, _ISOTIMEDELTA}
 
 
-def now() -> _Time:
-    return datetime.now().time()
+def timestamp() -> datetime:
+    return datetime.now()
 
 
-def isotime() -> str:
-    return now().strftime(_ISOTIME)
+def now() -> time:
+    return timestamp().time()
 
 
-def isonow() -> float:
-    return time()
+def utcnow() -> float:
+    return time_()
 
 
-def today() -> datetime:
-    return datetime.today()
+def today() -> date:
+    return timestamp().date()
 
 
-def isotoday() -> str:
-    return today().strftime(_ISODATETIME)    
+def iso_timestamp() -> str:
+    return timestamp().strftime(_ISODATETIME)
 
 
-def date() -> _Date:
-    return today().date()
+def iso_now() -> str:
+    return timestamp().strftime(_ISOTIME)
 
 
-def isodate() -> str:
-    return date().strftime(_ISODATE)
+def iso_today() -> str:
+    return today().strftime(_ISODATE)
 
 
 def elapsed(start: float) -> float:
-    return now() - start
+    return utcnow() - start
 
 
-def convert(
-    dt: datetime | None = None,
-    d: _Date | None = None, 
-    t: _Time | None = None,
-    dt_str: str | None = None,
-    d_str: str | None = None,
-    t_str: str | None = None,
-    iso: str | None = None,
-    unix: int | float | None = None,
-) -> str | datetime | _Date | _Time:
-    if not any((dt, d, t, dt_str, d_str, t_str, iso, unix)):
-        raise ValueError("No arguments provided")
-    if dt:
-        converted = dt.strftime(_ISODATETIME)
-    elif d:
-        converted = d.strftime(_ISODATE)
-    elif t:
-        converted = t.strftime(_ISOTIME)
-    elif dt_str:
-        converted = datetime.strptime(dt_str, _ISODATETIME)
-    elif d_str:
-        converted = datetime.strptime(d_str, _ISODATE).date()
-    elif t_str:
-        converted = _strptime(t_str, _ISOTIME)
-    elif iso:
-        for fmt in ISO:
-            try:
-                converted = datetime.strptime(iso, fmt)
-                break
-            except ValueError:
-                pass
-    elif unix:
-        converted = datetime.fromtimestamp(unix)
-    return converted
+def end_of_day(t: time | None = None) -> datetime:
+    return datetime.combine(timestamp(), t or _EOD)
+
+
+def start_of_day(t: time | None = None) -> datetime:
+    return datetime.combine(timestamp(), t or _NULL_TIME)
+
+
+def midnight() -> datetime:
+    return timestamp().replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=1)
+
+
+def schedule_time(t: time) -> float | datetime:
+    return datetime.combine(timestamp(), t)
+
+
+def within_duration(t1: time, t2: time, dur: timedelta = _1S) -> bool:
+    return duration(t1, t2) <= dur
+
+
+def duration(t1: time, t2: time) -> timedelta:
+    return timedelta(
+        hours=t2.hour - t1.hour,
+        minutes=t2.minute - t1.minute,
+        seconds=t2.second - t1.second,
+        microseconds=t2.microsecond - t1.microsecond,
+    )

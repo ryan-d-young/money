@@ -53,8 +53,8 @@ class _ABCSymbol(UserString, Serializable):
 
 
 class Symbol(_ABCSymbol):
-    def __init__(self, data: str):
-        super().__init__(data)
+    def __init__(self, value: str):
+        super().__init__(value)
 
     def __repr__(self) -> str:
         return self.json
@@ -83,14 +83,14 @@ class Provider(Symbol):
 class Timestamp(Symbol):
     discriminator: ClassVar[str] = "^"
 
-    def __init__(self, data: str | datetime | date | timedelta | time | None = None):
-        if data is None:
-            data = f"@{dt.isotoday()}"
-        elif isinstance(data, str):
-            data = f"@{data}"
+    def __init__(self, value: str | datetime | date | timedelta | time | None = None):
+        if value is None:
+            value = f"@{dt.isotoday()}"
+        elif isinstance(value, str):
+            value = f"@{value}"
         else:
-            data = f"@{dt.convert(data)}"
-        super().__init__(data)
+            value = f"@{dt.convert(value)}"
+        super().__init__(value)
 
 
 class Collection(UserList[Symbol]):

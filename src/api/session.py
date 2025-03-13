@@ -1,19 +1,18 @@
 from asyncio import AbstractEventLoop
-from collections.abc import AsyncGenerator
+from functools import partial
 from logging import Logger
 from pathlib import Path
-from typing import Any
+from typing import Sequence
 
-from sqlalchemy import Table
+from sqlalchemy import RowMapping
 
 from .core.deps import Dependency
 from .core.deps.mixin import DependencyManagerMixin
 from .core.orm import meta
 from .core.orm.mixin import OrmSessionMixin
 from .core.provider import ProviderDirectoryMixin
-from .core.request import Request, RequestKwargs
-from .core.response import Response
-from .core.router import Router
+from .core.request import Payload, Request
+from .core.router import BoundRouterReturnType
 
 
 class Session(ProviderDirectoryMixin, OrmSessionMixin, DependencyManagerMixin):
@@ -32,11 +31,12 @@ class Session(ProviderDirectoryMixin, OrmSessionMixin, DependencyManagerMixin):
 
     def __init__(
         self,
-        provider_dir: Path,
         loop: AbstractEventLoop,
+        provider_dir: Path,
+        *,
         logger: Logger,
         env: dict[str, str],
-        dependencies: list[Dependency[Any]] | None = None,
+        dependencies: list[type[Dependency]] | None = None,
     ) -> None:
         dependencies = dependencies or []
         DependencyManagerMixin.__init__(self, *dependencies)
@@ -75,11 +75,14 @@ class Session(ProviderDirectoryMixin, OrmSessionMixin, DependencyManagerMixin):
         providers = self._resolve_providers(providers)
         self._load_providers(providers, self.logger)
         await self._load_dependencies(providers)
-        await self.init_db(
-            dbengine=self.dependency("db").instance,
-            provider_metadata=[p.metadata for p in self.providers.values()],
-        )
-        return self
+        db_engine = self.dependency("db").instance
+        if db_engine is not None:
+            await self.init_db(
+                dbengine=db_engine,
+                provider_metadata=[p.metadata for p in self.providers.values()],
+            )
+            return self
+        raise RuntimeError("Database engine not found")
 
     async def stop(self, commit: bool = True) -> "Session":
         await self.stop_dependencies(self._env)
@@ -94,31 +97,24 @@ class Session(ProviderDirectoryMixin, OrmSessionMixin, DependencyManagerMixin):
     def env(self) -> dict[str, str]:
         return dict(self._env)
 
-    def table(self, table_name: str, provider: str | None = None) -> Table:
+    async def table(self, table_name: str, provider: str | None = None) -> Sequence[RowMapping]:
         table_metadata = self.providers[provider].metadata if provider else meta.metadata
-        return self._table(table_name, table_metadata)
+        return await self._table(table_name, table_metadata)
 
-    def _inject_request(self, router: Router) -> dict:
-        deps = {kwd: self.dependency(dep.name).instance for kwd, dep in router.info["requires"].items()}
-        return deps
-
-    @staticmethod
-    def _populate_request(router: Router, **kwargs: RequestKwargs) -> Request:
-        request = Request(router.info["accepts"])
-        request.make(**kwargs)
-        return request
-
-    async def __call__(
+    def __call__(
         self,
         provider: str,
         router: str,
-        **kwargs: RequestKwargs,
-    ) -> AsyncGenerator[Response, None]:
+        **kwargs: Payload,
+    ) -> BoundRouterReturnType:
         router_instance = self.router(provider, router)
-        deps = self._inject_request(router_instance)
-        request = self._populate_request(router_instance, **kwargs)
-        async for response in router_instance(request, **deps):
-            yield response
+        deps = {
+            kwd: self.dependency(dep.name).instance
+            for kwd, dep in (router_instance.info.get("requires", {}) or {}).items()
+        }
+        request = Request(provider=provider, router=router, payload=kwargs)
+        # NOTE: ensure request is executed in same event loop
+        return partial(router_instance, request=request, **deps)
 
     def __repr__(self) -> str:
         return f"<Session({', '.join(self.providers.keys())})>"

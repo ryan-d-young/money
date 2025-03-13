@@ -4,7 +4,7 @@ from typing import TypeVar, Callable
 
 from sqlalchemy.orm import DeclarativeBase
 
-from .request import RequestKwargs
+from .request import Payload
 from .response import Response, ResponseFactory
 from .router import Router
 from .symbols import Symbol
@@ -14,23 +14,25 @@ PlanT = dict[StepT, "Factory"]
 BridgeT = TypeVar("BridgeT", bound=Callable[[Router], Response])
 
 
-class FactoryBase(Callable, ABC, Symbol):
-    def __init__(self, target: Router):
-        super().__init__()
-        self.target = target
+class FactoryBase(Symbol, ABC):
+    target: Router
+
+    def __init__(self, name: str):
+        super().__init__(name)
 
     @abstractmethod
-    async def __call__(self, **kwargs: RequestKwargs) -> ResponseFactory: ...
+    async def __call__(self, **kwargs: Payload) -> ResponseFactory: ...
 
 
 class Factory(FactoryBase):
     discriminator = "!"
 
-    def __init__(self, target: Router, **bound: RequestKwargs):
-        super().__init__(target)
+    def __init__(self, name: str, target: Router, **bound: Payload):
+        super().__init__(name)
+        self.target = target
         self.bound = bound
 
-    async def __call__(self, **kwargs: RequestKwargs) -> ResponseFactory:
+    async def __call__(self, **kwargs: Payload) -> ResponseFactory:
         async for response in await self.target(**self.bound, **kwargs):
             yield response
 
@@ -38,45 +40,42 @@ class Factory(FactoryBase):
 class Store(FactoryBase):
     discriminator = "@"
 
-    def __init__(self, target: Router, store: DeclarativeBase):
-        super().__init__(target)
+    def __init__(self, name: str, target: Router, store: DeclarativeBase):
+        super().__init__(name)
+        self.target = target
         self.store = store
 
-    async def __call__(self, **kwargs: RequestKwargs) -> Response:
+    async def __call__(self, **kwargs: Payload) -> Response:
         ...
 
 
 class Cycle(Factory):
     discriminator = "#"
 
-    async def __call__(self, **kwargs: RequestKwargs) -> ResponseFactory:
-        responses = [resp async for resp in super().__call__(**kwargs)]
-        while kwargs := self.cycle(responses, **kwargs):
-            responses = [resp async for resp in super().__call__(**kwargs)]
-        for response in responses:
-            yield response
+    async def __call__(self, **kwargs: Payload) -> ResponseFactory:
+        ...
 
     @abstractmethod
     def cycle(
-        self, responses: list[Response], **kwargs: RequestKwargs
-    ) -> RequestKwargs | None: ...
+        self, responses: list[Response], **kwargs: Payload
+    ) -> Payload | None: ...
 
 
 class Bridge(Factory):
     discriminator = "+"
 
-    def __init__(self, target: Router, bridge: BridgeT, **bound: RequestKwargs):
+    def __init__(self, target: Router, bridge: BridgeT, **bound: Payload):
         super().__init__(target, **bound)
         self.bridge = bridge
 
-    def __call__(self, **kwargs: RequestKwargs) -> Response:
+    def __call__(self, **kwargs: Payload) -> Response:
         router_response = super().__call__(**kwargs)
         router_response_transformed = self.bridge(router_response)
         return router_response_transformed
 
 
 class Macro(Router):
-    def __init__(self, plan: PlanT, **kwargs: RequestKwargs):
+    def __init__(self, plan: PlanT, **kwargs: Payload):
         self._plan = plan
         self.kwargs = kwargs
 
